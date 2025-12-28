@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>비밀번호 변경 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .modal-page {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      min-height: 100vh;
+      padding-bottom: var(--space-8);
+      background: var(--color-bg-secondary);
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .modal-header__icon {
+      width: 64px;
+      height: 64px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .modal-header__icon i {
+      color: var(--color-primary);
+      width: 28px;
+      height: 28px;
+    }
+
+    .modal-header__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .modal-header__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-5);
+    }
+
+    .form-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-2);
+      color: var(--color-text-primary);
+    }
+
+    .form-input-wrapper {
+      position: relative;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      padding-right: var(--space-12);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
+      transition: all var(--transition-fast);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-light);
+    }
+
+    .form-input.error {
+      border-color: var(--color-error);
+    }
+
+    .form-input.success {
+      border-color: var(--color-success);
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: var(--space-3);
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-tertiary);
+      padding: var(--space-1);
+    }
+
+    .toggle-password:hover {
+      color: var(--color-text-primary);
+    }
+
+    .form-hint {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-2);
+    }
+
+    .form-error {
+      font-size: var(--font-size-xs);
+      color: var(--color-error);
+      margin-top: var(--space-2);
+      display: none;
+    }
+
+    .password-strength {
+      margin-top: var(--space-3);
+    }
+
+    .password-strength__bar {
+      display: flex;
+      gap: var(--space-1);
+      margin-bottom: var(--space-2);
+    }
+
+    .password-strength__segment {
+      flex: 1;
+      height: 4px;
+      background: var(--color-border);
+      border-radius: var(--radius-full);
+      transition: background var(--transition-fast);
+    }
+
+    .password-strength__segment.weak {
+      background: var(--color-error);
+    }
+
+    .password-strength__segment.medium {
+      background: var(--color-warning);
+    }
+
+    .password-strength__segment.strong {
+      background: var(--color-success);
+    }
+
+    .password-strength__text {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .password-strength__text.weak {
+      color: var(--color-error);
+    }
+
+    .password-strength__text.medium {
+      color: var(--color-warning);
+    }
+
+    .password-strength__text.strong {
+      color: var(--color-success);
+    }
+
+    .password-rules {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .password-rules__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-3);
+      color: var(--color-text-primary);
+    }
+
+    .password-rules__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2);
+    }
+
+    .password-rules__item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .password-rules__item i {
+      width: 14px;
+      height: 14px;
+    }
+
+    .password-rules__item.valid {
+      color: var(--color-success);
+    }
+
+    .password-rules__item.invalid {
+      color: var(--color-error);
+    }
+
+    .success-message {
+      text-align: center;
+      padding: var(--space-6) 0;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-message__icon {
+      width: 80px;
+      height: 80px;
+      background: var(--color-success-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .success-message__icon i {
+      color: var(--color-success);
+      width: 40px;
+      height: 40px;
+    }
+
+    .success-message__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .success-message__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .form-container {
+      display: block;
+    }
+
+    .form-container.hide {
+      display: none;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-6);
+    }
+
+    .modal-actions .btn {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="modal-page">
+    <div class="container">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-header__icon">
+            <i data-lucide="lock"></i>
+          </div>
+          <h1 class="modal-header__title">비밀번호 변경</h1>
+          <p class="modal-header__desc">새로운 비밀번호를 설정해주세요.</p>
+        </div>
+
+        <div class="form-container" id="formContainer">
+          <div class="form-group">
+            <label class="form-label" for="currentPw">현재 비밀번호</label>
+            <div class="form-input-wrapper">
+              <input type="password" class="form-input" id="currentPw" placeholder="현재 비밀번호를 입력하세요">
+              <button type="button" class="toggle-password" onclick="togglePassword('currentPw', this)">
+                <i data-lucide="eye"></i>
+              </button>
+            </div>
+            <p class="form-error" id="currentPwError"></p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="newPw">새 비밀번호</label>
+            <div class="form-input-wrapper">
+              <input type="password" class="form-input" id="newPw" placeholder="새 비밀번호를 입력하세요">
+              <button type="button" class="toggle-password" onclick="togglePassword('newPw', this)">
+                <i data-lucide="eye"></i>
+              </button>
+            </div>
+            <div class="password-strength" id="strengthIndicator" style="display: none;">
+              <div class="password-strength__bar">
+                <div class="password-strength__segment" id="seg1"></div>
+                <div class="password-strength__segment" id="seg2"></div>
+                <div class="password-strength__segment" id="seg3"></div>
+                <div class="password-strength__segment" id="seg4"></div>
+              </div>
+              <div class="password-strength__text" id="strengthText">비밀번호 강도</div>
+            </div>
+            <p class="form-error" id="newPwError"></p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="confirmPw">새 비밀번호 확인</label>
+            <div class="form-input-wrapper">
+              <input type="password" class="form-input" id="confirmPw" placeholder="새 비밀번호를 다시 입력하세요">
+              <button type="button" class="toggle-password" onclick="togglePassword('confirmPw', this)">
+                <i data-lucide="eye"></i>
+              </button>
+            </div>
+            <p class="form-error" id="confirmPwError"></p>
+          </div>
+
+          <div class="password-rules">
+            <div class="password-rules__title">비밀번호 규칙</div>
+            <ul class="password-rules__list">
+              <li class="password-rules__item" id="rule1">
+                <i data-lucide="circle"></i>
+                <span>8자 이상</span>
+              </li>
+              <li class="password-rules__item" id="rule2">
+                <i data-lucide="circle"></i>
+                <span>영문 포함</span>
+              </li>
+              <li class="password-rules__item" id="rule3">
+                <i data-lucide="circle"></i>
+                <span>숫자 포함</span>
+              </li>
+              <li class="password-rules__item" id="rule4">
+                <i data-lucide="circle"></i>
+                <span>특수문자 포함</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="modal-actions">
+            <a href="9-2 설정.html" class="btn btn--secondary">취소</a>
+            <button class="btn btn--primary" onclick="changePassword()">
+              <i data-lucide="check" class="icon icon-sm"></i>
+              비밀번호 변경
+            </button>
+          </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <div class="success-message__icon">
+            <i data-lucide="check"></i>
+          </div>
+          <h2 class="success-message__title">비밀번호 변경 완료</h2>
+          <p class="success-message__desc">
+            비밀번호가 성공적으로 변경되었습니다.<br>
+            다음 로그인 시 새 비밀번호를 사용해주세요.
+          </p>
+          <div class="modal-actions">
+            <a href="9-2 설정.html" class="btn btn--primary" style="flex: 1;">
+              <i data-lucide="check" class="icon icon-sm"></i>
+              확인
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+
+    const newPwInput = document.getElementById('newPw');
+    const confirmPwInput = document.getElementById('confirmPw');
+
+    newPwInput.addEventListener('input', validatePassword);
+    confirmPwInput.addEventListener('input', checkPasswordMatch);
+
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const icon = btn.querySelector('i');
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        input.type = 'password';
+        icon.setAttribute('data-lucide', 'eye');
+      }
+      lucide.createIcons();
+    }
+
+    function validatePassword() {
+      const password = newPwInput.value;
+      const strengthIndicator = document.getElementById('strengthIndicator');
+
+      if (password.length === 0) {
+        strengthIndicator.style.display = 'none';
+        resetRules();
+        return;
+      }
+
+      strengthIndicator.style.display = 'block';
+
+      // 규칙 검증
+      const hasLength = password.length >= 8;
+      const hasLetter = /[a-zA-Z]/.test(password);
+      const hasNumber = /[0-9]/.test(password);
+      const hasSpecial = /[!@#$%^&*(),.?":{}|<>_\-+=\[\]\\\/`~';]/.test(password);
+
+      updateRule('rule1', hasLength);
+      updateRule('rule2', hasLetter);
+      updateRule('rule3', hasNumber);
+      updateRule('rule4', hasSpecial);
+
+      // 강도 계산
+      let strength = 0;
+      if (hasLength) strength++;
+      if (hasLetter) strength++;
+      if (hasNumber) strength++;
+      if (hasSpecial) strength++;
+
+      updateStrengthBar(strength);
+      checkPasswordMatch();
+    }
+
+    function updateRule(ruleId, isValid) {
+      const element = document.getElementById(ruleId);
+      element.classList.remove('valid', 'invalid');
+
+      if (isValid) {
+        element.classList.add('valid');
+        element.querySelector('i').setAttribute('data-lucide', 'check-circle');
+      } else {
+        element.classList.add('invalid');
+        element.querySelector('i').setAttribute('data-lucide', 'x-circle');
+      }
+      lucide.createIcons();
+    }
+
+    function resetRules() {
+      ['rule1', 'rule2', 'rule3', 'rule4'].forEach(id => {
+        const element = document.getElementById(id);
+        element.classList.remove('valid', 'invalid');
+        element.querySelector('i').setAttribute('data-lucide', 'circle');
+      });
+      lucide.createIcons();
+    }
+
+    function updateStrengthBar(strength) {
+      const segments = ['seg1', 'seg2', 'seg3', 'seg4'];
+      const strengthText = document.getElementById('strengthText');
+
+      segments.forEach((id, index) => {
+        const seg = document.getElementById(id);
+        seg.classList.remove('weak', 'medium', 'strong');
+
+        if (index < strength) {
+          if (strength <= 1) seg.classList.add('weak');
+          else if (strength <= 2) seg.classList.add('medium');
+          else if (strength <= 3) seg.classList.add('medium');
+          else seg.classList.add('strong');
+        }
+      });
+
+      strengthText.classList.remove('weak', 'medium', 'strong');
+      if (strength <= 1) {
+        strengthText.textContent = '약함';
+        strengthText.classList.add('weak');
+      } else if (strength <= 2) {
+        strengthText.textContent = '보통';
+        strengthText.classList.add('medium');
+      } else if (strength <= 3) {
+        strengthText.textContent = '강함';
+        strengthText.classList.add('medium');
+      } else {
+        strengthText.textContent = '매우 강함';
+        strengthText.classList.add('strong');
+      }
+    }
+
+    function checkPasswordMatch() {
+      const newPw = newPwInput.value;
+      const confirmPw = confirmPwInput.value;
+      const confirmPwError = document.getElementById('confirmPwError');
+
+      if (confirmPw && newPw !== confirmPw) {
+        confirmPwError.textContent = '비밀번호가 일치하지 않습니다.';
+        confirmPwError.style.display = 'block';
+        confirmPwInput.classList.add('error');
+      } else {
+        confirmPwError.style.display = 'none';
+        confirmPwInput.classList.remove('error');
+        if (confirmPw && newPw === confirmPw) {
+          confirmPwInput.classList.add('success');
+        }
+      }
+    }
+
+    function changePassword() {
+      const currentPw = document.getElementById('currentPw').value;
+      const newPw = newPwInput.value;
+      const confirmPw = confirmPwInput.value;
+
+      let hasError = false;
+
+      if (!currentPw) {
+        document.getElementById('currentPwError').textContent = '현재 비밀번호를 입력해주세요.';
+        document.getElementById('currentPwError').style.display = 'block';
+        hasError = true;
+      } else {
+        document.getElementById('currentPwError').style.display = 'none';
+      }
+
+      if (!newPw) {
+        document.getElementById('newPwError').textContent = '새 비밀번호를 입력해주세요.';
+        document.getElementById('newPwError').style.display = 'block';
+        hasError = true;
+      } else {
+        const hasLength = newPw.length >= 8;
+        const hasLetter = /[a-zA-Z]/.test(newPw);
+        const hasNumber = /[0-9]/.test(newPw);
+        const hasSpecial = /[!@#$%^&*(),.?":{}|<>_\-+=\[\]\\\/`~';]/.test(newPw);
+
+        if (!hasLength || !hasLetter || !hasNumber || !hasSpecial) {
+          document.getElementById('newPwError').textContent = '비밀번호 규칙을 모두 충족해주세요.';
+          document.getElementById('newPwError').style.display = 'block';
+          hasError = true;
+        } else {
+          document.getElementById('newPwError').style.display = 'none';
+        }
+      }
+
+      if (!confirmPw || newPw !== confirmPw) {
+        document.getElementById('confirmPwError').textContent = '비밀번호가 일치하지 않습니다.';
+        document.getElementById('confirmPwError').style.display = 'block';
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      Toast.success('비밀번호가 변경되었습니다.');
+      document.getElementById('formContainer').classList.add('hide');
+      document.getElementById('successMessage').classList.add('show');
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

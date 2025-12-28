@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+*.swp
+
+# Credentials & Secrets
+client_secret*.json
+credentials.json
+token.json
+mcp_config.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPH-A 정보입력 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.blob{position:fixed;border-radius:50%;filter:blur(100px);opacity:0.5;z-index:-1;pointer-events:none;animation:float 12s infinite ease-in-out}.blob-1{top:-15%;left:-10%;width:600px;height:600px;background:linear-gradient(135deg,#C7D2FE,#DDD6FE)}.blob-2{top:10%;right:-10%;width:500px;height:500px;background:linear-gradient(135deg,#FBCFE8,#FCE7F3);animation-delay:3s}@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(30px) scale(1.05)}}.logo{font-size:var(--font-size-xl);font-weight:var(--font-weight-bold);color:var(--color-primary)}.auth-container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:var(--space-8) var(--space-6)}.auth-box{width:100%;max-width:560px;background:white;border-radius:var(--radius-xl);padding:var(--space-12) var(--space-8);box-shadow:0 20px 50px -10px rgba(79,70,229,0.15)}.auth-header{text-align:center;margin-bottom:var(--space-8)}.auth-badge{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-4);background:var(--color-primary-light);color:var(--color-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);border-radius:999px;margin-bottom:var(--space-4)}.auth-title{font-size:var(--font-size-3xl);font-weight:var(--font-weight-extrabold);color:var(--color-text-primary);margin-bottom:var(--space-3)}.auth-subtitle{font-size:var(--font-size-base);color:var(--color-text-secondary)}.form-input,.form-input:focus,.form-select:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-light)}.form-input::placeholder{color:var(--color-text-tertiary)}.btn-group{display:flex;justify-content:space-between;gap:var(--space-4);margin-top:var(--space-8)}.btn--ghost{color:var(--color-text-secondary);border:1.5px solid var(--color-border)}.btn--ghost:hover{background:var(--color-bg-secondary)}
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="logo">INABOOTH</a>
+    </div>
+  </header>
+
+  <main class="auth-container">
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="auth-badge">
+          <i data-lucide="users" class="icon"></i>
+          IPH-A 에이전시
+        </div>
+        <h1 class="auth-title">필수 정보 입력</h1>
+        <p class="auth-subtitle">에이전시 활동을 위한 기본 정보를 입력해주세요</p>
+      </div>
+
+      <form id="iphaForm">
+        <div class="form-group">
+          <label class="form-label" for="agencyName">에이전시명 *</label>
+          <input type="text" id="agencyName" class="form-input" placeholder="에이전시 이름을 입력해주세요" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ceoName">대표자명 *</label>
+          <input type="text" id="ceoName" class="form-input" placeholder="대표자 이름을 입력해주세요" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="nationality">국적 *</label>
+          <select id="nationality" class="form-select" required>
+            <option value="">국가를 선택해주세요</option>
+            <option value="KR">대한민국</option>
+            <option value="US">미국</option>
+            <option value="JP">일본</option>
+            <option value="CN">중국</option>
+            <option value="OTHER">기타</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="businessNumber">사업자등록번호 *</label>
+          <input type="text" id="businessNumber" class="form-input" placeholder="000-00-00000" maxlength="12" required>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn--ghost" onclick="history.back()">
+            <i data-lucide="arrow-left" class="icon"></i>
+            이전
+          </button>
+          <button type="submit" class="btn btn--primary">
+            가입 완료
+            <i data-lucide="check" class="icon"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('iphaForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      window.location.href = '1-1-4 회원가입_완료.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    ul {
+      list-style: none;
+    }
+
+    /* Background Blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      z-index: -1;
+      pointer-events: none;
+      animation: float 12s infinite ease-in-out;
+    }
+
+    .blob-1 {
+      top: -15%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, #C7D2FE, #DDD6FE);
+    }
+
+    .blob-2 {
+      top: 10%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #FBCFE8, #FCE7F3);
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(30px) scale(1.05); }
+    }
+
+    /* Layout */
+    .main-content {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      padding-bottom: var(--space-16);
+      min-height: 100vh;
+    }
+
+    /* Page Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: var(--space-10);
+    }
+
+    .page-title {
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-extrabold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .page-desc {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    /* Search Box */
+    .faq-search {
+      max-width: 600px;
+      margin: 0 auto var(--space-10);
+    }
+
+    .faq-search__input-wrap {
+      position: relative;
+    }
+
+    .faq-search__icon {
+      position: absolute;
+      left: var(--space-5);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-tertiary);
+    }
+
+    .faq-search__input {
+      width: 100%;
+      padding: var(--space-4) var(--space-5) var(--space-4) var(--space-12);
+      font-size: var(--font-size-lg);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      background: white;
+      transition: all var(--transition-fast);
+    }
+
+    .faq-search__input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+
+    .faq-search__input::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    /* Category Tabs */
+    .faq-categories {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-10);
+    }
+
+    .faq-category-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .faq-category-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .faq-category-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    /* FAQ List */
+    .faq-section {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-group {
+      margin-bottom: var(--space-8);
+    }
+
+    .faq-group__title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: 2px solid var(--color-primary);
+    }
+
+    .faq-group__icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-primary);
+      color: white;
+      border-radius: var(--radius-md);
+    }
+
+    /* Accordion */
+    .faq-item {
+      background: white;
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-3);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: all var(--transition-fast);
+    }
+
+    .faq-item:hover {
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .faq-item__question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: var(--space-5);
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .faq-item__question:hover {
+      background: var(--color-bg-secondary);
+    }
+
+    .faq-item__q-text {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      flex: 1;
+    }
+
+    .faq-item__q-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: var(--color-primary);
+      color: white;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      border-radius: var(--radius-full);
+      flex-shrink: 0;
+    }
+
+    .faq-item__arrow {
+      color: var(--color-text-tertiary);
+      transition: transform var(--transition-fast);
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-item__arrow {
+      transform: rotate(180deg);
+    }
+
+    .faq-item__answer {
+      display: none;
+      padding: 0 var(--space-5) var(--space-5);
+      padding-left: calc(var(--space-5) + 24px + var(--space-3));
+    }
+
+    .faq-item.active .faq-item__answer {
+      display: block;
+    }
+
+    .faq-item__a-text {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-relaxed);
+      margin-bottom: var(--space-4);
+    }
+
+    .faq-item__feedback {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .faq-item__feedback-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    .faq-item__feedback-btns {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .faq-feedback-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-2) var(--space-3);
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .faq-feedback-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .faq-feedback-btn.selected {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    /* No Results */
+    .faq-no-results {
+      text-align: center;
+      padding: var(--space-16) var(--space-6);
+      display: none;
+    }
+
+    .faq-no-results.show {
+      display: block;
+    }
+
+    .faq-no-results__icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-4);
+      color: var(--color-text-tertiary);
+    }
+
+    .faq-no-results__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .faq-no-results__desc {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-6);
+    }
+
+    /* Contact CTA */
+    .faq-contact {
+      max-width: 800px;
+      margin: var(--space-12) auto 0;
+      padding: var(--space-8);
+      background: linear-gradient(135deg, #EEF2FF 0%, #FCE7F3 100%);
+      border-radius: var(--radius-xl);
+      text-align: center;
+    }
+
+    .faq-contact__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .faq-contact__desc {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-6);
+    }
+
+    .faq-contact__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-4) var(--space-8);
+      background: var(--color-primary);
+      color: white;
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-lg);
+      transition: all var(--transition-fast);
+    }
+
+    .faq-contact__btn:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .faq-categories {
+        gap: var(--space-2);
+      }
+
+      .faq-category-btn {
+        padding: var(--space-2) var(--space-4);
+        font-size: var(--font-size-xs);
+      }
+
+      .faq-item__answer {
+        padding-left: var(--space-5);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- Header injected by shared.js -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1 class="page-title">자주 묻는 질문</h1>
+        <p class="page-desc">INABOOTH 이용에 대한 궁금증을 해결해 드립니다</p>
+      </div>
+
+      <!-- Search Box -->
+      <div class="faq-search">
+        <div class="faq-search__input-wrap">
+          <i data-lucide="search" class="icon faq-search__icon"></i>
+          <input type="text" class="faq-search__input" id="faqSearchInput" placeholder="질문을 검색해보세요">
+        </div>
+      </div>
+
+      <!-- Category Tabs -->
+      <div class="faq-categories">
+        <button class="faq-category-btn active" data-category="all">
+          <i data-lucide="layers" class="icon icon-sm"></i>
+          전체
+        </button>
+        <button class="faq-category-btn" data-category="account">
+          <i data-lucide="user" class="icon icon-sm"></i>
+          계정 및 인증
+        </button>
+        <button class="faq-category-btn" data-category="ip">
+          <i data-lucide="palette" class="icon icon-sm"></i>
+          IP 등록 및 관리
+        </button>
+        <button class="faq-category-btn" data-category="project">
+          <i data-lucide="folder-open" class="icon icon-sm"></i>
+          프로젝트 지원
+        </button>
+        <button class="faq-category-btn" data-category="payment">
+          <i data-lucide="credit-card" class="icon icon-sm"></i>
+          결제 및 정산
+        </button>
+        <button class="faq-category-btn" data-category="etc">
+          <i data-lucide="help-circle" class="icon icon-sm"></i>
+          기타
+        </button>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-section" id="faqSection">
+        <!-- 계정 및 인증 -->
+        <div class="faq-group" data-category="account">
+          <h2 class="faq-group__title">
+            <span class="faq-group__icon"><i data-lucide="user" class="icon icon-sm"></i></span>
+            계정 및 인증
+          </h2>
+
+          <div class="faq-item" data-keywords="휴대폰 인증 안됨 번호">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                휴대폰 인증이 안 돼요.
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                휴대폰 인증이 진행되지 않는 경우, 아래 사항을 확인해 주세요:<br><br>
+                1. 입력하신 휴대폰 번호가 정확한지 확인해 주세요.<br>
+                2. 스팸 문자함을 확인해 주세요. 인증 번호가 스팸으로 분류되었을 수 있습니다.<br>
+                3. 통신사 문자 수신 차단 설정이 되어있는지 확인해 주세요.<br>
+                4. 잠시 후 다시 시도해 주세요. 일시적인 통신 장애일 수 있습니다.<br><br>
+                문제가 지속되면 고객센터로 문의해 주세요.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-keywords="사업자 인증 필수 개인">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                사업자 인증은 필수인가요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                사업자 인증은 사용자 유형에 따라 다릅니다:<br><br>
+                <strong>IPH-C (개인 크리에이터)</strong>: 선택 사항입니다. 다만, 사업자 인증을 완료하면 '인증된 IP' 배지가 부여되어 브랜드의 신뢰도가 높아집니다.<br><br>
+                <strong>IPH-A (에이전시)</strong>: 필수입니다. 에이전시로 활동하려면 사업자등록증 인증이 필요합니다.<br><br>
+                <strong>BP (브랜드 파트너)</strong>: 필수입니다. 브랜드로서 IP와 협업하려면 사업자 인증이 필요합니다.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-keywords="비밀번호 잊어버림 찾기 재설정">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                비밀번호를 잊어버렸어요.
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                비밀번호를 잊으셨다면 아래 단계를 따라 재설정하세요:<br><br>
+                1. 로그인 페이지에서 '비밀번호 찾기'를 클릭합니다.<br>
+                2. 가입 시 사용한 이메일 주소를 입력합니다.<br>
+                3. 이메일로 전송된 비밀번호 재설정 링크를 클릭합니다.<br>
+                4. 새 비밀번호를 설정합니다.<br><br>
+                재설정 링크는 24시간 동안 유효합니다. 이메일이 도착하지 않으면 스팸함을 확인하거나 다시 요청해 주세요.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-keywords="이메일 변경 수정">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                이메일 변경은 어떻게 하나요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                이메일 변경은 마이페이지에서 가능합니다:<br><br>
+                1. 마이페이지 > 프로필 관리로 이동합니다.<br>
+                2. 이메일 항목의 '변경' 버튼을 클릭합니다.<br>
+                3. 새 이메일 주소를 입력하고 인증을 진행합니다.<br>
+                4. 새 이메일로 발송된 인증 링크를 클릭하면 변경이 완료됩니다.<br><br>
+                보안을 위해 비밀번호 확인이 필요할 수 있습니다.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IP 등록 및 관리 -->
+        <div class="faq-group" data-category="ip">
+          <h2 class="faq-group__title">
+            <span class="faq-group__icon"><i data-lucide="palette" class="icon icon-sm"></i></span>
+            IP 등록 및 관리
+          </h2>
+
+          <div class="faq-item" data-keywords="IP 등록 방법 절차">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                IP를 어떻게 등록하나요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                IP 등록은 4단계로 진행됩니다:<br><br>
+                <strong>STEP 1 - 기본 정보</strong>: 캐릭터 이름, 대표 이미지, 카테고리 등 기본 정보를 입력합니다.<br>
+                <strong>STEP 2 - 상세 정보</strong>: 포트폴리오, 대표 채널, 저작권 등록번호 등을 입력합니다.<br>
+                <strong>STEP 3 - 협업 정보</strong>: 활용 가능 범위, 최소 협업 금액, 협업 이력 등을 설정합니다.<br>
+                <strong>STEP 4 - 공개 설정</strong>: 공개/비공개를 선택하고 등록을 완료합니다.<br><br>
+                등록 후 운영팀의 검수를 거쳐 승인되면 탐색 페이지에 노출됩니다.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-keywords="IP 수정 편집 변경">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                등록한 IP를 수정할 수 있나요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                네, 등록한 IP는 언제든 수정할 수 있습니다:<br><br>
+                1. 마이부스 > IP 관리에서 수정할 IP를 선택합니다.<br>
+                2. '수정' 버튼을 클릭합니다.<br>
+                3. 원하는 정보를 수정한 후 저장합니다.<br><br>
+                단, 일부 중요 정보(저작권 등록번호 등) 변경 시 운영팀의 재검수가 필요할 수 있습니다.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-keywords="저작권 등록번호 인증 배지">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                저작권 등록번호 인증의 혜택은 무엇인가요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                저작권 등록번호를 인증하면 다음과 같은 혜택이 있습니다:<br><br>
+                1. <strong>'법적검증' 배지</strong>가 IP에 표시되어 브랜드 신뢰도가 높아집니다.<br>
+                2. BP(브랜드 파트너)의 상세 필터에서 우선 노출됩니다.<br>
+                3. 협업 제안을 받을 확률이 높아집니다.<br>
+                4. 향후 분쟁 발생 시 권리 보호가 용이합니다.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 프로젝트 지원 -->
+        <div class="faq-group" data-category="project">
+          <h2 class="faq-group__title">
+            <span class="faq-group__icon"><i data-lucide="folder-open" class="icon icon-sm"></i></span>
+            프로젝트 지원
+          </h2>
+
+          <div class="faq-item" data-keywords="프로젝트 지원 방법">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                오픈 프로젝트에 어떻게 지원하나요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                오픈 프로젝트 지원은 다음 단계로 진행됩니다:<br><br>
+                1. 오픈 프로젝트 페이지에서 관심 있는 프로젝트를 선택합니다.<br>
+                2. '지원하기' 버튼을 클릭합니다.<br>
+                3. 지원할 IP를 선택합니다 (공개된 IP만 선택 가능).<br>
+                4. BP가 요청한 양식에 맞게 정보를 입력합니다.<br>
+                5. 지원서를 제출합니다.<br><br>
+                지원 후 BP의 검토를 거쳐 선정/미선정 결과를 받게 됩니다.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-keywords="지원 취소 철회">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                지원을 취소할 수 있나요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                네, 특정 조건에서 지원 취소가 가능합니다:<br><br>
+                - 프로젝트가 아직 '모집중' 상태일 때만 취소 가능합니다.<br>
+                - 마이부스 > 지원 현황에서 해당 프로젝트를 선택합니다.<br>
+                - '지원 취소' 버튼을 클릭합니다.<br><br>
+                주의: 지원 취소 후 같은 프로젝트에 재지원할 경우, 새로운 지원서로 처리됩니다.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-keywords="선정 결과 알림">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                선정 결과는 어떻게 확인하나요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                선정 결과는 다음 방법으로 확인할 수 있습니다:<br><br>
+                1. <strong>알림</strong>: 선정/미선정 시 이메일과 앱 내 알림이 발송됩니다.<br>
+                2. <strong>마이부스</strong>: 마이부스 > 지원 현황에서 지원 상태를 확인할 수 있습니다.<br>
+                3. <strong>채팅</strong>: 선정 시 BP와의 1:1 채팅방이 자동 생성됩니다.<br><br>
+                알림을 받지 못하셨다면 알림 설정을 확인해 주세요.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 결제 및 정산 -->
+        <div class="faq-group" data-category="payment">
+          <h2 class="faq-group__title">
+            <span class="faq-group__icon"><i data-lucide="credit-card" class="icon icon-sm"></i></span>
+            결제 및 정산
+          </h2>
+
+          <div class="faq-item" data-keywords="요금제 가격 비용">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                요금제는 어떻게 되나요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                INABOOTH는 사용자 유형별로 다양한 요금제를 제공합니다:<br><br>
+                <strong>IPH (IP 홀더)</strong>:<br>
+                - Basic (무료): IP 1개 등록, 월 1회 프로젝트 지원<br>
+                - Pro: IP 무제한 등록, 지원 횟수 무제한, 상세 지표 조회<br>
+                - Business: Pro 기능 + 복수 계정, 관리자 초대<br><br>
+                <strong>BP (브랜드 파트너)</strong>:<br>
+                - Basic (무료): 월 2건 문의, 프로젝트 1개 등록<br>
+                - Pro: 무제한 문의/등록, 상세 필터/정렬, IP 협업지수 조회<br>
+                - Business: Pro 기능 + 복수 계정, 관리자 초대
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-keywords="업그레이드 변경 요금제">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                요금제 업그레이드 방법이 궁금해요.
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                요금제 업그레이드는 간단합니다:<br><br>
+                1. 마이페이지 > 요금제 관리로 이동합니다.<br>
+                2. 원하는 요금제를 선택합니다.<br>
+                3. 결제 정보를 입력하고 결제를 완료합니다.<br><br>
+                업그레이드 시 남은 기간은 일할 계산되어 새 요금제 기간에 포함됩니다.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-keywords="정산 출금 수익">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                정산은 어떻게 받나요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                협업 완료 후 정산 절차는 다음과 같습니다:<br><br>
+                1. 협업이 완료되면 BP가 결제한 금액이 정산 대기 상태가 됩니다.<br>
+                2. 마이페이지 > 계좌 관리에서 출금 계좌를 등록합니다.<br>
+                3. '출금 신청' 버튼을 클릭합니다.<br>
+                4. 신청 후 영업일 기준 3~5일 내에 등록된 계좌로 입금됩니다.<br><br>
+                정산 수수료는 협업 금액의 10%입니다.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 기타 -->
+        <div class="faq-group" data-category="etc">
+          <h2 class="faq-group__title">
+            <span class="faq-group__icon"><i data-lucide="help-circle" class="icon icon-sm"></i></span>
+            기타
+          </h2>
+
+          <div class="faq-item" data-keywords="앱 모바일">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                모바일 앱은 있나요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                현재 INABOOTH는 웹 기반 서비스로 운영되고 있습니다. 모바일 브라우저에서도 최적화된 환경으로 이용하실 수 있습니다.<br><br>
+                모바일 앱은 2025년 상반기 출시 예정입니다. 뉴스레터를 구독하시면 앱 출시 소식을 가장 먼저 받아보실 수 있습니다.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-keywords="브라우저 지원">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                브라우저는 무엇을 지원하나요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                INABOOTH는 다음 브라우저를 지원합니다:<br><br>
+                - Chrome (최신 버전)<br>
+                - Safari (최신 버전)<br>
+                - Firefox (최신 버전)<br>
+                - Edge (최신 버전)<br><br>
+                Internet Explorer는 지원하지 않습니다. 최상의 경험을 위해 Chrome 또는 Safari 사용을 권장합니다.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" data-keywords="개인정보 보호 안전">
+            <button class="faq-item__question">
+              <span class="faq-item__q-text">
+                <span class="faq-item__q-badge">Q</span>
+                개인정보는 안전하게 보호되나요?
+              </span>
+              <i data-lucide="chevron-down" class="icon faq-item__arrow"></i>
+            </button>
+            <div class="faq-item__answer">
+              <p class="faq-item__a-text">
+                INABOOTH는 사용자의 개인정보 보호를 최우선으로 합니다:<br><br>
+                - 모든 데이터는 SSL/TLS 암호화로 전송됩니다.<br>
+                - 개인정보는 국내 보안 인증을 받은 서버에서 관리됩니다.<br>
+                - 개인정보보호법 및 정보통신망법을 준수합니다.<br>
+                - 제3자에게 동의 없이 정보를 제공하지 않습니다.<br><br>
+                자세한 내용은 개인정보처리방침을 확인해 주세요.
+              </p>
+              <div class="faq-item__feedback">
+                <span class="faq-item__feedback-label">도움이 되었나요?</span>
+                <div class="faq-item__feedback-btns">
+                  <button class="faq-feedback-btn" data-feedback="yes">
+                    <i data-lucide="thumbs-up" class="icon icon-sm"></i> 예
+                  </button>
+                  <button class="faq-feedback-btn" data-feedback="no">
+                    <i data-lucide="thumbs-down" class="icon icon-sm"></i> 아니오
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results -->
+      <div class="faq-no-results" id="faqNoResults">
+        <i data-lucide="search-x" class="faq-no-results__icon"></i>
+        <h3 class="faq-no-results__title">검색 결과가 없습니다</h3>
+        <p class="faq-no-results__desc">다른 키워드로 검색하시거나 1:1 문의를 이용해주세요.</p>
+        <a href="11-2 1:1 문의.html" class="btn btn--primary">
+          <i data-lucide="headphones" class="icon icon-sm"></i>
+          1:1 문의하기
+        </a>
+      </div>
+
+      <!-- Contact CTA -->
+      <div class="faq-contact">
+        <h3 class="faq-contact__title">찾으시는 답변이 없으신가요?</h3>
+        <p class="faq-contact__desc">고객센터로 문의해 주시면 신속하게 답변 드리겠습니다.</p>
+        <a href="11-2 1:1 문의.html" class="faq-contact__btn">
+          <i data-lucide="headphones" class="icon icon-sm"></i>
+          1:1 문의하기
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer injected by shared.js -->
+  <div id="footer-placeholder"></div>
+
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({ activePage: 'faq' });
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-item__question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const wasActive = item.classList.contains('active');
+
+        // Close all others
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+
+        // Toggle current
+        if (!wasActive) {
+          item.classList.add('active');
+        }
+
+        lucide.createIcons();
+      });
+    });
+
+    // Category Filter
+    document.querySelectorAll('.faq-category-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.faq-category-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const category = btn.dataset.category;
+        const groups = document.querySelectorAll('.faq-group');
+
+        groups.forEach(group => {
+          if (category === 'all' || group.dataset.category === category) {
+            group.style.display = 'block';
+          } else {
+            group.style.display = 'none';
+          }
+        });
+
+        document.getElementById('faqNoResults').classList.remove('show');
+      });
+    });
+
+    // Search
+    const searchInput = document.getElementById('faqSearchInput');
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase().trim();
+      const items = document.querySelectorAll('.faq-item');
+      const groups = document.querySelectorAll('.faq-group');
+      let hasResults = false;
+
+      if (!query) {
+        // Reset
+        items.forEach(item => item.style.display = 'block');
+        groups.forEach(group => group.style.display = 'block');
+        document.getElementById('faqNoResults').classList.remove('show');
+        return;
+      }
+
+      items.forEach(item => {
+        const keywords = item.dataset.keywords || '';
+        const questionText = item.querySelector('.faq-item__q-text').textContent.toLowerCase();
+        const answerText = item.querySelector('.faq-item__a-text').textContent.toLowerCase();
+
+        if (keywords.includes(query) || questionText.includes(query) || answerText.includes(query)) {
+          item.style.display = 'block';
+          hasResults = true;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Hide empty groups
+      groups.forEach(group => {
+        const visibleItems = group.querySelectorAll('.faq-item[style="display: block;"], .faq-item:not([style*="display"])');
+        const hasVisible = Array.from(group.querySelectorAll('.faq-item')).some(item => item.style.display !== 'none');
+        group.style.display = hasVisible ? 'block' : 'none';
+      });
+
+      // Show/hide no results
+      document.getElementById('faqNoResults').classList.toggle('show', !hasResults);
+    });
+
+    // Feedback buttons
+    document.querySelectorAll('.faq-feedback-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const btns = btn.closest('.faq-item__feedback-btns').querySelectorAll('.faq-feedback-btn');
+        btns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        Toast.success('피드백이 전송되었습니다. 감사합니다!');
+      });
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

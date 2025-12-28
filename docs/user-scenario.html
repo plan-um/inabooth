@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이너부스 사용자 시나리오 정의서 v4.0</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --secondary: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --info: #3b82f6;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --iph-color: #8b5cf6;
+      --iph-bg: #f5f3ff;
+      --bp-color: #06b6d4;
+      --bp-bg: #ecfeff;
+      --common-color: #6366f1;
+      --common-bg: #eef2ff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    /* 헤더 */
+    header {
+      text-align: center;
+      margin-bottom: 80px;
+      padding-bottom: 40px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--iph-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .doc-info {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 24px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .doc-info span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 목차 */
+    .toc {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 60px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+
+    .toc h2 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .toc-item {
+      padding: 16px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+    }
+
+    .toc-item.iph { border-color: var(--iph-color); background: var(--iph-bg); }
+    .toc-item.bp { border-color: var(--bp-color); background: var(--bp-bg); }
+    .toc-item.common { border-color: var(--common-color); background: var(--common-bg); }
+
+    .toc-item h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .toc-item.iph h4 { color: var(--iph-color); }
+    .toc-item.bp h4 { color: var(--bp-color); }
+    .toc-item.common h4 { color: var(--common-color); }
+
+    .toc-item ul {
+      list-style: none;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .toc-item li {
+      padding: 4px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .toc-item li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    /* 섹션 */
+    .section {
+      margin-bottom: 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+      padding-bottom: 16px;
+      border-bottom: 3px solid;
+    }
+
+    .section-header.iph { border-color: var(--iph-color); }
+    .section-header.bp { border-color: var(--bp-color); }
+    .section-header.common { border-color: var(--common-color); }
+
+    .section-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .section-icon.iph { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+    .section-icon.bp { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+    .section-icon.common { background: linear-gradient(135deg, #6366f1, #818cf8); }
+
+    .section-title h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* 시나리오 카드 */
+    .scenario-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 36px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+      border-left: 5px solid;
+    }
+
+    .scenario-card.iph { border-color: var(--iph-color); }
+    .scenario-card.bp { border-color: var(--bp-color); }
+    .scenario-card.common { border-color: var(--common-color); }
+
+    .scenario-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .scenario-card h3 .num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .scenario-card.iph h3 .num { background: var(--iph-color); }
+    .scenario-card.bp h3 .num { background: var(--bp-color); }
+    .scenario-card.common h3 .num { background: var(--common-color); }
+
+    .scenario-desc {
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      padding-left: 42px;
+    }
+
+    /* 플로우 */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding-left: 42px;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      position: relative;
+      padding-bottom: 24px;
+    }
+
+    .flow-step:last-child { padding-bottom: 0; }
+
+    .flow-step::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 36px;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .flow-step:last-child::before { display: none; }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .step-content {
+      flex: 1;
+      padding-top: 4px;
+    }
+
+    .step-content h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .step-content p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .step-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .action-tag {
+      padding: 5px 12px;
+      background: var(--bg);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    /* 서브 플로우 */
+    .sub-flow {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 16px;
+      border: 1px dashed var(--border);
+    }
+
+    .sub-flow-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .sub-steps {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sub-step {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: white;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      border: 1px solid var(--border);
+    }
+
+    .sub-step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .sub-step.iph .sub-step-num { background: var(--iph-color); }
+    .sub-step.bp .sub-step-num { background: var(--bp-color); }
+
+    .sub-arrow {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    /* 분기 */
+    .branch-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .branch-item {
+      padding: 16px;
+      border-radius: 12px;
+      border-left: 4px solid;
+    }
+
+    .branch-item.success { background: #d1fae5; border-color: var(--success); }
+    .branch-item.warning { background: #fef3c7; border-color: var(--secondary); }
+
+    .branch-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .branch-item.success .branch-label { color: var(--success); }
+    .branch-item.warning .branch-label { color: var(--secondary); }
+
+    .branch-item p {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    /* 결과 박스 */
+    .result-box {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    .result-box.success { background: linear-gradient(135deg, #d1fae5, #a7f3d0); border: 2px solid var(--success); }
+    .result-box.info { background: linear-gradient(135deg, #dbeafe, #bfdbfe); border: 2px solid var(--info); }
+
+    .result-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .result-box.success .result-icon { background: var(--success); }
+    .result-box.info .result-icon { background: var(--info); }
+
+    .result-text h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .result-text p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* 요약 그리드 */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .summary-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 28px;
+      border: 2px solid var(--border);
+    }
+
+    .summary-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .summary-card ul {
+      list-style: none;
+    }
+
+    .summary-card li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .summary-card li:last-child { border-bottom: none; }
+
+    .summary-card li::before {
+      content: '→';
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* 반응형 */
+    @media (max-width: 768px) {
+      .container { padding: 32px 16px; }
+      header h1 { font-size: 1.8rem; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .branch-box { grid-template-columns: 1fr; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .doc-info { flex-direction: column; gap: 8px; }
+    }
+
+    /* 프린트 */
+    @media print {
+      body { background: white; }
+      .container { max-width: 100%; padding: 20px; }
+      .scenario-card { box-shadow: none; border: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 헤더 -->
+    <header>
+      <span class="badge">Functional Specification v4.0</span>
+      <h1>이너부스 사용자 시나리오 정의서</h1>
+      <p>IP홀더(IPH)와 브랜드 파트너(BP) 간 협업 중개 B2B 플랫폼의 주요 사용자 흐름을 정의합니다.</p>
+      <div class="doc-info">
+        <span>서비스: inabooth.io</span>
+        <span>작성일: 2025.12</span>
+        <span>버전: v4.0</span>
+      </div>
+    </header>
+
+    <!-- 목차 -->
+    <div class="toc">
+      <h2>시나리오 목차</h2>
+      <div class="toc-grid">
+        <div class="toc-item iph">
+          <h4>IP홀더(IPH) 시나리오</h4>
+          <ul>
+            <li>회원가입 및 인증</li>
+            <li>캐릭터(IP) 등록</li>
+            <li>오픈 프로젝트 탐색 및 지원</li>
+            <li>BP 문의 응답 및 협업 진행</li>
+          </ul>
+        </div>
+        <div class="toc-item bp">
+          <h4>브랜드 파트너(BP) 시나리오</h4>
+          <ul>
+            <li>회원가입 및 사업자 인증</li>
+            <li>IP 탐색 및 문의</li>
+            <li>오픈 프로젝트 등록</li>
+            <li>지원자 관리 및 협업 진행</li>
+          </ul>
+        </div>
+        <div class="toc-item common">
+          <h4>공통 시나리오</h4>
+          <ul>
+            <li>마이페이지 및 계정 관리</li>
+            <li>인사이트 콘텐츠 탐색</li>
+            <li>스크랩 및 공유</li>
+            <li>알림 및 요금제 관리</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== IP홀더 시나리오 ========== -->
+    <section class="section">
+      <div class="section-header iph">
+        <div class="section-icon iph">🎨</div>
+        <div class="section-title">
+          <h2>IP홀더(IPH) 시나리오</h2>
+          <p>IP를 보유한 크리에이터/에이전시가 플랫폼을 통해 협업 기회를 탐색하는 과정</p>
+        </div>
+      </div>
+
+      <!-- 시나리오 1 -->
+      <div class="scenario-card iph">
+        <h3><span class="num">1</span> 회원가입 및 인증</h3>
+        <p class="scenario-desc">IPH가 플랫폼에 가입하고 필수 인증을 완료하여 핵심 기능을 사용할 수 있는 상태가 되는 과정</p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>플랫폼 접속 및 회원가입 진입</h4>
+              <p>inabooth.io에 접속하여 회원가입 페이지로 이동합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">이메일 가입</span>
+                <span class="action-tag">소셜 가입 (카카오/네이버/구글/LINE)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>사용자 유형 선택: IP홀더(IPH)</h4>
+              <p>회원가입 시 사용자 유형을 IP홀더로 선택합니다. 가입 후 마이페이지에서 BP로 전환 가능합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">IPH-C (개인 크리에이터)</span>
+                <span class="action-tag">IPH-A (에이전시)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>필수 정보 입력</h4>
+              <p>사용자 유형에 따라 동적으로 필수 입력 필드가 노출됩니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">이메일/비밀번호</span>
+                <span class="action-tag">작가 이름/에이전시명</span>
+                <span class="action-tag">국적</span>
+                <span class="action-tag">사업자 등록 여부</span>
+                <span class="action-tag">약관 동의</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>휴대폰 인증 (핵심 기능 사용 시)</h4>
+              <p>IP 등록, 프로젝트 지원, 문의 확인 등 핵심 기능 최초 사용 시 휴대폰 인증이 요구됩니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">인증번호 발송</span>
+                <span class="action-tag">코드 입력</span>
+                <span class="action-tag">인증 완료</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>사업자 인증 (IPH-A 전용)</h4>
+              <p>에이전시(IPH-A)는 사업자등록증 업로드 후 OCR 자동 추출 → 국세청 API 검증을 통해 인증합니다.</p>
+              <div class="result-box success">
+                <div class="result-icon">✓</div>
+                <div class="result-text">
+                  <h4>가입 및 인증 완료</h4>
+                  <p>이제 IP 등록, 오픈 프로젝트 지원 등 모든 IPH 기능을 사용할 수 있습니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시나리오 2 -->
+      <div class="scenario-card iph">
+        <h3><span class="num">2</span> 캐릭터(IP) 신규 등록</h3>
+        <p class="scenario-desc">IPH가 보유한 캐릭터 정보를 플랫폼에 등록하여 BP의 탐색 및 협업 제안 대상이 되는 과정</p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>캐릭터 등록 진입</h4>
+              <p>상단 네비게이션 '캐릭터 등록' 버튼 또는 마이페이지에서 등록 시작. 최초 진입 시 튜토리얼이 노출됩니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">휴대폰 인증 확인</span>
+                <span class="action-tag">튜토리얼 확인/스킵</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>기본 정보 입력</h4>
+              <p>캐릭터의 기본 속성 정보를 입력합니다. 입력 10초 이상 중단 시 자동 임시저장됩니다.</p>
+              <div class="sub-flow">
+                <div class="sub-flow-title">기본 정보 입력 항목</div>
+                <div class="sub-steps">
+                  <div class="sub-step iph"><span class="sub-step-num">1</span> 캐릭터 이름</div>
+                  <span class="sub-arrow">→</span>
+                  <div class="sub-step iph"><span class="sub-step-num">2</span> 대표 이미지 + AI 배경색 제안</div>
+                  <span class="sub-arrow">→</span>
+                  <div class="sub-step iph"><span class="sub-step-num">3</span> 프레임 선택 (11종)</div>
+                  <span class="sub-arrow">→</span>
+                  <div class="sub-step iph"><span class="sub-step-num">4</span> 원작 국가</div>
+                  <span class="sub-arrow">→</span>
+                  <div class="sub-step iph"><span class="sub-step-num">5</span> 카테고리 설정</div>
+                  <span class="sub-arrow">→</span>
+                  <div class="sub-step iph"><span class="sub-step-num">6</span> 관련 태그</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>상세 정보 입력</h4>
+              <p>포트폴리오, 채널 인증, 저작권 정보 등 협업 판단에 필요한 상세 정보를 입력합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">포트폴리오 작성 (200자 이상, 이미지 1장 이상)</span>
+                <span class="action-tag">대표 채널 인증 (API 연동: 인스타/유튜브/X)</span>
+                <span class="action-tag">저작권 등록번호 (선택)</span>
+                <span class="action-tag">스타일 가이드북 업로드 (선택)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>협업 정보 입력</h4>
+              <p>협업 가능 범위와 희망 조건을 설정합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">IP 활용 가능 범위 (필수, 복수 선택)</span>
+                <span class="action-tag">최소 협업 금액(MG) 설정 (선택)</span>
+                <span class="action-tag">협업 이력 추가 (선택)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>공개 범위 설정 및 최종 등록</h4>
+              <p>공개/비공개 설정 후 최종 등록합니다. 운영팀 승인 후 탐색 결과에 노출됩니다.</p>
+              <div class="result-box success">
+                <div class="result-icon">🎉</div>
+                <div class="result-text">
+                  <h4>IP 등록 완료</h4>
+                  <p>등록된 IP는 BP 탐색 결과에 노출되며, IP 정보품질 지수와 IPH 활동지수에 반영됩니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시나리오 3 -->
+      <div class="scenario-card iph">
+        <h3><span class="num">3</span> 오픈 프로젝트 탐색 및 지원</h3>
+        <p class="scenario-desc">IPH가 BP가 등록한 오픈 프로젝트를 탐색하고 자신의 IP로 지원하는 과정</p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>오픈 프로젝트 메뉴 진입</h4>
+              <p>상단 네비게이션 '오픈 프로젝트' 클릭 → 프로젝트 목록 페이지로 이동합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">맞춤 콜라보 섹션</span>
+                <span class="action-tag">마감 임박 콜라보</span>
+                <span class="action-tag">인기 콜라보</span>
+                <span class="action-tag">전체 콜라보</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>프로젝트 필터링 및 검색</h4>
+              <p>협업 유형, 카테고리, 예산 범위 등 다양한 기준으로 원하는 프로젝트를 탐색합니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>프로젝트 상세 정보 확인</h4>
+              <p>프로젝트 카드 클릭 → 상세페이지에서 협업 조건, 모집 분야, 참여 혜택, 유의사항 등을 확인합니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>프로젝트 지원하기</h4>
+              <p>'지원하기' 버튼 클릭 → 지원 자격 검증 → 지원할 IP 선택 → 양식 작성 → 최종 제출</p>
+              <div class="sub-flow">
+                <div class="sub-flow-title">지원 프로세스</div>
+                <div class="sub-steps">
+                  <div class="sub-step iph"><span class="sub-step-num">1</span> 자격 검증 (인증, 요금제, 월 지원 횟수)</div>
+                  <span class="sub-arrow">→</span>
+                  <div class="sub-step iph"><span class="sub-step-num">2</span> IP 선택</div>
+                  <span class="sub-arrow">→</span>
+                  <div class="sub-step iph"><span class="sub-step-num">3</span> 양식 작성</div>
+                  <span class="sub-arrow">→</span>
+                  <div class="sub-step iph"><span class="sub-step-num">4</span> 가이드북 첨부</div>
+                  <span class="sub-arrow">→</span>
+                  <div class="sub-step iph"><span class="sub-step-num">5</span> 최종 제출</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>지원 현황 관리</h4>
+              <p>마이페이지에서 지원한 프로젝트 목록과 상태(지원완료/검토중/선정/미선정)를 확인합니다.</p>
+              <div class="branch-box">
+                <div class="branch-item success">
+                  <div class="branch-label">선정 시</div>
+                  <p>BP로부터 선정 알림 → 1:1 채팅방 생성 → 협업 조건 협의 → 계약 체결</p>
+                </div>
+                <div class="branch-item warning">
+                  <div class="branch-label">미선정 시</div>
+                  <p>미선정 알림 수신 → 다른 프로젝트 탐색 및 지원 계속</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시나리오 4 -->
+      <div class="scenario-card iph">
+        <h3><span class="num">4</span> BP 문의 응답 및 협업 진행</h3>
+        <p class="scenario-desc">BP로부터 협업 문의를 받고 1:1 채팅을 통해 협업을 진행하는 과정 (문의 기반 프로젝트)</p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>문의 알림 수신</h4>
+              <p>BP가 IP 상세페이지에서 '문의하기'를 통해 문의를 보내면 알림(이메일/카카오/플랫폼)을 통해 확인합니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>1:1 채팅방에서 문의 내용 확인</h4>
+              <p>자동 생성된 채팅방에서 BP의 문의 내용(협업 유형, 예산, 일정, 추가 요청사항)을 확인합니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>협업 조건 협의</h4>
+              <p>채팅을 통해 세부 조건(금액, 일정, 범위 등)을 협의하고 파일/자료를 공유합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">실시간 메시지 송수신</span>
+                <span class="action-tag">파일 첨부 (PDF/JPG/PNG/DOCX)</span>
+                <span class="action-tag">읽음 확인</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>제안 수락/거절</h4>
+              <p>BP의 최종 제안을 검토하고 수락 또는 거절합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">상태: 문의 중 → 협의 중 → 결제 대기</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>계약 체결 및 협업 진행</h4>
+              <p>BP 결제 완료 후 계약이 체결되며, 프로젝트 상태가 '협업 진행중'으로 변경됩니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>프로젝트 완료 및 상호 평가</h4>
+              <p>협업 완료 후 '완료' 상태로 변경 → 상호 평가(별점/리뷰) 진행</p>
+              <div class="result-box success">
+                <div class="result-icon">⭐</div>
+                <div class="result-text">
+                  <h4>협업 완료</h4>
+                  <p>평가 결과는 협업지수에 반영되어 향후 매칭 우선순위에 긍정적 영향을 미칩니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 브랜드 파트너 시나리오 ========== -->
+    <section class="section">
+      <div class="section-header bp">
+        <div class="section-icon bp">🏢</div>
+        <div class="section-title">
+          <h2>브랜드 파트너(BP) 시나리오</h2>
+          <p>IP를 활용하여 제품 생산, 프로모션 등 협업을 진행하려는 기업의 사용 흐름</p>
+        </div>
+      </div>
+
+      <!-- 시나리오 1 -->
+      <div class="scenario-card bp">
+        <h3><span class="num">1</span> 회원가입 및 사업자 인증</h3>
+        <p class="scenario-desc">BP가 플랫폼에 가입하고 사업자 인증을 완료하여 IP 문의 및 프로젝트 등록이 가능한 상태가 되는 과정</p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>회원가입 및 유형 선택</h4>
+              <p>이메일 또는 소셜 로그인으로 가입 후 사용자 유형을 '브랜드 파트너(BP)'로 선택합니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>필수 정보 입력</h4>
+              <p>BP 유형에 맞는 필수 정보를 입력합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">회사 이름</span>
+                <span class="action-tag">담당자 이름</span>
+                <span class="action-tag">사업자 유형 (법인/개인)</span>
+                <span class="action-tag">회사 국적</span>
+                <span class="action-tag">회사 업종</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>선택 정보 입력 (추천 알고리즘 정확도 향상)</h4>
+              <p>주요 제품/서비스, 선호 IP 스타일을 입력하면 맞춤 추천 정확도가 향상됩니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>휴대폰 인증 + 사업자 인증</h4>
+              <p>문의하기, 프로젝트 등록 등 핵심 기능 사용 시 휴대폰 인증 및 사업자 인증이 필수입니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">사업자등록증 업로드</span>
+                <span class="action-tag">OCR 자동 추출</span>
+                <span class="action-tag">국세청 API 검증</span>
+              </div>
+              <div class="result-box success">
+                <div class="result-icon">✓</div>
+                <div class="result-text">
+                  <h4>가입 및 인증 완료</h4>
+                  <p>이제 IP 탐색/문의, 오픈 프로젝트 등록 등 모든 BP 기능을 사용할 수 있습니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시나리오 2 -->
+      <div class="scenario-card bp">
+        <h3><span class="num">2</span> IP 탐색 및 문의 (문의 기반 프로젝트)</h3>
+        <p class="scenario-desc">BP가 협업하고 싶은 IP를 탐색하고 IPH에게 직접 문의하여 협업을 시작하는 과정</p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>IP 탐색 메뉴 진입</h4>
+              <p>상단 네비게이션 '탐색' 메뉴 또는 메인 검색창을 통해 IP 탐색을 시작합니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>IP 검색 및 필터링</h4>
+              <p>키워드 검색, 카테고리 필터, 정렬 기능을 활용하여 원하는 IP를 탐색합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">기본 필터: IP 유형, 원작 국가, 타깃 팬층</span>
+                <span class="action-tag">상세 필터 (유료회원): 최소 협업 금액, 프로젝트 이력, 팔로워 증감율</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>IP 상세 정보 확인</h4>
+              <p>IP 카드 클릭 → 상세페이지에서 포트폴리오, 협업 이력, 스타일 가이드북 등을 확인합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">포트폴리오</span>
+                <span class="action-tag">협업 이력</span>
+                <span class="action-tag">MG 정보</span>
+                <span class="action-tag">스타일 가이드북 (워터마크 적용)</span>
+                <span class="action-tag">유료회원: 협업 매너지수, 활동지수, 응답속도</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>문의하기</h4>
+              <p>'문의하기' 버튼 클릭 → 사전 조건 검증 → 문의 폼 작성 → 제출</p>
+              <div class="sub-flow">
+                <div class="sub-flow-title">문의 폼 필수 항목</div>
+                <div class="sub-steps">
+                  <div class="sub-step bp"><span class="sub-step-num">Q1</span> 협업 유형</div>
+                  <div class="sub-step bp"><span class="sub-step-num">Q2</span> 예상 예산</div>
+                  <div class="sub-step bp"><span class="sub-step-num">Q3</span> 희망 일정</div>
+                  <div class="sub-step bp"><span class="sub-step-num">Q4</span> 추가 요청사항</div>
+                </div>
+              </div>
+              <div class="result-box info">
+                <div class="result-icon">💬</div>
+                <div class="result-text">
+                  <h4>1:1 채팅방 자동 생성</h4>
+                  <p>문의 제출 시 IPH와의 1:1 채팅방이 자동 생성되어 협의를 진행할 수 있습니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시나리오 3 -->
+      <div class="scenario-card bp">
+        <h3><span class="num">3</span> 오픈 프로젝트 등록 (공개 모집 프로젝트)</h3>
+        <p class="scenario-desc">BP가 공개 모집 프로젝트를 등록하여 다수의 IPH로부터 지원을 받는 과정</p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>오픈 프로젝트 등록 시작</h4>
+              <p>'오픈 프로젝트' 메뉴에서 '프로젝트 등록' 클릭. 휴대폰 인증 및 사업자 인증이 필수입니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>기본 정보 입력</h4>
+              <p>프로젝트의 기본 정보를 입력합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">프로젝트 제목</span>
+                <span class="action-tag">대표 이미지</span>
+                <span class="action-tag">주요 협업 유형</span>
+                <span class="action-tag">모집 마감일</span>
+                <span class="action-tag">희망 IP 카테고리</span>
+                <span class="action-tag">프로젝트 예산</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>상세 정보 입력</h4>
+              <p>모집 분야, 디자인 방향, 참여 혜택, 유의사항 등 상세 정보를 작성합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">인사말 및 프로젝트 개요 (200자 이상)</span>
+                <span class="action-tag">모집 분야 (50자 이상)</span>
+                <span class="action-tag">참여 IPH 혜택 (50자 이상)</span>
+                <span class="action-tag">유의사항 (50자 이상)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>등록 완료 및 승인 대기</h4>
+              <p>프로젝트 등록 후 운영팀 검토를 거쳐 승인되면 공개됩니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>지원자 관리 및 IP 선정</h4>
+              <p>IPH 지원 현황을 확인하고, 지원서(포트폴리오, 가이드북)를 검토하여 적합한 IP를 선정합니다.</p>
+              <div class="result-box success">
+                <div class="result-icon">🤝</div>
+                <div class="result-text">
+                  <h4>IP 선정 완료</h4>
+                  <p>선정된 IPH와 1:1 채팅방이 생성되어 세부 조건 협의 → 결제 → 계약 체결로 진행됩니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시나리오 4 -->
+      <div class="scenario-card bp">
+        <h3><span class="num">4</span> 협업 진행 및 완료</h3>
+        <p class="scenario-desc">BP가 IPH와 협업 조건을 협의하고 결제/계약 체결 후 프로젝트를 완료하는 과정</p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>채팅방에서 협업 조건 협의</h4>
+              <p>1:1 채팅방에서 세부 조건(금액, 일정, 범위)을 협의합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">상태: 문의 중 → 협의 중</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>제안 및 수락</h4>
+              <p>최종 제안을 보내고 IPH의 수락을 기다립니다. 수락 시 '결제 대기' 상태로 전환됩니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>결제 및 계약 체결</h4>
+              <p>결제 대기 상태에서 결제 모달이 노출되고, 결제 완료 시 계약이 자동 체결됩니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">상태: 결제 대기 → 계약 체결 → 협업 진행중</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>프로젝트 완료 및 상호 평가</h4>
+              <p>협업 완료 후 '완료' 상태로 변경하고, 상호 평가(별점/리뷰)를 진행합니다.</p>
+              <div class="result-box success">
+                <div class="result-icon">✓</div>
+                <div class="result-text">
+                  <h4>협업 완료</h4>
+                  <p>평가 결과는 양측의 협업지수에 반영됩니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 공통 시나리오 ========== -->
+    <section class="section">
+      <div class="section-header common">
+        <div class="section-icon common">👥</div>
+        <div class="section-title">
+          <h2>공통 시나리오</h2>
+          <p>IPH와 BP 모두 사용하는 공통 기능의 사용 흐름</p>
+        </div>
+      </div>
+
+      <!-- 시나리오 1 -->
+      <div class="scenario-card common">
+        <h3><span class="num">1</span> 마이페이지 및 계정 관리</h3>
+        <p class="scenario-desc">모든 사용자가 프로필, 계정, 요금제, 알림 설정 및 플랫폼 내 주요 활동을 관리하는 과정</p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>프로필 관리</h4>
+              <p>프로필 이미지, 닉네임/회사명, 소개글 등을 수정합니다. 유형별 필수 정보는 누락 불가합니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>계정/인증 관리</h4>
+              <p>이메일 변경, 휴대폰 재인증, 사업자 인증, 소셜 계정 연동 등을 관리합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">이메일 변경</span>
+                <span class="action-tag">휴대폰 인증</span>
+                <span class="action-tag">사업자 인증</span>
+                <span class="action-tag">소셜 계정 연동</span>
+                <span class="action-tag">비밀번호 변경</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>요금제 및 결제 관리</h4>
+              <p>현재 구독 요금제 확인, 업그레이드/다운그레이드, 결제 수단 관리를 수행합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">일반 (Basic) - 무료</span>
+                <span class="action-tag">프로 (Pro) - 유료, 단일 계정</span>
+                <span class="action-tag">비즈니스 (Business) - 유료, 복수 계정</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>알림 설정</h4>
+              <p>이메일/카카오톡/SMS 알림 수신 여부를 유형별로 설정합니다. 필수 알림은 해제 불가합니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>사용자 유형 전환</h4>
+              <p>IPH ↔ BP 간 자유롭게 전환 가능합니다. 전환 시 해당 유형의 필수 입력 항목을 충족해야 합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시나리오 2 -->
+      <div class="scenario-card common">
+        <h3><span class="num">2</span> 인사이트 콘텐츠 탐색</h3>
+        <p class="scenario-desc">캐릭터/콜라보 관련 시장 트렌드, 뉴스 등 업계 인사이트 콘텐츠를 탐색하는 과정</p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>인사이트 메뉴 진입</h4>
+              <p>상단 네비게이션 '인사이트' 클릭. 비회원 포함 모든 사용자 접근 가능합니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>콘텐츠 탐색</h4>
+              <p>'최신 인사이트'와 '맞춤 인사이트' 섹션에서 관심 콘텐츠를 탐색합니다.</p>
+              <div class="step-actions">
+                <span class="action-tag">카테고리별 필터</span>
+                <span class="action-tag">기간별 필터</span>
+                <span class="action-tag">인기순 정렬</span>
+                <span class="action-tag">읽은/읽지않은 콘텐츠 (로그인 필요)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>상세 조회 및 스크랩</h4>
+              <p>콘텐츠 카드 클릭 → 상세 페이지에서 전문 확인 → 스크랩/공유</p>
+              <div class="step-actions">
+                <span class="action-tag">조회수 자동 카운트</span>
+                <span class="action-tag">읽음 상태 자동 기록 (로그인 시 DB, 비로그인 시 로컬 스토리지)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시나리오 3 -->
+      <div class="scenario-card common">
+        <h3><span class="num">3</span> 스크랩 및 공유</h3>
+        <p class="scenario-desc">관심 있는 IP, 프로젝트, 인사이트를 저장하거나 외부에 공유하는 과정</p>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>스크랩하기</h4>
+              <p>IP 카드, 프로젝트 카드, 인사이트 카드에서 스크랩 버튼 클릭. 비회원은 로그인 유도 모달이 노출됩니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>스크랩 관리</h4>
+              <p>마이페이지에서 스크랩한 IP, 프로젝트, 인사이트를 통합 관리합니다.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>공유하기</h4>
+              <p>공유 버튼 클릭 → URL 복사 또는 SNS(카카오/인스타/트위터) 공유</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 요약 그리드 -->
+      <div class="summary-grid">
+        <div class="summary-card">
+          <h4>📌 프로젝트 유형</h4>
+          <ul>
+            <li><strong>문의 기반 프로젝트</strong>: BP가 IP 탐색 → 직접 문의 → 협의 → 계약 체결</li>
+            <li><strong>공개 모집 프로젝트</strong>: BP가 오픈 프로젝트 공고 → IPH 지원 → 선정 → 계약 체결</li>
+          </ul>
+        </div>
+
+        <div class="summary-card">
+          <h4>📌 협업 상태 흐름</h4>
+          <ul>
+            <li>문의 중 → 협의 중 → 결제 대기 → 계약 체결</li>
+            <li>계약 체결 → 협업 진행중 → 프로젝트 완료</li>
+            <li>완료 후 상호 평가 → 협업지수 반영</li>
+          </ul>
+        </div>
+
+        <div class="summary-card">
+          <h4>📌 핵심 인증 시점</h4>
+          <ul>
+            <li><strong>휴대폰 인증</strong>: IP 등록, 문의하기, 프로젝트 지원/등록, 요금제 결제</li>
+            <li><strong>사업자 인증</strong>: IPH-A/BP의 문의, 프로젝트 등록/지원, 요금제 결제</li>
+          </ul>
+        </div>
+
+        <div class="summary-card">
+          <h4>📌 회원 등급별 기능</h4>
+          <ul>
+            <li><strong>일반(Basic)</strong>: 기본 기능, IP 1개 등록 제한</li>
+            <li><strong>프로(Pro)</strong>: IP 무제한 등록, 상세 필터/지수 조회</li>
+            <li><strong>비즈니스(Business)</strong>: 프로 기능 + 복수 계정, 관리자 초대</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

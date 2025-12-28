@@ -1,0 +1,12 @@
+{
+  "name": "inabooth-notion-sync",
+  "version": "1.0.0",
+  "description": "INABOOTH 페이지 목록을 Notion에 자동 동기화",
+  "main": "sync-to-notion.js",
+  "scripts": {
+    "sync": "node sync-to-notion.js"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.14"
+  }
+}

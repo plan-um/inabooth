@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로젝트 지원 - 양식 작성 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .stepper{display:flex;justify-content:center;align-items:center;gap:var(--space-2);margin-bottom:var(--space-12)}
+    .stepper__item{display:flex;align-items:center;gap:var(--space-3)}
+    .stepper__circle{width:48px;height:48px;border-radius:var(--radius-full);background:var(--color-bg-secondary);border:2px solid var(--color-border);display:flex;align-items:center;justify-content:center;font-weight:var(--font-weight-bold);color:var(--color-text-tertiary);transition:all var(--transition-normal)}
+    .stepper__item.active .stepper__circle{background:var(--color-primary);border-color:var(--color-primary);color:white;box-shadow:0 4px 12px rgba(79,70,229,0.3)}
+    .stepper__item.completed .stepper__circle{background:var(--color-success);border-color:var(--color-success);color:white}
+    .stepper__label{font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-tertiary)}
+    .stepper__item.active .stepper__label{color:var(--color-primary);font-weight:var(--font-weight-semibold)}
+    .stepper__item.completed .stepper__label{color:var(--color-success)}
+    .stepper__divider{width:64px;height:2px;background:var(--color-border)}
+    .stepper__item.completed + .stepper__divider{background:var(--color-success)}
+
+    .form-section{max-width:900px;margin:0 auto;background:white;border-radius:var(--radius-xl);padding:var(--space-10);box-shadow:var(--shadow-card)}
+    .form-section__title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);color:var(--color-text-primary);margin-bottom:var(--space-2)}
+    .form-section__desc{font-size:var(--font-size-base);color:var(--color-text-secondary);margin-bottom:var(--space-8)}
+
+    .form-group{margin-bottom:var(--space-6)}
+    .form-group__label{display:block;font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:var(--color-text-primary);margin-bottom:var(--space-2)}
+    .form-group__label span{color:var(--color-secondary);margin-left:var(--space-1)}
+    .form-group__hint{font-size:var(--font-size-xs);color:var(--color-text-tertiary);margin-top:var(--space-1)}
+
+    .form-input{width:100%;padding:var(--space-3) var(--space-4);font-size:var(--font-size-base);border:1px solid var(--color-border);border-radius:var(--radius-md);transition:all var(--transition-fast);font-family:inherit}
+    .form-input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(99,102,241,0.1)}
+    .form-input::placeholder{color:var(--color-text-tertiary)}
+
+    .form-textarea{min-height:160px;resize:vertical}
+
+    .form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right var(--space-3) center;background-size:20px;padding-right:var(--space-10)}
+
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+
+    .file-upload{border:2px dashed var(--color-border);border-radius:var(--radius-lg);padding:var(--space-8);text-align:center;cursor:pointer;transition:all var(--transition-fast)}
+    .file-upload:hover{border-color:var(--color-primary);background:var(--color-primary-light)}
+    .file-upload__icon{width:48px;height:48px;margin:0 auto var(--space-3);color:var(--color-text-tertiary)}
+    .file-upload__text{font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-bottom:var(--space-1)}
+    .file-upload__hint{font-size:var(--font-size-xs);color:var(--color-text-tertiary)}
+
+    .uploaded-files{margin-top:var(--space-3);display:flex;flex-direction:column;gap:var(--space-2)}
+    .uploaded-file{display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md)}
+    .uploaded-file__info{display:flex;align-items:center;gap:var(--space-3)}
+    .uploaded-file__icon{width:32px;height:32px;background:var(--color-primary-light);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--color-primary)}
+    .uploaded-file__name{font-size:var(--font-size-sm);font-weight:var(--font-weight-medium)}
+    .uploaded-file__size{font-size:var(--font-size-xs);color:var(--color-text-tertiary)}
+    .uploaded-file__remove{width:24px;height:24px;border:none;background:none;color:var(--color-text-tertiary);cursor:pointer;border-radius:var(--radius-sm)}
+    .uploaded-file__remove:hover{background:var(--color-error-light);color:var(--color-error)}
+
+    .selected-ip{background:var(--color-primary-light);border:1px solid var(--color-primary);border-radius:var(--radius-lg);padding:var(--space-4);margin-bottom:var(--space-6)}
+    .selected-ip__label{font-size:var(--font-size-xs);color:var(--color-primary);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-2)}
+    .selected-ip__content{display:flex;align-items:center;gap:var(--space-3)}
+    .selected-ip__img{width:48px;height:48px;border-radius:var(--radius-md);background:linear-gradient(135deg,#FBBF24,#F59E0B)}
+    .selected-ip__name{font-weight:var(--font-weight-semibold)}
+    .selected-ip__category{font-size:var(--font-size-sm);color:var(--color-text-secondary)}
+
+    .form-actions{display:flex;gap:var(--space-3);justify-content:space-between;margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--color-border-light)}
+
+    @media (max-width: 768px) {
+      .stepper{flex-wrap:wrap;gap:var(--space-3)}
+      .stepper__divider{width:32px}
+      .form-section{padding:var(--space-6)}
+      .form-row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main style="padding-top:calc(var(--header-height) + var(--space-8));min-height:70vh;background:var(--color-bg-secondary);padding-bottom:var(--space-8)">
+    <div class="container">
+
+      <div class="stepper">
+        <div class="stepper__item completed">
+          <div class="stepper__circle"><i data-lucide="check" class="icon"></i></div>
+          <span class="stepper__label">자격 검증</span>
+        </div>
+        <div class="stepper__divider"></div>
+        <div class="stepper__item completed">
+          <div class="stepper__circle"><i data-lucide="check" class="icon"></i></div>
+          <span class="stepper__label">IP 선택</span>
+        </div>
+        <div class="stepper__divider"></div>
+        <div class="stepper__item active">
+          <div class="stepper__circle">3</div>
+          <span class="stepper__label">양식 작성</span>
+        </div>
+        <div class="stepper__divider"></div>
+        <div class="stepper__item">
+          <div class="stepper__circle">4</div>
+          <span class="stepper__label">최종 제출</span>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h1 class="form-section__title">지원서 작성</h1>
+        <p class="form-section__desc">프로젝트에 맞는 제안서를 작성해주세요.</p>
+
+        <!-- 선택된 IP 표시 -->
+        <div class="selected-ip">
+          <div class="selected-ip__label">선택한 IP</div>
+          <div class="selected-ip__content">
+            <div class="selected-ip__img"><img src="https://picsum.photos/seed/empty20/400/300" alt="이미지" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+            <div>
+              <div class="selected-ip__name">귀여운 곰돌이</div>
+              <div class="selected-ip__category">오리지널 캐릭터</div>
+            </div>
+          </div>
+        </div>
+
+        <form>
+          <div class="form-group">
+            <label class="form-group__label">제안서 제목<span>*</span></label>
+            <input type="text" class="form-input" placeholder="프로젝트에 어울리는 제안서 제목을 입력하세요" required>
+            <p class="form-group__hint">예: [귀여운 곰돌이] 캐릭터 굿즈 제작 제안</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-group__label">협업 제안 내용<span>*</span></label>
+            <textarea class="form-input form-textarea" placeholder="프로젝트에 어떻게 기여할 수 있는지 상세히 작성해주세요. 귀하의 IP를 활용한 구체적인 협업 아이디어, 기대 효과 등을 포함해주세요." required></textarea>
+            <p class="form-group__hint">최소 100자 이상 작성해주세요</p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-group__label">희망 협업 기간</label>
+              <select class="form-input form-select">
+                <option value="">기간 선택</option>
+                <option value="1month">1개월 미만</option>
+                <option value="1-3month">1~3개월</option>
+                <option value="3-6month">3~6개월</option>
+                <option value="6month+">6개월 이상</option>
+                <option value="negotiable">협의 가능</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-group__label">희망 수익 분배</label>
+              <select class="form-input form-select">
+                <option value="">분배 방식 선택</option>
+                <option value="fixed">고정 금액</option>
+                <option value="revenue">수익 배분</option>
+                <option value="hybrid">고정 + 수익 배분</option>
+                <option value="negotiable">협의 가능</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-group__label">예상 예산 규모</label>
+              <select class="form-input form-select">
+                <option value="">예산 범위 선택</option>
+                <option value="under500">500만원 미만</option>
+                <option value="500-1000">500만원 ~ 1,000만원</option>
+                <option value="1000-3000">1,000만원 ~ 3,000만원</option>
+                <option value="3000-5000">3,000만원 ~ 5,000만원</option>
+                <option value="over5000">5,000만원 이상</option>
+                <option value="negotiable">협의 가능</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-group__label">희망 시작 시기</label>
+              <input type="date" class="form-input">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-group__label">추가 포트폴리오/참고자료</label>
+            <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+              <i data-lucide="upload-cloud" class="file-upload__icon"></i>
+              <p class="file-upload__text">파일을 드래그하거나 클릭하여 업로드</p>
+              <p class="file-upload__hint">PDF, JPG, PNG, PPT 최대 10MB</p>
+            </div>
+            <input type="file" id="fileInput" hidden multiple accept=".pdf,.jpg,.jpeg,.png,.ppt,.pptx">
+
+            <div class="uploaded-files">
+              <div class="uploaded-file">
+                <div class="uploaded-file__info">
+                  <div class="uploaded-file__icon">
+                    <i data-lucide="file-text" class="icon-sm"></i>
+                  </div>
+                  <div>
+                    <div class="uploaded-file__name">포트폴리오_2024.pdf</div>
+                    <div class="uploaded-file__size">2.4 MB</div>
+                  </div>
+                </div>
+                <button type="button" class="uploaded-file__remove">
+                  <i data-lucide="x" class="icon-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-group__label">추가 메시지 (선택)</label>
+            <textarea class="form-input form-textarea" placeholder="프로젝트 담당자에게 전달하고 싶은 추가 메시지가 있다면 작성해주세요." style="min-height:100px"></textarea>
+          </div>
+        </form>
+
+        <div class="form-actions">
+          <a href="8-1-2 프로젝트 지원_IP 선택.html" class="btn btn--secondary btn--lg">
+            <i data-lucide="arrow-left" class="icon-sm"></i>
+            이전
+          </a>
+          <a href="8-1-4 프로젝트 지원_최종 제출.html" class="btn btn--primary btn--lg">
+            다음
+            <i data-lucide="arrow-right" class="icon-sm"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'project'});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

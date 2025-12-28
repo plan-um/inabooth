@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로젝트 삭제 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .modal-page {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      min-height: 100vh;
+      padding-bottom: var(--space-8);
+      background: var(--color-bg-secondary);
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .modal-header__icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(239, 68, 68, 0.1);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .modal-header__icon i {
+      color: var(--color-error);
+      width: 32px;
+      height: 32px;
+    }
+
+    .modal-header__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+      color: var(--color-error);
+    }
+
+    .modal-header__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .delete-target {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      margin-bottom: var(--space-6);
+    }
+
+    .delete-target__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+
+    .delete-target__badge {
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-success-light);
+      color: var(--color-success);
+    }
+
+    .delete-target__name {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .delete-target__meta {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-3);
+    }
+
+    .delete-target__stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .delete-target__stat {
+      text-align: center;
+    }
+
+    .delete-target__stat-value {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .delete-target__stat-label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .warning-box {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      margin-bottom: var(--space-6);
+    }
+
+    .warning-box__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-error);
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .warning-box__title i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .warning-box__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .warning-box__list li {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+      padding-left: var(--space-5);
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .warning-box__list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      background: var(--color-error);
+      border-radius: 50%;
+    }
+
+    .warning-box__list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .applicant-notice {
+      background: var(--color-warning-light);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .applicant-notice i {
+      color: var(--color-warning);
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .applicant-notice__text {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .applicant-notice__text strong {
+      color: var(--color-warning);
+    }
+
+    .confirm-section {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .confirm-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      cursor: pointer;
+    }
+
+    .confirm-checkbox input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--color-error);
+    }
+
+    .confirm-checkbox label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .btn--danger {
+      background: var(--color-error);
+      color: white;
+      border: none;
+    }
+
+    .btn--danger:hover {
+      background: #dc2626;
+    }
+
+    .btn--danger:disabled {
+      background: var(--color-border);
+      color: var(--color-text-tertiary);
+      cursor: not-allowed;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .modal-actions .btn {
+      flex: 1;
+    }
+
+    .success-message {
+      text-align: center;
+      padding: var(--space-6) 0;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-message__icon {
+      width: 80px;
+      height: 80px;
+      background: var(--color-bg-secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .success-message__icon i {
+      color: var(--color-text-tertiary);
+      width: 40px;
+      height: 40px;
+    }
+
+    .success-message__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .success-message__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .form-container {
+      display: block;
+    }
+
+    .form-container.hide {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="modal-page">
+    <div class="container">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-header__icon">
+            <i data-lucide="trash-2"></i>
+          </div>
+          <h1 class="modal-header__title">프로젝트 삭제</h1>
+          <p class="modal-header__desc">삭제된 프로젝트는 복구할 수 없습니다. 신중하게 결정해주세요.</p>
+        </div>
+
+        <div class="form-container" id="formContainer">
+          <div class="delete-target">
+            <div class="delete-target__header">
+              <span class="delete-target__badge">모집중</span>
+            </div>
+            <div class="delete-target__name">2024 여름 시즌 굿즈 콜라보</div>
+            <div class="delete-target__meta">문구/오피스 · 라이선싱 · 등록일: 2024.01.25</div>
+            <div class="delete-target__stats">
+              <div class="delete-target__stat">
+                <div class="delete-target__stat-value">8</div>
+                <div class="delete-target__stat-label">지원자</div>
+              </div>
+              <div class="delete-target__stat">
+                <div class="delete-target__stat-value">1,234</div>
+                <div class="delete-target__stat-label">조회수</div>
+              </div>
+              <div class="delete-target__stat">
+                <div class="delete-target__stat-value">45</div>
+                <div class="delete-target__stat-label">관심</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="applicant-notice">
+            <i data-lucide="users"></i>
+            <p class="applicant-notice__text">
+              현재 <strong>8명의 지원자</strong>가 있습니다.
+              프로젝트 삭제 시 모든 지원자에게 삭제 안내 알림이 발송됩니다.
+            </p>
+          </div>
+
+          <div class="warning-box">
+            <div class="warning-box__title">
+              <i data-lucide="alert-triangle"></i>
+              삭제 시 영구적으로 삭제되는 정보
+            </div>
+            <ul class="warning-box__list">
+              <li>프로젝트 상세 정보 및 모든 설정</li>
+              <li>모든 지원서 및 지원자 정보</li>
+              <li>채팅 및 문의 내역</li>
+              <li>조회수, 관심 등 모든 통계 데이터</li>
+              <li>진행 중인 협업이 있는 경우 삭제할 수 없습니다</li>
+            </ul>
+          </div>
+
+          <div class="confirm-section">
+            <div class="confirm-checkbox">
+              <input type="checkbox" id="confirmCheck">
+              <label for="confirmCheck">
+                위 내용을 모두 확인했으며, 프로젝트 삭제에 동의합니다.
+                모든 지원자에게 알림이 발송되며, 삭제 후 데이터 복구가 불가능함을 이해합니다.
+              </label>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <a href="7-2-1 프로젝트 관리_상세.html" class="btn btn--secondary">취소</a>
+            <button class="btn btn--danger" id="deleteBtn" onclick="deleteProject()" disabled>
+              <i data-lucide="trash-2" class="icon icon-sm"></i>
+              프로젝트 삭제
+            </button>
+          </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <div class="success-message__icon">
+            <i data-lucide="check"></i>
+          </div>
+          <h2 class="success-message__title">프로젝트가 삭제되었습니다</h2>
+          <p class="success-message__desc">
+            '2024 여름 시즌 굿즈 콜라보' 프로젝트가 삭제되었습니다.<br>
+            지원자들에게 삭제 안내 알림이 발송되었습니다.
+          </p>
+          <div class="modal-actions" style="margin-top: var(--space-6);">
+            <a href="7-2 프로젝트 관리.html" class="btn btn--primary" style="flex: 1;">
+              <i data-lucide="check" class="icon icon-sm"></i>
+              확인
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'project', isLoggedIn: true});
+    lucide.createIcons();
+
+    const confirmCheck = document.getElementById('confirmCheck');
+    const deleteBtn = document.getElementById('deleteBtn');
+
+    confirmCheck.addEventListener('change', function() {
+      deleteBtn.disabled = !this.checked;
+    });
+
+    function deleteProject() {
+      document.getElementById('formContainer').classList.add('hide');
+      document.getElementById('successMessage').classList.add('show');
+      Toast.success('프로젝트가 삭제되었습니다.');
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캐릭터 관리 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.main-content{padding-top:calc(var(--header-height) + var(--space-8));padding-bottom:var(--space-8);min-height:100vh}
+    .form-card{background:white;border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-card)}
+    .form-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .form-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-6)}
+    .progress-steps{display:flex;gap:var(--space-2);margin-bottom:var(--space-6)}
+    .step{flex:1;height:4px;background:var(--color-bg-secondary);border-radius:999px}
+    .step.active{background:var(--color-primary)}
+    .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
+
+    .content-box{padding:var(--space-6);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="main-content">
+    <div class="container">
+      <div class="form-card">
+        
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-6)">
+          <div>
+            <h1 class="form-title">내 캐릭터 관리</h1>
+            <p class="form-subtitle" style="margin-bottom:0">등록된 캐릭터를 관리하세요</p>
+          </div>
+          <a href="6-1-1 캐릭터 등록_기본 정보.html" class="btn btn--primary"><i data-lucide="plus" class="icon-sm"></i> 새 캐릭터 등록</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);margin-bottom:var(--space-6)">
+          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
+            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);color:var(--color-primary)">3</div>
+            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">등록된 캐릭터</div>
+          </div>
+          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
+            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);color:var(--color-success)">2</div>
+            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">협업 진행중</div>
+          </div>
+          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
+            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);color:var(--color-warning)">5</div>
+            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">받은 문의</div>
+          </div>
+          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
+            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold)">12,450</div>
+            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">총 조회수</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+          <a href="6-2-1 캐릭터 관리_상세.html" style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4);background:var(--color-bg-secondary);border-radius:var(--radius-md);border:1px solid var(--color-border);cursor:pointer;transition:all var(--transition-fast)" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='var(--color-border)'">
+            <img src="images/characters/Random Objects (1).png" style="width:80px;height:80px;border-radius:var(--radius-md);object-fit:cover">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1)">
+                <span style="font-weight:600">귀여운 곰돌이 친구들</span>
+                <span class="badge" style="background:var(--color-success-light);color:var(--color-success);font-size:10px">공개중</span>
+              </div>
+              <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">오리지널 캐릭터 • 문구, 패션, 인테리어, 광고</div>
+            </div>
+            <div style="display:flex;gap:var(--space-6);font-size:var(--font-size-sm);color:var(--color-text-tertiary)">
+              <div style="text-align:center"><div style="font-weight:600;color:var(--color-text-primary)">4,230</div>조회</div>
+              <div style="text-align:center"><div style="font-weight:600;color:var(--color-text-primary)">856</div>찜</div>
+              <div style="text-align:center"><div style="font-weight:600;color:var(--color-text-primary)">3</div>문의</div>
+            </div>
+            <i data-lucide="chevron-right" style="color:var(--color-text-tertiary)"></i>
+          </a>
+
+          <a href="6-2-1 캐릭터 관리_상세.html" style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4);background:var(--color-bg-secondary);border-radius:var(--radius-md);border:1px solid var(--color-border);cursor:pointer;transition:all var(--transition-fast)" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='var(--color-border)'">
+            <img src="images/characters/Random Objects (2).png" style="width:80px;height:80px;border-radius:var(--radius-md);object-fit:cover">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1)">
+                <span style="font-weight:600">신나는 펭귄 친구들</span>
+                <span class="badge" style="background:var(--color-success-light);color:var(--color-success);font-size:10px">공개중</span>
+              </div>
+              <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">이모티콘 • 디지털, F&B</div>
+            </div>
+            <div style="display:flex;gap:var(--space-6);font-size:var(--font-size-sm);color:var(--color-text-tertiary)">
+              <div style="text-align:center"><div style="font-weight:600;color:var(--color-text-primary)">5,120</div>조회</div>
+              <div style="text-align:center"><div style="font-weight:600;color:var(--color-text-primary)">1,234</div>찜</div>
+              <div style="text-align:center"><div style="font-weight:600;color:var(--color-text-primary)">2</div>문의</div>
+            </div>
+            <i data-lucide="chevron-right" style="color:var(--color-text-tertiary)"></i>
+          </a>
+
+          <a href="6-2-1 캐릭터 관리_상세.html" style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4);background:var(--color-bg-secondary);border-radius:var(--radius-md);border:1px solid var(--color-border);cursor:pointer;transition:all var(--transition-fast)" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='var(--color-border)'">
+            <img src="images/characters/Random Objects (3).png" style="width:80px;height:80px;border-radius:var(--radius-md);object-fit:cover">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1)">
+                <span style="font-weight:600">몽글몽글 구름이</span>
+                <span class="badge" style="background:var(--color-bg-secondary);color:var(--color-text-tertiary);font-size:10px;border:1px solid var(--color-border)">비공개</span>
+              </div>
+              <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">애니메이션 • 뷰티, 인테리어</div>
+            </div>
+            <div style="display:flex;gap:var(--space-6);font-size:var(--font-size-sm);color:var(--color-text-tertiary)">
+              <div style="text-align:center"><div style="font-weight:600;color:var(--color-text-primary)">3,100</div>조회</div>
+              <div style="text-align:center"><div style="font-weight:600;color:var(--color-text-primary)">542</div>찜</div>
+              <div style="text-align:center"><div style="font-weight:600;color:var(--color-text-primary)">0</div>문의</div>
+            </div>
+            <i data-lucide="chevron-right" style="color:var(--color-text-tertiary)"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'browse'});</script>
+</body>
+</html>

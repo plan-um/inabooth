@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>출금 신청 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .modal-page {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      min-height: 100vh;
+      padding-bottom: var(--space-8);
+      background: var(--color-bg-secondary);
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .modal-header__icon {
+      width: 64px;
+      height: 64px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .modal-header__icon i {
+      color: var(--color-primary);
+      width: 28px;
+      height: 28px;
+    }
+
+    .modal-header__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .modal-header__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .balance-info {
+      background: var(--gradient-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      color: white;
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .balance-info__label {
+      font-size: var(--font-size-sm);
+      opacity: 0.9;
+      margin-bottom: var(--space-1);
+    }
+
+    .balance-info__amount {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .account-info {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .account-info__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-3);
+    }
+
+    .account-info__title {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .account-info__change {
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+      cursor: pointer;
+    }
+
+    .account-info__details {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .account-info__bank-logo {
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+    }
+
+    .account-info__bank-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .account-info__number {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-5);
+    }
+
+    .form-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-2);
+      color: var(--color-text-primary);
+    }
+
+    .amount-input-wrapper {
+      position: relative;
+    }
+
+    .amount-input {
+      width: 100%;
+      padding: var(--space-4);
+      padding-left: var(--space-8);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      text-align: right;
+      transition: all var(--transition-fast);
+    }
+
+    .amount-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-light);
+    }
+
+    .amount-input-wrapper::before {
+      content: "₩";
+      position: absolute;
+      left: var(--space-4);
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-tertiary);
+    }
+
+    .quick-amounts {
+      display: flex;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
+    }
+
+    .quick-amount-btn {
+      flex: 1;
+      padding: var(--space-2);
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .quick-amount-btn:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .form-hint {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-2);
+    }
+
+    .form-error {
+      font-size: var(--font-size-xs);
+      color: var(--color-error);
+      margin-top: var(--space-2);
+      display: none;
+    }
+
+    .fee-info {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .fee-info__row {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--font-size-sm);
+      margin-bottom: var(--space-2);
+    }
+
+    .fee-info__row:last-child {
+      margin-bottom: 0;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-border);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .fee-info__label {
+      color: var(--color-text-secondary);
+    }
+
+    .fee-info__value {
+      color: var(--color-text-primary);
+    }
+
+    .fee-info__value--highlight {
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .notice-box {
+      background: var(--color-warning-light);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .notice-box i {
+      color: var(--color-warning);
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .notice-box__text {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .modal-actions .btn {
+      flex: 1;
+    }
+
+    .success-message {
+      text-align: center;
+      padding: var(--space-6) 0;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-message__icon {
+      width: 80px;
+      height: 80px;
+      background: var(--color-success-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .success-message__icon i {
+      color: var(--color-success);
+      width: 40px;
+      height: 40px;
+    }
+
+    .success-message__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .success-message__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .success-message__amount {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .form-container {
+      display: block;
+    }
+
+    .form-container.hide {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="modal-page">
+    <div class="container">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-header__icon">
+            <i data-lucide="wallet"></i>
+          </div>
+          <h1 class="modal-header__title">출금 신청</h1>
+          <p class="modal-header__desc">출금할 금액을 입력해주세요.</p>
+        </div>
+
+        <div class="form-container" id="formContainer">
+          <div class="balance-info">
+            <div class="balance-info__label">출금 가능 금액</div>
+            <div class="balance-info__amount">₩ 1,250,000</div>
+          </div>
+
+          <div class="account-info">
+            <div class="account-info__header">
+              <span class="account-info__title">출금 계좌</span>
+              <a href="9-3-2 계좌 변경.html" class="account-info__change">변경</a>
+            </div>
+            <div class="account-info__details">
+              <div class="account-info__bank-logo">KB</div>
+              <div>
+                <div class="account-info__bank-name">국민은행</div>
+                <div class="account-info__number">123-456-****** (홍길동)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="amount">출금 금액</label>
+            <div class="amount-input-wrapper">
+              <input type="text" class="amount-input" id="amount" placeholder="0" inputmode="numeric">
+            </div>
+            <div class="quick-amounts">
+              <button class="quick-amount-btn" onclick="setAmount(100000)">+10만</button>
+              <button class="quick-amount-btn" onclick="setAmount(300000)">+30만</button>
+              <button class="quick-amount-btn" onclick="setAmount(500000)">+50만</button>
+              <button class="quick-amount-btn" onclick="setAmount(1250000)">전액</button>
+            </div>
+            <p class="form-hint">최소 출금 금액: 10,000원</p>
+            <p class="form-error" id="amountError"></p>
+          </div>
+
+          <div class="fee-info">
+            <div class="fee-info__row">
+              <span class="fee-info__label">출금 신청 금액</span>
+              <span class="fee-info__value" id="requestAmount">₩ 0</span>
+            </div>
+            <div class="fee-info__row">
+              <span class="fee-info__label">출금 수수료 (무료)</span>
+              <span class="fee-info__value">₩ 0</span>
+            </div>
+            <div class="fee-info__row">
+              <span class="fee-info__label">실제 입금 금액</span>
+              <span class="fee-info__value fee-info__value--highlight" id="actualAmount">₩ 0</span>
+            </div>
+          </div>
+
+          <div class="notice-box">
+            <i data-lucide="info"></i>
+            <p class="notice-box__text">
+              출금 신청은 영업일 기준 1~2일 내에 처리됩니다.<br>
+              주말/공휴일에는 다음 영업일에 처리됩니다.
+            </p>
+          </div>
+
+          <div class="modal-actions">
+            <a href="9-3 계좌 관리.html" class="btn btn--secondary">취소</a>
+            <button class="btn btn--primary" onclick="requestWithdrawal()">
+              <i data-lucide="send" class="icon icon-sm"></i>
+              출금 신청
+            </button>
+          </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <div class="success-message__icon">
+            <i data-lucide="check"></i>
+          </div>
+          <h2 class="success-message__title">출금 신청 완료</h2>
+          <p class="success-message__desc">
+            출금 신청이 접수되었습니다.<br>
+            영업일 기준 1~2일 내에 처리됩니다.
+          </p>
+          <div class="success-message__amount" id="successAmount">₩ 500,000</div>
+          <div class="modal-actions" style="margin-top: var(--space-6);">
+            <a href="9-3 계좌 관리.html" class="btn btn--primary" style="flex: 1;">
+              <i data-lucide="check" class="icon icon-sm"></i>
+              확인
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+
+    const amountInput = document.getElementById('amount');
+    const requestAmountEl = document.getElementById('requestAmount');
+    const actualAmountEl = document.getElementById('actualAmount');
+    const maxAmount = 1250000;
+
+    amountInput.addEventListener('input', function(e) {
+      // 숫자만 허용
+      let value = e.target.value.replace(/[^\d]/g, '');
+      if (value) {
+        value = parseInt(value, 10);
+        if (value > maxAmount) value = maxAmount;
+        e.target.value = value.toLocaleString();
+        updateFeeInfo(value);
+      } else {
+        e.target.value = '';
+        updateFeeInfo(0);
+      }
+    });
+
+    function setAmount(amount) {
+      amountInput.value = amount.toLocaleString();
+      updateFeeInfo(amount);
+    }
+
+    function updateFeeInfo(amount) {
+      requestAmountEl.textContent = '₩ ' + amount.toLocaleString();
+      actualAmountEl.textContent = '₩ ' + amount.toLocaleString();
+    }
+
+    function requestWithdrawal() {
+      const amountStr = amountInput.value.replace(/,/g, '');
+      const amount = parseInt(amountStr, 10) || 0;
+      const amountError = document.getElementById('amountError');
+
+      if (!amount) {
+        amountError.textContent = '출금 금액을 입력해주세요.';
+        amountError.style.display = 'block';
+        return;
+      }
+
+      if (amount < 10000) {
+        amountError.textContent = '최소 출금 금액은 10,000원입니다.';
+        amountError.style.display = 'block';
+        return;
+      }
+
+      if (amount > maxAmount) {
+        amountError.textContent = '출금 가능 금액을 초과했습니다.';
+        amountError.style.display = 'block';
+        return;
+      }
+
+      amountError.style.display = 'none';
+
+      document.getElementById('successAmount').textContent = '₩ ' + amount.toLocaleString();
+      document.getElementById('formContainer').classList.add('hide');
+      document.getElementById('successMessage').classList.add('show');
+      Toast.success('출금 신청이 완료되었습니다.');
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

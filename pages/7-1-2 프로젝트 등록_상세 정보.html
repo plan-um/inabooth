@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로젝트 등록 - 상세 정보 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.main-content{padding-top:calc(var(--header-height) + var(--space-8));padding-bottom:var(--space-8);min-height:100vh}
+    .form-card{background:white;border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-card)}
+    .form-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .form-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-6)}
+    .progress-steps{display:flex;gap:var(--space-2);margin-bottom:var(--space-6)}
+    .step{flex:1;height:4px;background:var(--color-bg-secondary);border-radius:999px}
+    .step.active{background:var(--color-primary)}
+    .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
+
+    .content-box{padding:var(--space-8);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0;text-align:center}
+    .card-list{display:grid;gap:var(--space-4);margin:var(--space-6) 0}
+    .card-item{padding:var(--space-4);background:white;border:1px solid var(--color-border);border-radius:var(--radius-md)}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="main-content">
+    <div class="container">
+      <div class="form-card">
+        <div class="progress-steps"><div class="step active"></div><div class="step active"></div><div class="step "></div><div class="step "></div></div>
+        <h1 class="form-title">STEP 2. 상세 정보</h1>
+        <p class="form-subtitle">프로젝트 상세 내용을 작성해주세요</p>
+        <form>
+          <div class="form-group">
+            <label class="form-label">프로젝트 소개 <span style="color:var(--color-error)">*</span></label>
+            <textarea class="form-input" rows="5" placeholder="프로젝트의 목적, 배경, 기대 효과 등을 상세히 작성해주세요"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">희망하는 IP 스타일</label>
+            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;background:var(--color-primary-light);border-color:var(--color-primary)">
+                <input type="checkbox" checked> 귀여운/키치
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="checkbox"> 모던/미니멀
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="checkbox"> 레트로/빈티지
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;background:var(--color-primary-light);border-color:var(--color-primary)">
+                <input type="checkbox" checked> 동물/캐릭터
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="checkbox"> 일러스트/아트
+              </label>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4)">
+            <div class="form-group">
+              <label class="form-label">예상 예산 범위</label>
+              <select class="form-input">
+                <option>선택해주세요</option>
+                <option>500만원 미만</option>
+                <option selected>500만원 ~ 1,000만원</option>
+                <option>1,000만원 ~ 3,000만원</option>
+                <option>3,000만원 ~ 5,000만원</option>
+                <option>5,000만원 이상</option>
+                <option>협의 후 결정</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">수익 배분 방식</label>
+              <select class="form-input">
+                <option>선택해주세요</option>
+                <option selected>고정 라이선싱 비용</option>
+                <option>매출 기반 로열티</option>
+                <option>고정비 + 로열티 혼합</option>
+                <option>협의 후 결정</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">참고 자료 첨부</label>
+            <div style="border:2px dashed var(--color-border);border-radius:var(--radius-md);padding:var(--space-6);text-align:center;cursor:pointer">
+              <i data-lucide="upload" style="width:32px;height:32px;color:var(--color-text-tertiary);margin-bottom:var(--space-2)"></i>
+              <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">클릭하거나 파일을 드래그하여 업로드</div>
+              <div style="font-size:var(--font-size-xs);color:var(--color-text-tertiary);margin-top:var(--space-1)">PDF, JPG, PNG (최대 10MB)</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">추가 요구사항</label>
+            <textarea class="form-input" rows="3" placeholder="예: 저작권 등록된 IP만 지원 가능, SNS 팔로워 1만 이상 우대 등"></textarea>
+          </div>
+        </form>
+        <div class="form-actions">
+          <a href="7-1-1 프로젝트 등록_기본 정보.html" class="btn btn--secondary"><i data-lucide="arrow-left" class="icon"></i>이전</a>
+          <a href="7-1-3 프로젝트 등록_신청 양식.html" class="btn btn--primary">다음<i data-lucide="arrow-right" class="icon"></i></a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'project'});lucide.createIcons();</script>
+</body>
+</html>

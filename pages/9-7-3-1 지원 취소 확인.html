@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지원 취소 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .modal-page {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      min-height: 100vh;
+      padding-bottom: var(--space-8);
+      background: var(--color-bg-secondary);
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .modal-header__icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(239, 68, 68, 0.1);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .modal-header__icon i {
+      color: var(--color-error);
+      width: 32px;
+      height: 32px;
+    }
+
+    .modal-header__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+      color: var(--color-error);
+    }
+
+    .modal-header__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .cancel-target {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      margin-bottom: var(--space-6);
+    }
+
+    .cancel-target__project {
+      display: flex;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .cancel-target__project-image {
+      width: 80px;
+      height: 60px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .cancel-target__project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cancel-target__project-info {
+      flex: 1;
+    }
+
+    .cancel-target__project-name {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-1);
+    }
+
+    .cancel-target__project-company {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .cancel-target__ip {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .cancel-target__ip-image {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .cancel-target__ip-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cancel-target__ip-info {
+      flex: 1;
+    }
+
+    .cancel-target__ip-label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      margin-bottom: 2px;
+    }
+
+    .cancel-target__ip-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .cancel-target__meta {
+      display: flex;
+      gap: var(--space-4);
+      margin-top: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .cancel-target__meta-item {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .warning-box {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      margin-bottom: var(--space-6);
+    }
+
+    .warning-box__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-error);
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .warning-box__title i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .warning-box__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .warning-box__list li {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+      padding-left: var(--space-5);
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .warning-box__list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      background: var(--color-error);
+      border-radius: 50%;
+    }
+
+    .warning-box__list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .reason-section {
+      margin-bottom: var(--space-6);
+    }
+
+    .reason-section__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-3);
+    }
+
+    .reason-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .reason-option {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .reason-option:hover {
+      background: var(--color-primary-light);
+    }
+
+    .reason-option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-primary);
+    }
+
+    .reason-option label {
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .reason-textarea {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      resize: vertical;
+      min-height: 80px;
+      margin-top: var(--space-3);
+      display: none;
+    }
+
+    .reason-textarea.show {
+      display: block;
+    }
+
+    .reason-textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .confirm-section {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .confirm-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      cursor: pointer;
+    }
+
+    .confirm-checkbox input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--color-error);
+    }
+
+    .confirm-checkbox label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .btn--danger {
+      background: var(--color-error);
+      color: white;
+      border: none;
+    }
+
+    .btn--danger:hover {
+      background: #dc2626;
+    }
+
+    .btn--danger:disabled {
+      background: var(--color-border);
+      color: var(--color-text-tertiary);
+      cursor: not-allowed;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .modal-actions .btn {
+      flex: 1;
+    }
+
+    .success-message {
+      text-align: center;
+      padding: var(--space-6) 0;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-message__icon {
+      width: 80px;
+      height: 80px;
+      background: var(--color-bg-secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .success-message__icon i {
+      color: var(--color-text-tertiary);
+      width: 40px;
+      height: 40px;
+    }
+
+    .success-message__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .success-message__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .form-container {
+      display: block;
+    }
+
+    .form-container.hide {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="modal-page">
+    <div class="container">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-header__icon">
+            <i data-lucide="x-circle"></i>
+          </div>
+          <h1 class="modal-header__title">지원 취소</h1>
+          <p class="modal-header__desc">취소된 지원은 복구할 수 없습니다. 신중하게 결정해주세요.</p>
+        </div>
+
+        <div class="form-container" id="formContainer">
+          <div class="cancel-target">
+            <div class="cancel-target__project">
+              <div class="cancel-target__project-image">
+                <img src="https://picsum.photos/seed/app1/160/120" alt="프로젝트 이미지">
+              </div>
+              <div class="cancel-target__project-info">
+                <div class="cancel-target__project-name">글로벌 식음료 브랜드 여름 캠페인</div>
+                <div class="cancel-target__project-company">
+                  <i data-lucide="building" class="icon-sm"></i>
+                  ABC 코퍼레이션
+                </div>
+              </div>
+            </div>
+            <div class="cancel-target__ip">
+              <div class="cancel-target__ip-image">
+                <img src="https://picsum.photos/seed/ip1/96/96" alt="IP 이미지">
+              </div>
+              <div class="cancel-target__ip-info">
+                <div class="cancel-target__ip-label">지원 IP</div>
+                <div class="cancel-target__ip-name">귀여운 곰돌이 친구들</div>
+              </div>
+            </div>
+            <div class="cancel-target__meta">
+              <span class="cancel-target__meta-item">
+                <i data-lucide="calendar" class="icon-sm"></i>
+                지원일: 2024.01.15
+              </span>
+              <span class="cancel-target__meta-item">
+                <i data-lucide="clock" class="icon-sm"></i>
+                상태: 검토 대기
+              </span>
+            </div>
+          </div>
+
+          <div class="warning-box">
+            <div class="warning-box__title">
+              <i data-lucide="alert-triangle"></i>
+              취소 시 유의사항
+            </div>
+            <ul class="warning-box__list">
+              <li>지원서 및 제출한 모든 자료가 삭제됩니다</li>
+              <li>동일 프로젝트에 재지원은 가능하지만, 이전 지원 내역은 복구되지 않습니다</li>
+              <li>프로젝트 담당자에게 지원 취소 알림이 발송됩니다</li>
+              <li>취소 후에는 되돌릴 수 없습니다</li>
+            </ul>
+          </div>
+
+          <div class="reason-section">
+            <h3 class="reason-section__title">취소 사유를 선택해주세요 (선택)</h3>
+            <div class="reason-options">
+              <div class="reason-option">
+                <input type="radio" name="cancelReason" id="reason1" value="schedule">
+                <label for="reason1">일정이 맞지 않아서</label>
+              </div>
+              <div class="reason-option">
+                <input type="radio" name="cancelReason" id="reason2" value="condition">
+                <label for="reason2">조건이 맞지 않아서</label>
+              </div>
+              <div class="reason-option">
+                <input type="radio" name="cancelReason" id="reason3" value="other_project">
+                <label for="reason3">다른 프로젝트와 진행하게 되어서</label>
+              </div>
+              <div class="reason-option">
+                <input type="radio" name="cancelReason" id="reason4" value="personal">
+                <label for="reason4">개인 사정으로 인해</label>
+              </div>
+              <div class="reason-option">
+                <input type="radio" name="cancelReason" id="reason5" value="other">
+                <label for="reason5">기타</label>
+              </div>
+            </div>
+            <textarea class="reason-textarea" id="reasonDetail" placeholder="취소 사유를 자세히 적어주세요 (선택)"></textarea>
+          </div>
+
+          <div class="confirm-section">
+            <div class="confirm-checkbox">
+              <input type="checkbox" id="confirmCheck">
+              <label for="confirmCheck">
+                위 내용을 모두 확인했으며, 지원 취소에 동의합니다.
+                취소 후 데이터 복구가 불가능함을 이해합니다.
+              </label>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <a href="9-7-3 마이부스_지원 현황.html" class="btn btn--secondary">돌아가기</a>
+            <button class="btn btn--danger" id="cancelBtn" onclick="cancelApplication()" disabled>
+              <i data-lucide="x-circle" class="icon icon-sm"></i>
+              지원 취소
+            </button>
+          </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <div class="success-message__icon">
+            <i data-lucide="check"></i>
+          </div>
+          <h2 class="success-message__title">지원이 취소되었습니다</h2>
+          <p class="success-message__desc">
+            '글로벌 식음료 브랜드 여름 캠페인' 프로젝트 지원이 취소되었습니다.<br>
+            프로젝트 담당자에게 취소 안내가 발송되었습니다.
+          </p>
+          <div class="modal-actions" style="margin-top: var(--space-6);">
+            <a href="9-7-3 마이부스_지원 현황.html" class="btn btn--primary" style="flex: 1;">
+              <i data-lucide="check" class="icon icon-sm"></i>
+              확인
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+
+    const confirmCheck = document.getElementById('confirmCheck');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const reasonRadios = document.querySelectorAll('input[name="cancelReason"]');
+    const reasonDetail = document.getElementById('reasonDetail');
+
+    confirmCheck.addEventListener('change', function() {
+      cancelBtn.disabled = !this.checked;
+    });
+
+    // 기타 선택 시 상세 입력 표시
+    reasonRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        if (this.value === 'other') {
+          reasonDetail.classList.add('show');
+        } else {
+          reasonDetail.classList.remove('show');
+        }
+      });
+    });
+
+    function cancelApplication() {
+      document.getElementById('formContainer').classList.add('hide');
+      document.getElementById('successMessage').classList.add('show');
+      Toast.success('지원이 취소되었습니다.');
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

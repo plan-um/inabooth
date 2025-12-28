@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>닉네임 수정 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .modal-page {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      min-height: 100vh;
+      padding-bottom: var(--space-8);
+      background: var(--color-bg-secondary);
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .modal-header__icon {
+      width: 64px;
+      height: 64px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .modal-header__icon i {
+      color: var(--color-primary);
+      width: 28px;
+      height: 28px;
+    }
+
+    .modal-header__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .modal-header__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-6);
+    }
+
+    .form-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-2);
+      color: var(--color-text-primary);
+    }
+
+    .form-input-wrapper {
+      position: relative;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      padding-right: var(--space-12);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
+      transition: all var(--transition-fast);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-light);
+    }
+
+    .form-input.error {
+      border-color: var(--color-error);
+    }
+
+    .form-input.success {
+      border-color: var(--color-success);
+    }
+
+    .input-status {
+      position: absolute;
+      right: var(--space-3);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .input-status i {
+      width: 20px;
+      height: 20px;
+    }
+
+    .input-status--success i {
+      color: var(--color-success);
+    }
+
+    .input-status--error i {
+      color: var(--color-error);
+    }
+
+    .char-count {
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--space-2);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .char-count--warning {
+      color: var(--color-warning);
+    }
+
+    .char-count--error {
+      color: var(--color-error);
+    }
+
+    .form-hint {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-2);
+    }
+
+    .form-error {
+      font-size: var(--font-size-xs);
+      color: var(--color-error);
+      margin-top: var(--space-2);
+      display: none;
+    }
+
+    .form-error.show {
+      display: block;
+    }
+
+    .nickname-rules {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .nickname-rules__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-3);
+      color: var(--color-text-primary);
+    }
+
+    .nickname-rules__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nickname-rules__item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-2);
+    }
+
+    .nickname-rules__item:last-child {
+      margin-bottom: 0;
+    }
+
+    .nickname-rules__item i {
+      width: 14px;
+      height: 14px;
+    }
+
+    .nickname-rules__item.valid {
+      color: var(--color-success);
+    }
+
+    .nickname-rules__item.invalid {
+      color: var(--color-error);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .modal-actions .btn {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="modal-page">
+    <div class="container">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-header__icon">
+            <i data-lucide="edit-2"></i>
+          </div>
+          <h1 class="modal-header__title">닉네임 수정</h1>
+          <p class="modal-header__desc">새로운 닉네임을 입력해주세요.</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">현재 닉네임</label>
+          <input type="text" class="form-input" value="홍길동" disabled style="background: var(--color-bg-secondary); color: var(--color-text-tertiary);">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="nickname">새 닉네임</label>
+          <div class="form-input-wrapper">
+            <input type="text" class="form-input" id="nickname" placeholder="새 닉네임을 입력하세요" maxlength="20">
+            <div class="input-status" id="inputStatus"></div>
+          </div>
+          <div class="char-count">
+            <span id="charCount">0/20</span>
+            <span id="charHint"></span>
+          </div>
+          <p class="form-error" id="errorMsg"></p>
+        </div>
+
+        <div class="nickname-rules">
+          <div class="nickname-rules__title">닉네임 규칙</div>
+          <ul class="nickname-rules__list">
+            <li class="nickname-rules__item" id="rule1">
+              <i data-lucide="circle"></i>
+              <span>2-20자 이내</span>
+            </li>
+            <li class="nickname-rules__item" id="rule2">
+              <i data-lucide="circle"></i>
+              <span>한글, 영문, 숫자 사용 가능</span>
+            </li>
+            <li class="nickname-rules__item" id="rule3">
+              <i data-lucide="circle"></i>
+              <span>특수문자 사용 불가</span>
+            </li>
+            <li class="nickname-rules__item" id="rule4">
+              <i data-lucide="circle"></i>
+              <span>공백 사용 불가</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="modal-actions">
+          <a href="9-1 프로필 관리.html" class="btn btn--secondary">취소</a>
+          <button class="btn btn--primary" id="saveBtn" onclick="saveNickname()">
+            <i data-lucide="check" class="icon icon-sm"></i>
+            저장하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+
+    const nicknameInput = document.getElementById('nickname');
+    const charCount = document.getElementById('charCount');
+    const inputStatus = document.getElementById('inputStatus');
+    const errorMsg = document.getElementById('errorMsg');
+    const rule1 = document.getElementById('rule1');
+    const rule2 = document.getElementById('rule2');
+    const rule3 = document.getElementById('rule3');
+    const rule4 = document.getElementById('rule4');
+
+    nicknameInput.addEventListener('input', validateNickname);
+
+    function validateNickname() {
+      const value = nicknameInput.value;
+      const length = value.length;
+
+      charCount.textContent = `${length}/20`;
+
+      // 규칙 검증
+      const isLengthValid = length >= 2 && length <= 20;
+      const isCharValid = /^[가-힣a-zA-Z0-9]*$/.test(value);
+      const hasNoSpecial = !/[!@#$%^&*(),.?":{}|<>_\-+=\[\]\\\/`~';]/.test(value);
+      const hasNoSpace = !/\s/.test(value);
+
+      // 규칙 UI 업데이트
+      updateRule(rule1, length === 0 ? null : isLengthValid);
+      updateRule(rule2, length === 0 ? null : isCharValid);
+      updateRule(rule3, length === 0 ? null : hasNoSpecial);
+      updateRule(rule4, length === 0 ? null : hasNoSpace);
+
+      // 전체 유효성 검사
+      const isValid = isLengthValid && isCharValid && hasNoSpecial && hasNoSpace;
+
+      if (length === 0) {
+        nicknameInput.classList.remove('success', 'error');
+        inputStatus.innerHTML = '';
+        errorMsg.classList.remove('show');
+      } else if (isValid) {
+        nicknameInput.classList.remove('error');
+        nicknameInput.classList.add('success');
+        inputStatus.innerHTML = '<i data-lucide="check-circle"></i>';
+        inputStatus.className = 'input-status input-status--success';
+        errorMsg.classList.remove('show');
+        lucide.createIcons();
+      } else {
+        nicknameInput.classList.remove('success');
+        nicknameInput.classList.add('error');
+        inputStatus.innerHTML = '<i data-lucide="alert-circle"></i>';
+        inputStatus.className = 'input-status input-status--error';
+
+        // 에러 메시지 표시
+        let msg = '';
+        if (!isLengthValid && length > 0) msg = '닉네임은 2-20자 이내로 입력해주세요.';
+        else if (!hasNoSpace) msg = '공백은 사용할 수 없습니다.';
+        else if (!hasNoSpecial) msg = '특수문자는 사용할 수 없습니다.';
+        else if (!isCharValid) msg = '한글, 영문, 숫자만 사용 가능합니다.';
+
+        errorMsg.textContent = msg;
+        errorMsg.classList.add('show');
+        lucide.createIcons();
+      }
+    }
+
+    function updateRule(element, isValid) {
+      element.classList.remove('valid', 'invalid');
+      if (isValid === true) {
+        element.classList.add('valid');
+        element.querySelector('i').setAttribute('data-lucide', 'check-circle');
+      } else if (isValid === false) {
+        element.classList.add('invalid');
+        element.querySelector('i').setAttribute('data-lucide', 'x-circle');
+      } else {
+        element.querySelector('i').setAttribute('data-lucide', 'circle');
+      }
+      lucide.createIcons();
+    }
+
+    function saveNickname() {
+      const value = nicknameInput.value;
+      if (!value) {
+        Toast.warning('새 닉네임을 입력해주세요.');
+        return;
+      }
+      if (!nicknameInput.classList.contains('success')) {
+        Toast.error('닉네임 규칙을 확인해주세요.');
+        return;
+      }
+      Toast.success('닉네임이 변경되었습니다.');
+      setTimeout(() => {
+        window.location.href = '9-1 프로필 관리.html';
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

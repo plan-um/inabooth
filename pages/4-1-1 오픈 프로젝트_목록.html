@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오픈 프로젝트 목록 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+/* Banner - Same as 4-1 */
+    .banner-section {
+      position: relative;
+      margin-top: var(--header-height);
+      height: 180px;
+      overflow: hidden;
+    }
+
+    .banner-section__bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .banner-section__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+    }
+
+    .banner-section__content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
+    .banner-section__title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .banner-section__desc {
+      font-size: var(--font-size-base);
+      opacity: 0.95;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    /* Tabs - Same as 4-1 */
+    .tabs-section {
+      padding: var(--space-6) 0;
+      background: white;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .tabs {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .tab {
+      padding: var(--space-3) var(--space-5);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-tertiary);
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .tab:hover {
+      color: var(--color-text-primary);
+    }
+
+    .tab.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+
+    .content-wrapper {
+      display: flex;
+      gap: var(--space-8);
+      padding: var(--space-8) 0 var(--space-16);
+    }
+
+    /* Filters Sidebar */
+    .filters-sidebar {
+      width: 280px;
+      flex-shrink: 0;
+    }
+
+    .filter-section {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+      box-shadow: var(--shadow-card);
+    }
+
+    .filter-section__title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .filter-section__clear {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      cursor: pointer;
+    }
+
+    .filter-section__clear:hover {
+      color: var(--color-primary);
+    }
+
+    /* Card-style radio buttons */
+    .radio-cards {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .radio-card {
+      position: relative;
+    }
+
+    .radio-card input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .radio-card__label {
+      display: block;
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-bg-secondary);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .radio-card__label:hover {
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-primary);
+    }
+
+    .radio-card input[type="radio"]:checked + .radio-card__label {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Checkbox cards */
+    .checkbox-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .checkbox-card {
+      position: relative;
+    }
+
+    .checkbox-card input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .checkbox-card__label {
+      display: block;
+      padding: var(--space-2) var(--space-3);
+      background: var(--color-bg-secondary);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .checkbox-card__label:hover {
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-primary);
+    }
+
+    .checkbox-card input[type="checkbox"]:checked + .checkbox-card__label {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+    }
+
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .content-header__info {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .content-header__info strong {
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .sort-select {
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--font-size-sm);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: white;
+      color: var(--color-text-primary);
+      cursor: pointer;
+    }
+
+    /* Project Grid */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .project-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-normal);
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .project-card__img-wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: var(--color-bg-secondary);
+      overflow: hidden;
+    }
+
+    .project-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-normal);
+    }
+
+    .project-card:hover .project-card__img {
+      transform: scale(1.05);
+    }
+
+    .project-card__badge {
+      position: absolute;
+      top: var(--space-3);
+      left: var(--space-3);
+      padding: var(--space-1) var(--space-3);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-sm);
+      background: var(--color-accent-pink);
+      color: white;
+    }
+
+    .project-card__content {
+      padding: var(--space-5);
+    }
+
+    .project-card__type {
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-2);
+    }
+
+    .project-card__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-3);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .project-card__company {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-4);
+    }
+
+    .project-card__company-img {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .project-card__company-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-card__company-name {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .project-card__footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .project-card__deadline {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .project-card__deadline--urgent {
+      color: var(--color-error);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .project-card__scrap {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full);
+      color: var(--color-text-tertiary);
+      transition: all var(--transition-fast);
+    }
+
+    .project-card__scrap:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-accent-pink);
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-12);
+    }
+
+    .pagination__btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      background: white;
+      border: 1px solid var(--color-border);
+      transition: all var(--transition-fast);
+    }
+
+    .pagination__btn:hover:not(.active) {
+      background: var(--color-bg-secondary);
+      border-color: var(--color-border);
+    }
+
+    .pagination__btn.active {
+      background: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+
+    .footer__social-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .footer__links a {
+      color: rgba(255, 255, 255, 0.7);
+      transition: color var(--transition-fast);
+    }
+
+    .footer__links a:hover {
+      color: white;
+    }
+
+    .footer__lang-btn:hover,
+    .footer__lang-btn.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <!-- Banner Section - Same as 4-1 -->
+  <section class="banner-section">
+    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&h=400&fit=crop" alt="오픈 프로젝트" class="banner-section__bg">
+    <div class="banner-section__overlay"></div>
+    <div class="container banner-section__content">
+      <div>
+        <h1 class="banner-section__title">오픈 프로젝트</h1>
+        <p class="banner-section__desc">브랜드와 함께하는 협업 프로젝트를 찾아보세요</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabs Section - Same as 4-1 -->
+  <section class="tabs-section">
+    <div class="container">
+      <div class="tabs">
+        <a href="4-1 오픈 프로젝트.html" class="tab">맞춤 프로젝트</a>
+        <a href="4-1 오픈 프로젝트.html" class="tab">마감 임박</a>
+        <a href="4-1 오픈 프로젝트.html" class="tab">인기</a>
+        <a href="4-1-1 오픈 프로젝트_목록.html" class="tab active">전체</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="content-wrapper">
+      <!-- Filters Sidebar -->
+      <aside class="filters-sidebar">
+        <!-- Status Filter -->
+        <div class="filter-section">
+          <div class="filter-section__title">
+            진행 상태
+            <span class="filter-section__clear">초기화</span>
+          </div>
+          <div class="radio-cards">
+            <div class="radio-card">
+              <input type="radio" name="status" id="status-all" value="all" checked>
+              <label for="status-all" class="radio-card__label">전체</label>
+            </div>
+            <div class="radio-card">
+              <input type="radio" name="status" id="status-open" value="open">
+              <label for="status-open" class="radio-card__label">모집중</label>
+            </div>
+            <div class="radio-card">
+              <input type="radio" name="status" id="status-closed" value="closed">
+              <label for="status-closed" class="radio-card__label">마감</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Type Filter -->
+        <div class="filter-section">
+          <div class="filter-section__title">협업 유형</div>
+          <div class="checkbox-cards">
+            <div class="checkbox-card">
+              <input type="checkbox" id="type-package" value="package">
+              <label for="type-package" class="checkbox-card__label">제품 패키지</label>
+            </div>
+            <div class="checkbox-card">
+              <input type="checkbox" id="type-fashion" value="fashion">
+              <label for="type-fashion" class="checkbox-card__label">패션</label>
+            </div>
+            <div class="checkbox-card">
+              <input type="checkbox" id="type-fnb" value="fnb">
+              <label for="type-fnb" class="checkbox-card__label">F&B</label>
+            </div>
+            <div class="checkbox-card">
+              <input type="checkbox" id="type-stationery" value="stationery">
+              <label for="type-stationery" class="checkbox-card__label">문구/오피스</label>
+            </div>
+            <div class="checkbox-card">
+              <input type="checkbox" id="type-living" value="living">
+              <label for="type-living" class="checkbox-card__label">리빙</label>
+            </div>
+            <div class="checkbox-card">
+              <input type="checkbox" id="type-beauty" value="beauty">
+              <label for="type-beauty" class="checkbox-card__label">뷰티</label>
+            </div>
+            <div class="checkbox-card">
+              <input type="checkbox" id="type-event" value="event">
+              <label for="type-event" class="checkbox-card__label">행사/전시</label>
+            </div>
+            <div class="checkbox-card">
+              <input type="checkbox" id="type-digital" value="digital">
+              <label for="type-digital" class="checkbox-card__label">디지털</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Budget Filter -->
+        <div class="filter-section">
+          <div class="filter-section__title">예산 규모</div>
+          <div class="radio-cards">
+            <div class="radio-card">
+              <input type="radio" name="budget" id="budget-all" value="all" checked>
+              <label for="budget-all" class="radio-card__label">전체</label>
+            </div>
+            <div class="radio-card">
+              <input type="radio" name="budget" id="budget-1" value="0-30">
+              <label for="budget-1" class="radio-card__label">3천만원 미만</label>
+            </div>
+            <div class="radio-card">
+              <input type="radio" name="budget" id="budget-2" value="30-50">
+              <label for="budget-2" class="radio-card__label">3천~5천만원</label>
+            </div>
+            <div class="radio-card">
+              <input type="radio" name="budget" id="budget-3" value="50-100">
+              <label for="budget-3" class="radio-card__label">5천만원~1억</label>
+            </div>
+            <div class="radio-card">
+              <input type="radio" name="budget" id="budget-4" value="100+">
+              <label for="budget-4" class="radio-card__label">1억 이상</label>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="content-header">
+          <div class="content-header__info">
+            총 <strong>48</strong>개 프로젝트
+          </div>
+          <select class="sort-select">
+            <option value="recent">최신 등록순</option>
+            <option value="deadline">마감 임박순</option>
+            <option value="popular">인기순</option>
+          </select>
+        </div>
+
+        <div class="project-grid">
+          <!-- Projects 1-9 -->
+          <div class="project-card" onclick="window.location.href='4-2 프로젝트 상세.html'">
+            <div class="project-card__img-wrap">
+              <div class="project-card__img" style="background-image:url('https://picsum.photos/seed/card7/800/400');background-size:cover;background-position:center;"></div>
+              <span class="project-card__badge">인기</span>
+            </div>
+            <div class="project-card__content">
+              <div class="project-card__type">제품 패키지 디자인</div>
+              <h3 class="project-card__title">F&B 브랜드 캐릭터 협업 프로젝트</h3>
+              <div class="project-card__company">
+                <div class="project-card__company-img"><img src="https://picsum.photos/seed/brand38/200/200" alt="brand" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+                <span class="project-card__company-name">(주)푸드컴퍼니</span>
+              </div>
+              <div class="project-card__footer">
+                <div class="project-card__deadline">
+                  <i data-lucide="clock" class="icon icon-sm"></i>
+                  D-15
+                </div>
+                <button class="project-card__scrap">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="window.location.href='4-2 프로젝트 상세.html'">
+            <div class="project-card__img-wrap">
+              <div class="project-card__img" style="background-image:url('https://picsum.photos/seed/card8/800/400');background-size:cover;background-position:center;"></div>
+              <span class="project-card__badge">신규</span>
+            </div>
+            <div class="project-card__content">
+              <div class="project-card__type">패션 콜라보</div>
+              <h3 class="project-card__title">MZ세대 타겟 의류 브랜드 협업</h3>
+              <div class="project-card__company">
+                <div class="project-card__company-img"><img src="https://picsum.photos/seed/brand39/200/200" alt="brand" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+                <span class="project-card__company-name">패션하우스</span>
+              </div>
+              <div class="project-card__footer">
+                <div class="project-card__deadline project-card__deadline--urgent">
+                  <i data-lucide="clock" class="icon icon-sm"></i>
+                  D-3
+                </div>
+                <button class="project-card__scrap">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="window.location.href='4-2 프로젝트 상세.html'">
+            <div class="project-card__img-wrap">
+              <div class="project-card__img" style="background-image:url('https://picsum.photos/seed/card9/800/400');background-size:cover;background-position:center;"></div>
+            </div>
+            <div class="project-card__content">
+              <div class="project-card__type">문구/오피스</div>
+              <h3 class="project-card__title">감성 문구 브랜드 시즌 한정판</h3>
+              <div class="project-card__company">
+                <div class="project-card__company-img"><img src="https://picsum.photos/seed/brand40/200/200" alt="brand" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+                <span class="project-card__company-name">스테이셔너리코</span>
+              </div>
+              <div class="project-card__footer">
+                <div class="project-card__deadline">
+                  <i data-lucide="clock" class="icon icon-sm"></i>
+                  D-22
+                </div>
+                <button class="project-card__scrap">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="window.location.href='4-2 프로젝트 상세.html'">
+            <div class="project-card__img-wrap">
+              <div class="project-card__img" style="background-image:url('https://picsum.photos/seed/card10/800/400');background-size:cover;background-position:center;"></div>
+            </div>
+            <div class="project-card__content">
+              <div class="project-card__type">카페 콜라보</div>
+              <h3 class="project-card__title">카페 브랜드 시즌 음료 협업</h3>
+              <div class="project-card__company">
+                <div class="project-card__company-img"><img src="https://picsum.photos/seed/brand41/200/200" alt="brand" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+                <span class="project-card__company-name">카페앤</span>
+              </div>
+              <div class="project-card__footer">
+                <div class="project-card__deadline">
+                  <i data-lucide="clock" class="icon icon-sm"></i>
+                  D-10
+                </div>
+                <button class="project-card__scrap">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="window.location.href='4-2 프로젝트 상세.html'">
+            <div class="project-card__img-wrap">
+              <div class="project-card__img" style="background-image:url('https://picsum.photos/seed/card11/800/400');background-size:cover;background-position:center;"></div>
+            </div>
+            <div class="project-card__content">
+              <div class="project-card__type">리빙/인테리어</div>
+              <h3 class="project-card__title">홈퍼니싱 브랜드 제품 라인 확장</h3>
+              <div class="project-card__company">
+                <div class="project-card__company-img"><img src="https://picsum.photos/seed/brand42/200/200" alt="brand" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+                <span class="project-card__company-name">리빙플러스</span>
+              </div>
+              <div class="project-card__footer">
+                <div class="project-card__deadline">
+                  <i data-lucide="clock" class="icon icon-sm"></i>
+                  D-18
+                </div>
+                <button class="project-card__scrap">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="window.location.href='4-2 프로젝트 상세.html'">
+            <div class="project-card__img-wrap">
+              <div class="project-card__img" style="background-image:url('https://picsum.photos/seed/card12/800/400');background-size:cover;background-position:center;"></div>
+            </div>
+            <div class="project-card__content">
+              <div class="project-card__type">뷰티/헬스</div>
+              <h3 class="project-card__title">코스메틱 브랜드 한정판 패키지</h3>
+              <div class="project-card__company">
+                <div class="project-card__company-img"><img src="https://picsum.photos/seed/brand43/200/200" alt="brand" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+                <span class="project-card__company-name">뷰티랩</span>
+              </div>
+              <div class="project-card__footer">
+                <div class="project-card__deadline">
+                  <i data-lucide="clock" class="icon icon-sm"></i>
+                  D-25
+                </div>
+                <button class="project-card__scrap">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="window.location.href='4-2 프로젝트 상세.html'">
+            <div class="project-card__img-wrap">
+              <div class="project-card__img" style="background-image:url('https://picsum.photos/seed/card13/800/400');background-size:cover;background-position:center;"></div>
+            </div>
+            <div class="project-card__content">
+              <div class="project-card__type">행사/전시</div>
+              <h3 class="project-card__title">팝업스토어 캐릭터 협업 기획</h3>
+              <div class="project-card__company">
+                <div class="project-card__company-img"><img src="https://picsum.photos/seed/brand44/200/200" alt="brand" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+                <span class="project-card__company-name">이벤트컴퍼니</span>
+              </div>
+              <div class="project-card__footer">
+                <div class="project-card__deadline">
+                  <i data-lucide="clock" class="icon icon-sm"></i>
+                  D-30
+                </div>
+                <button class="project-card__scrap">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="window.location.href='4-2 프로젝트 상세.html'">
+            <div class="project-card__img-wrap">
+              <div class="project-card__img" style="background-image:url('https://picsum.photos/seed/card14/800/400');background-size:cover;background-position:center;"></div>
+            </div>
+            <div class="project-card__content">
+              <div class="project-card__type">디지털 콘텐츠</div>
+              <h3 class="project-card__title">모바일 앱 캐릭터 디자인 협업</h3>
+              <div class="project-card__company">
+                <div class="project-card__company-img"><img src="https://picsum.photos/seed/brand45/200/200" alt="brand" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+                <span class="project-card__company-name">테크스타트업</span>
+              </div>
+              <div class="project-card__footer">
+                <div class="project-card__deadline">
+                  <i data-lucide="clock" class="icon icon-sm"></i>
+                  D-12
+                </div>
+                <button class="project-card__scrap">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="window.location.href='4-2 프로젝트 상세.html'">
+            <div class="project-card__img-wrap">
+              <div class="project-card__img" style="background-image:url('https://picsum.photos/seed/card15/800/400');background-size:cover;background-position:center;"></div>
+            </div>
+            <div class="project-card__content">
+              <div class="project-card__type">제품 패키지</div>
+              <h3 class="project-card__title">베이커리 브랜드 시즌 포장 디자인</h3>
+              <div class="project-card__company">
+                <div class="project-card__company-img"><img src="https://picsum.photos/seed/brand46/200/200" alt="brand" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+                <span class="project-card__company-name">베이커리앤코</span>
+              </div>
+              <div class="project-card__footer">
+                <div class="project-card__deadline">
+                  <i data-lucide="clock" class="icon icon-sm"></i>
+                  D-20
+                </div>
+                <button class="project-card__scrap">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <button class="pagination__btn">
+            <i data-lucide="chevron-left" class="icon icon-sm"></i>
+          </button>
+          <button class="pagination__btn active">1</button>
+          <button class="pagination__btn">2</button>
+          <button class="pagination__btn">3</button>
+          <button class="pagination__btn">4</button>
+          <button class="pagination__btn">5</button>
+          <button class="pagination__btn">
+            <i data-lucide="chevron-right" class="icon icon-sm"></i>
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="./components/shared.js"></script>
+  <script>
+    initPage({ activePage: 'project' });
+    lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로젝트 관리 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.main-content{padding-top:calc(var(--header-height) + var(--space-8));padding-bottom:var(--space-8);min-height:100vh}
+    .form-card{background:white;border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-card)}
+    .form-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .form-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-6)}
+    .progress-steps{display:flex;gap:var(--space-2);margin-bottom:var(--space-6)}
+    .step{flex:1;height:4px;background:var(--color-bg-secondary);border-radius:999px}
+    .step.active{background:var(--color-primary)}
+    .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
+
+    .content-box{padding:var(--space-8);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0;text-align:center}
+    .card-list{display:grid;gap:var(--space-4);margin:var(--space-6) 0}
+    .card-item{padding:var(--space-4);background:white;border:1px solid var(--color-border);border-radius:var(--radius-md)}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="main-content">
+    <div class="container">
+      <div class="form-card">
+        
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-6)">
+          <div>
+            <h1 class="form-title">내 프로젝트 관리</h1>
+            <p class="form-subtitle" style="margin-bottom:0">등록된 프로젝트를 관리하세요</p>
+          </div>
+          <a href="7-1 프로젝트 등록.html" class="btn btn--primary"><i data-lucide="plus" class="icon-sm"></i> 새 프로젝트 등록</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);margin-bottom:var(--space-6)">
+          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
+            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);color:var(--color-primary)">2</div>
+            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">진행중 프로젝트</div>
+          </div>
+          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
+            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);color:var(--color-success)">12</div>
+            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">총 지원자</div>
+          </div>
+          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
+            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);color:var(--color-warning)">3</div>
+            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">검토 대기</div>
+          </div>
+          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
+            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold)">1</div>
+            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">완료 프로젝트</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+          <a href="7-2-1 프로젝트 관리_상세.html" style="padding:var(--space-5);background:var(--color-bg-secondary);border-radius:var(--radius-md);border:1px solid var(--color-border);cursor:pointer;transition:all var(--transition-fast)" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='var(--color-border)'">
+            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:var(--space-3)">
+              <div>
+                <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1)">
+                  <span style="font-size:var(--font-size-lg);font-weight:600">2024 여름 시즌 굿즈 콜라보</span>
+                  <span class="badge" style="background:var(--color-success-light);color:var(--color-success)">모집중</span>
+                </div>
+                <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">문구/오피스 • 라이선싱 • 모집기간: 2024.02.01 ~ 2024.02.28</div>
+              </div>
+              <i data-lucide="chevron-right" style="color:var(--color-text-tertiary)"></i>
+            </div>
+            <div style="display:flex;gap:var(--space-6);font-size:var(--font-size-sm)">
+              <div><span style="color:var(--color-text-tertiary)">지원자:</span> <span style="font-weight:600;color:var(--color-primary)">8명</span></div>
+              <div><span style="color:var(--color-text-tertiary)">조회수:</span> <span style="font-weight:600">1,234</span></div>
+              <div><span style="color:var(--color-text-tertiary)">관심:</span> <span style="font-weight:600">45</span></div>
+            </div>
+          </a>
+
+          <a href="7-2-1 프로젝트 관리_상세.html" style="padding:var(--space-5);background:var(--color-bg-secondary);border-radius:var(--radius-md);border:1px solid var(--color-border);cursor:pointer;transition:all var(--transition-fast)" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='var(--color-border)'">
+            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:var(--space-3)">
+              <div>
+                <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1)">
+                  <span style="font-size:var(--font-size-lg);font-weight:600">신제품 패키지 디자인</span>
+                  <span class="badge" style="background:var(--color-warning-light);color:var(--color-warning)">검토중</span>
+                </div>
+                <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">식품/F&B • 콜라보레이션 • 모집기간: 2024.01.15 ~ 2024.02.15</div>
+              </div>
+              <i data-lucide="chevron-right" style="color:var(--color-text-tertiary)"></i>
+            </div>
+            <div style="display:flex;gap:var(--space-6);font-size:var(--font-size-sm)">
+              <div><span style="color:var(--color-text-tertiary)">지원자:</span> <span style="font-weight:600;color:var(--color-primary)">4명</span></div>
+              <div><span style="color:var(--color-text-tertiary)">조회수:</span> <span style="font-weight:600">856</span></div>
+              <div><span style="color:var(--color-text-tertiary)">관심:</span> <span style="font-weight:600">23</span></div>
+            </div>
+          </a>
+
+          <a href="7-2-1 프로젝트 관리_상세.html" style="padding:var(--space-5);background:var(--color-bg-secondary);border-radius:var(--radius-md);border:1px solid var(--color-border);cursor:pointer;transition:all var(--transition-fast);opacity:0.7" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='var(--color-border)'">
+            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:var(--space-3)">
+              <div>
+                <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1)">
+                  <span style="font-size:var(--font-size-lg);font-weight:600">2023 홀리데이 에디션</span>
+                  <span class="badge" style="background:var(--color-bg-secondary);color:var(--color-text-tertiary);border:1px solid var(--color-border)">완료</span>
+                </div>
+                <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">인테리어/리빙 • 라이선싱 • 협업 완료: 2023.12.20</div>
+              </div>
+              <i data-lucide="chevron-right" style="color:var(--color-text-tertiary)"></i>
+            </div>
+            <div style="display:flex;gap:var(--space-6);font-size:var(--font-size-sm)">
+              <div><span style="color:var(--color-text-tertiary)">선정:</span> <span style="font-weight:600">스튜디오 베어</span></div>
+              <div><span style="color:var(--color-text-tertiary)">총 지원자:</span> <span style="font-weight:600">15명</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'project'});lucide.createIcons();</script>
+</body>
+</html>

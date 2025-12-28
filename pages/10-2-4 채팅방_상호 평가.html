@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>채팅방 - 상호 평가 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main style="padding-top:calc(var(--header-height) + var(--space-8));min-height:70vh;padding-bottom:var(--space-8)">
+    <div class="container">
+      <div class="page-section">
+        <h1 class="page-section__title">협업 평가</h1>
+        <p class="page-section__desc">협업이 완료되었습니다! 파트너에 대한 평가를 남겨주세요.</p>
+
+        <div style="background:white;border-radius:var(--radius-lg);padding:var(--space-6);box-shadow:var(--shadow-card);max-width:640px;margin:0 auto">
+          <div style="text-align:center;padding:var(--space-6);background:linear-gradient(135deg, var(--color-primary-light), var(--color-secondary-light));border-radius:var(--radius-lg);margin-bottom:var(--space-6)">
+            <div style="width:80px;height:80px;margin:0 auto var(--space-4);background:white;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-card)">
+              <i data-lucide="trophy" style="width:40px;height:40px;color:var(--color-warning)"></i>
+            </div>
+            <h2 style="font-size:var(--font-size-xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)">협업 완료!</h2>
+            <p style="color:var(--color-text-secondary);font-size:var(--font-size-sm)">2024 여름 시즌 콜라보레이션 • 스튜디오 베어</p>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin-bottom:var(--space-6)">
+            <img src="images/characters/Random Objects (1).png" style="width:60px;height:60px;border-radius:var(--radius-md);object-fit:cover">
+            <div style="flex:1">
+              <div style="font-weight:var(--font-weight-semibold)">귀여운 곰돌이 친구들</div>
+              <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">스튜디오 베어</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:var(--space-6)">
+            <label style="display:block;font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);margin-bottom:var(--space-3)">전반적인 만족도</label>
+            <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-4)">
+              <button style="font-size:32px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+              <button style="font-size:32px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+              <button style="font-size:32px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+              <button style="font-size:32px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+              <button style="font-size:32px;background:none;border:none;cursor:pointer;color:var(--color-border)">&#9733;</button>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);margin-bottom:var(--space-6)">
+            <div>
+              <label style="display:block;font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);margin-bottom:var(--space-2)">커뮤니케이션</label>
+              <div style="display:flex;gap:var(--space-1)">
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+              </div>
+            </div>
+            <div>
+              <label style="display:block;font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);margin-bottom:var(--space-2)">일정 준수</label>
+              <div style="display:flex;gap:var(--space-1)">
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-border)">&#9733;</button>
+              </div>
+            </div>
+            <div>
+              <label style="display:block;font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);margin-bottom:var(--space-2)">결과물 품질</label>
+              <div style="display:flex;gap:var(--space-1)">
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+              </div>
+            </div>
+            <div>
+              <label style="display:block;font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);margin-bottom:var(--space-2)">재협업 의향</label>
+              <div style="display:flex;gap:var(--space-1)">
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+                <button style="font-size:20px;background:none;border:none;cursor:pointer;color:var(--color-warning)">&#9733;</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:var(--space-6)">
+            <label style="display:block;font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);margin-bottom:var(--space-2)">후기 작성 (선택)</label>
+            <textarea class="form-input" rows="4" placeholder="협업 경험에 대한 솔직한 후기를 남겨주세요. 다른 사용자들에게 도움이 됩니다." style="width:100%;resize:vertical"></textarea>
+          </div>
+
+          <div style="display:flex;gap:var(--space-3)">
+            <button class="btn btn--secondary" style="flex:1">나중에 하기</button>
+            <button class="btn btn--primary" style="flex:1"><i data-lucide="check" class="icon-sm"></i> 평가 제출</button>
+          </div>
+        </div>
+
+        <div class="page-actions">
+          <a href="10-2-3 채팅방_협업 완료.html" class="btn btn--secondary btn--lg"><i data-lucide="arrow-left" class="icon-sm"></i>이전</a>
+          <a href="10-3 문의 폼 모달.html" class="btn btn--primary btn--lg">다음<i data-lucide="arrow-right" class="icon-sm"></i></a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'mypage', isLoggedIn: true});</script>
+</body>
+</html>

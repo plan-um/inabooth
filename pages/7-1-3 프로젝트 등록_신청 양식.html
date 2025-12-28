@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로젝트 등록 - 신청 양식 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.main-content{padding-top:calc(var(--header-height) + var(--space-8));padding-bottom:var(--space-8);min-height:100vh}
+    .form-card{background:white;border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-card)}
+    .form-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .form-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-6)}
+    .progress-steps{display:flex;gap:var(--space-2);margin-bottom:var(--space-6)}
+    .step{flex:1;height:4px;background:var(--color-bg-secondary);border-radius:999px}
+    .step.active{background:var(--color-primary)}
+    .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
+
+    .content-box{padding:var(--space-8);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0;text-align:center}
+    .card-list{display:grid;gap:var(--space-4);margin:var(--space-6) 0}
+    .card-item{padding:var(--space-4);background:white;border:1px solid var(--color-border);border-radius:var(--radius-md)}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="main-content">
+    <div class="container">
+      <div class="form-card">
+        <div class="progress-steps"><div class="step active"></div><div class="step active"></div><div class="step active"></div><div class="step "></div></div>
+        <h1 class="form-title">STEP 3. 신청 양식</h1>
+        <p class="form-subtitle">지원자 신청 양식을 커스터마이징하세요</p>
+        <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);margin-bottom:var(--space-6)">
+          <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary)"><i data-lucide="info" class="icon-sm" style="vertical-align:middle;margin-right:var(--space-1)"></i> 지원자가 제출해야 할 정보를 설정하세요. 기본 항목은 필수이며, 추가 질문을 자유롭게 구성할 수 있습니다.</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">기본 항목 (필수)</label>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <label style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md)">
+              <span style="display:flex;align-items:center;gap:var(--space-2)"><i data-lucide="image" class="icon-sm"></i> IP 포트폴리오</span>
+              <input type="checkbox" checked disabled style="width:18px;height:18px">
+            </label>
+            <label style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md)">
+              <span style="display:flex;align-items:center;gap:var(--space-2)"><i data-lucide="file-text" class="icon-sm"></i> 지원 동기</span>
+              <input type="checkbox" checked disabled style="width:18px;height:18px">
+            </label>
+            <label style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md)">
+              <span style="display:flex;align-items:center;gap:var(--space-2)"><i data-lucide="mail" class="icon-sm"></i> 연락처 정보</span>
+              <input type="checkbox" checked disabled style="width:18px;height:18px">
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">선택 항목</label>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <label style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+              <span style="display:flex;align-items:center;gap:var(--space-2)"><i data-lucide="trending-up" class="icon-sm"></i> SNS 팔로워 정보</span>
+              <input type="checkbox" checked style="width:18px;height:18px">
+            </label>
+            <label style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+              <span style="display:flex;align-items:center;gap:var(--space-2)"><i data-lucide="briefcase" class="icon-sm"></i> 협업 이력</span>
+              <input type="checkbox" checked style="width:18px;height:18px">
+            </label>
+            <label style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+              <span style="display:flex;align-items:center;gap:var(--space-2)"><i data-lucide="dollar-sign" class="icon-sm"></i> 희망 조건 (금액/로열티)</span>
+              <input type="checkbox" style="width:18px;height:18px">
+            </label>
+            <label style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+              <span style="display:flex;align-items:center;gap:var(--space-2)"><i data-lucide="shield" class="icon-sm"></i> 저작권 등록 여부</span>
+              <input type="checkbox" checked style="width:18px;height:18px">
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3)">
+            <label class="form-label" style="margin-bottom:0">추가 질문</label>
+            <button type="button" class="btn btn--secondary" style="font-size:var(--font-size-sm)"><i data-lucide="plus" class="icon-sm"></i> 질문 추가</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <div style="padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md)">
+              <div style="display:flex;justify-content:space-between;align-items:start;gap:var(--space-3)">
+                <div style="flex:1">
+                  <input type="text" class="form-input" value="이 프로젝트에 특별히 기여할 수 있는 부분이 있다면 설명해주세요" style="margin-bottom:var(--space-2)">
+                  <select class="form-input" style="width:150px;font-size:var(--font-size-sm)">
+                    <option selected>텍스트 입력</option>
+                    <option>객관식</option>
+                    <option>파일 첨부</option>
+                  </select>
+                </div>
+                <button type="button" style="color:var(--color-text-tertiary);padding:var(--space-2)"><i data-lucide="trash-2" class="icon-sm"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <a href="7-1-2 프로젝트 등록_상세 정보.html" class="btn btn--secondary"><i data-lucide="arrow-left" class="icon"></i>이전</a>
+          <a href="7-1-4 프로젝트 등록_공개_결제.html" class="btn btn--primary">다음<i data-lucide="arrow-right" class="icon"></i></a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'project'});lucide.createIcons();</script>
+</body>
+</html>

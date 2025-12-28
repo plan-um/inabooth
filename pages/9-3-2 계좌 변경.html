@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>계좌 변경 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .modal-page {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      min-height: 100vh;
+      padding-bottom: var(--space-8);
+      background: var(--color-bg-secondary);
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .modal-header__icon {
+      width: 64px;
+      height: 64px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .modal-header__icon i {
+      color: var(--color-primary);
+      width: 28px;
+      height: 28px;
+    }
+
+    .modal-header__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .modal-header__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .current-account {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .current-account__label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-2);
+    }
+
+    .current-account__details {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .current-account__bank-logo {
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+    }
+
+    .current-account__bank-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .current-account__number {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-5);
+    }
+
+    .form-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-2);
+      color: var(--color-text-primary);
+    }
+
+    .form-label .required {
+      color: var(--color-error);
+    }
+
+    .form-select {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
+      background: white;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 18px;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-light);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
+      transition: all var(--transition-fast);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-light);
+    }
+
+    .form-hint {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-2);
+    }
+
+    .form-error {
+      font-size: var(--font-size-xs);
+      color: var(--color-error);
+      margin-top: var(--space-2);
+      display: none;
+    }
+
+    .verify-input-group {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .verify-input-group .form-input {
+      flex: 1;
+    }
+
+    .verify-status {
+      display: none;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+      font-size: var(--font-size-sm);
+    }
+
+    .verify-status.show {
+      display: flex;
+    }
+
+    .verify-status--success {
+      color: var(--color-success);
+    }
+
+    .verify-status--error {
+      color: var(--color-error);
+    }
+
+    .verify-status i {
+      width: 16px;
+      height: 16px;
+    }
+
+    .notice-box {
+      background: var(--color-primary-light);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .notice-box i {
+      color: var(--color-primary);
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .notice-box__text {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .modal-actions .btn {
+      flex: 1;
+    }
+
+    .success-message {
+      text-align: center;
+      padding: var(--space-6) 0;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-message__icon {
+      width: 80px;
+      height: 80px;
+      background: var(--color-success-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .success-message__icon i {
+      color: var(--color-success);
+      width: 40px;
+      height: 40px;
+    }
+
+    .success-message__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .success-message__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .success-message__account {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-top: var(--space-4);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .success-message__bank-logo {
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+    }
+
+    .success-message__bank-info {
+      text-align: left;
+    }
+
+    .success-message__bank-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .success-message__account-number {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .form-container {
+      display: block;
+    }
+
+    .form-container.hide {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="modal-page">
+    <div class="container">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-header__icon">
+            <i data-lucide="credit-card"></i>
+          </div>
+          <h1 class="modal-header__title">계좌 변경</h1>
+          <p class="modal-header__desc">새로운 정산 계좌를 등록합니다.</p>
+        </div>
+
+        <div class="form-container" id="formContainer">
+          <div class="current-account">
+            <div class="current-account__label">현재 등록된 계좌</div>
+            <div class="current-account__details">
+              <div class="current-account__bank-logo">KB</div>
+              <div>
+                <div class="current-account__bank-name">국민은행</div>
+                <div class="current-account__number">123-456-****** (홍길동)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="bank">은행 선택 <span class="required">*</span></label>
+            <select class="form-select" id="bank">
+              <option value="">은행을 선택하세요</option>
+              <option value="kb">국민은행</option>
+              <option value="shinhan">신한은행</option>
+              <option value="woori">우리은행</option>
+              <option value="hana">하나은행</option>
+              <option value="nh">농협은행</option>
+              <option value="ibk">기업은행</option>
+              <option value="sc">SC제일은행</option>
+              <option value="citi">씨티은행</option>
+              <option value="kakao">카카오뱅크</option>
+              <option value="toss">토스뱅크</option>
+              <option value="kbank">케이뱅크</option>
+            </select>
+            <p class="form-error" id="bankError"></p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="accountNumber">계좌번호 <span class="required">*</span></label>
+            <div class="verify-input-group">
+              <input type="text" class="form-input" id="accountNumber" placeholder="-없이 숫자만 입력" inputmode="numeric">
+              <button class="btn btn--outline" id="verifyBtn" onclick="verifyAccount()">계좌 확인</button>
+            </div>
+            <div class="verify-status verify-status--success" id="verifySuccess">
+              <i data-lucide="check-circle"></i>
+              <span>예금주: <strong id="accountHolder">홍길동</strong></span>
+            </div>
+            <div class="verify-status verify-status--error" id="verifyError">
+              <i data-lucide="x-circle"></i>
+              <span id="verifyErrorMsg">계좌 정보를 확인해주세요.</span>
+            </div>
+            <p class="form-hint">계좌번호를 입력 후 계좌 확인 버튼을 눌러주세요.</p>
+            <p class="form-error" id="accountError"></p>
+          </div>
+
+          <div class="notice-box">
+            <i data-lucide="info"></i>
+            <p class="notice-box__text">
+              본인 명의의 계좌만 등록 가능합니다.<br>
+              계좌 변경 후 다음 정산부터 새 계좌로 입금됩니다.
+            </p>
+          </div>
+
+          <div class="modal-actions">
+            <a href="9-3 계좌 관리.html" class="btn btn--secondary">취소</a>
+            <button class="btn btn--primary" id="saveBtn" onclick="saveAccount()" disabled>
+              <i data-lucide="check" class="icon icon-sm"></i>
+              계좌 변경
+            </button>
+          </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <div class="success-message__icon">
+            <i data-lucide="check"></i>
+          </div>
+          <h2 class="success-message__title">계좌 변경 완료</h2>
+          <p class="success-message__desc">
+            정산 계좌가 성공적으로 변경되었습니다.
+          </p>
+          <div class="success-message__account">
+            <div class="success-message__bank-logo" id="successBankLogo">KB</div>
+            <div class="success-message__bank-info">
+              <div class="success-message__bank-name" id="successBankName">국민은행</div>
+              <div class="success-message__account-number" id="successAccountNumber">123-456-789012 (홍길동)</div>
+            </div>
+          </div>
+          <div class="modal-actions" style="margin-top: var(--space-6);">
+            <a href="9-3 계좌 관리.html" class="btn btn--primary" style="flex: 1;">
+              <i data-lucide="check" class="icon icon-sm"></i>
+              확인
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+
+    const bankSelect = document.getElementById('bank');
+    const accountInput = document.getElementById('accountNumber');
+    const saveBtn = document.getElementById('saveBtn');
+    const verifySuccess = document.getElementById('verifySuccess');
+    const verifyError = document.getElementById('verifyError');
+
+    let isVerified = false;
+
+    // 숫자만 입력
+    accountInput.addEventListener('input', function(e) {
+      e.target.value = e.target.value.replace(/[^\d]/g, '');
+      isVerified = false;
+      updateButtonState();
+      hideVerifyStatus();
+    });
+
+    bankSelect.addEventListener('change', function() {
+      isVerified = false;
+      updateButtonState();
+      hideVerifyStatus();
+    });
+
+    function hideVerifyStatus() {
+      verifySuccess.classList.remove('show');
+      verifyError.classList.remove('show');
+    }
+
+    function updateButtonState() {
+      saveBtn.disabled = !isVerified;
+    }
+
+    function verifyAccount() {
+      const bank = bankSelect.value;
+      const account = accountInput.value;
+
+      if (!bank) {
+        Toast.warning('은행을 선택해주세요.');
+        return;
+      }
+
+      if (!account || account.length < 10) {
+        Toast.warning('올바른 계좌번호를 입력해주세요.');
+        return;
+      }
+
+      // 시뮬레이션: 계좌 확인 성공
+      Toast.success('계좌 확인이 완료되었습니다.');
+      document.getElementById('accountHolder').textContent = '홍길동';
+      verifySuccess.classList.add('show');
+      verifyError.classList.remove('show');
+      isVerified = true;
+      updateButtonState();
+      lucide.createIcons();
+    }
+
+    function saveAccount() {
+      if (!isVerified) {
+        Toast.warning('계좌 확인을 먼저 진행해주세요.');
+        return;
+      }
+
+      const bankSelect = document.getElementById('bank');
+      const bankName = bankSelect.options[bankSelect.selectedIndex].text;
+      const bankCode = bankSelect.value.toUpperCase();
+      const accountNumber = accountInput.value;
+
+      // 성공 화면 정보 업데이트
+      document.getElementById('successBankLogo').textContent = getBankLogo(bankCode);
+      document.getElementById('successBankName').textContent = bankName;
+      document.getElementById('successAccountNumber').textContent =
+        formatAccountNumber(accountNumber) + ' (홍길동)';
+
+      Toast.success('계좌가 변경되었습니다.');
+      document.getElementById('formContainer').classList.add('hide');
+      document.getElementById('successMessage').classList.add('show');
+      lucide.createIcons();
+    }
+
+    function getBankLogo(code) {
+      const logos = {
+        'KB': 'KB',
+        'SHINHAN': '신한',
+        'WOORI': '우리',
+        'HANA': '하나',
+        'NH': 'NH',
+        'IBK': 'IBK',
+        'SC': 'SC',
+        'CITI': 'Citi',
+        'KAKAO': 'K',
+        'TOSS': 'T',
+        'KBANK': 'K'
+      };
+      return logos[code] || code.slice(0, 2);
+    }
+
+    function formatAccountNumber(num) {
+      if (num.length <= 4) return num;
+      return num.slice(0, 3) + '-' + num.slice(3, 6) + '-' + num.slice(6);
+    }
+  </script>
+</body>
+</html>

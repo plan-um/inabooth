@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로필 관리 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .settings-page {
+      padding-top: calc(var(--header-height) + var(--space-4));
+      padding-bottom: var(--space-8);
+      min-height: 100vh;
+      background: var(--color-bg-secondary);
+    }
+
+    .settings-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: var(--space-6);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .settings-nav {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-card);
+      height: fit-content;
+    }
+
+    .settings-nav__link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+
+    .settings-nav__link:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .settings-nav__link.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .settings-content {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+    }
+
+    .settings-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .settings-desc {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .profile-avatar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      padding-bottom: var(--space-8);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .profile-avatar__image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      position: relative;
+    }
+
+    .profile-avatar__edit {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 36px;
+      height: 36px;
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .profile-avatar__edit:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    .profile-avatar__info h3 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-1);
+    }
+
+    .profile-avatar__info p {
+      color: var(--color-text-tertiary);
+      font-size: var(--font-size-sm);
+    }
+
+    .profile-field {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .profile-field:last-child {
+      border-bottom: none;
+    }
+
+    .profile-field__label {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-1);
+    }
+
+    .profile-field__value {
+      font-size: var(--font-size-base);
+      color: var(--color-text-primary);
+    }
+
+    .profile-field__value--muted {
+      color: var(--color-text-tertiary);
+      font-style: italic;
+    }
+
+    .profile-field__action .btn {
+      padding: var(--space-2) var(--space-4);
+    }
+
+    @media (max-width: 768px) {
+      .settings-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-nav {
+        position: static;
+        display: flex;
+        overflow-x: auto;
+        gap: var(--space-2);
+        padding: var(--space-3);
+      }
+
+      .settings-nav__link {
+        white-space: nowrap;
+      }
+
+      .profile-avatar {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="settings-page">
+    <div class="container">
+      <div class="settings-layout">
+        <!-- 설정 사이드바 -->
+        <nav class="settings-nav">
+          <a href="9-1 프로필 관리.html" class="settings-nav__link active">
+            <i data-lucide="user" class="icon icon-sm"></i>
+            프로필 관리
+          </a>
+          <a href="9-2 설정.html" class="settings-nav__link">
+            <i data-lucide="settings" class="icon icon-sm"></i>
+            계정 설정
+          </a>
+          <a href="9-3 계좌 관리.html" class="settings-nav__link">
+            <i data-lucide="credit-card" class="icon icon-sm"></i>
+            계좌 관리
+          </a>
+          <a href="9-4 요금제 관리.html" class="settings-nav__link">
+            <i data-lucide="crown" class="icon icon-sm"></i>
+            요금제
+          </a>
+          <a href="9-5 관리자 초대.html" class="settings-nav__link">
+            <i data-lucide="users" class="icon icon-sm"></i>
+            관리자 초대
+          </a>
+          <a href="9-6 알림 설정.html" class="settings-nav__link">
+            <i data-lucide="bell" class="icon icon-sm"></i>
+            알림 설정
+          </a>
+        </nav>
+
+        <!-- 프로필 관리 콘텐츠 -->
+        <div class="settings-content">
+          <h1 class="settings-title">프로필 관리</h1>
+          <p class="settings-desc">회원 정보를 관리하고 프로필을 수정할 수 있습니다.</p>
+
+          <div class="profile-section">
+            <!-- 프로필 이미지 -->
+            <div class="profile-avatar">
+              <div class="profile-avatar__image">
+                H
+                <a href="9-1-1 프로필 이미지 업로드.html" class="profile-avatar__edit">
+                  <i data-lucide="camera" class="icon icon-sm"></i>
+                </a>
+              </div>
+              <div class="profile-avatar__info">
+                <h3>홍길동</h3>
+                <p>IP 홀더 (개인 크리에이터)</p>
+              </div>
+            </div>
+
+            <!-- 닉네임 -->
+            <div class="profile-field">
+              <div>
+                <div class="profile-field__label">닉네임</div>
+                <div class="profile-field__value">홍길동</div>
+              </div>
+              <div class="profile-field__action">
+                <a href="9-1-2 닉네임 수정.html" class="btn btn--outline">
+                  <i data-lucide="edit-2" class="icon icon-sm"></i>
+                  수정
+                </a>
+              </div>
+            </div>
+
+            <!-- 소개글 -->
+            <div class="profile-field">
+              <div>
+                <div class="profile-field__label">소개글</div>
+                <div class="profile-field__value">안녕하세요! 귀여운 캐릭터를 그리는 일러스트레이터입니다. 다양한 브랜드와의 협업을 환영합니다.</div>
+              </div>
+              <div class="profile-field__action">
+                <a href="9-1-3 소개글 수정.html" class="btn btn--outline">
+                  <i data-lucide="edit-2" class="icon icon-sm"></i>
+                  수정
+                </a>
+              </div>
+            </div>
+
+            <!-- 이메일 -->
+            <div class="profile-field">
+              <div>
+                <div class="profile-field__label">이메일</div>
+                <div class="profile-field__value">hong***@email.com</div>
+              </div>
+              <div class="profile-field__action">
+                <a href="9-1-4 이메일 변경.html" class="btn btn--outline">
+                  <i data-lucide="edit-2" class="icon icon-sm"></i>
+                  변경
+                </a>
+              </div>
+            </div>
+
+            <!-- 가입 유형 -->
+            <div class="profile-field">
+              <div>
+                <div class="profile-field__label">회원 유형</div>
+                <div class="profile-field__value">
+                  <span style="display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-1) var(--space-3); background: var(--color-primary-light); color: var(--color-primary); border-radius: var(--radius-full); font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);">
+                    <i data-lucide="palette" class="icon icon-sm"></i>
+                    IPH-C (개인 크리에이터)
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 가입일 -->
+            <div class="profile-field">
+              <div>
+                <div class="profile-field__label">가입일</div>
+                <div class="profile-field__value">2024년 3월 15일</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

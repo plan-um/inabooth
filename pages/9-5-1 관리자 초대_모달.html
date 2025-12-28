@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 초대 모달 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main style="padding-top:calc(var(--header-height) + var(--space-8));min-height:70vh;padding-bottom:var(--space-8)">
+    <div class="container">
+      <div class="page-section">
+        <h1 class="page-section__title">관리자 초대</h1>
+        <p class="page-section__desc">팀원을 초대하여 함께 프로젝트를 관리하세요.</p>
+
+        <div style="background:white;border-radius:var(--radius-lg);padding:var(--space-6);box-shadow:var(--shadow-card);max-width:600px;margin:0 auto">
+          <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-6)">
+            <div style="width:48px;height:48px;background:var(--color-primary-light);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center">
+              <i data-lucide="user-plus" style="color:var(--color-primary)"></i>
+            </div>
+            <div>
+              <h3 style="font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold)">새 관리자 초대</h3>
+              <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">이메일로 초대장을 보내세요</p>
+            </div>
+          </div>
+
+          <div style="margin-bottom:var(--space-4)">
+            <label style="display:block;font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);margin-bottom:var(--space-2)">이메일 주소</label>
+            <input type="email" placeholder="colleague@company.com" class="form-input" style="width:100%">
+          </div>
+
+          <div style="margin-bottom:var(--space-6)">
+            <label style="display:block;font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);margin-bottom:var(--space-2)">역할</label>
+            <div style="display:flex;gap:var(--space-3)">
+              <label style="flex:1;display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="radio" name="role" value="admin" checked>
+                <div>
+                  <div style="font-weight:600;font-size:var(--font-size-sm)">관리자</div>
+                  <div style="font-size:var(--font-size-xs);color:var(--color-text-tertiary)">모든 권한</div>
+                </div>
+              </label>
+              <label style="flex:1;display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="radio" name="role" value="editor">
+                <div>
+                  <div style="font-weight:600;font-size:var(--font-size-sm)">편집자</div>
+                  <div style="font-size:var(--font-size-xs);color:var(--color-text-tertiary)">콘텐츠 편집</div>
+                </div>
+              </label>
+              <label style="flex:1;display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="radio" name="role" value="viewer">
+                <div>
+                  <div style="font-weight:600;font-size:var(--font-size-sm)">뷰어</div>
+                  <div style="font-size:var(--font-size-xs);color:var(--color-text-tertiary)">읽기 전용</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn--primary" style="width:100%"><i data-lucide="send" class="icon-sm"></i> 초대장 보내기</button>
+
+          <hr style="margin:var(--space-6) 0;border:none;border-top:1px solid var(--color-border)">
+
+          <h4 style="font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-4)">대기 중인 초대</h4>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md)">
+              <div style="display:flex;align-items:center;gap:var(--space-3)">
+                <div style="width:36px;height:36px;background:var(--color-warning-light);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center">
+                  <i data-lucide="clock" class="icon-sm" style="color:var(--color-warning)"></i>
+                </div>
+                <div>
+                  <div style="font-size:var(--font-size-sm);font-weight:600">kim@studio.com</div>
+                  <div style="font-size:var(--font-size-xs);color:var(--color-text-tertiary)">편집자 • 2024.02.10 초대</div>
+                </div>
+              </div>
+              <button style="font-size:var(--font-size-xs);color:var(--color-error);background:none;border:none;cursor:pointer">취소</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md)">
+              <div style="display:flex;align-items:center;gap:var(--space-3)">
+                <div style="width:36px;height:36px;background:var(--color-warning-light);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center">
+                  <i data-lucide="clock" class="icon-sm" style="color:var(--color-warning)"></i>
+                </div>
+                <div>
+                  <div style="font-size:var(--font-size-sm);font-weight:600">lee@partner.co.kr</div>
+                  <div style="font-size:var(--font-size-xs);color:var(--color-text-tertiary)">뷰어 • 2024.02.08 초대</div>
+                </div>
+              </div>
+              <button style="font-size:var(--font-size-xs);color:var(--color-error);background:none;border:none;cursor:pointer">취소</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-actions">
+          <a href="9-5 관리자 초대.html" class="btn btn--secondary btn--lg"><i data-lucide="arrow-left" class="icon-sm"></i>이전</a>
+          <a href="9-6 알림 설정.html" class="btn btn--primary btn--lg">다음<i data-lucide="arrow-right" class="icon-sm"></i></a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'mypage', isLoggedIn: true});</script>
+</body>
+</html>

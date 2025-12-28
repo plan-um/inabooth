@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>채팅 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .chat-page {
+      padding-top: calc(var(--header-height) + var(--space-6));
+      min-height: 100vh;
+      background: var(--color-bg-secondary);
+      padding-bottom: var(--space-8);
+    }
+
+    .chat-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 0;
+      background: white;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      min-height: calc(100vh - var(--header-height) - var(--space-12));
+    }
+
+    /* 채팅 목록 사이드바 */
+    .chat-sidebar {
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-sidebar__header {
+      padding: var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .chat-sidebar__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-4);
+    }
+
+    .chat-search {
+      position: relative;
+    }
+
+    .chat-search__input {
+      width: 100%;
+      padding: var(--space-3) var(--space-4) var(--space-3) 44px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      background: var(--color-bg-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .chat-search__input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      background: white;
+    }
+
+    .chat-search__icon {
+      position: absolute;
+      left: var(--space-4);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-tertiary);
+    }
+
+    /* 채팅 필터 탭 */
+    .chat-tabs {
+      display: flex;
+      padding: 0 var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .chat-tab {
+      padding: var(--space-4) var(--space-4);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-tertiary);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .chat-tab:hover {
+      color: var(--color-text-secondary);
+    }
+
+    .chat-tab.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+
+    .chat-tab__count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      margin-left: 6px;
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .chat-tab.active .chat-tab__count {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    /* 채팅 목록 */
+    .chat-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .chat-item {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--color-border-light);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+
+    .chat-item:hover {
+      background: var(--color-bg-secondary);
+    }
+
+    .chat-item.active {
+      background: var(--color-primary-light);
+    }
+
+    .chat-item.unread {
+      background: rgba(79, 70, 229, 0.03);
+    }
+
+    .chat-item__avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: var(--color-bg-tertiary);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .chat-item__avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .chat-item__content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chat-item__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .chat-item__name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+    }
+
+    .chat-item__time {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .chat-item__project {
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+      margin-bottom: 4px;
+    }
+
+    .chat-item__message {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chat-item.unread .chat-item__message {
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+    }
+
+    .chat-item__badge {
+      width: 8px;
+      height: 8px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      margin-left: var(--space-2);
+    }
+
+    /* 채팅 없음 상태 */
+    .chat-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-16);
+      color: var(--color-text-tertiary);
+      text-align: center;
+    }
+
+    .chat-empty__icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: var(--space-4);
+    }
+
+    /* 채팅 메인 영역 (선택 전) */
+    .chat-main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-bg-secondary);
+      color: var(--color-text-tertiary);
+      text-align: center;
+      padding: var(--space-8);
+    }
+
+    .chat-main__icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: var(--space-4);
+      opacity: 0.5;
+    }
+
+    .chat-main__text {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-medium);
+    }
+
+    @media (max-width: 768px) {
+      .chat-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .chat-main {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="chat-page">
+    <div class="container">
+      <div class="chat-layout">
+        <!-- 채팅 목록 사이드바 -->
+        <aside class="chat-sidebar">
+          <div class="chat-sidebar__header">
+            <h1 class="chat-sidebar__title">메시지</h1>
+            <div class="chat-search">
+              <i data-lucide="search" class="icon icon-sm chat-search__icon"></i>
+              <input type="text" class="chat-search__input" placeholder="대화 검색...">
+            </div>
+          </div>
+
+          <div class="chat-tabs">
+            <button class="chat-tab active">
+              전체
+              <span class="chat-tab__count">5</span>
+            </button>
+            <button class="chat-tab">
+              진행중
+              <span class="chat-tab__count">3</span>
+            </button>
+            <button class="chat-tab">
+              완료
+              <span class="chat-tab__count">2</span>
+            </button>
+          </div>
+
+          <div class="chat-list">
+            <!-- 읽지 않은 채팅 -->
+            <a href="10-2 채팅방 상세.html" class="chat-item unread">
+              <div class="chat-item__avatar">
+                <img src="https://picsum.photos/seed/bear1/100/100" alt="곰돌이 친구들">
+              </div>
+              <div class="chat-item__content">
+                <div class="chat-item__header">
+                  <span class="chat-item__name">스튜디오 베어</span>
+                  <span class="chat-item__time">방금 전</span>
+                </div>
+                <div class="chat-item__project">🎯 2025 여름 캠페인 프로젝트</div>
+                <div class="chat-item__message">네, 협업 조건 검토 후 내일까지 회신드리겠습니다!</div>
+              </div>
+              <span class="chat-item__badge"></span>
+            </a>
+
+            <a href="10-2 채팅방 상세.html" class="chat-item unread">
+              <div class="chat-item__avatar" style="background: linear-gradient(135deg, #EC4899, #8B5CF6);"><img src="https://i.pravatar.cc/150?img=2" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+              <div class="chat-item__content">
+                <div class="chat-item__header">
+                  <span class="chat-item__name">핑크래빗 스튜디오</span>
+                  <span class="chat-item__time">2시간 전</span>
+                </div>
+                <div class="chat-item__project">🎯 브랜드 콜라보 문의</div>
+                <div class="chat-item__message">포트폴리오 확인했습니다. 미팅 일정 조율 가능하실까요?</div>
+              </div>
+              <span class="chat-item__badge"></span>
+            </a>
+
+            <!-- 읽은 채팅 -->
+            <a href="10-2-1 채팅방_제안_수락.html" class="chat-item">
+              <div class="chat-item__avatar" style="background: linear-gradient(135deg, #06B6D4, #3B82F6);"><img src="https://i.pravatar.cc/150?img=3" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+              <div class="chat-item__content">
+                <div class="chat-item__header">
+                  <span class="chat-item__name">오션프렌즈</span>
+                  <span class="chat-item__time">어제</span>
+                </div>
+                <div class="chat-item__project">🎯 키즈 F&B 패키지 협업</div>
+                <div class="chat-item__message">계약서 초안 전달드렸습니다. 확인 부탁드려요.</div>
+              </div>
+            </a>
+
+            <a href="10-2-2 채팅방_결제.html" class="chat-item">
+              <div class="chat-item__avatar" style="background: linear-gradient(135deg, #F59E0B, #EF4444);"><img src="https://i.pravatar.cc/150?img=4" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+              <div class="chat-item__content">
+                <div class="chat-item__header">
+                  <span class="chat-item__name">선샤인 캐릭터</span>
+                  <span class="chat-item__time">3일 전</span>
+                </div>
+                <div class="chat-item__project">🎯 문구류 라이선싱</div>
+                <div class="chat-item__message">결제가 완료되었습니다. 감사합니다!</div>
+              </div>
+            </a>
+
+            <a href="10-2-3 채팅방_협업 완료.html" class="chat-item">
+              <div class="chat-item__avatar" style="background: linear-gradient(135deg, #10B981, #14B8A6);"><img src="https://i.pravatar.cc/150?img=5" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+              <div class="chat-item__content">
+                <div class="chat-item__header">
+                  <span class="chat-item__name">그린몬스터즈</span>
+                  <span class="chat-item__time">1주일 전</span>
+                </div>
+                <div class="chat-item__project">✅ 에코 캠페인 완료</div>
+                <div class="chat-item__message">협업 정말 즐거웠습니다. 다음에 또 함께해요!</div>
+              </div>
+            </a>
+          </div>
+        </aside>
+
+        <!-- 채팅 메인 영역 -->
+        <div class="chat-main">
+          <i data-lucide="message-circle" class="chat-main__icon"></i>
+          <p class="chat-main__text">대화를 선택하세요</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'chat', isLoggedIn: true});
+    lucide.createIcons();
+
+    // 탭 전환
+    document.querySelectorAll('.chat-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.chat-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

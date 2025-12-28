@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BP 선택정보 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+*{box-sizing:border-box;margin:0;padding:0}.blob{position:fixed;border-radius:50%;filter:blur(100px);opacity:0.5;z-index:-1;pointer-events:none;animation:float 12s infinite ease-in-out}.blob-1{top:-15%;left:-10%;width:600px;height:600px;background:linear-gradient(135deg,#C7D2FE,#DDD6FE)}.blob-2{top:10%;right:-10%;width:500px;height:500px;background:linear-gradient(135deg,#FBCFE8,#FCE7F3);animation-delay:3s}@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(30px) scale(1.05)}}.logo{font-size:var(--font-size-xl);font-weight:var(--font-weight-bold);color:var(--color-primary)}.auth-container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:var(--space-8) var(--space-6)}.auth-box{width:100%;max-width:560px;background:white;border-radius:var(--radius-xl);padding:var(--space-12) var(--space-8);box-shadow:0 20px 50px -10px rgba(79,70,229,0.15)}.auth-header{text-align:center;margin-bottom:var(--space-8)}.auth-badge{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-4);background:var(--color-primary-light);color:var(--color-primary);font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);border-radius:999px;margin-bottom:var(--space-4)}.auth-title{font-size:var(--font-size-3xl);font-weight:var(--font-weight-extrabold);margin-bottom:var(--space-3)}.auth-subtitle{color:var(--color-text-secondary)}.form-label--optional{color:var(--color-text-tertiary);font-weight:var(--font-weight-medium)}.form-input::placeholder{color:var(--color-text-tertiary)}.checkbox-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-3)}.checkbox-item{border:1.5px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-3);cursor:pointer;transition:all var(--transition-fast);font-size:var(--font-size-sm);text-align:center}.checkbox-item:hover{border-color:var(--color-primary)}.checkbox-item input{display:none}.checkbox-item.selected{border-color:var(--color-primary);background:var(--color-primary-light);font-weight:var(--font-weight-semibold)}.btn-group{display:flex;justify-content:space-between;gap:var(--space-4);margin-top:var(--space-8)}.btn--ghost{color:var(--color-text-secondary);border:1.5px solid var(--color-border)}.btn--ghost:hover{background:var(--color-bg-secondary)}
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="logo">INABOOTH</a>
+    </div>
+  </header>
+
+  <main class="auth-container">
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="auth-badge">
+          <i data-lucide="briefcase" class="icon"></i>
+          BP 브랜드 파트너
+        </div>
+        <h1 class="auth-title">선택 정보 입력</h1>
+        <p class="auth-subtitle">더 나은 IP 추천을 위해 추가 정보를 입력해주세요 (선택사항)</p>
+      </div>
+
+      <form id="bpOptionalForm">
+        <div class="form-group">
+          <label class="form-label">
+            주요 제품/서비스
+            <span class="form-label--optional">(선택)</span>
+          </label>
+          <input type="text" class="form-input" placeholder="예: 캐주얼 의류, 식품, 화장품 등">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            선호 IP 스타일
+            <span class="form-label--optional">(복수 선택 가능)</span>
+          </label>
+          <div class="checkbox-grid">
+            <label class="checkbox-item">
+              <input type="checkbox" name="style" value="cute">
+              귀여운
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="style" value="simple">
+              심플/미니멀
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="style" value="trendy">
+              트렌디
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="style" value="emotional">
+              감성적
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="style" value="comic">
+              코믹/유머러스
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="style" value="luxury">
+              럭셔리
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="style" value="retro">
+              레트로/빈티지
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="style" value="modern">
+              모던
+            </label>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn--ghost" onclick="history.back()">
+            <i data-lucide="arrow-left" class="icon"></i>
+            이전
+          </button>
+          <button type="button" class="btn btn--outline" onclick="window.location.href='1-1-4 회원가입_완료.html'">
+            건너뛰기
+          </button>
+          <button type="submit" class="btn btn--primary">
+            가입 완료
+            <i data-lucide="check" class="icon"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    // Checkbox selection
+    document.querySelectorAll('.checkbox-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+        item.classList.toggle('selected', checkbox.checked);
+      });
+    });
+
+    document.getElementById('bpOptionalForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      window.location.href = '1-1-4 회원가입_완료.html';
+    });
+  </script>
+</body>
+</html>

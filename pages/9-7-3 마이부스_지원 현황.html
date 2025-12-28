@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지원 현황 - 마이부스 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .dashboard {
+      padding-top: calc(var(--header-height) + var(--space-6));
+      min-height: 100vh;
+      background: var(--color-bg-secondary);
+      padding-bottom: var(--space-8);
+    }
+
+    .dashboard__layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: var(--space-6);
+    }
+
+    /* 사이드바 */
+    .dashboard__sidebar {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-card);
+      height: fit-content;
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-6));
+    }
+
+    .sidebar__profile {
+      text-align: center;
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--space-6);
+    }
+
+    .sidebar__avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      margin: 0 auto var(--space-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .sidebar__name {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-1);
+    }
+
+    .sidebar__type {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-full);
+    }
+
+    .sidebar__nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .sidebar__link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .sidebar__link:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .sidebar__link.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .sidebar__link__badge {
+      margin-left: auto;
+      padding: 2px 8px;
+      background: var(--color-secondary);
+      color: white;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-full);
+    }
+
+    /* 메인 콘텐츠 */
+    .dashboard__main {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    /* 페이지 헤더 */
+    .page-header {
+      background: white;
+      padding: var(--space-6);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+    }
+
+    .page-header__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .page-header__desc {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      margin-top: var(--space-1);
+    }
+
+    /* 상태 요약 카드 */
+    .status-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+    }
+
+    .status-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+
+    .status-card__value {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-1);
+    }
+
+    .status-card__value--pending { color: var(--color-warning); }
+    .status-card__value--reviewing { color: var(--color-primary); }
+    .status-card__value--accepted { color: var(--color-success); }
+    .status-card__value--rejected { color: var(--color-text-tertiary); }
+
+    .status-card__label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    /* 지원 목록 */
+    .application-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .application-item {
+      display: flex;
+      gap: var(--space-5);
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-fast);
+    }
+
+    .application-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .application-item__image {
+      width: 140px;
+      height: 100px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .application-item__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .application-item__content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .application-item__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--space-2);
+    }
+
+    .application-item__status {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .application-item__status--pending {
+      background: var(--color-warning-light);
+      color: var(--color-warning);
+    }
+
+    .application-item__status--reviewing {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .application-item__status--accepted {
+      background: var(--color-success-light);
+      color: var(--color-success);
+    }
+
+    .application-item__status--rejected {
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-tertiary);
+    }
+
+    .application-item__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .application-item__meta {
+      display: flex;
+      gap: var(--space-4);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-3);
+    }
+
+    .application-item__meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .application-item__ip {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      margin-top: auto;
+    }
+
+    .application-item__ip-image {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .application-item__ip-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .application-item__ip-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .application-item__ip-label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .application-item__actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      justify-content: center;
+    }
+
+    .application-item__action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .application-item__action:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .application-item__action--primary {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    .application-item__action--primary:hover {
+      background: var(--color-primary-dark);
+      color: white;
+    }
+
+    .application-item__action--danger {
+      color: var(--color-error);
+    }
+
+    .application-item__action--danger:hover {
+      background: var(--color-error-light);
+      border-color: var(--color-error);
+    }
+
+    @media (max-width: 1024px) {
+      .status-summary { grid-template-columns: repeat(2, 1fr); }
+
+      .application-item {
+        flex-direction: column;
+      }
+
+      .application-item__image {
+        width: 100%;
+        height: 160px;
+      }
+
+      .application-item__actions {
+        flex-direction: row;
+        margin-top: var(--space-4);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard__layout {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard__sidebar {
+        position: static;
+      }
+
+      .status-summary { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="dashboard">
+    <div class="container">
+      <div class="dashboard__layout">
+        <!-- 사이드바 -->
+        <aside class="dashboard__sidebar">
+          <div class="sidebar__profile">
+            <div class="sidebar__avatar">H</div>
+            <div class="sidebar__name">홍길동</div>
+            <span class="sidebar__type">
+              <i data-lucide="palette" class="icon icon-sm"></i>
+              IP 홀더
+            </span>
+          </div>
+
+          <nav class="sidebar__nav">
+            <a href="9-7 마이부스.html" class="sidebar__link">
+              <i data-lucide="layout-dashboard" class="icon icon-sm"></i>
+              대시보드
+            </a>
+            <a href="9-7-1 마이부스_IP 관리.html" class="sidebar__link">
+              <i data-lucide="palette" class="icon icon-sm"></i>
+              내 IP 관리
+              <span class="sidebar__link__badge">3</span>
+            </a>
+            <a href="9-7-2 마이부스_프로젝트 관리.html" class="sidebar__link">
+              <i data-lucide="folder" class="icon icon-sm"></i>
+              프로젝트 관리
+            </a>
+            <a href="9-7-3 마이부스_지원 현황.html" class="sidebar__link active">
+              <i data-lucide="send" class="icon icon-sm"></i>
+              지원 현황
+              <span class="sidebar__link__badge">2</span>
+            </a>
+            <a href="9-7-4 마이부스_받은 문의.html" class="sidebar__link">
+              <i data-lucide="inbox" class="icon icon-sm"></i>
+              받은 문의
+              <span class="sidebar__link__badge">5</span>
+            </a>
+            <a href="9-7-5 마이부스_보낸 문의.html" class="sidebar__link">
+              <i data-lucide="send" class="icon icon-sm"></i>
+              보낸 문의
+            </a>
+            <a href="9-7-6 마이부스_스크랩.html" class="sidebar__link">
+              <i data-lucide="bookmark" class="icon icon-sm"></i>
+              스크랩
+            </a>
+            <a href="9-8 내 통계.html" class="sidebar__link">
+              <i data-lucide="bar-chart-3" class="icon icon-sm"></i>
+              내 통계
+            </a>
+          </nav>
+        </aside>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="dashboard__main">
+          <!-- 페이지 헤더 -->
+          <div class="page-header">
+            <h1 class="page-header__title">지원 현황</h1>
+            <p class="page-header__desc">오픈 프로젝트에 지원한 내역을 확인합니다</p>
+          </div>
+
+          <!-- 상태 요약 -->
+          <div class="status-summary">
+            <div class="status-card">
+              <div class="status-card__value status-card__value--pending">2</div>
+              <div class="status-card__label">검토 대기</div>
+            </div>
+            <div class="status-card">
+              <div class="status-card__value status-card__value--reviewing">1</div>
+              <div class="status-card__label">검토중</div>
+            </div>
+            <div class="status-card">
+              <div class="status-card__value status-card__value--accepted">3</div>
+              <div class="status-card__label">수락됨</div>
+            </div>
+            <div class="status-card">
+              <div class="status-card__value status-card__value--rejected">1</div>
+              <div class="status-card__label">거절됨</div>
+            </div>
+          </div>
+
+          <!-- 지원 목록 -->
+          <div class="application-list">
+            <!-- 지원 1 - 검토 대기 -->
+            <div class="application-item">
+              <div class="application-item__image">
+                <img src="https://picsum.photos/seed/app1/280/200" alt="글로벌 식음료 브랜드">
+              </div>
+              <div class="application-item__content">
+                <div class="application-item__header">
+                  <span class="application-item__status application-item__status--pending">
+                    <i data-lucide="clock" class="icon icon-xs"></i>
+                    검토 대기
+                  </span>
+                </div>
+                <h3 class="application-item__title">글로벌 식음료 브랜드 여름 캠페인</h3>
+                <div class="application-item__meta">
+                  <span class="application-item__meta-item">
+                    <i data-lucide="building" class="icon icon-sm"></i>
+                    ABC 코퍼레이션
+                  </span>
+                  <span class="application-item__meta-item">
+                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                    지원일: 2024.01.15
+                  </span>
+                </div>
+                <div class="application-item__ip">
+                  <div class="application-item__ip-image">
+                    <img src="https://picsum.photos/seed/ip1/80/80" alt="귀여운 곰돌이">
+                  </div>
+                  <div>
+                    <div class="application-item__ip-name">귀여운 곰돌이 친구들</div>
+                    <div class="application-item__ip-label">지원 IP</div>
+                  </div>
+                </div>
+              </div>
+              <div class="application-item__actions">
+                <button class="application-item__action" onclick="location.href='4-2 프로젝트 상세.html'">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  상세보기
+                </button>
+                <a href="9-7-3-1 지원 취소 확인.html" class="application-item__action application-item__action--danger">
+                  <i data-lucide="x" class="icon icon-sm"></i>
+                  취소
+                </a>
+              </div>
+            </div>
+
+            <!-- 지원 2 - 검토 대기 -->
+            <div class="application-item">
+              <div class="application-item__image">
+                <img src="https://picsum.photos/seed/app2/280/200" alt="키즈 에듀테크">
+              </div>
+              <div class="application-item__content">
+                <div class="application-item__header">
+                  <span class="application-item__status application-item__status--pending">
+                    <i data-lucide="clock" class="icon icon-xs"></i>
+                    검토 대기
+                  </span>
+                </div>
+                <h3 class="application-item__title">키즈 에듀테크 앱 캐릭터 파트너십</h3>
+                <div class="application-item__meta">
+                  <span class="application-item__meta-item">
+                    <i data-lucide="building" class="icon icon-sm"></i>
+                    스마트에듀
+                  </span>
+                  <span class="application-item__meta-item">
+                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                    지원일: 2024.01.12
+                  </span>
+                </div>
+                <div class="application-item__ip">
+                  <div class="application-item__ip-image">
+                    <img src="https://picsum.photos/seed/ip2/80/80" alt="우주 탐험 캣">
+                  </div>
+                  <div>
+                    <div class="application-item__ip-name">우주 탐험 캣</div>
+                    <div class="application-item__ip-label">지원 IP</div>
+                  </div>
+                </div>
+              </div>
+              <div class="application-item__actions">
+                <button class="application-item__action" onclick="location.href='4-2 프로젝트 상세.html'">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  상세보기
+                </button>
+                <a href="9-7-3-1 지원 취소 확인.html" class="application-item__action application-item__action--danger">
+                  <i data-lucide="x" class="icon icon-sm"></i>
+                  취소
+                </a>
+              </div>
+            </div>
+
+            <!-- 지원 3 - 검토중 -->
+            <div class="application-item">
+              <div class="application-item__image">
+                <img src="https://picsum.photos/seed/app3/280/200" alt="패션 브랜드">
+              </div>
+              <div class="application-item__content">
+                <div class="application-item__header">
+                  <span class="application-item__status application-item__status--reviewing">
+                    <i data-lucide="loader" class="icon icon-xs"></i>
+                    검토중
+                  </span>
+                </div>
+                <h3 class="application-item__title">패션 브랜드 콜라보레이션 프로젝트</h3>
+                <div class="application-item__meta">
+                  <span class="application-item__meta-item">
+                    <i data-lucide="building" class="icon icon-sm"></i>
+                    트렌디웨어
+                  </span>
+                  <span class="application-item__meta-item">
+                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                    지원일: 2024.01.08
+                  </span>
+                </div>
+                <div class="application-item__ip">
+                  <div class="application-item__ip-image">
+                    <img src="https://picsum.photos/seed/ip1/80/80" alt="귀여운 곰돌이">
+                  </div>
+                  <div>
+                    <div class="application-item__ip-name">귀여운 곰돌이 친구들</div>
+                    <div class="application-item__ip-label">지원 IP</div>
+                  </div>
+                </div>
+              </div>
+              <div class="application-item__actions">
+                <button class="application-item__action" onclick="location.href='4-2 프로젝트 상세.html'">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  상세보기
+                </button>
+              </div>
+            </div>
+
+            <!-- 지원 4 - 수락됨 -->
+            <div class="application-item">
+              <div class="application-item__image">
+                <img src="https://picsum.photos/seed/app4/280/200" alt="문구 브랜드">
+              </div>
+              <div class="application-item__content">
+                <div class="application-item__header">
+                  <span class="application-item__status application-item__status--accepted">
+                    <i data-lucide="check" class="icon icon-xs"></i>
+                    수락됨
+                  </span>
+                </div>
+                <h3 class="application-item__title">문구 브랜드 캐릭터 라이선싱</h3>
+                <div class="application-item__meta">
+                  <span class="application-item__meta-item">
+                    <i data-lucide="building" class="icon icon-sm"></i>
+                    펜슬러브
+                  </span>
+                  <span class="application-item__meta-item">
+                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                    수락일: 2024.01.05
+                  </span>
+                </div>
+                <div class="application-item__ip">
+                  <div class="application-item__ip-image">
+                    <img src="https://picsum.photos/seed/ip1/80/80" alt="귀여운 곰돌이">
+                  </div>
+                  <div>
+                    <div class="application-item__ip-name">귀여운 곰돌이 친구들</div>
+                    <div class="application-item__ip-label">지원 IP</div>
+                  </div>
+                </div>
+              </div>
+              <div class="application-item__actions">
+                <button class="application-item__action application-item__action--primary" onclick="location.href='10-2 채팅방 상세.html'">
+                  <i data-lucide="message-circle" class="icon icon-sm"></i>
+                  협업 채팅
+                </button>
+                <button class="application-item__action" onclick="location.href='4-2 프로젝트 상세.html'">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  상세보기
+                </button>
+              </div>
+            </div>
+
+            <!-- 지원 5 - 거절됨 -->
+            <div class="application-item" style="opacity: 0.6;">
+              <div class="application-item__image">
+                <img src="https://picsum.photos/seed/app5/280/200" alt="화장품 브랜드">
+              </div>
+              <div class="application-item__content">
+                <div class="application-item__header">
+                  <span class="application-item__status application-item__status--rejected">
+                    <i data-lucide="x" class="icon icon-xs"></i>
+                    거절됨
+                  </span>
+                </div>
+                <h3 class="application-item__title">프리미엄 화장품 한정판 콜라보</h3>
+                <div class="application-item__meta">
+                  <span class="application-item__meta-item">
+                    <i data-lucide="building" class="icon icon-sm"></i>
+                    뷰티플러스
+                  </span>
+                  <span class="application-item__meta-item">
+                    <i data-lucide="calendar" class="icon icon-sm"></i>
+                    결과일: 2024.01.03
+                  </span>
+                </div>
+                <div class="application-item__ip">
+                  <div class="application-item__ip-image">
+                    <img src="https://picsum.photos/seed/ip2/80/80" alt="우주 탐험 캣">
+                  </div>
+                  <div>
+                    <div class="application-item__ip-name">우주 탐험 캣</div>
+                    <div class="application-item__ip-label">지원 IP</div>
+                  </div>
+                </div>
+              </div>
+              <div class="application-item__actions">
+                <button class="application-item__action" onclick="location.href='4-2 프로젝트 상세.html'">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  상세보기
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

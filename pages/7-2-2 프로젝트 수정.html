@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로젝트 수정 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .edit-page {
+      padding-top: calc(var(--header-height) + var(--space-6));
+      min-height: 100vh;
+      background: var(--color-bg-secondary);
+      padding-bottom: var(--space-8);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+      transition: color var(--transition-fast);
+    }
+
+    .back-link:hover {
+      color: var(--color-primary);
+    }
+
+    .edit-header {
+      margin-bottom: var(--space-6);
+    }
+
+    .edit-header__title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .edit-header__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .edit-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: var(--space-6);
+    }
+
+    .edit-main {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    .edit-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-card);
+    }
+
+    .edit-card__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-5);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .edit-card__title i {
+      color: var(--color-primary);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-5);
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-2);
+      color: var(--color-text-primary);
+    }
+
+    .form-label .required {
+      color: var(--color-error);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
+      transition: all var(--transition-fast);
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-light);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+      font-family: inherit;
+      line-height: 1.6;
+    }
+
+    .form-hint {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-2);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    .category-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .category-chip {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .category-chip:hover {
+      border-color: var(--color-primary);
+    }
+
+    .category-chip input {
+      display: none;
+    }
+
+    .category-chip.selected {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .status-options {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .status-option {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .status-option:hover {
+      border-color: var(--color-primary);
+    }
+
+    .status-option.selected {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .status-option input {
+      display: none;
+    }
+
+    .status-option__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .status-option__icon--active {
+      background: var(--color-success-light);
+      color: var(--color-success);
+    }
+
+    .status-option__icon--paused {
+      background: var(--color-warning-light);
+      color: var(--color-warning);
+    }
+
+    .status-option__icon--closed {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-tertiary);
+    }
+
+    .status-option__text {
+      flex: 1;
+    }
+
+    .status-option__title {
+      font-weight: var(--font-weight-medium);
+      margin-bottom: 2px;
+    }
+
+    .status-option__desc {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    /* 사이드바 */
+    .edit-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .sidebar-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-card);
+    }
+
+    .sidebar-card__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-4);
+    }
+
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--font-size-sm);
+    }
+
+    .info-item__label {
+      color: var(--color-text-tertiary);
+    }
+
+    .info-item__value {
+      font-weight: var(--font-weight-medium);
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .action-buttons .btn {
+      width: 100%;
+    }
+
+    .warning-text {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      text-align: center;
+      margin-top: var(--space-3);
+    }
+
+    @media (max-width: 1024px) {
+      .edit-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .edit-sidebar {
+        order: -1;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="edit-page">
+    <div class="container">
+      <a href="7-2-1 프로젝트 관리_상세.html" class="back-link">
+        <i data-lucide="arrow-left" class="icon-sm"></i>
+        프로젝트 상세로 돌아가기
+      </a>
+
+      <div class="edit-header">
+        <h1 class="edit-header__title">프로젝트 수정</h1>
+        <p class="edit-header__desc">프로젝트 정보를 수정합니다. 모집 마감일 이후에는 일부 항목만 수정 가능합니다.</p>
+      </div>
+
+      <div class="edit-layout">
+        <div class="edit-main">
+          <!-- 기본 정보 -->
+          <div class="edit-card">
+            <h2 class="edit-card__title">
+              <i data-lucide="file-text" class="icon-sm"></i>
+              기본 정보
+            </h2>
+
+            <div class="form-group">
+              <label class="form-label" for="title">프로젝트명 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="title" value="2024 여름 시즌 굿즈 콜라보">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="category">카테고리 <span class="required">*</span></label>
+                <select class="form-select" id="category">
+                  <option>문구/오피스</option>
+                  <option>패션/의류</option>
+                  <option>식품/F&B</option>
+                  <option>인테리어/리빙</option>
+                  <option>뷰티/코스메틱</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="type">협업 유형 <span class="required">*</span></label>
+                <select class="form-select" id="type">
+                  <option selected>라이선싱</option>
+                  <option>콜라보레이션</option>
+                  <option>커미션</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="description">프로젝트 설명 <span class="required">*</span></label>
+              <textarea class="form-textarea" id="description">2024 여름 시즌 한정 굿즈 콜라보레이션 프로젝트입니다. 귀여운 캐릭터와 함께 여름 감성의 문구/오피스 용품을 제작하고자 합니다.
+
+- 제작 품목: 노트, 스티커, 마스킹 테이프, 엽서 세트
+- 판매 채널: 자사 온라인몰 + 오프라인 팝업스토어
+- 타겟: 20-30대 여성</textarea>
+            </div>
+          </div>
+
+          <!-- 모집 조건 -->
+          <div class="edit-card">
+            <h2 class="edit-card__title">
+              <i data-lucide="users" class="icon-sm"></i>
+              모집 조건
+            </h2>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="startDate">모집 시작일 <span class="required">*</span></label>
+                <input type="date" class="form-input" id="startDate" value="2024-02-01">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="endDate">모집 마감일 <span class="required">*</span></label>
+                <input type="date" class="form-input" id="endDate" value="2024-02-28">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">선호하는 IP 카테고리</label>
+              <div class="category-chips">
+                <label class="category-chip selected">
+                  <input type="checkbox" checked>
+                  <span>오리지널 캐릭터</span>
+                </label>
+                <label class="category-chip selected">
+                  <input type="checkbox" checked>
+                  <span>이모티콘</span>
+                </label>
+                <label class="category-chip">
+                  <input type="checkbox">
+                  <span>웹툰/만화</span>
+                </label>
+                <label class="category-chip">
+                  <input type="checkbox">
+                  <span>애니메이션</span>
+                </label>
+                <label class="category-chip">
+                  <input type="checkbox">
+                  <span>일러스트</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="budgetMin">최소 예산</label>
+                <input type="text" class="form-input" id="budgetMin" value="500만원">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="budgetMax">최대 예산</label>
+                <input type="text" class="form-input" id="budgetMax" value="1,000만원">
+              </div>
+            </div>
+          </div>
+
+          <!-- 모집 상태 -->
+          <div class="edit-card">
+            <h2 class="edit-card__title">
+              <i data-lucide="toggle-left" class="icon-sm"></i>
+              모집 상태
+            </h2>
+
+            <div class="status-options">
+              <label class="status-option selected" onclick="selectStatus(this)">
+                <input type="radio" name="status" value="active" checked>
+                <div class="status-option__icon status-option__icon--active">
+                  <i data-lucide="play" class="icon-sm"></i>
+                </div>
+                <div class="status-option__text">
+                  <div class="status-option__title">모집중</div>
+                  <div class="status-option__desc">지원을 받고 있습니다</div>
+                </div>
+              </label>
+              <label class="status-option" onclick="selectStatus(this)">
+                <input type="radio" name="status" value="paused">
+                <div class="status-option__icon status-option__icon--paused">
+                  <i data-lucide="pause" class="icon-sm"></i>
+                </div>
+                <div class="status-option__text">
+                  <div class="status-option__title">일시 중지</div>
+                  <div class="status-option__desc">모집을 잠시 중단합니다</div>
+                </div>
+              </label>
+              <label class="status-option" onclick="selectStatus(this)">
+                <input type="radio" name="status" value="closed">
+                <div class="status-option__icon status-option__icon--closed">
+                  <i data-lucide="square" class="icon-sm"></i>
+                </div>
+                <div class="status-option__text">
+                  <div class="status-option__title">모집 마감</div>
+                  <div class="status-option__desc">더 이상 지원 불가</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="edit-sidebar">
+          <div class="sidebar-card">
+            <div class="sidebar-card__title">프로젝트 정보</div>
+            <div class="info-list">
+              <div class="info-item">
+                <span class="info-item__label">등록일</span>
+                <span class="info-item__value">2024.01.25</span>
+              </div>
+              <div class="info-item">
+                <span class="info-item__label">현재 상태</span>
+                <span class="info-item__value" style="color: var(--color-success);">모집중</span>
+              </div>
+              <div class="info-item">
+                <span class="info-item__label">총 지원자</span>
+                <span class="info-item__value">8명</span>
+              </div>
+              <div class="info-item">
+                <span class="info-item__label">마감까지</span>
+                <span class="info-item__value">14일</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <div class="action-buttons">
+              <button class="btn btn--primary btn--lg" onclick="saveProject()">
+                <i data-lucide="save" class="icon-sm"></i>
+                변경사항 저장
+              </button>
+              <a href="7-2-1 프로젝트 관리_상세.html" class="btn btn--secondary">
+                취소
+              </a>
+            </div>
+            <p class="warning-text">수정 사항은 즉시 반영됩니다</p>
+          </div>
+
+          <div class="sidebar-card" style="border: 1px solid rgba(239, 68, 68, 0.2);">
+            <div class="sidebar-card__title" style="color: var(--color-error);">위험 영역</div>
+            <a href="7-2-3 프로젝트 삭제 확인.html" class="btn btn--ghost" style="width: 100%; color: var(--color-error);">
+              <i data-lucide="trash-2" class="icon-sm"></i>
+              프로젝트 삭제
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'project', isLoggedIn: true});
+    lucide.createIcons();
+
+    // 카테고리 칩 토글
+    document.querySelectorAll('.category-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        chip.classList.toggle('selected');
+        chip.querySelector('input').checked = chip.classList.contains('selected');
+      });
+    });
+
+    function selectStatus(element) {
+      document.querySelectorAll('.status-option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+      element.classList.add('selected');
+      element.querySelector('input').checked = true;
+    }
+
+    function saveProject() {
+      Toast.success('프로젝트가 수정되었습니다.');
+      setTimeout(() => {
+        window.location.href = '7-2-1 프로젝트 관리_상세.html';
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

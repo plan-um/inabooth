@@ -1,0 +1,192 @@
+[
+  {
+    "file": "8-1 프로젝트 지원.html",
+    "issues": []
+  },
+  {
+    "file": "8-1-1 프로젝트 지원_자격 검증.html",
+    "issues": []
+  },
+  {
+    "file": "8-1-2 프로젝트 지원_IP 선택.html",
+    "issues": []
+  },
+  {
+    "file": "8-1-3 프로젝트 지원_양식 작성.html",
+    "issues": []
+  },
+  {
+    "file": "8-1-4 프로젝트 지원_최종 제출.html",
+    "issues": []
+  },
+  {
+    "file": "8-1-5 프로젝트 지원_완료.html",
+    "issues": []
+  },
+  {
+    "file": "8-2 지원 현황 관리.html",
+    "issues": [
+      {
+        "element": ".stats-grid",
+        "problem": "Grid uses gap: var(--space-4) which is 16px - consider increasing to var(--space-6) (24px) for better visual separation",
+        "severity": "low"
+      },
+      {
+        "element": ".application-list",
+        "problem": "List uses gap: var(--space-4) (16px) - items may feel cramped, consider var(--space-5) or var(--space-6)",
+        "severity": "low"
+      }
+    ]
+  },
+  {
+    "file": "8-2-1 지원 현황_상세.html",
+    "issues": []
+  },
+  {
+    "file": "8-2-2 지원 현황_스크랩.html",
+    "issues": []
+  },
+  {
+    "file": "9-1 프로필 관리.html",
+    "issues": []
+  },
+  {
+    "file": "9-2 설정.html",
+    "issues": []
+  },
+  {
+    "file": "9-3 계좌 관리.html",
+    "issues": []
+  },
+  {
+    "file": "9-4 요금제 관리.html",
+    "issues": []
+  },
+  {
+    "file": "9-4-1 요금제_IPH.html",
+    "issues": []
+  },
+  {
+    "file": "9-4-2 요금제_BP.html",
+    "issues": []
+  },
+  {
+    "file": "9-4-3 요금제_결제 수단.html",
+    "issues": []
+  },
+  {
+    "file": "9-4-4 요금제_결제 내역.html",
+    "issues": []
+  },
+  {
+    "file": "9-5 관리자 초대.html",
+    "issues": []
+  },
+  {
+    "file": "9-5-1 관리자 초대_모달.html",
+    "issues": [
+      {
+        "element": "inline card container",
+        "problem": "Modal card uses max-width:600px with margin:0 auto - ensure left/right margins are equal on all screen sizes",
+        "severity": "low"
+      }
+    ]
+  },
+  {
+    "file": "9-6 알림 설정.html",
+    "issues": []
+  },
+  {
+    "file": "9-7 마이부스.html",
+    "issues": [
+      {
+        "element": ".dashboard__sidebar",
+        "problem": "Sidebar has padding: var(--space-6) (24px) - verify this is consistent across all sidebar implementations",
+        "severity": "low"
+      },
+      {
+        "element": ".dashboard__layout",
+        "problem": "Grid gap is var(--space-6) (24px) - confirm this spacing feels right between sidebar and content",
+        "severity": "low"
+      }
+    ]
+  },
+  {
+    "file": "9-7-1 마이부스_IP 관리.html",
+    "issues": []
+  },
+  {
+    "file": "9-7-2 마이부스_프로젝트 관리.html",
+    "issues": []
+  },
+  {
+    "file": "9-7-3 마이부스_지원 현황.html",
+    "issues": []
+  },
+  {
+    "file": "9-7-4 마이부스_받은 문의.html",
+    "issues": []
+  },
+  {
+    "file": "9-7-5 마이부스_보낸 문의.html",
+    "issues": []
+  },
+  {
+    "file": "9-7-6 마이부스_스크랩.html",
+    "issues": []
+  },
+  {
+    "file": "9-8 내 통계.html",
+    "issues": []
+  },
+  {
+    "file": "10-1 채팅.html",
+    "issues": [
+      {
+        "element": ".chat-layout",
+        "problem": "Grid gap is 0 - sidebar and content have no gap, relies on border-right for separation. Consider adding minimal gap (8-12px) for better visual separation",
+        "severity": "medium"
+      },
+      {
+        "element": ".chat-sidebar__header",
+        "problem": "Padding is var(--space-6) (24px) - verify consistency with other sidebar headers",
+        "severity": "low"
+      }
+    ]
+  },
+  {
+    "file": "10-2 채팅방 상세.html",
+    "issues": []
+  },
+  {
+    "file": "10-2-1 채팅방_제안_수락.html",
+    "issues": []
+  },
+  {
+    "file": "10-2-2 채팅방_결제.html",
+    "issues": []
+  },
+  {
+    "file": "10-2-3 채팅방_협업 완료.html",
+    "issues": []
+  },
+  {
+    "file": "10-2-4 채팅방_상호 평가.html",
+    "issues": []
+  },
+  {
+    "file": "10-3 문의 폼 모달.html",
+    "issues": [
+      {
+        "element": "grid layout (line 22)",
+        "problem": "Grid uses grid-template-columns: 1fr 320px with gap: var(--space-6) - verify 320px sidebar width is intentional and consistent",
+        "severity": "low"
+      },
+      {
+        "element": ".form-input textarea",
+        "problem": "Textarea has resize:vertical - ensure consistent behavior across all textareas in the application",
+        "severity": "low"
+      }
+    ]
+  }
+]

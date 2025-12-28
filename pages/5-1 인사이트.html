@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인사이트 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+ul {
+      list-style: none;
+    }
+
+    /* Background Blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      z-index: -1;
+      pointer-events: none;
+      animation: float 12s infinite ease-in-out;
+    }
+
+    .blob-1 {
+      top: -15%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, #C7D2FE, #DDD6FE);
+    }
+
+    .blob-2 {
+      top: 10%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #FBCFE8, #FCE7F3);
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(30px) scale(1.05); }
+    }
+
+    /* Layout */
+
+    .main-content {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      padding-bottom: var(--space-8);
+      min-height: 100vh;
+    }
+
+    /* Page Header */
+    .page-header {
+      margin-bottom: var(--space-8);
+    }
+
+    .page-title {
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-extrabold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .page-desc {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-secondary);
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      background: white;
+      padding: var(--space-6);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-6);
+      box-shadow: var(--shadow-card);
+    }
+
+    .filter-row {
+      display: flex;
+      gap: var(--space-4);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      min-width: 80px;
+    }
+
+    .filter-options {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .filter-chip {
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background: white;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .filter-chip:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .filter-chip.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    /* Insight Grid */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .insight-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-normal);
+      cursor: pointer;
+    }
+
+    .insight-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .insight-card__img-wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: var(--color-bg-secondary);
+    }
+
+    .insight-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-normal);
+    }
+
+    .insight-card:hover .insight-card__img {
+      transform: scale(1.05);
+    }
+
+    .insight-card__category {
+      position: absolute;
+      top: var(--space-3);
+      left: var(--space-3);
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-primary);
+      color: white;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-sm);
+    }
+
+    .insight-card__content {
+      padding: var(--space-5);
+    }
+
+    .insight-card__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-3);
+      line-height: var(--line-height-tight);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .insight-card__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+      line-height: var(--line-height-relaxed);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .insight-card__meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .insight-card__date {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .insight-card__views {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    /* Footer */
+
+    .footer__social-link:hover {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .footer__links a {
+      color: rgba(255, 255, 255, 0.7);
+      transition: color var(--transition-fast);
+    }
+
+    .footer__links a:hover {
+      color: white;
+    }
+
+    .footer__lang-btn:hover,
+    .footer__lang-btn.active {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- Header injected by shared.js -->
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1 class="page-title">인사이트</h1>
+        <p class="page-desc">IP 비즈니스 트렌드와 성공 사례를 확인하세요</p>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="filter-row" style="margin-bottom: var(--space-4);">
+          <span class="filter-label">카테고리</span>
+          <div class="filter-options">
+            <button class="filter-chip active">전체</button>
+            <button class="filter-chip">비즈니스 전략</button>
+            <button class="filter-chip">트렌드 & 시장 동향</button>
+            <button class="filter-chip">인터뷰</button>
+            <button class="filter-chip">업데이트 - 인사이드 부스</button>
+          </div>
+        </div>
+        <div class="filter-row">
+          <span class="filter-label">정렬</span>
+          <div class="filter-options">
+            <button class="filter-chip active">최신 업데이트순</button>
+            <button class="filter-chip">전체 인기순</button>
+          </div>
+          <a href="5-1-1 인사이트_필터.html" class="btn btn--outline">
+            <i data-lucide="sliders" class="icon icon-sm"></i>
+            상세 필터
+          </a>
+        </div>
+      </div>
+
+      <!-- Insight Grid -->
+      <div class="insight-grid">
+        <!-- Card 1 -->
+        <a href="5-2 인사이트 상세.html" class="insight-card">
+          <div class="insight-card__img-wrap">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+            <span class="insight-card__category">비즈니스 전략</span>
+          </div>
+          <div class="insight-card__content">
+            <h3 class="insight-card__title">캐릭터 IP 라이선싱 시장의 최신 트렌드</h3>
+            <p class="insight-card__desc">2024년 글로벌 캐릭터 IP 라이선싱 시장 규모와 주요 성장 동력을 분석합니다.</p>
+            <div class="insight-card__meta">
+              <span class="insight-card__date">
+                <i data-lucide="calendar" class="icon icon-sm"></i>
+                2024.12.15
+              </span>
+              <span class="insight-card__views">
+                <i data-lucide="eye" class="icon icon-sm"></i>
+                1,234
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="5-2 인사이트 상세.html" class="insight-card">
+          <div class="insight-card__img-wrap">
+            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+            <span class="insight-card__category">트렌드 & 시장 동향</span>
+          </div>
+          <div class="insight-card__content">
+            <h3 class="insight-card__title">MZ세대가 선호하는 캐릭터 스타일 분석</h3>
+            <p class="insight-card__desc">데이터로 살펴보는 MZ세대 타깃 캐릭터 디자인의 핵심 요소</p>
+            <div class="insight-card__meta">
+              <span class="insight-card__date">
+                <i data-lucide="calendar" class="icon icon-sm"></i>
+                2024.12.10
+              </span>
+              <span class="insight-card__views">
+                <i data-lucide="eye" class="icon icon-sm"></i>
+                2,156
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="5-2 인사이트 상세.html" class="insight-card">
+          <div class="insight-card__img-wrap">
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+            <span class="insight-card__category">인터뷰</span>
+          </div>
+          <div class="insight-card__content">
+            <h3 class="insight-card__title">성공적인 IP 협업 사례 - 펭수 × 던킨도너츠</h3>
+            <p class="insight-card__desc">월 매출 30% 증가를 달성한 협업 프로젝트의 비하인드 스토리</p>
+            <div class="insight-card__meta">
+              <span class="insight-card__date">
+                <i data-lucide="calendar" class="icon icon-sm"></i>
+                2024.12.05
+              </span>
+              <span class="insight-card__views">
+                <i data-lucide="eye" class="icon icon-sm"></i>
+                3,421
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 4 -->
+        <a href="5-2 인사이트 상세.html" class="insight-card">
+          <div class="insight-card__img-wrap">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+            <span class="insight-card__category">업데이트 - 인사이드 부스</span>
+          </div>
+          <div class="insight-card__content">
+            <h3 class="insight-card__title">INABOOTH 신규 기능 업데이트 안내</h3>
+            <p class="insight-card__desc">AI 기반 IP 매칭 시스템과 협업 지수 기능이 새롭게 추가되었습니다.</p>
+            <div class="insight-card__meta">
+              <span class="insight-card__date">
+                <i data-lucide="calendar" class="icon icon-sm"></i>
+                2024.12.01
+              </span>
+              <span class="insight-card__views">
+                <i data-lucide="eye" class="icon icon-sm"></i>
+                987
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 5 -->
+        <a href="5-2 인사이트 상세.html" class="insight-card">
+          <div class="insight-card__img-wrap">
+            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+            <span class="insight-card__category">비즈니스 전략</span>
+          </div>
+          <div class="insight-card__content">
+            <h3 class="insight-card__title">F&B 업계의 캐릭터 협업 전략</h3>
+            <p class="insight-card__desc">식품 브랜드가 캐릭터 IP를 활용하는 5가지 효과적인 방법</p>
+            <div class="insight-card__meta">
+              <span class="insight-card__date">
+                <i data-lucide="calendar" class="icon icon-sm"></i>
+                2024.11.28
+              </span>
+              <span class="insight-card__views">
+                <i data-lucide="eye" class="icon icon-sm"></i>
+                1,876
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 6 -->
+        <a href="5-2 인사이트 상세.html" class="insight-card">
+          <div class="insight-card__img-wrap">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+            <span class="insight-card__category">트렌드 & 시장 동향</span>
+          </div>
+          <div class="insight-card__content">
+            <h3 class="insight-card__title">2025년 주목해야 할 캐릭터 IP 트렌드</h3>
+            <p class="insight-card__desc">내년 시장을 주도할 캐릭터 디자인과 협업 방식을 미리 살펴봅니다.</p>
+            <div class="insight-card__meta">
+              <span class="insight-card__date">
+                <i data-lucide="calendar" class="icon icon-sm"></i>
+                2024.11.25
+              </span>
+              <span class="insight-card__views">
+                <i data-lucide="eye" class="icon icon-sm"></i>
+                2,543
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer injected by shared.js -->
+  <div id="footer-placeholder"></div>
+
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({ activePage: 'insight' });
+  </script>
+</body>
+</html>

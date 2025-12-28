@@ -1,0 +1,19 @@
+{
+  "name": "page-verification",
+  "version": "1.0.0",
+  "description": "INABOOTH 페이지 검증 자동화 시스템",
+  "type": "module",
+  "scripts": {
+    "verify": "node verify.js",
+    "verify:static": "node verify.js --level=1",
+    "verify:browser": "node verify.js --level=2",
+    "verify:full": "node verify.js --level=3"
+  },
+  "dependencies": {
+    "csv-parse": "^5.5.0",
+    "cheerio": "^1.0.0-rc.12",
+    "playwright": "^1.40.0",
+    "@anthropic-ai/sdk": "^0.32.0",
+    "chalk": "^5.3.0"
+  }
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캐릭터 등록 - 기본 정보 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+    input,textarea,select{font-family:inherit}
+
+    .main-content{padding-top:calc(var(--header-height) + var(--space-8));padding-bottom:var(--space-12);min-height:100vh}
+    .form-card{background:white;border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-card)}
+    .form-header{margin-bottom:var(--space-8);padding-bottom:var(--space-6);border-bottom:1px solid var(--color-border)}
+    .form-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .form-subtitle{font-size:var(--font-size-base);color:var(--color-text-secondary)}
+    .progress-steps{display:flex;gap:var(--space-2);margin-bottom:var(--space-6)}
+    .step{flex:1;height:4px;background:var(--color-bg-secondary);border-radius:var(--radius-full)}
+    .step.active{background:var(--color-primary)}
+
+    .form-label.required::after{content:'*';color:#FF4757;margin-left:var(--space-2)}
+
+    .upload-area{border:2px dashed var(--color-border);border-radius:var(--radius-lg);padding:var(--space-8);text-align:center;cursor:pointer;transition:all var(--transition-fast);margin-bottom:var(--space-4)}
+    .upload-area:hover{border-color:var(--color-primary);background:var(--color-primary-light)}
+    .upload-icon{width:48px;height:48px;margin:0 auto var(--space-3);color:var(--color-text-tertiary)}
+    .radio-group{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)}
+    .radio-card{position:relative;padding:var(--space-4);border:2px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:all var(--transition-fast);text-align:center}
+    .radio-card input{position:absolute;opacity:0}
+    .radio-card:hover{border-color:var(--color-primary)}
+    .radio-card input:checked + .radio-card-content{color:var(--color-primary)}
+    .radio-card input:checked ~ .radio-card{border-color:var(--color-primary);background:var(--color-primary-light)}
+    .tag-input-wrapper{display:flex;flex-wrap:wrap;gap:var(--space-2);padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);min-height:80px}
+    .tag{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);background:var(--color-primary-light);color:var(--color-primary);border-radius:var(--radius-full);font-size:var(--font-size-sm)}
+    .tag-remove{cursor:pointer;display:flex;align-items:center}
+    .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--color-border)}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="main-content">
+    <div class="container">
+      <div class="form-card">
+        <div class="progress-steps">
+          <div class="step active"></div>
+          <div class="step"></div>
+          <div class="step"></div>
+          <div class="step"></div>
+        </div>
+        <div class="form-header">
+          <h1 class="form-title">STEP 1. 기본 정보</h1>
+          <p class="form-subtitle">캐릭터의 기본 정보를 입력해주세요</p>
+        </div>
+        <form>
+          <div class="form-group">
+            <label class="form-label required">캐릭터 이름</label>
+            <input type="text" class="form-input" placeholder="예) 펭수, 카카오프렌즈">
+          </div>
+          <div class="form-group">
+            <label class="form-label required">대표 이미지</label>
+            <div class="upload-area">
+              <i data-lucide="image" class="upload-icon"></i>
+              <p style="color:var(--color-text-secondary);">클릭하여 이미지 업로드</p>
+              <p style="font-size:var(--font-size-sm);color:var(--color-text-tertiary);margin-top:var(--space-2);">권장 사이즈: 800x800px</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label required">원작 국가</label>
+            <select class="form-input">
+              <option>대한민국</option>
+              <option>일본</option>
+              <option>미국</option>
+              <option>중국</option>
+              <option>기타</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label required">카테고리 (IP 유형)</label>
+            <div class="radio-group">
+              <label class="radio-card">
+                <input type="radio" name="category" value="original">
+                <div class="radio-card-content">오리지널 캐릭터</div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="category" value="animation">
+                <div class="radio-card-content">애니메이션/영상</div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="category" value="emoticon">
+                <div class="radio-card-content">이모티콘</div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="category" value="webtoon">
+                <div class="radio-card-content">웹툰/만화</div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="category" value="game">
+                <div class="radio-card-content">게임</div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="category" value="other">
+                <div class="radio-card-content">기타</div>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">태그 (최대 10개)</label>
+            <div class="tag-input-wrapper">
+              <span class="tag">귀여운 <span class="tag-remove">×</span></span>
+              <span class="tag">동물 <span class="tag-remove">×</span></span>
+              <input type="text" placeholder="태그 입력 후 Enter" style="border:none;flex:1;min-width:120px">
+            </div>
+          </div>
+          <div class="form-actions">
+            <a href="6-1 캐릭터 등록.html" class="btn btn--secondary">이전</a>
+            <a href="6-1-2 캐릭터 등록_상세 정보.html" class="btn btn--primary">다음</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'browse'});</script>
+</body>
+</html>

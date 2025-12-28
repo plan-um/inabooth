@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지원서 상세 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.main-content{padding-top:calc(var(--header-height) + var(--space-8));padding-bottom:var(--space-8);min-height:100vh}
+    .form-card{background:white;border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-card)}
+    .form-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .form-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-6)}
+    .progress-steps{display:flex;gap:var(--space-2);margin-bottom:var(--space-6)}
+    .step{flex:1;height:4px;background:var(--color-bg-secondary);border-radius:999px}
+    .step.active{background:var(--color-primary)}
+    .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
+
+    .content-box{padding:var(--space-8);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0;text-align:center}
+    .card-list{display:grid;gap:var(--space-4);margin:var(--space-6) 0}
+    .card-item{padding:var(--space-4);background:white;border:1px solid var(--color-border);border-radius:var(--radius-md)}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="main-content">
+    <div class="container">
+      <div class="form-card">
+        
+        <div style="display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)">
+          <a href="7-3 지원자 관리.html" style="color:var(--color-text-secondary)"><i data-lucide="arrow-left"></i></a>
+          <div style="flex:1">
+            <h1 class="form-title" style="margin-bottom:0">지원서 상세</h1>
+            <p class="form-subtitle" style="margin-bottom:0">귀여운 곰돌이 친구들 • 스튜디오 베어</p>
+          </div>
+          <span class="badge" style="background:var(--color-warning-light);color:var(--color-warning);font-size:var(--font-size-sm);padding:var(--space-2) var(--space-3)">검토 대기</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:250px 1fr;gap:var(--space-6);margin-bottom:var(--space-6)">
+          <div>
+            <img src="images/characters/Random Objects (1).png" style="width:100%;aspect-ratio:1;border-radius:var(--radius-lg);object-fit:cover;margin-bottom:var(--space-4)">
+            <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4)">
+              <h4 style="font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-3)">IP 정보</h4>
+              <div style="font-size:var(--font-size-sm);display:flex;flex-direction:column;gap:var(--space-2)">
+                <div style="display:flex;justify-content:space-between"><span style="color:var(--color-text-tertiary)">카테고리</span><span>오리지널 캐릭터</span></div>
+                <div style="display:flex;justify-content:space-between"><span style="color:var(--color-text-tertiary)">팔로워</span><span>85,000</span></div>
+                <div style="display:flex;justify-content:space-between"><span style="color:var(--color-text-tertiary)">협업 이력</span><span>3회</span></div>
+                <div style="display:flex;justify-content:space-between"><span style="color:var(--color-text-tertiary)">협업지수</span><span style="color:var(--color-success);font-weight:600">4.8</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="margin-bottom:var(--space-5)">
+              <h3 style="font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-3)">지원 동기</h3>
+              <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);font-size:var(--font-size-sm);line-height:1.6">
+                귀여운 곰돌이 친구들은 문구/오피스 카테고리에서 뛰어난 성과를 보여온 IP입니다. 특히 이번 프로젝트의 '여름 시즌' 테마와 잘 어울리는 시원한 컬러 팔레트와 귀여운 캐릭터 라인업을 보유하고 있습니다. 기존 카카오, 모나미 등과의 성공적인 협업 경험을 바탕으로 이번 프로젝트에서도 좋은 결과를 만들어낼 수 있을 것으로 확신합니다.
+              </div>
+            </div>
+
+            <div style="margin-bottom:var(--space-5)">
+              <h3 style="font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-3)">포트폴리오</h3>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-2)">
+                <div style="aspect-ratio:1;border-radius:var(--radius-md);overflow:hidden"><img src="images/characters/Random Objects (1).png" style="width:100%;height:100%;object-fit:cover"></div>
+                <div style="aspect-ratio:1;border-radius:var(--radius-md);overflow:hidden"><img src="images/characters/Random Objects (2).png" style="width:100%;height:100%;object-fit:cover"></div>
+                <div style="aspect-ratio:1;border-radius:var(--radius-md);overflow:hidden"><img src="images/characters/Random Objects (3).png" style="width:100%;height:100%;object-fit:cover"></div>
+                <div style="aspect-ratio:1;border-radius:var(--radius-md);overflow:hidden"><img src="images/characters/Random Objects (4).png" style="width:100%;height:100%;object-fit:cover"></div>
+              </div>
+            </div>
+
+            <div style="margin-bottom:var(--space-5)">
+              <h3 style="font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-3)">협업 이력</h3>
+              <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md);font-size:var(--font-size-sm)">
+                  <div><span style="font-weight:600">카카오 × 귀여운 곰돌이</span> • 이모티콘 콜라보</div>
+                  <span style="color:var(--color-text-tertiary)">2024.01</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md);font-size:var(--font-size-sm)">
+                  <div><span style="font-weight:600">모나미 × 귀여운 곰돌이</span> • 문구 라이선싱</div>
+                  <span style="color:var(--color-text-tertiary)">2023.08</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 style="font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-3)">희망 조건</h3>
+              <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);font-size:var(--font-size-sm)">
+                <div style="display:grid;grid-template-columns:120px 1fr;gap:var(--space-2)">
+                  <span style="color:var(--color-text-tertiary)">희망 금액</span><span>8,000,000원</span>
+                  <span style="color:var(--color-text-tertiary)">로열티</span><span>매출의 10%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions" style="justify-content:space-between">
+          <a href="7-3 지원자 관리.html" class="btn btn--secondary"><i data-lucide="arrow-left" class="icon-sm"></i> 목록으로</a>
+          <div style="display:flex;gap:var(--space-3)">
+            <button class="btn btn--secondary" style="color:var(--color-error)">거절</button>
+            <button class="btn btn--secondary"><i data-lucide="message-square" class="icon-sm"></i> 면담 요청</button>
+            <button class="btn btn--primary"><i data-lucide="check" class="icon-sm"></i> 선정하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'project'});lucide.createIcons();</script>
+</body>
+</html>

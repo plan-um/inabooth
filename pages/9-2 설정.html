@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>계정 설정 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .settings-page {
+      padding-top: calc(var(--header-height) + var(--space-4));
+      padding-bottom: var(--space-8);
+      min-height: 100vh;
+      background: var(--color-bg-secondary);
+    }
+
+    .settings-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: var(--space-6);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .settings-nav {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-card);
+      height: fit-content;
+    }
+
+    .settings-nav__link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+
+    .settings-nav__link:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .settings-nav__link.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .settings-content {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+    }
+
+    .settings-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .settings-desc {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    .settings-section {
+      padding: var(--space-6) 0;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .settings-section:first-child {
+      padding-top: 0;
+    }
+
+    .settings-section:last-child {
+      border-bottom: none;
+    }
+
+    .settings-section__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-4);
+    }
+
+    .settings-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-4) 0;
+    }
+
+    .settings-item__info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .settings-item__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-bg-secondary);
+      color: var(--color-text-secondary);
+    }
+
+    .settings-item__icon--verified {
+      background: var(--color-success-light);
+      color: var(--color-success);
+    }
+
+    .settings-item__icon--pending {
+      background: var(--color-warning-light);
+      color: var(--color-warning);
+    }
+
+    .settings-item__text h4 {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: 2px;
+    }
+
+    .settings-item__text p {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .social-accounts {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .social-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-4);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+    }
+
+    .social-item__info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .social-item__logo {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-xs);
+    }
+
+    .social-item__logo--kakao {
+      background: #FEE500;
+      color: #000;
+    }
+
+    .social-item__logo--naver {
+      background: #03C75A;
+      color: #fff;
+    }
+
+    .social-item__logo--google {
+      background: #fff;
+      border: 1px solid var(--color-border);
+      color: #4285F4;
+    }
+
+    .social-item__logo--line {
+      background: #06C755;
+      color: #fff;
+    }
+
+    .social-item__name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .social-item__status {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .social-item__status--connected {
+      color: var(--color-success);
+    }
+
+    .danger-zone {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+    }
+
+    .danger-zone__title {
+      color: var(--color-error);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .danger-zone__desc {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      margin-bottom: var(--space-4);
+    }
+
+    .btn--danger {
+      background: transparent;
+      color: var(--color-error);
+      border: 1px solid var(--color-error);
+    }
+
+    .btn--danger:hover {
+      background: var(--color-error);
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .settings-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-nav {
+        position: static;
+        display: flex;
+        overflow-x: auto;
+        gap: var(--space-2);
+        padding: var(--space-3);
+      }
+
+      .settings-nav__link {
+        white-space: nowrap;
+      }
+
+      .settings-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-3);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="settings-page">
+    <div class="container">
+      <div class="settings-layout">
+        <!-- 설정 사이드바 -->
+        <nav class="settings-nav">
+          <a href="9-1 프로필 관리.html" class="settings-nav__link">
+            <i data-lucide="user" class="icon icon-sm"></i>
+            프로필 관리
+          </a>
+          <a href="9-2 설정.html" class="settings-nav__link active">
+            <i data-lucide="settings" class="icon icon-sm"></i>
+            계정 설정
+          </a>
+          <a href="9-3 계좌 관리.html" class="settings-nav__link">
+            <i data-lucide="credit-card" class="icon icon-sm"></i>
+            계좌 관리
+          </a>
+          <a href="9-4 요금제 관리.html" class="settings-nav__link">
+            <i data-lucide="crown" class="icon icon-sm"></i>
+            요금제
+          </a>
+          <a href="9-5 관리자 초대.html" class="settings-nav__link">
+            <i data-lucide="users" class="icon icon-sm"></i>
+            관리자 초대
+          </a>
+          <a href="9-6 알림 설정.html" class="settings-nav__link">
+            <i data-lucide="bell" class="icon icon-sm"></i>
+            알림 설정
+          </a>
+        </nav>
+
+        <!-- 계정 설정 콘텐츠 -->
+        <div class="settings-content">
+          <h1 class="settings-title">계정 설정</h1>
+          <p class="settings-desc">본인 인증, 소셜 계정 연동 및 보안 설정을 관리합니다.</p>
+
+          <!-- 본인 인증 섹션 -->
+          <div class="settings-section">
+            <h3 class="settings-section__title">본인 인증</h3>
+
+            <div class="settings-item">
+              <div class="settings-item__info">
+                <div class="settings-item__icon settings-item__icon--verified">
+                  <i data-lucide="smartphone" class="icon icon-sm"></i>
+                </div>
+                <div class="settings-item__text">
+                  <h4>휴대폰 인증</h4>
+                  <p>010-****-5678 인증 완료</p>
+                </div>
+              </div>
+              <a href="9-2-1 휴대폰 인증 변경.html" class="btn btn--outline btn--sm">
+                변경
+              </a>
+            </div>
+
+            <div class="settings-item">
+              <div class="settings-item__info">
+                <div class="settings-item__icon settings-item__icon--pending">
+                  <i data-lucide="building-2" class="icon icon-sm"></i>
+                </div>
+                <div class="settings-item__text">
+                  <h4>사업자 인증</h4>
+                  <p>미인증 상태입니다</p>
+                </div>
+              </div>
+              <a href="9-2-2 사업자 인증.html" class="btn btn--primary btn--sm">
+                인증하기
+              </a>
+            </div>
+          </div>
+
+          <!-- 소셜 계정 연동 -->
+          <div class="settings-section">
+            <h3 class="settings-section__title">소셜 계정 연동</h3>
+
+            <div class="social-accounts">
+              <div class="social-item">
+                <div class="social-item__info">
+                  <div class="social-item__logo social-item__logo--kakao">K</div>
+                  <div>
+                    <div class="social-item__name">카카오</div>
+                    <div class="social-item__status social-item__status--connected">연동됨</div>
+                  </div>
+                </div>
+                <button class="btn btn--outline btn--sm" onclick="Toast.info('카카오 연동 해제 기능 준비중입니다.')">
+                  연동 해제
+                </button>
+              </div>
+
+              <div class="social-item">
+                <div class="social-item__info">
+                  <div class="social-item__logo social-item__logo--naver">N</div>
+                  <div>
+                    <div class="social-item__name">네이버</div>
+                    <div class="social-item__status">미연동</div>
+                  </div>
+                </div>
+                <button class="btn btn--primary btn--sm" onclick="Toast.info('네이버 연동 기능 준비중입니다.')">
+                  연동하기
+                </button>
+              </div>
+
+              <div class="social-item">
+                <div class="social-item__info">
+                  <div class="social-item__logo social-item__logo--google">G</div>
+                  <div>
+                    <div class="social-item__name">Google</div>
+                    <div class="social-item__status">미연동</div>
+                  </div>
+                </div>
+                <button class="btn btn--primary btn--sm" onclick="Toast.info('Google 연동 기능 준비중입니다.')">
+                  연동하기
+                </button>
+              </div>
+
+              <div class="social-item">
+                <div class="social-item__info">
+                  <div class="social-item__logo social-item__logo--line">L</div>
+                  <div>
+                    <div class="social-item__name">LINE</div>
+                    <div class="social-item__status">미연동</div>
+                  </div>
+                </div>
+                <button class="btn btn--primary btn--sm" onclick="Toast.info('LINE 연동 기능 준비중입니다.')">
+                  연동하기
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 보안 설정 -->
+          <div class="settings-section">
+            <h3 class="settings-section__title">보안</h3>
+
+            <div class="settings-item">
+              <div class="settings-item__info">
+                <div class="settings-item__icon">
+                  <i data-lucide="lock" class="icon icon-sm"></i>
+                </div>
+                <div class="settings-item__text">
+                  <h4>비밀번호 변경</h4>
+                  <p>마지막 변경: 30일 전</p>
+                </div>
+              </div>
+              <a href="9-2-3 비밀번호 변경.html" class="btn btn--outline btn--sm">
+                변경
+              </a>
+            </div>
+          </div>
+
+          <!-- 위험 구역 -->
+          <div class="settings-section">
+            <div class="danger-zone">
+              <h4 class="danger-zone__title">회원 탈퇴</h4>
+              <p class="danger-zone__desc">탈퇴 시 모든 데이터가 삭제되며, 복구가 불가능합니다. 진행 중인 협업이 있는 경우 먼저 완료해주세요.</p>
+              <a href="9-2-4 회원 탈퇴.html" class="btn btn--danger btn--sm">
+                <i data-lucide="alert-triangle" class="icon icon-sm"></i>
+                회원 탈퇴
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

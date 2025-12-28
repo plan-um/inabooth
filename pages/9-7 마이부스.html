@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마이부스 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .dashboard {
+      padding-top: calc(var(--header-height) + var(--space-6));
+      padding-bottom: var(--space-8);
+      min-height: 100vh;
+      background: var(--color-bg-secondary);
+    }
+
+    .dashboard__layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: var(--space-6);
+    }
+
+    /* 사이드바 */
+    .dashboard__sidebar {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-card);
+      height: fit-content;
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-6));
+    }
+
+    .sidebar__profile {
+      text-align: center;
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--space-6);
+    }
+
+    .sidebar__avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      margin: 0 auto var(--space-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .sidebar__name {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-1);
+    }
+
+    .sidebar__type {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-full);
+    }
+
+    .sidebar__nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .sidebar__link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .sidebar__link:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .sidebar__link.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .sidebar__link__badge {
+      margin-left: auto;
+      padding: 2px 8px;
+      background: var(--color-secondary);
+      color: white;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-full);
+    }
+
+    /* 메인 콘텐츠 */
+    .dashboard__main {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    /* 환영 메시지 */
+    .welcome-card {
+      background: var(--gradient-primary);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      color: white;
+    }
+
+    .welcome-card__title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .welcome-card__desc {
+      opacity: 0.9;
+      font-size: var(--font-size-base);
+    }
+
+    /* 통계 카드 */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-card);
+    }
+
+    .stat-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-3);
+    }
+
+    .stat-card__icon--primary { background: var(--color-primary-light); color: var(--color-primary); }
+    .stat-card__icon--secondary { background: rgba(236, 72, 153, 0.1); color: var(--color-secondary); }
+    .stat-card__icon--mint { background: rgba(6, 182, 212, 0.1); color: var(--color-accent-mint); }
+    .stat-card__icon--success { background: var(--color-success-light); color: var(--color-success); }
+
+    .stat-card__value {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .stat-card__label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    /* 퀵 액션 */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+
+    .quick-action {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-fast);
+    }
+
+    .quick-action:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .quick-action__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quick-action__text {
+      flex: 1;
+    }
+
+    .quick-action__title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: 2px;
+    }
+
+    .quick-action__desc {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    /* 최근 활동 */
+    .activity-section {
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+    }
+
+    .activity__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .activity__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .activity__more {
+      font-size: var(--font-size-sm);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .activity__list {
+      padding: var(--space-4) 0;
+    }
+
+    .activity__item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-6);
+      transition: background var(--transition-fast);
+    }
+
+    .activity__item:hover {
+      background: var(--color-bg-secondary);
+    }
+
+    .activity__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .activity__icon--view { background: var(--color-primary-light); color: var(--color-primary); }
+    .activity__icon--like { background: rgba(236, 72, 153, 0.1); color: var(--color-secondary); }
+    .activity__icon--apply { background: var(--color-success-light); color: var(--color-success); }
+    .activity__icon--message { background: rgba(6, 182, 212, 0.1); color: var(--color-accent-mint); }
+
+    .activity__content {
+      flex: 1;
+    }
+
+    .activity__text {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+
+    .activity__text strong {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-primary);
+    }
+
+    .activity__time {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .quick-actions { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard__layout {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard__sidebar {
+        position: static;
+      }
+
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .quick-actions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="dashboard">
+    <div class="container">
+      <div class="dashboard__layout">
+        <!-- 사이드바 -->
+        <aside class="dashboard__sidebar">
+          <div class="sidebar__profile">
+            <div class="sidebar__avatar">H</div>
+            <div class="sidebar__name">홍길동</div>
+            <span class="sidebar__type">
+              <i data-lucide="palette" class="icon icon-sm"></i>
+              IP 홀더
+            </span>
+          </div>
+
+          <nav class="sidebar__nav">
+            <a href="9-7 마이부스.html" class="sidebar__link active">
+              <i data-lucide="layout-dashboard" class="icon icon-sm"></i>
+              대시보드
+            </a>
+            <a href="9-7-1 마이부스_IP 관리.html" class="sidebar__link">
+              <i data-lucide="palette" class="icon icon-sm"></i>
+              내 IP 관리
+              <span class="sidebar__link__badge">3</span>
+            </a>
+            <a href="9-7-2 마이부스_프로젝트 관리.html" class="sidebar__link">
+              <i data-lucide="folder" class="icon icon-sm"></i>
+              프로젝트 관리
+            </a>
+            <a href="9-7-3 마이부스_지원 현황.html" class="sidebar__link">
+              <i data-lucide="send" class="icon icon-sm"></i>
+              지원 현황
+              <span class="sidebar__link__badge">2</span>
+            </a>
+            <a href="9-7-4 마이부스_받은 문의.html" class="sidebar__link">
+              <i data-lucide="inbox" class="icon icon-sm"></i>
+              받은 문의
+              <span class="sidebar__link__badge">5</span>
+            </a>
+            <a href="9-7-5 마이부스_보낸 문의.html" class="sidebar__link">
+              <i data-lucide="send" class="icon icon-sm"></i>
+              보낸 문의
+            </a>
+            <a href="9-7-6 마이부스_스크랩.html" class="sidebar__link">
+              <i data-lucide="bookmark" class="icon icon-sm"></i>
+              스크랩
+            </a>
+            <a href="9-8 내 통계.html" class="sidebar__link">
+              <i data-lucide="bar-chart-3" class="icon icon-sm"></i>
+              내 통계
+            </a>
+          </nav>
+        </aside>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="dashboard__main">
+          <!-- 환영 메시지 -->
+          <div class="welcome-card">
+            <h1 class="welcome-card__title">안녕하세요, 홍길동님!</h1>
+            <p class="welcome-card__desc">오늘도 새로운 협업 기회가 기다리고 있어요. 확인해보세요!</p>
+          </div>
+
+          <!-- 통계 카드 -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card__icon stat-card__icon--primary">
+                <i data-lucide="eye" class="icon"></i>
+              </div>
+              <div class="stat-card__value">2,456</div>
+              <div class="stat-card__label">총 조회수</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon stat-card__icon--secondary">
+                <i data-lucide="heart" class="icon"></i>
+              </div>
+              <div class="stat-card__value">128</div>
+              <div class="stat-card__label">스크랩 수</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon stat-card__icon--mint">
+                <i data-lucide="message-circle" class="icon"></i>
+              </div>
+              <div class="stat-card__value">15</div>
+              <div class="stat-card__label">받은 문의</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon stat-card__icon--success">
+                <i data-lucide="check-circle" class="icon"></i>
+              </div>
+              <div class="stat-card__value">8</div>
+              <div class="stat-card__label">협업 완료</div>
+            </div>
+          </div>
+
+          <!-- 퀵 액션 -->
+          <div class="quick-actions">
+            <a href="6-1 캐릭터 등록.html" class="quick-action">
+              <div class="quick-action__icon">
+                <i data-lucide="plus" class="icon"></i>
+              </div>
+              <div class="quick-action__text">
+                <div class="quick-action__title">새 IP 등록</div>
+                <div class="quick-action__desc">캐릭터 IP 추가하기</div>
+              </div>
+            </a>
+            <a href="4-1 오픈 프로젝트.html" class="quick-action">
+              <div class="quick-action__icon" style="background: rgba(236, 72, 153, 0.1); color: var(--color-secondary);">
+                <i data-lucide="search" class="icon"></i>
+              </div>
+              <div class="quick-action__text">
+                <div class="quick-action__title">프로젝트 찾기</div>
+                <div class="quick-action__desc">오픈 프로젝트 탐색</div>
+              </div>
+            </a>
+            <a href="9-8 내 통계.html" class="quick-action">
+              <div class="quick-action__icon" style="background: rgba(6, 182, 212, 0.1); color: var(--color-accent-mint);">
+                <i data-lucide="bar-chart-2" class="icon"></i>
+              </div>
+              <div class="quick-action__text">
+                <div class="quick-action__title">통계 보기</div>
+                <div class="quick-action__desc">상세 분석 확인</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- 최근 활동 -->
+          <section class="activity-section">
+            <div class="activity__header">
+              <h2 class="activity__title">최근 활동</h2>
+              <a href="#" class="activity__more">전체 보기</a>
+            </div>
+            <div class="activity__list">
+              <div class="activity__item">
+                <div class="activity__icon activity__icon--view">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                </div>
+                <div class="activity__content">
+                  <div class="activity__text"><strong>귀여운 곰돌이 친구들</strong> IP가 45회 조회되었습니다</div>
+                  <div class="activity__time">10분 전</div>
+                </div>
+              </div>
+              <div class="activity__item">
+                <div class="activity__icon activity__icon--like">
+                  <i data-lucide="heart" class="icon icon-sm"></i>
+                </div>
+                <div class="activity__content">
+                  <div class="activity__text"><strong>ABC 브랜드</strong>에서 IP를 스크랩했습니다</div>
+                  <div class="activity__time">1시간 전</div>
+                </div>
+              </div>
+              <div class="activity__item">
+                <div class="activity__icon activity__icon--message">
+                  <i data-lucide="message-circle" class="icon icon-sm"></i>
+                </div>
+                <div class="activity__content">
+                  <div class="activity__text"><strong>XYZ 코스메틱</strong>에서 협업 문의가 왔습니다</div>
+                  <div class="activity__time">3시간 전</div>
+                </div>
+              </div>
+              <div class="activity__item">
+                <div class="activity__icon activity__icon--apply">
+                  <i data-lucide="check-circle" class="icon icon-sm"></i>
+                </div>
+                <div class="activity__content">
+                  <div class="activity__text"><strong>키즈 캠페인</strong> 프로젝트 지원이 승인되었습니다</div>
+                  <div class="activity__time">어제</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

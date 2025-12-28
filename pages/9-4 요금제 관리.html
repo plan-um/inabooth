@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>요금제 관리 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .settings-page {
+      padding-top: calc(var(--header-height) + var(--space-4));
+      padding-bottom: var(--space-8);
+      min-height: 100vh;
+      background: var(--color-bg-secondary);
+    }
+
+    .settings-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: var(--space-6);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .settings-nav {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-card);
+      height: fit-content;
+    }
+
+    .settings-nav__link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+
+    .settings-nav__link:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .settings-nav__link.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .settings-content {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+    }
+
+    .settings-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .settings-desc {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    /* 현재 요금제 카드 */
+    .current-plan {
+      background: var(--gradient-primary);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      color: white;
+      margin-bottom: var(--space-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .current-plan::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+
+    .current-plan__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      background: rgba(255,255,255,0.2);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-4);
+    }
+
+    .current-plan__name {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .current-plan__price {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+      margin-bottom: var(--space-6);
+    }
+
+    .current-plan__info {
+      display: flex;
+      gap: var(--space-8);
+      margin-bottom: var(--space-6);
+    }
+
+    .current-plan__info-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .current-plan__info-label {
+      font-size: var(--font-size-xs);
+      opacity: 0.8;
+    }
+
+    .current-plan__info-value {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .current-plan__actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .current-plan .btn--white {
+      background: white;
+      color: var(--color-primary);
+    }
+
+    .current-plan .btn--white-outline {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.5);
+      color: white;
+    }
+
+    /* 섹션 타이틀 */
+    .section-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-4);
+    }
+
+    /* 결제 수단 */
+    .payment-method {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .payment-method__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+    }
+
+    .payment-method__title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .payment-method__card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .payment-method__card-icon {
+      width: 48px;
+      height: 32px;
+      background: var(--gradient-primary);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .payment-method__card-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .payment-method__card-number {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .payment-method__card-expiry {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    /* 이용 내역 */
+    .usage-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .usage-table th,
+    .usage-table td {
+      padding: var(--space-4);
+      text-align: left;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .usage-table th {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-tertiary);
+    }
+
+    .usage-table td {
+      font-size: var(--font-size-sm);
+    }
+
+    .usage-status {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-success-light);
+      color: var(--color-success);
+    }
+
+    @media (max-width: 768px) {
+      .settings-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-nav {
+        position: static;
+        display: flex;
+        overflow-x: auto;
+        gap: var(--space-2);
+        padding: var(--space-3);
+      }
+
+      .settings-nav__link {
+        white-space: nowrap;
+      }
+
+      .current-plan__info {
+        flex-direction: column;
+        gap: var(--space-4);
+      }
+
+      .current-plan__actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="settings-page">
+    <div class="container">
+      <div class="settings-layout">
+        <!-- 설정 사이드바 -->
+        <nav class="settings-nav">
+          <a href="9-1 프로필 관리.html" class="settings-nav__link">
+            <i data-lucide="user" class="icon icon-sm"></i>
+            프로필 관리
+          </a>
+          <a href="9-2 설정.html" class="settings-nav__link">
+            <i data-lucide="settings" class="icon icon-sm"></i>
+            계정 설정
+          </a>
+          <a href="9-3 계좌 관리.html" class="settings-nav__link">
+            <i data-lucide="credit-card" class="icon icon-sm"></i>
+            계좌 관리
+          </a>
+          <a href="9-4 요금제 관리.html" class="settings-nav__link active">
+            <i data-lucide="crown" class="icon icon-sm"></i>
+            요금제
+          </a>
+          <a href="9-5 관리자 초대.html" class="settings-nav__link">
+            <i data-lucide="users" class="icon icon-sm"></i>
+            관리자 초대
+          </a>
+          <a href="9-6 알림 설정.html" class="settings-nav__link">
+            <i data-lucide="bell" class="icon icon-sm"></i>
+            알림 설정
+          </a>
+        </nav>
+
+        <!-- 요금제 관리 콘텐츠 -->
+        <div class="settings-content">
+          <h1 class="settings-title">요금제 관리</h1>
+          <p class="settings-desc">구독 중인 요금제와 결제 정보를 관리합니다.</p>
+
+          <!-- 현재 요금제 -->
+          <div class="current-plan">
+            <div class="current-plan__badge">
+              <i data-lucide="crown" class="icon icon-sm"></i>
+              현재 이용 중
+            </div>
+            <div class="current-plan__name">프로 플랜</div>
+            <div class="current-plan__price">₩ 14,900 / 월</div>
+
+            <div class="current-plan__info">
+              <div class="current-plan__info-item">
+                <span class="current-plan__info-label">구독 상태</span>
+                <span class="current-plan__info-value">활성</span>
+              </div>
+              <div class="current-plan__info-item">
+                <span class="current-plan__info-label">다음 결제일</span>
+                <span class="current-plan__info-value">2024년 4월 15일</span>
+              </div>
+              <div class="current-plan__info-item">
+                <span class="current-plan__info-label">이용 시작일</span>
+                <span class="current-plan__info-value">2024년 3월 15일</span>
+              </div>
+            </div>
+
+            <div class="current-plan__actions">
+              <button class="btn btn--white btn--md" onclick="Toast.info('요금제 변경 기능 준비중입니다.')">
+                <i data-lucide="repeat" class="icon icon-sm"></i>
+                요금제 변경
+              </button>
+              <button class="btn btn--white-outline btn--md" onclick="Toast.info('구독 해지 기능 준비중입니다.')">
+                구독 해지
+              </button>
+            </div>
+          </div>
+
+          <!-- 요금제 상세 링크 -->
+          <div style="display: flex; gap: var(--space-3); margin-bottom: var(--space-8);">
+            <a href="9-4-1 요금제_IPH.html" class="btn btn--outline btn--md" style="flex: 1; justify-content: center;">
+              <i data-lucide="image" class="icon icon-sm"></i>
+              IP홀더 요금제 상세
+            </a>
+            <a href="9-4-2 요금제_BP.html" class="btn btn--outline btn--md" style="flex: 1; justify-content: center;">
+              <i data-lucide="briefcase" class="icon icon-sm"></i>
+              브랜드파트너 요금제 상세
+            </a>
+          </div>
+
+          <!-- 결제 수단 -->
+          <div class="payment-method">
+            <div class="payment-method__header">
+              <h3 class="payment-method__title">결제 수단</h3>
+              <button class="btn btn--outline btn--sm" onclick="Toast.info('결제 수단 변경 기능 준비중입니다.')">
+                <i data-lucide="edit-2" class="icon icon-sm"></i>
+                변경
+              </button>
+            </div>
+            <div class="payment-method__card">
+              <div class="payment-method__card-icon">VISA</div>
+              <div class="payment-method__card-info">
+                <span class="payment-method__card-number">**** **** **** 1234</span>
+                <span class="payment-method__card-expiry">만료: 12/26</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 이용 내역 -->
+          <h3 class="section-title">결제 내역</h3>
+          <table class="usage-table">
+            <thead>
+              <tr>
+                <th>날짜</th>
+                <th>내용</th>
+                <th>금액</th>
+                <th>상태</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2024.03.15</td>
+                <td>프로 플랜 구독</td>
+                <td>₩ 14,900</td>
+                <td><span class="usage-status">결제 완료</span></td>
+              </tr>
+              <tr>
+                <td>2024.02.15</td>
+                <td>프로 플랜 구독</td>
+                <td>₩ 14,900</td>
+                <td><span class="usage-status">결제 완료</span></td>
+              </tr>
+              <tr>
+                <td>2024.01.15</td>
+                <td>프로 플랜 구독</td>
+                <td>₩ 14,900</td>
+                <td><span class="usage-status">결제 완료</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

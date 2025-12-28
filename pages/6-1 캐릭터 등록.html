@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캐릭터 등록 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.main-content { padding-top: calc(var(--header-height) + var(--space-8)); padding-bottom: var(--space-8); min-height: 100vh; }
+
+    /* Registration Card */
+    .reg-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-12);
+      box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+
+    .reg-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-6);
+      color: var(--color-primary);
+    }
+
+    .reg-title {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-4);
+    }
+
+    .reg-desc {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-relaxed);
+      margin-bottom: var(--space-8);
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-12);
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      flex: 1;
+      max-width: 120px;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      background: var(--color-bg-secondary);
+      color: var(--color-text-tertiary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-sm);
+    }
+
+    .step.active .step-number {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .step.completed .step-number {
+      background: var(--color-success);
+      color: white;
+    }
+
+    .step-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      text-align: center;
+    }
+
+    .step.active .step-label {
+      color: var(--color-text-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Auth Status */
+    .auth-status {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .auth-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-4);
+      text-align: left;
+    }
+
+    .auth-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .auth-item:last-child {
+      border-bottom: none;
+    }
+
+    .auth-item__label {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--color-text-secondary);
+    }
+
+    .auth-badge {
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .auth-badge--success {
+      background: rgba(0, 212, 170, 0.1);
+      color: var(--color-success);
+    }
+
+    .auth-badge--pending {
+      background: rgba(255, 179, 71, 0.1);
+      color: #FFB347;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="reg-card">
+        <div class="reg-icon">
+          <i data-lucide="sparkles" class="icon-lg"></i>
+        </div>
+
+        <h1 class="reg-title">캐릭터 등록</h1>
+        <p class="reg-desc">내 캐릭터 IP를 등록하고<br>브랜드 협업 기회를 만나보세요</p>
+
+        <!-- Steps -->
+        <div class="steps">
+          <div class="step active">
+            <div class="step-number">1</div>
+            <div class="step-label">기본 정보</div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-label">상세 정보</div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-label">협업 정보</div>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-label">공개 설정</div>
+          </div>
+        </div>
+
+        <!-- Auth Status -->
+        <div class="auth-status">
+          <h3 class="auth-title">인증 상태 확인</h3>
+          <div class="auth-item">
+            <span class="auth-item__label">
+              <i data-lucide="smartphone" class="icon"></i>
+              휴대폰 인증
+            </span>
+            <span class="auth-badge auth-badge--success">인증 완료</span>
+          </div>
+          <div class="auth-item">
+            <span class="auth-item__label">
+              <i data-lucide="file-text" class="icon"></i>
+              사업자 인증 (선택)
+            </span>
+            <span class="auth-badge auth-badge--pending">미인증</span>
+          </div>
+        </div>
+
+        <a href="6-1-1 캐릭터 등록_기본 정보.html" class="btn btn--primary">
+          시작하기
+          <i data-lucide="arrow-right" class="icon"></i>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({ activePage: 'browse' });
+  </script>
+</body>
+</html>

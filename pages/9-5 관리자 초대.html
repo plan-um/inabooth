@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 초대 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .settings-page {
+      padding-top: calc(var(--header-height) + var(--space-4));
+      padding-bottom: var(--space-8);
+      min-height: 100vh;
+      background: var(--color-bg-secondary);
+    }
+
+    .settings-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: var(--space-6);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .settings-nav {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-card);
+      height: fit-content;
+    }
+
+    .settings-nav__link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+
+    .settings-nav__link:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .settings-nav__link.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .settings-content {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+    }
+
+    .settings-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .settings-desc {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    /* 초대 섹션 */
+    .invite-section {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .invite-section__title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-4);
+    }
+
+    .invite-form {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .invite-form__input {
+      flex: 1;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .invite-form__input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-light);
+    }
+
+    .invite-form__select {
+      width: 140px;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      background: white;
+      cursor: pointer;
+    }
+
+    /* 관리자 목록 */
+    .admin-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .admin-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+    }
+
+    .admin-item__avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-lg);
+    }
+
+    .admin-item__info {
+      flex: 1;
+    }
+
+    .admin-item__name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: 2px;
+    }
+
+    .admin-item__email {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .admin-item__role {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .admin-item__role--owner {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .admin-item__role--admin {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .admin-item__role--editor {
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-secondary);
+    }
+
+    .admin-item__actions {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    /* 대기 중인 초대 */
+    .pending-invites {
+      margin-top: var(--space-8);
+      padding-top: var(--space-8);
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+    }
+
+    .section-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .pending-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4);
+      background: var(--color-warning-light);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-3);
+    }
+
+    .pending-item__info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .pending-item__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-warning);
+    }
+
+    .pending-item__text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pending-item__email {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .pending-item__status {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    @media (max-width: 768px) {
+      .settings-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-nav {
+        position: static;
+        display: flex;
+        overflow-x: auto;
+        gap: var(--space-2);
+        padding: var(--space-3);
+      }
+
+      .settings-nav__link {
+        white-space: nowrap;
+      }
+
+      .invite-form {
+        flex-direction: column;
+      }
+
+      .invite-form__select {
+        width: 100%;
+      }
+
+      .admin-item {
+        flex-wrap: wrap;
+      }
+
+      .admin-item__actions {
+        width: 100%;
+        margin-top: var(--space-3);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="settings-page">
+    <div class="container">
+      <div class="settings-layout">
+        <!-- 설정 사이드바 -->
+        <nav class="settings-nav">
+          <a href="9-1 프로필 관리.html" class="settings-nav__link">
+            <i data-lucide="user" class="icon icon-sm"></i>
+            프로필 관리
+          </a>
+          <a href="9-2 설정.html" class="settings-nav__link">
+            <i data-lucide="settings" class="icon icon-sm"></i>
+            계정 설정
+          </a>
+          <a href="9-3 계좌 관리.html" class="settings-nav__link">
+            <i data-lucide="credit-card" class="icon icon-sm"></i>
+            계좌 관리
+          </a>
+          <a href="9-4 요금제 관리.html" class="settings-nav__link">
+            <i data-lucide="crown" class="icon icon-sm"></i>
+            요금제
+          </a>
+          <a href="9-5 관리자 초대.html" class="settings-nav__link active">
+            <i data-lucide="users" class="icon icon-sm"></i>
+            관리자 초대
+          </a>
+          <a href="9-6 알림 설정.html" class="settings-nav__link">
+            <i data-lucide="bell" class="icon icon-sm"></i>
+            알림 설정
+          </a>
+        </nav>
+
+        <!-- 관리자 초대 콘텐츠 -->
+        <div class="settings-content">
+          <h1 class="settings-title">관리자 초대</h1>
+          <p class="settings-desc">팀원을 초대하고 권한을 관리할 수 있습니다.</p>
+
+          <!-- 초대 폼 -->
+          <div class="invite-section">
+            <h3 class="invite-section__title">새 관리자 초대</h3>
+            <div class="invite-form">
+              <input type="email" class="invite-form__input" placeholder="이메일 주소를 입력하세요">
+              <select class="invite-form__select">
+                <option value="admin">관리자</option>
+                <option value="editor">에디터</option>
+              </select>
+              <button class="btn btn--primary btn--md" onclick="Toast.success('초대 메일이 발송되었습니다.')">
+                <i data-lucide="send" class="icon icon-sm"></i>
+                초대하기
+              </button>
+            </div>
+          </div>
+
+          <!-- 현재 관리자 목록 -->
+          <div class="section-header">
+            <h3 class="section-title">팀 멤버 (3명)</h3>
+          </div>
+
+          <div class="admin-list">
+            <div class="admin-item">
+              <div class="admin-item__avatar">홍</div>
+              <div class="admin-item__info">
+                <div class="admin-item__name">홍길동</div>
+                <div class="admin-item__email">hong***@email.com</div>
+              </div>
+              <span class="admin-item__role admin-item__role--owner">
+                <i data-lucide="crown" class="icon icon-xs" style="margin-right: 4px;"></i>
+                소유자
+              </span>
+              <div class="admin-item__actions">
+                <!-- 소유자는 수정/삭제 불가 -->
+              </div>
+            </div>
+
+            <div class="admin-item">
+              <div class="admin-item__avatar" style="background: linear-gradient(135deg, #06B6D4, #3B82F6);">김</div>
+              <div class="admin-item__info">
+                <div class="admin-item__name">김영희</div>
+                <div class="admin-item__email">kim***@email.com</div>
+              </div>
+              <span class="admin-item__role admin-item__role--admin">관리자</span>
+              <div class="admin-item__actions">
+                <button class="btn btn--ghost btn--sm" onclick="Toast.info('권한 변경 기능 준비중입니다.')">
+                  <i data-lucide="edit-2" class="icon icon-sm"></i>
+                </button>
+                <button class="btn btn--ghost btn--sm" onclick="Toast.error('멤버 삭제 기능 준비중입니다.')">
+                  <i data-lucide="trash-2" class="icon icon-sm"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-item">
+              <div class="admin-item__avatar" style="background: linear-gradient(135deg, #F59E0B, #EF4444);">박</div>
+              <div class="admin-item__info">
+                <div class="admin-item__name">박철수</div>
+                <div class="admin-item__email">park***@email.com</div>
+              </div>
+              <span class="admin-item__role admin-item__role--editor">에디터</span>
+              <div class="admin-item__actions">
+                <button class="btn btn--ghost btn--sm" onclick="Toast.info('권한 변경 기능 준비중입니다.')">
+                  <i data-lucide="edit-2" class="icon icon-sm"></i>
+                </button>
+                <button class="btn btn--ghost btn--sm" onclick="Toast.error('멤버 삭제 기능 준비중입니다.')">
+                  <i data-lucide="trash-2" class="icon icon-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 대기 중인 초대 -->
+          <div class="pending-invites">
+            <div class="section-header">
+              <h3 class="section-title">대기 중인 초대</h3>
+            </div>
+
+            <div class="pending-item">
+              <div class="pending-item__info">
+                <div class="pending-item__icon">
+                  <i data-lucide="clock" class="icon icon-sm"></i>
+                </div>
+                <div class="pending-item__text">
+                  <span class="pending-item__email">lee***@email.com</span>
+                  <span class="pending-item__status">2024.03.20 초대됨 · 관리자 권한</span>
+                </div>
+              </div>
+              <div>
+                <button class="btn btn--ghost btn--sm" onclick="Toast.info('초대를 다시 보냈습니다.')">
+                  재전송
+                </button>
+                <button class="btn btn--ghost btn--sm" onclick="Toast.error('초대가 취소되었습니다.')">
+                  취소
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

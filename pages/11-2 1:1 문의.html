@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1:1 문의 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Background Blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .blob-1 {
+      top: -15%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, #C7D2FE, #DDD6FE);
+    }
+
+    .blob-2 {
+      top: 10%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #FBCFE8, #FCE7F3);
+    }
+
+    /* Layout */
+    .main-content {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      padding-bottom: var(--space-16);
+      min-height: 100vh;
+    }
+
+    /* Page Header */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--space-8);
+    }
+
+    .page-header__left {
+      flex: 1;
+    }
+
+    .page-title {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-extrabold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .page-desc {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+    }
+
+    .btn-write {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-lg);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .btn-write:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Filter Tabs */
+    .inquiry-filters {
+      display: flex;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .filter-tab {
+      padding: var(--space-2) var(--space-4);
+      background: transparent;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .filter-tab:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .filter-tab.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    /* Inquiry List */
+    .inquiry-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .inquiry-item {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-fast);
+    }
+
+    .inquiry-item:hover {
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .inquiry-item__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--space-3);
+    }
+
+    .inquiry-item__meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .inquiry-item__category {
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .inquiry-item__status {
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .inquiry-item__status--waiting {
+      background: var(--color-warning-light);
+      color: #D97706;
+    }
+
+    .inquiry-item__status--answered {
+      background: var(--color-success-light);
+      color: var(--color-success);
+    }
+
+    .inquiry-item__actions {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .inquiry-item__btn {
+      padding: var(--space-2);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-md);
+      color: var(--color-text-tertiary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .inquiry-item__btn:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .inquiry-item__btn--delete:hover {
+      background: var(--color-error-light);
+      color: var(--color-error);
+    }
+
+    .inquiry-item__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+      text-decoration: none;
+      display: block;
+    }
+
+    .inquiry-item__title:hover {
+      color: var(--color-primary);
+    }
+
+    .inquiry-item__preview {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: var(--space-3);
+    }
+
+    .inquiry-item__footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .inquiry-item__date {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .inquiry-item__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .inquiry-item__link:hover {
+      text-decoration: underline;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: var(--space-16) var(--space-8);
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+    }
+
+    .empty-state__icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--space-6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-bg-secondary);
+      border-radius: 50%;
+      color: var(--color-text-tertiary);
+    }
+
+    .empty-state__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .empty-state__desc {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-6);
+    }
+
+    /* Delete Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .modal__icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-error-light);
+      border-radius: 50%;
+      color: var(--color-error);
+    }
+
+    .modal__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .modal__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-6);
+    }
+
+    .modal__actions {
+      display: flex;
+      gap: var(--space-3);
+      justify-content: center;
+    }
+
+    .modal__btn {
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-lg);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .modal__btn--cancel {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .modal__btn--cancel:hover {
+      background: var(--color-border-light);
+    }
+
+    .modal__btn--delete {
+      background: var(--color-error);
+      border: none;
+      color: white;
+    }
+
+    .modal__btn--delete:hover {
+      background: #DC2626;
+    }
+
+    @media (max-width: 768px) {
+      .page-header {
+        flex-direction: column;
+        gap: var(--space-4);
+      }
+
+      .inquiry-filters {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .inquiry-item__header {
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+
+      .inquiry-item__actions {
+        align-self: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- Header injected by shared.js -->
+  <div id="header-placeholder"></div>
+
+  <main class="main-content">
+    <div class="container">
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="page-header__left">
+          <h1 class="page-title">1:1 문의</h1>
+          <p class="page-desc">궁금한 점이나 불편한 사항을 문의해 주세요</p>
+        </div>
+        <a href="11-2-1 1:1 문의 작성.html" class="btn-write">
+          <i data-lucide="plus" class="icon icon-sm"></i>
+          문의 작성
+        </a>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="inquiry-filters">
+        <button class="filter-tab active" data-filter="all">전체</button>
+        <button class="filter-tab" data-filter="waiting">답변 대기</button>
+        <button class="filter-tab" data-filter="answered">답변 완료</button>
+      </div>
+
+      <!-- Inquiry List -->
+      <div class="inquiry-list" id="inquiryList">
+        <!-- Inquiry Item 1 - Answered -->
+        <div class="inquiry-item" data-status="answered">
+          <div class="inquiry-item__header">
+            <div class="inquiry-item__meta">
+              <span class="inquiry-item__category">결제/환불</span>
+              <span class="inquiry-item__status inquiry-item__status--answered">답변 완료</span>
+            </div>
+            <div class="inquiry-item__actions">
+              <button class="inquiry-item__btn" title="수정" onclick="location.href='11-2-1 1:1 문의 작성.html?edit=1'">
+                <i data-lucide="edit-2" class="icon icon-sm"></i>
+              </button>
+              <button class="inquiry-item__btn inquiry-item__btn--delete" title="삭제" onclick="showDeleteModal(1)">
+                <i data-lucide="trash-2" class="icon icon-sm"></i>
+              </button>
+            </div>
+          </div>
+          <a href="11-2-2 1:1 문의 상세.html?id=1" class="inquiry-item__title">Pro 요금제 결제 후 기능이 활성화되지 않습니다</a>
+          <p class="inquiry-item__preview">어제 Pro 요금제로 업그레이드 결제를 완료했는데, 아직 Pro 기능들이 활성화되지 않고 있습니다. 결제 확인 메일은 받았는데 계정에 반영이 안 된 것 같아요.</p>
+          <div class="inquiry-item__footer">
+            <span class="inquiry-item__date">2024.12.20 14:30</span>
+            <a href="11-2-2 1:1 문의 상세.html?id=1" class="inquiry-item__link">
+              답변 보기
+              <i data-lucide="chevron-right" class="icon icon-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Inquiry Item 2 - Waiting -->
+        <div class="inquiry-item" data-status="waiting">
+          <div class="inquiry-item__header">
+            <div class="inquiry-item__meta">
+              <span class="inquiry-item__category">서비스 이용</span>
+              <span class="inquiry-item__status inquiry-item__status--waiting">답변 대기</span>
+            </div>
+            <div class="inquiry-item__actions">
+              <button class="inquiry-item__btn" title="수정" onclick="location.href='11-2-1 1:1 문의 작성.html?edit=2'">
+                <i data-lucide="edit-2" class="icon icon-sm"></i>
+              </button>
+              <button class="inquiry-item__btn inquiry-item__btn--delete" title="삭제" onclick="showDeleteModal(2)">
+                <i data-lucide="trash-2" class="icon icon-sm"></i>
+              </button>
+            </div>
+          </div>
+          <a href="11-2-2 1:1 문의 상세.html?id=2" class="inquiry-item__title">IP 등록 시 이미지 업로드가 되지 않습니다</a>
+          <p class="inquiry-item__preview">캐릭터 IP 등록을 진행하는데 썸네일 이미지 업로드 시 계속 오류가 발생합니다. 이미지 크기는 2MB 이하이고 JPG 파일인데 왜 안 되는지 모르겠어요.</p>
+          <div class="inquiry-item__footer">
+            <span class="inquiry-item__date">2024.12.23 09:15</span>
+            <a href="11-2-2 1:1 문의 상세.html?id=2" class="inquiry-item__link">
+              상세 보기
+              <i data-lucide="chevron-right" class="icon icon-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Inquiry Item 3 - Answered -->
+        <div class="inquiry-item" data-status="answered">
+          <div class="inquiry-item__header">
+            <div class="inquiry-item__meta">
+              <span class="inquiry-item__category">계정/인증</span>
+              <span class="inquiry-item__status inquiry-item__status--answered">답변 완료</span>
+            </div>
+            <div class="inquiry-item__actions">
+              <button class="inquiry-item__btn" title="수정" onclick="location.href='11-2-1 1:1 문의 작성.html?edit=3'">
+                <i data-lucide="edit-2" class="icon icon-sm"></i>
+              </button>
+              <button class="inquiry-item__btn inquiry-item__btn--delete" title="삭제" onclick="showDeleteModal(3)">
+                <i data-lucide="trash-2" class="icon icon-sm"></i>
+              </button>
+            </div>
+          </div>
+          <a href="11-2-2 1:1 문의 상세.html?id=3" class="inquiry-item__title">사업자 인증 서류 재제출 방법 문의</a>
+          <p class="inquiry-item__preview">사업자 인증을 신청했는데 서류가 반려되었습니다. 재제출하려면 어떻게 해야 하나요? 반려 사유가 정확히 무엇인지도 알고 싶습니다.</p>
+          <div class="inquiry-item__footer">
+            <span class="inquiry-item__date">2024.12.18 16:42</span>
+            <a href="11-2-2 1:1 문의 상세.html?id=3" class="inquiry-item__link">
+              답변 보기
+              <i data-lucide="chevron-right" class="icon icon-sm"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State (hidden by default) -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-state__icon">
+          <i data-lucide="message-circle" style="width: 40px; height: 40px;"></i>
+        </div>
+        <h3 class="empty-state__title">문의 내역이 없습니다</h3>
+        <p class="empty-state__desc">궁금한 점이 있으시면 문의해 주세요.<br>빠르게 답변 드리겠습니다.</p>
+        <a href="11-2-1 1:1 문의 작성.html" class="btn-write">
+          <i data-lucide="plus" class="icon icon-sm"></i>
+          문의 작성
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal">
+      <div class="modal__icon">
+        <i data-lucide="trash-2" style="width: 32px; height: 32px;"></i>
+      </div>
+      <h3 class="modal__title">문의를 삭제하시겠습니까?</h3>
+      <p class="modal__desc">삭제된 문의는 복구할 수 없습니다.</p>
+      <div class="modal__actions">
+        <button class="modal__btn modal__btn--cancel" onclick="hideDeleteModal()">취소</button>
+        <button class="modal__btn modal__btn--delete" onclick="deleteInquiry()">삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer injected by shared.js -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Shared Components -->
+  <script src="components/shared.js"></script>
+  <script>
+    // Initialize page
+    initPage({ activePage: 'support', isLoggedIn: true });
+    lucide.createIcons();
+
+    // Filter functionality
+    let currentDeleteId = null;
+
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Update active tab
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Filter items
+        const filter = tab.dataset.filter;
+        const items = document.querySelectorAll('.inquiry-item');
+        let visibleCount = 0;
+
+        items.forEach(item => {
+          const status = item.dataset.status;
+          if (filter === 'all' || status === filter) {
+            item.style.display = 'block';
+            visibleCount++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        // Show empty state if no items visible
+        document.getElementById('inquiryList').style.display = visibleCount > 0 ? 'flex' : 'none';
+        document.getElementById('emptyState').style.display = visibleCount > 0 ? 'none' : 'block';
+      });
+    });
+
+    // Delete modal functions
+    function showDeleteModal(id) {
+      currentDeleteId = id;
+      document.getElementById('deleteModal').classList.add('active');
+    }
+
+    function hideDeleteModal() {
+      currentDeleteId = null;
+      document.getElementById('deleteModal').classList.remove('active');
+    }
+
+    function deleteInquiry() {
+      // In real app, would send delete request to server
+      console.log('Deleting inquiry:', currentDeleteId);
+
+      // Remove item from DOM
+      const items = document.querySelectorAll('.inquiry-item');
+      items.forEach(item => {
+        // In real app, would check actual ID
+      });
+
+      hideDeleteModal();
+      alert('문의가 삭제되었습니다.');
+    }
+
+    // Close modal on overlay click
+    document.getElementById('deleteModal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) {
+        hideDeleteModal();
+      }
+    });
+  </script>
+</body>
+</html>

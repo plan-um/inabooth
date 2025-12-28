@@ -1,0 +1,129 @@
+{
+  "verification_date": "2025-12-23",
+  "verification_type": "hybrid_3_level",
+  "summary": {
+    "total_pages": 80,
+    "pass": 63,
+    "warn": 0,
+    "fail": 12,
+    "pass_rate": "78.75%"
+  },
+  "level1_static_analysis": {
+    "status": "completed",
+    "results": {
+      "1-x_인증": { "total": 13, "pass": 13, "fail": 0 },
+      "2-x_메인": { "total": 7, "pass": 0, "fail": 7, "note": "파일 전체 누락" },
+      "3-x_탐색": { "total": 11, "pass": 6, "fail": 5, "note": "3-2-1~3-2-6 잘못된 콘텐츠" },
+      "4-x_프로젝트": { "total": 11, "pass": 11, "fail": 0 },
+      "5-x_인사이트": { "total": 3, "pass": 3, "fail": 0 },
+      "6-x_캐릭터": { "total": 8, "pass": 8, "fail": 0 },
+      "7-x_등록": { "total": 10, "pass": 10, "fail": 0 },
+      "8-x_지원": { "total": 9, "pass": 9, "fail": 0 },
+      "9-x_마이페이지": { "total": 1, "pass": 1, "fail": 0 },
+      "10-x_채팅": { "total": 7, "pass": 7, "fail": 0 }
+    }
+  },
+  "level2_mcp_verification": {
+    "status": "completed",
+    "pages_tested": 6,
+    "results": [
+      {
+        "file": "3-2-1 IP 상세_포트폴리오.html",
+        "status": "FAIL",
+        "issue": "잘못된 콘텐츠 - IP 탐색 페이지 표시",
+        "expected": "포트폴리오 탭 콘텐츠 또는 3-2#portfolio로 리다이렉트"
+      },
+      {
+        "file": "3-2-2 IP 상세_대표 채널.html",
+        "status": "FAIL",
+        "issue": "잘못된 콘텐츠 - IP 탐색 페이지 표시",
+        "expected": "대표 채널 탭 콘텐츠 또는 3-2#channel로 리다이렉트"
+      },
+      {
+        "file": "3-2-4 IP 상세_가이드북.html",
+        "status": "FAIL",
+        "issue": "잘못된 콘텐츠 - IP 탐색 페이지 표시",
+        "expected": "가이드북 탭 콘텐츠 또는 3-2#guidebook으로 리다이렉트"
+      },
+      {
+        "file": "3-2-5 IP 상세_관련 IP.html",
+        "status": "FAIL",
+        "issue": "잘못된 콘텐츠 - IP 탐색 페이지 표시 (추정)",
+        "expected": "관련 IP 탭 콘텐츠 또는 3-2#related로 리다이렉트"
+      },
+      {
+        "file": "3-2-6 IP 상세_문의하기.html",
+        "status": "FAIL",
+        "issue": "잘못된 콘텐츠 - IP 탐색 페이지 표시 (추정)",
+        "expected": "문의하기 모달 또는 10-3으로 리다이렉트"
+      },
+      {
+        "file": "3-2 IP 상세.html",
+        "status": "PASS",
+        "note": "메인 상세 페이지 정상 - 탭 네비게이션 포함"
+      }
+    ],
+    "console_errors": []
+  },
+  "level3_visual_qa": {
+    "status": "completed",
+    "pages_tested": 3,
+    "results": [
+      {
+        "file": "6-1-1 캐릭터 등록_기본 정보.html",
+        "status": "PASS",
+        "screenshot": "screenshots/6-1-1-character-register.png",
+        "notes": "폼 필드 16개, 정상 구현. 경미한 이슈: form field에 id/name 속성 누락"
+      },
+      {
+        "file": "7-1-1 프로젝트 등록_기본 정보.html",
+        "status": "PASS",
+        "screenshot": "screenshots/7-1-1-project-register.png",
+        "notes": "폼 필드 16개, 버튼 16개, 정상 구현"
+      },
+      {
+        "file": "3-2 IP 상세.html",
+        "status": "PASS",
+        "screenshot": "screenshots/3-2-ip-detail-correct.png",
+        "notes": "IP 정보, 탭 네비게이션, 포트폴리오 섹션 정상"
+      }
+    ]
+  },
+  "critical_issues": [
+    {
+      "severity": "HIGH",
+      "category": "파일 누락",
+      "description": "메인 랜딩 페이지(2-x) 전체 누락",
+      "affected_pages": [
+        "2-1 메인.html",
+        "2-1-1 메인_인증된 IP.html",
+        "2-1-2 메인_라이징 IP.html",
+        "2-1-3 메인_추천 IP.html",
+        "2-1-4 메인_신규 IP.html",
+        "2-1-5 메인_타깃팅.html",
+        "2-1-6 메인_뉴스레터.html"
+      ],
+      "recommendation": "메뉴구조도.csv 스펙에 따라 메인 페이지 구현 필요"
+    },
+    {
+      "severity": "HIGH",
+      "category": "잘못된 콘텐츠",
+      "description": "IP 상세 서브페이지들이 잘못된 콘텐츠(IP 탐색 페이지)를 표시",
+      "affected_pages": [
+        "3-2-1 IP 상세_포트폴리오.html",
+        "3-2-2 IP 상세_대표 채널.html",
+        "3-2-4 IP 상세_가이드북.html",
+        "3-2-5 IP 상세_관련 IP.html",
+        "3-2-6 IP 상세_문의하기.html"
+      ],
+      "recommendation": "4-2-x처럼 3-2.html의 해당 탭으로 리다이렉트하도록 수정"
+    }
+  ],
+  "minor_issues": [
+    {
+      "severity": "LOW",
+      "description": "일부 폼 필드에 id/name 속성 누락 (접근성 경고)",
+      "affected_pages": ["6-1-1 캐릭터 등록_기본 정보.html"]
+    }
+  ]
+}

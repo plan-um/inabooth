@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로젝트 지원 - 자격 검증 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.stepper { display: flex; justify-content: center; align-items: center; gap: var(--space-2); margin-bottom: var(--space-12); }
+    .stepper__item { display: flex; align-items: center; gap: var(--space-3); }
+    .stepper__circle { width: 48px; height: 48px; border-radius: var(--radius-full); background: var(--color-bg-secondary); border: 2px solid var(--color-border); display: flex; align-items: center; justify-content: center; font-weight: var(--font-weight-bold); color: var(--color-text-tertiary); transition: all var(--transition-normal); }
+    .stepper__item.active .stepper__circle { background: var(--color-primary); border-color: var(--color-primary); color: white; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
+    .stepper__item.completed .stepper__circle { background: var(--color-success); border-color: var(--color-success); color: white; }
+    .stepper__label { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--color-text-tertiary); }
+    .stepper__item.active .stepper__label { color: var(--color-primary); font-weight: var(--font-weight-semibold); }
+    .stepper__divider { width: 64px; height: 2px; background: var(--color-border); }
+    .stepper__item.completed ~ .stepper__divider { background: var(--color-success); }
+
+    .form-section { max-width: 720px; margin: 0 auto; background: white; border-radius: var(--radius-xl); padding: var(--space-10); box-shadow: var(--shadow-card); }
+    .form-section__title { font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-text-primary); margin-bottom: var(--space-2); }
+    .form-section__desc { font-size: var(--font-size-base); color: var(--color-text-secondary); margin-bottom: var(--space-8); }
+    .form-actions { display: flex; gap: var(--space-3); justify-content: space-between; margin-top: var(--space-8); }
+
+    .verification-list { display: flex; flex-direction: column; gap: var(--space-4); }
+    .verification-item { display: flex; align-items: center; justify-content: space-between; padding: var(--space-6); background: var(--color-bg-secondary); border-radius: var(--radius-lg); border: 2px solid transparent; transition: all var(--transition-normal); }
+    .verification-item.verified { background: rgba(0, 212, 170, 0.05); border-color: var(--color-success); }
+    .verification-item.failed { background: rgba(255, 71, 87, 0.05); border-color: var(--color-error); }
+    .verification-item__left { display: flex; align-items: center; gap: var(--space-4); }
+    .verification-item__icon { width: 48px; height: 48px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; background: white; color: var(--color-text-tertiary); }
+    .verification-item.verified .verification-item__icon { background: var(--color-success); color: white; }
+    .verification-item.failed .verification-item__icon { background: var(--color-error); color: white; }
+    .verification-item__content h3 { font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-1); }
+    .verification-item__content p { font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+    .verification-item__status { display: flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); }
+    .verification-item.verified .verification-item__status { color: var(--color-success); }
+    .verification-item.failed .verification-item__status { color: var(--color-error); }
+
+    .footer__social-link:hover { background: var(--color-primary); color: white; }
+
+    .footer__links a { color: rgba(255, 255, 255, 0.7); transition: color var(--transition-fast); }
+    .footer__links a:hover { color: white; }
+
+    .footer__lang-btn:hover { color: white; border-color: rgba(255, 255, 255, 0.4); }
+    .footer__lang-btn.active { color: white; background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.4); }
+  </style>
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <main style="padding-top: calc(var(--header-height) + var(--space-8)); min-height: 70vh; padding-bottom: var(--space-8);">
+    <div class="container">
+
+      <div class="stepper">
+        <div class="stepper__item active">
+          <div class="stepper__circle">1</div>
+          <span class="stepper__label">자격 검증</span>
+        </div>
+        <div class="stepper__divider"></div>
+        <div class="stepper__item">
+          <div class="stepper__circle">2</div>
+          <span class="stepper__label">IP 선택</span>
+        </div>
+        <div class="stepper__divider"></div>
+        <div class="stepper__item">
+          <div class="stepper__circle">3</div>
+          <span class="stepper__label">양식 작성</span>
+        </div>
+        <div class="stepper__divider"></div>
+        <div class="stepper__item">
+          <div class="stepper__circle">4</div>
+          <span class="stepper__label">최종 제출</span>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h1 class="form-section__title">자격 검증</h1>
+        <p class="form-section__desc">
+          프로젝트 지원에 필요한 자격 요건을 확인합니다.
+        </p>
+
+        <div class="verification-list">
+          <div class="verification-item verified">
+            <div class="verification-item__left">
+              <div class="verification-item__icon">
+                <i data-lucide="smartphone" class="icon-lg"></i>
+              </div>
+              <div class="verification-item__content">
+                <h3>휴대폰 인증</h3>
+                <p>본인 확인이 완료되었습니다</p>
+              </div>
+            </div>
+            <div class="verification-item__status">
+              <i data-lucide="check-circle" class="icon"></i>
+              인증 완료
+            </div>
+          </div>
+
+          <div class="verification-item verified">
+            <div class="verification-item__left">
+              <div class="verification-item__icon">
+                <i data-lucide="file-check" class="icon-lg"></i>
+              </div>
+              <div class="verification-item__content">
+                <h3>사업자 인증</h3>
+                <p>사업자 등록증이 확인되었습니다</p>
+              </div>
+            </div>
+            <div class="verification-item__status">
+              <i data-lucide="check-circle" class="icon"></i>
+              인증 완료
+            </div>
+          </div>
+
+          <div class="verification-item verified">
+            <div class="verification-item__left">
+              <div class="verification-item__icon">
+                <i data-lucide="image" class="icon-lg"></i>
+              </div>
+              <div class="verification-item__content">
+                <h3>공개 IP 보유</h3>
+                <p>3개의 공개 IP가 등록되어 있습니다</p>
+              </div>
+            </div>
+            <div class="verification-item__status">
+              <i data-lucide="check-circle" class="icon"></i>
+              확인 완료
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <a href="8-1 프로젝트 지원.html" class="btn btn--secondary btn--lg">
+            <i data-lucide="arrow-left" class="icon icon-sm"></i>
+            이전
+          </a>
+          <a href="8-1-2 프로젝트 지원_IP 선택.html" class="btn btn--primary btn--lg">
+            다음
+            <i data-lucide="arrow-right" class="icon icon-sm"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({ activePage: 'project' });
+  </script>
+</body>
+</html>

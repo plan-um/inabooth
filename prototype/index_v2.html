@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INABOOTH v2 - Unlock Creativity</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      /* Palette */
+      --color-primary: #4F46E5; /* Indigo 600 */
+      --color-primary-light: #818CF8;
+      --color-primary-dark: #3730A3;
+      --color-secondary: #EC4899; /* Pink 500 */
+      --color-accent: #06B6D4;    /* Cyan 500 */
+      
+      --color-bg: #FAFAFA;
+      --color-bg-paper: #FFFFFF;
+      --color-text-main: #111827;
+      --color-text-sub: #6B7280;
+      
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.5);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+
+      --radius-xl: 24px;
+      --font-main: 'Pretendard Variable', sans-serif;
+    }
+
+    /* Reset & Base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-main);
+      background: var(--color-bg);
+      color: var(--color-text-main);
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+
+    /* Utilities */
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+    }
+    .flex-center { display: flex; align-items: center; justify-content: center; }
+    .flex-between { display: flex; align-items: center; justify-content: space-between; }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      z-index: 100;
+      transition: all 0.3s ease;
+      height: 80px;
+    }
+    header .container { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .logo img { height: 32px; }
+    .nav-links { display: flex; gap: 2rem; font-weight: 500; font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--color-primary); }
+    .header-actions { display: flex; gap: 1rem; }
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 99px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-ghost { background: transparent; color: var(--color-text-main); }
+    .btn-ghost:hover { background: rgba(0,0,0,0.05); }
+    .btn-primary {
+      background: var(--color-primary);
+      color: white;
+      box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding-top: 160px;
+      padding-bottom: 100px;
+      overflow: hidden;
+    }
+    /* Animated Background Blob */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.6;
+      z-index: -1;
+      animation: float 10s infinite ease-in-out;
+    }
+    .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #C7D2FE; }
+    .blob-2 { top: 20%; right: -5%; width: 400px; height: 400px; background: #FBCFE8; animation-delay: 2s; }
+    
+    @keyframes float {
+      0% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(20px) scale(1.1); }
+      100% { transform: translateY(0px) scale(1); }
+    }
+
+    .hero-content { text-align: center; max-width: 800px; margin: 0 auto; }
+    .hero h1 {
+      font-size: 4rem;
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--color-text-sub);
+      margin-bottom: 3rem;
+    }
+    
+    /* Search Bar v2 */
+    .search-wrapper {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .search-input {
+      width: 100%;
+      padding: 1.2rem 1.5rem 1.2rem 3.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(0,0,0,0.05);
+      font-size: 1.1rem;
+      background: white;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+    .search-input:focus {
+      outline: none;
+      box-shadow: 0 20px 40px -5px rgba(79, 70, 229, 0.2);
+      transform: translateY(-2px);
+    }
+    .search-icon {
+      position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%);
+      color: var(--color-text-sub);
+    }
+    .search-tags {
+      margin-top: 1.5rem;
+      display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
+    }
+    .tag {
+      padding: 0.4rem 1rem;
+      background: white;
+      border-radius: 99px;
+      font-size: 0.9rem;
+      color: var(--color-text-sub);
+      border: 1px solid rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .tag:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+    /* Dynamic floating elements for hero */
+    .floating-card {
+      position: absolute;
+      background: white;
+      padding: 1rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      display: flex; gap: 1rem; align-items: center;
+      animation: floatCard 6s infinite ease-in-out;
+      z-index: -1;
+    }
+    .fc-1 { top: 20%; left: 10%; animation-delay: 0s; }
+    .fc-2 { bottom: 10%; left: 15%; animation-delay: 1.5s; }
+    .fc-3 { top: 25%; right: 10%; animation-delay: 1s; }
+    .fc-content div:first-child { font-weight: bold; font-size: 0.9rem; }
+    .fc-content div:last-child { font-size: 0.8rem; color: #888; }
+    .fc-img { width: 40px; height: 40px; border-radius: 12px; object-fit: cover; background: #eee; }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Bento Grid Section */
+    .section-title {
+      font-size: 2rem; font-weight: 700; margin-bottom: 2rem; text-align: center;
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 280px;
+      gap: 1.5rem;
+      padding: 4rem 0;
+    }
+    .bento-item {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .bento-item:hover { transform: scale(1.02); z-index: 10; boxShadow: 0 20px 40px rgba(0,0,0,0.1); }
+    
+    .bento-large { grid-column: span 2; grid-row: span 2; }
+    .bento-tall { grid-row: span 2; }
+    .bento-wide { grid-column: span 2; }
+
+    .bento-img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .bento-item:hover .bento-img { transform: scale(1.1); }
+    
+    .bento-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.5rem;
+      color: white;
+    }
+    .bento-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .bento-sub { font-size: 0.9rem; opacity: 0.9; display: flex; align-items: center; gap: 0.5rem; }
+    .verified-badge { color: #4ADE80; }
+
+    /* Stats Strip */
+    .stats-strip {
+      background: #111827;
+      color: white;
+      padding: 4rem 0;
+      margin-top: 4rem;
+    }
+    .stats-grid { display: flex; justify-content: space-around; text-align: center; }
+    .stat-num { font-size: 3rem; font-weight: 800; color: var(--color-primary-light); margin-bottom: 0.5rem; }
+    .stat-label { font-size: 1rem; color: #9CA3AF; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Footer */
+    footer { padding: 4rem 0; font-size: 0.9rem; color: var(--color-text-sub); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+    .footer-col h4 { color: var(--color-text-main); font-weight: 700; margin-bottom: 1.5rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.8rem; }
+    .footer-col ul li a:hover { color: var(--color-primary); }
+
+  </style>
+</head>
+<body>
+
+  <!-- Background Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- Header -->
+  <header class="glass">
+    <div class="container">
+      <div class="logo">
+        <img src="images/logo-full.svg" alt="INABOOTH">
+      </div>
+      <nav class="nav-links">
+        <a href="#">탐색</a>
+        <a href="#">콜라보</a>
+        <a href="#">인사이트</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-ghost">로그인</button>
+        <button class="btn btn-primary">캐릭터 등록</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <!-- Decor Elements -->
+    <div class="floating-card fc-1 glass">
+      <img src="images/characters/image 10.png" class="fc-img" alt="">
+      <div class="fc-content">
+        <div>꼬마펭귄 핑구</div>
+        <div>Verified IP</div>
+      </div>
+    </div>
+    <div class="floating-card fc-2 glass">
+      <img src="images/characters/image 12.png" class="fc-img" alt="">
+      <div class="fc-content">
+        <div>몰랑이</div>
+        <div>Rising Star</div>
+      </div>
+    </div>
+    <div class="floating-card fc-3 glass">
+      <div class="flex-center" style="width:40px; height:40px; background:#EFF6FF; border-radius:12px; color:#4F46E5;">
+        <i data-lucide="trending-up"></i>
+      </div>
+      <div class="fc-content">
+        <div>인기 급상승</div>
+        <div>+128% Growth</div>
+      </div>
+    </div>
+
+    <div class="container hero-content">
+      <span style="color: var(--color-primary); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 1rem;">No.1 Character Collab Platform</span>
+      <h1>
+        Connect Your Brand with <br>
+        <span class="gradient-text">Unforgettable Characters</span>
+      </h1>
+      <p>
+        2,120+ Verified Characters are waiting for your brand.<br>
+        Find the perfect match for your next big campaign.
+      </p>
+
+      <div class="search-wrapper">
+        <i data-lucide="search" class="search-icon"></i>
+        <input type="text" class="search-input" placeholder="Find characters (e.g. Cat, Retro, Game)...">
+      </div>
+
+      <div class="search-tags">
+        <div class="tag">🔥 Y2K Sentiment</div>
+        <div class="tag">🐱 Cat Characters</div>
+        <div class="tag">🎮 Game IP</div>
+        <div class="tag">🎨 Illustration</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Grid Section -->
+  <section class="container" style="padding-bottom: 80px;">
+    <h2 class="section-title">Trending Now</h2>
+    <div class="bento-grid">
+      <!-- Large Feature -->
+      <div class="bento-item bento-large">
+        <img src="images/characters/Random Objects (1).png" class="bento-img" loading="lazy" alt="Featured">
+        <div class="bento-overlay">
+          <div class="bento-title">Retro Pixel World</div>
+          <div class="bento-sub"><i data-lucide="check-circle" class="verified-badge" size="16"></i> Verified by INABOOTH</div>
+        </div>
+      </div>
+
+      <!-- Regular Items -->
+      <div class="bento-item">
+        <img src="images/characters/image 20.png" class="bento-img" loading="lazy" alt="Item">
+        <div class="bento-overlay">
+          <div class="bento-title">Doodle Friends</div>
+          <div class="bento-sub">New Arrival</div>
+        </div>
+      </div>
+      <div class="bento-item">
+        <img src="images/characters/image 22.png" class="bento-img" loading="lazy" alt="Item">
+        <div class="bento-overlay">
+          <div class="bento-title">Space Cat</div>
+          <div class="bento-sub">Rising Star</div>
+        </div>
+      </div>
+
+      <!-- Tall Item -->
+      <div class="bento-item bento-tall">
+        <img src="images/characters/Random Objects (4).png" class="bento-img" loading="lazy" alt="Item">
+        <div class="bento-overlay">
+          <div class="bento-title">Lifestyle Collection</div>
+          <div class="bento-sub">Perfect for Merch</div>
+        </div>
+      </div>
+
+      <!-- Wide Item -->
+      <div class="bento-item bento-wide">
+        <img src="images/characters/Random Objects (5).png" class="bento-img" loading="lazy" alt="Item">
+        <div class="bento-overlay">
+          <div class="bento-title">Seasonal Specials</div>
+          <div class="bento-sub">Limited Time Offers</div>
+        </div>
+      </div>
+
+      <div class="bento-item">
+        <img src="images/characters/image 15.png" class="bento-img" loading="lazy" alt="Item">
+        <div class="bento-overlay">
+          <div class="bento-title">Blue Monster</div>
+          <div class="bento-sub">Brand Favorite</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Strip -->
+  <div class="stats-strip">
+    <div class="container stats-grid">
+      <div>
+        <div class="stat-num">2,120+</div>
+        <div class="stat-label">Registered Characters</div>
+      </div>
+      <div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Active Brands</div>
+      </div>
+      <div>
+        <div class="stat-num">350+</div>
+        <div class="stat-label">Collabs Completed</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="images/logo-full.svg" alt="logo" style="height:24px; margin-bottom:1rem; filter: grayscale(1);">
+          <p>Connecting imagination with business.<br>Currently the #1 Character Licensing Platform in Korea.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">Collab Opportunities</a></li>
+            <li><a href="#">Insights</a></li>
+            <li><a href="#">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div style="border-top:1px solid #E5E7EB; padding-top:2rem; text-align:center; color:#9CA3AF;">
+        &copy; 2025 INABOOTH. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

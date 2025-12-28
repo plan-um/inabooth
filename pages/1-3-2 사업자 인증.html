@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사업자 인증 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+*{box-sizing:border-box;margin:0;padding:0}.blob{position:fixed;border-radius:50%;filter:blur(100px);opacity:0.5;z-index:-1;pointer-events:none;animation:float 12s infinite ease-in-out}.blob-1{top:-15%;left:-10%;width:600px;height:600px;background:linear-gradient(135deg,#C7D2FE,#DDD6FE)}.blob-2{top:10%;right:-10%;width:500px;height:500px;background:linear-gradient(135deg,#FBCFE8,#FCE7F3);animation-delay:3s}@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(30px) scale(1.05)}}.logo{font-size:var(--font-size-xl);font-weight:var(--font-weight-bold);color:var(--color-primary)}.auth-container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:var(--space-8) var(--space-6)}.auth-box{width:100%;max-width:560px;background:white;border-radius:var(--radius-xl);padding:var(--space-12) var(--space-8);box-shadow:0 20px 50px -10px rgba(79,70,229,0.15)}.auth-header{text-align:center;margin-bottom:var(--space-8)}.auth-icon{width:64px;height:64px;margin:0 auto var(--space-5);border-radius:var(--radius-lg);background:var(--color-primary-light);display:flex;align-items:center;justify-content:center;color:var(--color-primary)}.auth-icon i{width:32px;height:32px}.auth-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-extrabold);margin-bottom:var(--space-3)}.auth-subtitle{color:var(--color-text-secondary);font-size:var(--font-size-sm)}.info-box{background:var(--color-bg-secondary);border-radius:var(--radius-lg);padding:var(--space-5);margin-bottom:var(--space-6)}.info-box p{font-size:var(--font-size-sm);color:var(--color-text-secondary);line-height:1.6}.upload-area{border:2px dashed var(--color-border);border-radius:var(--radius-lg);padding:var(--space-10);text-align:center;cursor:pointer;transition:all var(--transition-fast)}.upload-area:hover{border-color:var(--color-primary);background:var(--color-primary-light)}.upload-area.has-file{border-color:var(--color-success);background:#D1FAE5}.upload-icon{width:48px;height:48px;margin:0 auto var(--space-4);color:var(--color-text-tertiary)}.upload-area.has-file .upload-icon{color:var(--color-success)}.upload-text{font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);color:var(--color-text-primary);margin-bottom:var(--space-2)}.upload-subtext{font-size:var(--font-size-sm);color:var(--color-text-secondary)}.file-info{display:none;align-items:center;gap:var(--space-3);padding:var(--space-4);background:white;border-radius:var(--radius-md);margin-top:var(--space-4)}.file-info.show{display:flex}.file-info i{color:var(--color-success)}.file-name{flex:1;font-size:var(--font-size-sm);font-weight:var(--font-weight-medium)}.file-remove{color:var(--color-text-tertiary);padding:var(--space-2);border-radius:var(--radius-md);transition:all var(--transition-fast)}.file-remove:hover{background:var(--color-bg-secondary)}.preview-box{background:var(--color-bg-secondary);border-radius:var(--radius-lg);padding:var(--space-5);margin-bottom:var(--space-6);display:none}.preview-box.show{display:block}.preview-box h4{font-size:var(--font-size-sm);font-weight:var(--font-weight-bold);margin-bottom:var(--space-4)}.preview-item{display:flex;justify-content:space-between;padding:var(--space-3) 0;border-bottom:1px solid var(--color-border)}.preview-item:last-child{border-bottom:none}.preview-label{font-size:var(--font-size-sm);color:var(--color-text-secondary)}.preview-value{font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:var(--color-text-primary)}.btn--primary:hover:not(:disabled){background:var(--color-primary-hover);transform:translateY(-1px);box-shadow:var(--shadow-md)}.btn--primary:disabled{background:var(--color-border);cursor:not-allowed;transform:none}.btn--primary{margin-top:var(--space-6)}
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="logo">INABOOTH</a>
+    </div>
+  </header>
+
+  <main class="auth-container">
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="auth-icon">
+          <i data-lucide="file-text" class="icon"></i>
+        </div>
+        <h1 class="auth-title">사업자 인증</h1>
+        <p class="auth-subtitle">사업자등록증을 업로드하여 인증을 진행해주세요</p>
+      </div>
+
+      <div class="info-box">
+        <p>
+          • IPH-A 에이전시, IPH-C 사업자, BP 브랜드 파트너 대상<br>
+          • 사업자등록증 이미지 또는 PDF 파일을 업로드해주세요<br>
+          • OCR 자동 인식 후 국세청 API로 검증합니다
+        </p>
+      </div>
+
+      <form id="businessVerifyForm">
+        <input type="file" id="fileInput" accept="image/*,.pdf" style="display:none">
+
+        <div class="upload-area" id="uploadArea">
+          <i data-lucide="upload-cloud" class="upload-icon"></i>
+          <p class="upload-text">사업자등록증 업로드</p>
+          <p class="upload-subtext">클릭하거나 파일을 드래그하여 업로드</p>
+
+          <div class="file-info" id="fileInfo">
+            <i data-lucide="file-check" class="icon"></i>
+            <span class="file-name" id="fileName"></span>
+            <button type="button" class="file-remove" id="fileRemove">
+              <i data-lucide="x" class="icon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="preview-box" id="previewBox">
+          <h4>OCR 추출 결과</h4>
+          <div class="preview-item">
+            <span class="preview-label">사업자등록번호</span>
+            <span class="preview-value">123-45-67890</span>
+          </div>
+          <div class="preview-item">
+            <span class="preview-label">상호명</span>
+            <span class="preview-value">주식회사 아이나부스</span>
+          </div>
+          <div class="preview-item">
+            <span class="preview-label">대표자명</span>
+            <span class="preview-value">홍길동</span>
+          </div>
+          <div class="preview-item">
+            <span class="preview-label">사업장 주소</span>
+            <span class="preview-value">서울특별시 강남구 테헤란로 123</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--primary" id="submitBtn" disabled>
+          인증하기
+          <i data-lucide="check" class="icon"></i>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const fileRemove = document.getElementById('fileRemove');
+    const previewBox = document.getElementById('previewBox');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Click to upload
+    uploadArea.addEventListener('click', (e) => {
+      if (!e.target.closest('.file-remove')) {
+        fileInput.click();
+      }
+    });
+
+    // File selection
+    fileInput.addEventListener('change', (e) => {
+      handleFile(e.target.files[0]);
+    });
+
+    // Drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = 'var(--color-primary)';
+      uploadArea.style.background = 'var(--color-primary-light)';
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.style.borderColor = '';
+      uploadArea.style.background = '';
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '';
+      uploadArea.style.background = '';
+      handleFile(e.dataTransfer.files[0]);
+    });
+
+    function handleFile(file) {
+      if (!file) return;
+
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
+      if (!validTypes.includes(file.type)) {
+        alert('JPG, PNG, PDF 파일만 업로드 가능합니다.');
+        return;
+      }
+
+      // Show file info
+      fileName.textContent = file.name;
+      fileInfo.classList.add('show');
+      uploadArea.classList.add('has-file');
+
+      // Simulate OCR processing
+      setTimeout(() => {
+        previewBox.classList.add('show');
+        submitBtn.disabled = false;
+        lucide.createIcons();
+      }, 1500);
+
+      lucide.createIcons();
+    }
+
+    // Remove file
+    fileRemove.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.value = '';
+      fileInfo.classList.remove('show');
+      uploadArea.classList.remove('has-file');
+      previewBox.classList.remove('show');
+      submitBtn.disabled = true;
+    });
+
+    // Submit form
+    document.getElementById('businessVerifyForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if (!fileInput.files[0]) {
+        alert('사업자등록증을 업로드해주세요.');
+        return;
+      }
+
+      // Simulate verification
+      alert('사업자 인증이 완료되었습니다.');
+      window.close(); // Close modal or redirect
+    });
+  </script>
+</body>
+</html>

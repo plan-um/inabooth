@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캐릭터 등록 완료 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.main-content{padding-top:calc(var(--header-height) + var(--space-8));padding-bottom:var(--space-8);min-height:100vh}
+    .form-card{background:white;border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-card)}
+    .form-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .form-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-6)}
+    .progress-steps{display:flex;gap:var(--space-2);margin-bottom:var(--space-6)}
+    .step{flex:1;height:4px;background:var(--color-bg-secondary);border-radius:999px}
+    .step.active{background:var(--color-primary)}
+    .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
+
+    .content-box{padding:var(--space-6);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="main-content">
+    <div class="container">
+      <div class="form-card">
+        <div class="progress-steps"><div class="step active"></div><div class="step active"></div><div class="step active"></div><div class="step active"></div></div>
+        <h1 class="form-title">등록 완료</h1>
+        <p class="form-subtitle">캐릭터 등록이 완료되었습니다</p>
+        <div style="text-align:center;padding:var(--space-8) 0">
+          <div style="width:80px;height:80px;background:var(--color-success-light);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-6)">
+            <i data-lucide="check" style="width:40px;height:40px;color:var(--color-success)"></i>
+          </div>
+          <h2 style="font-size:var(--font-size-xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)">캐릭터 등록이 완료되었습니다!</h2>
+          <p style="color:var(--color-text-secondary);margin-bottom:var(--space-8)">귀여운 곰돌이 친구들이 성공적으로 등록되었습니다</p>
+        </div>
+
+        <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-6);margin-bottom:var(--space-6)">
+          <h3 style="font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-4)">등록 정보 요약</h3>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4)">
+            <div style="display:flex;align-items:center;gap:var(--space-3)">
+              <img src="images/characters/Random Objects (1).png" style="width:60px;height:60px;border-radius:var(--radius-md);object-fit:cover">
+              <div>
+                <div style="font-weight:600">귀여운 곰돌이 친구들</div>
+                <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">오리지널 캐릭터</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);font-size:var(--font-size-sm)">
+              <div><span style="color:var(--color-text-tertiary)">공개 범위:</span> 전체 공개</div>
+              <div><span style="color:var(--color-text-tertiary)">협업 분야:</span> 4개</div>
+              <div><span style="color:var(--color-text-tertiary)">협업 유형:</span> 라이선싱, 공동 제작</div>
+              <div><span style="color:var(--color-text-tertiary)">등록일:</span> 2024.01.15</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:linear-gradient(135deg, var(--color-primary-light), #FCE7F3);border-radius:var(--radius-md);padding:var(--space-5);margin-bottom:var(--space-6)">
+          <h3 style="font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-3)">다음 단계</h3>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <div style="display:flex;align-items:center;gap:var(--space-3)">
+              <div style="width:24px;height:24px;background:var(--color-primary);color:white;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;font-size:var(--font-size-xs);font-weight:600">1</div>
+              <span style="font-size:var(--font-size-sm)">탐색 페이지에서 내 캐릭터가 어떻게 보이는지 확인해보세요</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-3)">
+              <div style="width:24px;height:24px;background:var(--color-primary);color:white;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;font-size:var(--font-size-xs);font-weight:600">2</div>
+              <span style="font-size:var(--font-size-sm)">오픈 프로젝트에 지원하여 협업 기회를 잡아보세요</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-3)">
+              <div style="width:24px;height:24px;background:var(--color-primary);color:white;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;font-size:var(--font-size-xs);font-weight:600">3</div>
+              <span style="font-size:var(--font-size-sm)">PRO로 업그레이드하여 상위 노출 혜택을 받아보세요</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions" style="justify-content:center">
+          <a href="3-2 IP 상세.html" class="btn btn--secondary">내 캐릭터 보기</a>
+          <a href="6-2 캐릭터 관리.html" class="btn btn--primary">캐릭터 관리로 이동</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'browse'});</script>
+</body>
+</html>

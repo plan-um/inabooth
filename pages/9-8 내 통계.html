@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 통계 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .stats-page{padding-top:calc(var(--header-height) + var(--space-6));min-height:100vh;background:var(--color-bg-secondary);padding-bottom:var(--space-8)}
+
+    .stats-layout{display:grid;grid-template-columns:260px 1fr;gap:var(--space-6)}
+
+    /* 사이드바 */
+    .stats-sidebar{background:white;border-radius:var(--radius-xl);padding:var(--space-6);box-shadow:var(--shadow-card);height:fit-content;position:sticky;top:calc(var(--header-height) + var(--space-6))}
+    .sidebar__profile{text-align:center;padding-bottom:var(--space-6);border-bottom:1px solid var(--color-border);margin-bottom:var(--space-6)}
+    .sidebar__avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--color-primary),var(--color-secondary));display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-3);color:white;font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold)}
+    .sidebar__name{font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);margin-bottom:var(--space-1)}
+    .sidebar__type{display:inline-flex;align-items:center;gap:var(--space-1);padding:var(--space-1) var(--space-3);background:var(--color-primary-light);color:var(--color-primary);font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold);border-radius:var(--radius-full)}
+    .sidebar__nav{display:flex;flex-direction:column;gap:var(--space-1)}
+    .sidebar__link{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);border-radius:var(--radius-md);text-decoration:none;transition:all var(--transition-fast)}
+    .sidebar__link:hover{background:var(--color-bg-secondary);color:var(--color-text-primary)}
+    .sidebar__link.active{background:var(--color-primary-light);color:var(--color-primary)}
+    .sidebar__link__badge{margin-left:auto;padding:2px 8px;background:var(--color-secondary);color:white;font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold);border-radius:var(--radius-full)}
+
+    /* 메인 콘텐츠 */
+    .stats-main{display:flex;flex-direction:column;gap:var(--space-6)}
+
+    .page-header{margin-bottom:0}
+    .page-header__title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .page-header__desc{color:var(--color-text-secondary)}
+
+    /* 기간 선택 */
+    .period-selector{display:flex;gap:var(--space-2);margin-bottom:var(--space-6)}
+    .period-btn{padding:var(--space-2) var(--space-4);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);background:white;border:1px solid var(--color-border);border-radius:var(--radius-full);cursor:pointer;transition:all var(--transition-fast)}
+    .period-btn:hover{border-color:var(--color-primary);color:var(--color-primary)}
+    .period-btn.active{background:var(--color-primary);border-color:var(--color-primary);color:white}
+
+    /* 통계 카드 그리드 */
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)}
+    .stat-card{background:white;border-radius:var(--radius-xl);padding:var(--space-5);box-shadow:var(--shadow-card)}
+    .stat-card__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-3)}
+    .stat-card__icon{width:40px;height:40px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center}
+    .stat-card__icon--views{background:var(--color-primary-light);color:var(--color-primary)}
+    .stat-card__icon--likes{background:var(--color-secondary-light);color:var(--color-secondary)}
+    .stat-card__icon--inquiries{background:var(--color-success-light);color:var(--color-success)}
+    .stat-card__icon--collabs{background:var(--color-warning-light);color:var(--color-warning)}
+    .stat-card__change{font-size:var(--font-size-xs);font-weight:var(--font-weight-medium);display:flex;align-items:center;gap:2px}
+    .stat-card__change--up{color:var(--color-success)}
+    .stat-card__change--down{color:var(--color-error)}
+    .stat-card__value{font-size:var(--font-size-3xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-1)}
+    .stat-card__label{font-size:var(--font-size-sm);color:var(--color-text-tertiary)}
+
+    /* 차트 영역 */
+    .chart-section{background:white;border-radius:var(--radius-xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
+    .chart-section__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-6)}
+    .chart-section__title{font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold)}
+
+    .chart-placeholder{height:300px;background:var(--color-bg-secondary);border-radius:var(--radius-lg);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-4);gap:var(--space-2)}
+    .chart-bar-row{display:flex;align-items:flex-end;gap:var(--space-3)}
+    .chart-bar{flex:1;background:linear-gradient(180deg,var(--color-primary),var(--color-primary-light));border-radius:var(--radius-sm) var(--radius-sm) 0 0;min-height:20px;transition:height var(--transition-normal)}
+    .chart-label{text-align:center;font-size:var(--font-size-xs);color:var(--color-text-tertiary);padding-top:var(--space-2)}
+
+    /* 랭킹 섹션 */
+    .ranking-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-6)}
+    .ranking-card{background:white;border-radius:var(--radius-xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
+    .ranking-card__title{font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-4);display:flex;align-items:center;gap:var(--space-2)}
+    .ranking-card__title i{color:var(--color-primary)}
+
+    .ranking-list{display:flex;flex-direction:column;gap:var(--space-3)}
+    .ranking-item{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md)}
+    .ranking-item__rank{width:24px;height:24px;border-radius:var(--radius-full);background:var(--color-primary);color:white;font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .ranking-item__rank--2{background:var(--color-text-secondary)}
+    .ranking-item__rank--3{background:var(--color-text-tertiary)}
+    .ranking-item__img{width:40px;height:40px;border-radius:var(--radius-sm);background:linear-gradient(135deg,#FBBF24,#F59E0B);flex-shrink:0}
+    .ranking-item__info{flex:1;min-width:0}
+    .ranking-item__name{font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ranking-item__stat{font-size:var(--font-size-xs);color:var(--color-text-tertiary)}
+    .ranking-item__value{font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:var(--color-primary)}
+
+    @media (max-width: 1024px) {
+      .stats-layout{grid-template-columns:1fr}
+      .stats-sidebar{position:static;display:block;overflow-x:visible;padding:var(--space-4)}
+      .sidebar__profile{display:none}
+      .sidebar__nav{flex-direction:row;overflow-x:auto;gap:var(--space-2)}
+      .sidebar__link{white-space:nowrap;flex-shrink:0}
+      .stats-grid{grid-template-columns:repeat(2,1fr)}
+      .ranking-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 768px) {
+      .stats-grid{grid-template-columns:1fr}
+      .period-selector{overflow-x:auto;padding-bottom:var(--space-2)}
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="stats-page">
+    <div class="container">
+      <div class="stats-layout">
+        <!-- 사이드바 -->
+        <aside class="stats-sidebar">
+          <div class="sidebar__profile">
+            <div class="sidebar__avatar">H</div>
+            <div class="sidebar__name">홍길동</div>
+            <span class="sidebar__type">
+              <i data-lucide="palette" class="icon icon-sm"></i>
+              IP 홀더
+            </span>
+          </div>
+
+          <nav class="sidebar__nav">
+            <a href="9-7 마이부스.html" class="sidebar__link">
+              <i data-lucide="layout-dashboard" class="icon icon-sm"></i>
+              대시보드
+            </a>
+            <a href="9-7-1 마이부스_IP 관리.html" class="sidebar__link">
+              <i data-lucide="palette" class="icon icon-sm"></i>
+              내 IP 관리
+              <span class="sidebar__link__badge">3</span>
+            </a>
+            <a href="9-7-2 마이부스_프로젝트 관리.html" class="sidebar__link">
+              <i data-lucide="folder" class="icon icon-sm"></i>
+              프로젝트 관리
+            </a>
+            <a href="9-7-3 마이부스_지원 현황.html" class="sidebar__link">
+              <i data-lucide="send" class="icon icon-sm"></i>
+              지원 현황
+              <span class="sidebar__link__badge">2</span>
+            </a>
+            <a href="9-7-4 마이부스_받은 문의.html" class="sidebar__link">
+              <i data-lucide="inbox" class="icon icon-sm"></i>
+              받은 문의
+              <span class="sidebar__link__badge">5</span>
+            </a>
+            <a href="9-7-5 마이부스_보낸 문의.html" class="sidebar__link">
+              <i data-lucide="send" class="icon icon-sm"></i>
+              보낸 문의
+            </a>
+            <a href="9-7-6 마이부스_스크랩.html" class="sidebar__link">
+              <i data-lucide="bookmark" class="icon icon-sm"></i>
+              스크랩
+            </a>
+            <a href="9-8 내 통계.html" class="sidebar__link active">
+              <i data-lucide="bar-chart-3" class="icon icon-sm"></i>
+              내 통계
+            </a>
+          </nav>
+        </aside>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="stats-main">
+          <div class="page-header">
+            <h1 class="page-header__title">내 통계 (Analytics)</h1>
+            <p class="page-header__desc">IP와 프로젝트의 성과를 분석합니다. Pro/Business 회원 전용 기능입니다.</p>
+          </div>
+
+          <!-- Pro 기능 안내 배너 -->
+          <div style="background:linear-gradient(135deg, var(--color-primary-light), #FCE7F3);border-radius:var(--radius-lg);padding:var(--space-4);display:flex;align-items:center;justify-content:space-between">
+            <div style="display:flex;align-items:center;gap:var(--space-3)">
+              <div style="background:var(--color-primary);color:white;padding:var(--space-2) var(--space-3);border-radius:var(--radius-full);font-size:var(--font-size-xs);font-weight:700">PRO</div>
+              <span style="font-size:var(--font-size-sm);color:var(--color-text-primary)">현재 <strong>Pro 회원</strong>으로 모든 분석 기능을 이용 중입니다.</span>
+            </div>
+            <a href="9-4-1 요금제_IPH.html" style="font-size:var(--font-size-sm);color:var(--color-primary);text-decoration:none">요금제 관리 →</a>
+          </div>
+
+          <!-- 기간 선택 -->
+          <div class="period-selector">
+            <button class="period-btn" onclick="this.parentElement.querySelector('.active').classList.remove('active');this.classList.add('active')">오늘</button>
+            <button class="period-btn active">이번 주</button>
+            <button class="period-btn" onclick="this.parentElement.querySelector('.active').classList.remove('active');this.classList.add('active')">이번 달</button>
+            <button class="period-btn" onclick="this.parentElement.querySelector('.active').classList.remove('active');this.classList.add('active')">최근 3개월</button>
+            <button class="period-btn" onclick="this.parentElement.querySelector('.active').classList.remove('active');this.classList.add('active')">전체</button>
+          </div>
+
+          <!-- 핵심 지표 카드 -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card__header">
+                <div class="stat-card__icon stat-card__icon--views">
+                  <i data-lucide="eye" class="icon"></i>
+                </div>
+                <span class="stat-card__change stat-card__change--up">
+                  <i data-lucide="trending-up" class="icon-sm"></i>
+                  +12.5%
+                </span>
+              </div>
+              <div class="stat-card__value">24,589</div>
+              <div class="stat-card__label">IP 상세페이지 조회수</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__header">
+                <div class="stat-card__icon stat-card__icon--likes">
+                  <i data-lucide="bookmark" class="icon"></i>
+                </div>
+                <span class="stat-card__change stat-card__change--up">
+                  <i data-lucide="trending-up" class="icon-sm"></i>
+                  +8.3%
+                </span>
+              </div>
+              <div class="stat-card__value">3,842</div>
+              <div class="stat-card__label">스크랩 수</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__header">
+                <div class="stat-card__icon stat-card__icon--inquiries">
+                  <i data-lucide="message-circle" class="icon"></i>
+                </div>
+                <span class="stat-card__change stat-card__change--down">
+                  <i data-lucide="trending-down" class="icon-sm"></i>
+                  -2.1%
+                </span>
+              </div>
+              <div class="stat-card__value">156</div>
+              <div class="stat-card__label">문의 수신 수</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__header">
+                <div class="stat-card__icon stat-card__icon--collabs">
+                  <i data-lucide="handshake" class="icon"></i>
+                </div>
+                <span class="stat-card__change stat-card__change--up">
+                  <i data-lucide="trending-up" class="icon-sm"></i>
+                  +25.0%
+                </span>
+              </div>
+              <div class="stat-card__value">12</div>
+              <div class="stat-card__label">진행 중인 프로젝트</div>
+            </div>
+          </div>
+
+          <!-- 비즈니스 성과 지표 -->
+          <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="stat-card">
+              <div class="stat-card__header">
+                <div class="stat-card__icon" style="background:var(--color-success-light);color:var(--color-success)">
+                  <i data-lucide="check-circle" class="icon"></i>
+                </div>
+              </div>
+              <div class="stat-card__value">78%</div>
+              <div class="stat-card__label">계약 성사율</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__header">
+                <div class="stat-card__icon" style="background:#FEF3C7;color:#F59E0B">
+                  <i data-lucide="wallet" class="icon"></i>
+                </div>
+              </div>
+              <div class="stat-card__value">₩12.5M</div>
+              <div class="stat-card__label">누적 거래액</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__header">
+                <div class="stat-card__icon" style="background:#DBEAFE;color:#3B82F6">
+                  <i data-lucide="clock" class="icon"></i>
+                </div>
+              </div>
+              <div class="stat-card__value">2.3시간</div>
+              <div class="stat-card__label">평균 응답 시간</div>
+            </div>
+          </div>
+
+          <!-- 조회수 차트 -->
+          <div class="chart-section">
+            <div class="chart-section__header">
+              <h2 class="chart-section__title">일별 조회수 추이</h2>
+              <select class="form-input" style="width:auto;padding:var(--space-2) var(--space-4);font-size:var(--font-size-sm)">
+                <option>전체 IP</option>
+                <option>귀여운 곰돌이</option>
+                <option>신나는 펭귄 친구들</option>
+              </select>
+            </div>
+            <div class="chart-placeholder">
+              <div class="chart-bar-row">
+                <div style="flex:1"><div class="chart-bar" style="height:120px"></div><div class="chart-label">월</div></div>
+                <div style="flex:1"><div class="chart-bar" style="height:180px"></div><div class="chart-label">화</div></div>
+                <div style="flex:1"><div class="chart-bar" style="height:150px"></div><div class="chart-label">수</div></div>
+                <div style="flex:1"><div class="chart-bar" style="height:200px"></div><div class="chart-label">목</div></div>
+                <div style="flex:1"><div class="chart-bar" style="height:160px"></div><div class="chart-label">금</div></div>
+                <div style="flex:1"><div class="chart-bar" style="height:220px"></div><div class="chart-label">토</div></div>
+                <div style="flex:1"><div class="chart-bar" style="height:190px"></div><div class="chart-label">일</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 랭킹 섹션 -->
+          <div class="ranking-grid">
+            <div class="ranking-card">
+              <h3 class="ranking-card__title">
+                <i data-lucide="trophy" class="icon-sm"></i>
+                인기 IP TOP 5
+              </h3>
+              <div class="ranking-list">
+                <div class="ranking-item">
+                  <div class="ranking-item__rank">1</div>
+                  <div class="ranking-item__img"><img src="https://picsum.photos/seed/empty23/400/300" alt="이미지" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+                  <div class="ranking-item__info">
+                    <div class="ranking-item__name">귀여운 곰돌이</div>
+                    <div class="ranking-item__stat">조회 12,456</div>
+                  </div>
+                  <div class="ranking-item__value">+23%</div>
+                </div>
+                <div class="ranking-item">
+                  <div class="ranking-item__rank ranking-item__rank--2">2</div>
+                  <div class="ranking-item__img" style="background-image:url('https://picsum.photos/seed/simple4/100/100');background-size:cover;background-position:center;"></div>
+                  <div class="ranking-item__info">
+                    <div class="ranking-item__name">신나는 펭귄 친구들</div>
+                    <div class="ranking-item__stat">조회 8,234</div>
+                  </div>
+                  <div class="ranking-item__value">+15%</div>
+                </div>
+                <div class="ranking-item">
+                  <div class="ranking-item__rank ranking-item__rank--3">3</div>
+                  <div class="ranking-item__img" style="background-image:url('https://picsum.photos/seed/simple5/100/100');background-size:cover;background-position:center;"></div>
+                  <div class="ranking-item__info">
+                    <div class="ranking-item__name">몽글몽글 구름이</div>
+                    <div class="ranking-item__stat">조회 3,899</div>
+                  </div>
+                  <div class="ranking-item__value">+8%</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ranking-card">
+              <h3 class="ranking-card__title">
+                <i data-lucide="star" class="icon-sm"></i>
+                문의 많은 IP TOP 5
+              </h3>
+              <div class="ranking-list">
+                <div class="ranking-item">
+                  <div class="ranking-item__rank">1</div>
+                  <div class="ranking-item__img" style="background-image:url('https://picsum.photos/seed/simple6/100/100');background-size:cover;background-position:center;"></div>
+                  <div class="ranking-item__info">
+                    <div class="ranking-item__name">신나는 펭귄 친구들</div>
+                    <div class="ranking-item__stat">문의 48건</div>
+                  </div>
+                  <div class="ranking-item__value">+32%</div>
+                </div>
+                <div class="ranking-item">
+                  <div class="ranking-item__rank ranking-item__rank--2">2</div>
+                  <div class="ranking-item__img"><img src="https://picsum.photos/seed/empty24/400/300" alt="이미지" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+                  <div class="ranking-item__info">
+                    <div class="ranking-item__name">귀여운 곰돌이</div>
+                    <div class="ranking-item__stat">문의 36건</div>
+                  </div>
+                  <div class="ranking-item__value">+18%</div>
+                </div>
+                <div class="ranking-item">
+                  <div class="ranking-item__rank ranking-item__rank--3">3</div>
+                  <div class="ranking-item__img" style="background-image:url('https://picsum.photos/seed/simple7/100/100');background-size:cover;background-position:center;"></div>
+                  <div class="ranking-item__info">
+                    <div class="ranking-item__name">몽글몽글 구름이</div>
+                    <div class="ranking-item__stat">문의 24건</div>
+                  </div>
+                  <div class="ranking-item__value">+5%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

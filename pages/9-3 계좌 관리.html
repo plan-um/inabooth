@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>계좌 관리 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .settings-page {
+      padding-top: calc(var(--header-height) + var(--space-4));
+      padding-bottom: var(--space-8);
+      min-height: 100vh;
+      background: var(--color-bg-secondary);
+    }
+
+    .settings-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: var(--space-6);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .settings-nav {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-card);
+      height: fit-content;
+    }
+
+    .settings-nav__link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+
+    .settings-nav__link:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .settings-nav__link.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .settings-content {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+    }
+
+    .settings-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .settings-desc {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    /* 출금 가능 금액 카드 */
+    .balance-card {
+      background: var(--gradient-primary);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      color: white;
+      margin-bottom: var(--space-8);
+    }
+
+    .balance-card__label {
+      font-size: var(--font-size-sm);
+      opacity: 0.9;
+      margin-bottom: var(--space-2);
+    }
+
+    .balance-card__amount {
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-6);
+    }
+
+    .balance-card__actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .balance-card .btn--white {
+      background: white;
+      color: var(--color-primary);
+    }
+
+    .balance-card .btn--white-outline {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.5);
+      color: white;
+    }
+
+    /* 정산 계좌 정보 */
+    .account-info {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .account-info__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+    }
+
+    .account-info__title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .account-info__details {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .account-info__bank {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .account-info__bank-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+    }
+
+    .account-info__number {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .account-info__holder {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+    }
+
+    /* 정산 내역 테이블 */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+    }
+
+    .section-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .settlement-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .settlement-table th,
+    .settlement-table td {
+      padding: var(--space-4);
+      text-align: left;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .settlement-table th {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+    }
+
+    .settlement-table td {
+      font-size: var(--font-size-sm);
+    }
+
+    .settlement-status {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .settlement-status--completed {
+      background: var(--color-success-light);
+      color: var(--color-success);
+    }
+
+    .settlement-status--pending {
+      background: var(--color-warning-light);
+      color: var(--color-warning);
+    }
+
+    .settlement-status--scheduled {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .settlement-amount {
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .settlement-amount--positive {
+      color: var(--color-success);
+    }
+
+    @media (max-width: 768px) {
+      .settings-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-nav {
+        position: static;
+        display: flex;
+        overflow-x: auto;
+        gap: var(--space-2);
+        padding: var(--space-3);
+      }
+
+      .settings-nav__link {
+        white-space: nowrap;
+      }
+
+      .balance-card__amount {
+        font-size: var(--font-size-3xl);
+      }
+
+      .balance-card__actions {
+        flex-direction: column;
+      }
+
+      .account-info__details {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+      }
+
+      .settlement-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="settings-page">
+    <div class="container">
+      <div class="settings-layout">
+        <!-- 설정 사이드바 -->
+        <nav class="settings-nav">
+          <a href="9-1 프로필 관리.html" class="settings-nav__link">
+            <i data-lucide="user" class="icon icon-sm"></i>
+            프로필 관리
+          </a>
+          <a href="9-2 설정.html" class="settings-nav__link">
+            <i data-lucide="settings" class="icon icon-sm"></i>
+            계정 설정
+          </a>
+          <a href="9-3 계좌 관리.html" class="settings-nav__link active">
+            <i data-lucide="credit-card" class="icon icon-sm"></i>
+            계좌 관리
+          </a>
+          <a href="9-4 요금제 관리.html" class="settings-nav__link">
+            <i data-lucide="crown" class="icon icon-sm"></i>
+            요금제
+          </a>
+          <a href="9-5 관리자 초대.html" class="settings-nav__link">
+            <i data-lucide="users" class="icon icon-sm"></i>
+            관리자 초대
+          </a>
+          <a href="9-6 알림 설정.html" class="settings-nav__link">
+            <i data-lucide="bell" class="icon icon-sm"></i>
+            알림 설정
+          </a>
+        </nav>
+
+        <!-- 계좌 관리 콘텐츠 -->
+        <div class="settings-content">
+          <h1 class="settings-title">계좌 관리</h1>
+          <p class="settings-desc">출금 및 정산 내역을 관리합니다.</p>
+
+          <!-- 출금 가능 금액 -->
+          <div class="balance-card">
+            <div class="balance-card__label">출금 가능 금액</div>
+            <div class="balance-card__amount">₩ 1,250,000</div>
+            <div class="balance-card__actions">
+              <a href="9-3-1 출금 신청.html" class="btn btn--white btn--md">
+                <i data-lucide="wallet" class="icon icon-sm"></i>
+                출금 신청
+              </a>
+              <button class="btn btn--white-outline btn--md">
+                <i data-lucide="file-text" class="icon icon-sm"></i>
+                정산 내역
+              </button>
+            </div>
+          </div>
+
+          <!-- 정산 계좌 정보 -->
+          <div class="account-info">
+            <div class="account-info__header">
+              <h3 class="account-info__title">정산 계좌</h3>
+              <a href="9-3-2 계좌 변경.html" class="btn btn--outline btn--sm">
+                <i data-lucide="edit-2" class="icon icon-sm"></i>
+                변경
+              </a>
+            </div>
+            <div class="account-info__details">
+              <div class="account-info__bank">
+                <div class="account-info__bank-logo">KB</div>
+                <span>국민은행</span>
+              </div>
+              <div class="account-info__number">123-456-******</div>
+              <div class="account-info__holder">홍길동</div>
+            </div>
+          </div>
+
+          <!-- 정산 내역 -->
+          <div class="section-header">
+            <h3 class="section-title">정산 내역</h3>
+            <button class="btn btn--ghost btn--sm">
+              전체보기
+              <i data-lucide="chevron-right" class="icon icon-sm"></i>
+            </button>
+          </div>
+
+          <table class="settlement-table">
+            <thead>
+              <tr>
+                <th>날짜</th>
+                <th>내용</th>
+                <th>금액</th>
+                <th>상태</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2024.03.25</td>
+                <td>2025 여름 캠페인 프로젝트 정산</td>
+                <td class="settlement-amount settlement-amount--positive">+₩ 850,000</td>
+                <td><span class="settlement-status settlement-status--scheduled">정산 예정</span></td>
+              </tr>
+              <tr>
+                <td>2024.03.15</td>
+                <td>출금 신청</td>
+                <td class="settlement-amount">-₩ 500,000</td>
+                <td><span class="settlement-status settlement-status--pending">처리중</span></td>
+              </tr>
+              <tr>
+                <td>2024.03.10</td>
+                <td>키즈 F&B 패키지 협업 정산</td>
+                <td class="settlement-amount settlement-amount--positive">+₩ 1,200,000</td>
+                <td><span class="settlement-status settlement-status--completed">완료</span></td>
+              </tr>
+              <tr>
+                <td>2024.02.28</td>
+                <td>출금 신청</td>
+                <td class="settlement-amount">-₩ 800,000</td>
+                <td><span class="settlement-status settlement-status--completed">완료</span></td>
+              </tr>
+              <tr>
+                <td>2024.02.15</td>
+                <td>문구류 라이선싱 정산</td>
+                <td class="settlement-amount settlement-amount--positive">+₩ 650,000</td>
+                <td><span class="settlement-status settlement-status--completed">완료</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

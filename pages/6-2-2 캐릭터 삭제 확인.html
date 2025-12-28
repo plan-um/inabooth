@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캐릭터 삭제 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .modal-page {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      min-height: 100vh;
+      padding-bottom: var(--space-8);
+      background: var(--color-bg-secondary);
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .modal-header__icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(239, 68, 68, 0.1);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .modal-header__icon i {
+      color: var(--color-error);
+      width: 32px;
+      height: 32px;
+    }
+
+    .modal-header__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+      color: var(--color-error);
+    }
+
+    .modal-header__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .delete-target {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      display: flex;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .delete-target__image {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #FBBF24, #F59E0B);
+      flex-shrink: 0;
+    }
+
+    .delete-target__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    .delete-target__info {
+      flex: 1;
+    }
+
+    .delete-target__name {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-1);
+    }
+
+    .delete-target__meta {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .delete-target__stats {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .delete-target__stat {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .warning-box {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      margin-bottom: var(--space-6);
+    }
+
+    .warning-box__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-error);
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .warning-box__title i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .warning-box__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .warning-box__list li {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+      padding-left: var(--space-5);
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .warning-box__list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      background: var(--color-error);
+      border-radius: 50%;
+    }
+
+    .warning-box__list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .confirm-section {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .confirm-input-group {
+      margin-bottom: var(--space-4);
+    }
+
+    .confirm-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-2);
+    }
+
+    .confirm-label code {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--color-error);
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
+      font-family: monospace;
+    }
+
+    .confirm-input {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
+      transition: all var(--transition-fast);
+    }
+
+    .confirm-input:focus {
+      outline: none;
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+
+    .confirm-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      cursor: pointer;
+    }
+
+    .confirm-checkbox input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--color-error);
+    }
+
+    .confirm-checkbox label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .btn--danger {
+      background: var(--color-error);
+      color: white;
+      border: none;
+    }
+
+    .btn--danger:hover {
+      background: #dc2626;
+    }
+
+    .btn--danger:disabled {
+      background: var(--color-border);
+      color: var(--color-text-tertiary);
+      cursor: not-allowed;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .modal-actions .btn {
+      flex: 1;
+    }
+
+    .success-message {
+      text-align: center;
+      padding: var(--space-6) 0;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-message__icon {
+      width: 80px;
+      height: 80px;
+      background: var(--color-bg-secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-4);
+    }
+
+    .success-message__icon i {
+      color: var(--color-text-tertiary);
+      width: 40px;
+      height: 40px;
+    }
+
+    .success-message__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .success-message__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .form-container {
+      display: block;
+    }
+
+    .form-container.hide {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="modal-page">
+    <div class="container">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-header__icon">
+            <i data-lucide="trash-2"></i>
+          </div>
+          <h1 class="modal-header__title">캐릭터 삭제</h1>
+          <p class="modal-header__desc">삭제된 캐릭터는 복구할 수 없습니다. 신중하게 결정해주세요.</p>
+        </div>
+
+        <div class="form-container" id="formContainer">
+          <div class="delete-target">
+            <div class="delete-target__image">
+              <img src="https://picsum.photos/seed/char1/200/200" alt="캐릭터 이미지">
+            </div>
+            <div class="delete-target__info">
+              <div class="delete-target__name">귀여운 곰돌이 친구들</div>
+              <div class="delete-target__meta">오리지널 캐릭터 · 등록일: 2024.01.15</div>
+              <div class="delete-target__stats">
+                <span class="delete-target__stat">
+                  <i data-lucide="eye" class="icon-sm"></i>
+                  조회 4,230
+                </span>
+                <span class="delete-target__stat">
+                  <i data-lucide="heart" class="icon-sm"></i>
+                  찜 856
+                </span>
+                <span class="delete-target__stat">
+                  <i data-lucide="briefcase" class="icon-sm"></i>
+                  협업 2건
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="warning-box">
+            <div class="warning-box__title">
+              <i data-lucide="alert-triangle"></i>
+              삭제 시 영구적으로 삭제되는 정보
+            </div>
+            <ul class="warning-box__list">
+              <li>캐릭터 프로필 및 모든 이미지</li>
+              <li>포트폴리오 및 협업 정보</li>
+              <li>받은 문의 및 협업 제안 내역</li>
+              <li>조회수, 찜 등 모든 통계 데이터</li>
+              <li>진행 중인 협업이 있는 경우 삭제할 수 없습니다</li>
+            </ul>
+          </div>
+
+          <div class="confirm-section">
+            <div class="confirm-input-group">
+              <label class="confirm-label">삭제를 확인하려면 <code>귀여운 곰돌이 친구들</code>을 입력하세요</label>
+              <input type="text" class="confirm-input" id="confirmInput" placeholder="캐릭터명을 입력하세요">
+            </div>
+            <div class="confirm-checkbox">
+              <input type="checkbox" id="confirmCheck">
+              <label for="confirmCheck">
+                위 내용을 모두 확인했으며, 캐릭터 삭제에 동의합니다.
+                삭제 후 데이터 복구가 불가능함을 이해합니다.
+              </label>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <a href="6-2-1 캐릭터 관리_상세.html" class="btn btn--secondary">취소</a>
+            <button class="btn btn--danger" id="deleteBtn" onclick="deleteCharacter()" disabled>
+              <i data-lucide="trash-2" class="icon icon-sm"></i>
+              캐릭터 삭제
+            </button>
+          </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <div class="success-message__icon">
+            <i data-lucide="check"></i>
+          </div>
+          <h2 class="success-message__title">캐릭터가 삭제되었습니다</h2>
+          <p class="success-message__desc">
+            '귀여운 곰돌이 친구들' 캐릭터가 삭제되었습니다.
+          </p>
+          <div class="modal-actions" style="margin-top: var(--space-6);">
+            <a href="6-2 캐릭터 관리.html" class="btn btn--primary" style="flex: 1;">
+              <i data-lucide="check" class="icon icon-sm"></i>
+              확인
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'mypage', isLoggedIn: true});
+    lucide.createIcons();
+
+    const confirmInput = document.getElementById('confirmInput');
+    const confirmCheck = document.getElementById('confirmCheck');
+    const deleteBtn = document.getElementById('deleteBtn');
+    const targetName = '귀여운 곰돌이 친구들';
+
+    confirmInput.addEventListener('input', updateButtonState);
+    confirmCheck.addEventListener('change', updateButtonState);
+
+    function updateButtonState() {
+      const isNameMatch = confirmInput.value === targetName;
+      const isChecked = confirmCheck.checked;
+      deleteBtn.disabled = !(isNameMatch && isChecked);
+    }
+
+    function deleteCharacter() {
+      document.getElementById('formContainer').classList.add('hide');
+      document.getElementById('successMessage').classList.add('show');
+      Toast.success('캐릭터가 삭제되었습니다.');
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>IP 탐색 - 정렬 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+    .page{padding-top:2rem;padding-bottom:var(--space-8);min-height:100vh}
+    .layout{display:grid;grid-template-columns:280px 1fr;gap:2rem}
+    
+    .sort-option{display:flex;align-items:center;gap:12px;padding:12px;border:1.5px solid #E2E4E9;border-radius:10px;margin-bottom:8px;cursor:pointer;font-size:14px}
+    .sort-option:hover{border-color:var(--color-primary);background:#EEF2FF}
+    .sort-option.locked{opacity:0.5;cursor:not-allowed;position:relative}
+    .sort-option.locked::after{content:'🔒';position:absolute;right:12px}
+    h1{font-size:1.5rem;font-weight:700;margin-bottom:2rem}
+    .ip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .ip-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;text-decoration:none;color:inherit}
+    .ip-card:hover{transform:translateY(-4px)}
+    .ip-image{aspect-ratio:1;background:var(--color-bg-secondary);overflow:hidden}
+    .ip-image img{width:100%;height:100%;object-fit:cover}
+    .ip-content{padding:1rem}
+    .ip-category{font-size:12px;color:var(--color-primary);margin-bottom:8px}
+    .ip-name{font-size:16px;font-weight:600;margin-bottom:8px}
+    .ip-author{font-size:14px;color:#8E8EA0}
+    .pro-badge{display:inline-block;padding:2px 8px;background:linear-gradient(135deg,#FFD700,#FFA500);color:#fff;font-size:10px;font-weight:700;border-radius:12px;margin-left:8px}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="page">
+    <div class="container">
+      <div class="layout">
+        <aside class="sidebar">
+          <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">기본 정렬</h3>
+          <div class="sort-option" style="background:#EEF2FF;border-color:#4F46E5">
+            <input type="radio" name="sort" checked>
+            <span>최신순</span>
+          </div>
+          <div class="sort-option">
+            <input type="radio" name="sort">
+            <span>인기순</span>
+          </div>
+
+          <h3 style="font-size:14px;font-weight:600;margin:20px 0 12px;display:flex;align-items:center;gap:8px">고급 정렬 <span class="pro-badge">PRO</span></h3>
+          <div class="sort-option locked">
+            <input type="radio" name="sort" disabled>
+            <span>SNS 팔로워 수</span>
+          </div>
+          <div class="sort-option locked">
+            <input type="radio" name="sort" disabled>
+            <span>IP 신뢰 지수</span>
+          </div>
+          <div class="sort-option locked">
+            <input type="radio" name="sort" disabled>
+            <span>IPH 협업 활동 지수</span>
+          </div>
+          <div class="sort-option locked">
+            <input type="radio" name="sort" disabled>
+            <span>IPH 협업 매너 지수</span>
+          </div>
+          <div class="sort-option locked">
+            <input type="radio" name="sort" disabled>
+            <span>IP SNS 지수</span>
+          </div>
+          <div class="sort-option locked">
+            <input type="radio" name="sort" disabled>
+            <span>IPH 응답속도순</span>
+          </div>
+
+          <div style="margin-top:16px;padding:12px;background:#F5F3FF;border-radius:8px;font-size:12px;color:#5B21B6">
+            <strong>Pro 회원</strong>이 되시면 고급 정렬 기능을 사용할 수 있습니다.
+            <a href="9-4-2 요금제_BP.html" style="color:#4F46E5;text-decoration:underline;display:block;margin-top:8px">요금제 알아보기 →</a>
+          </div>
+        </aside>
+        <div>
+          <h1>최신순 정렬</h1>
+          <div class="ip-grid">
+            <a href="3-2 IP 상세.html" class="ip-card">
+              <div class="ip-img" style="background:linear-gradient(135deg,#E0F2FE,#0891B2)"><img src="https://picsum.photos/seed/character28/200/200" alt="character" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+              <div class="ip-content">
+                <div class="ip-category">오리지널 캐릭터</div>
+                <div class="ip-name">곰돌이</div>
+                <div class="ip-author">스튜디오</div>
+              </div>
+            </a>
+            <a href="3-2 IP 상세.html" class="ip-card">
+              <div class="ip-img" style="background:linear-gradient(135deg,#FECACA,#DC2626)"><img src="https://picsum.photos/seed/character29/200/200" alt="character" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+              <div class="ip-content">
+                <div class="ip-category">이모티콘</div>
+                <div class="ip-name">레드판다</div>
+                <div class="ip-author">이모 스튜디오</div>
+              </div>
+            </a>
+            <a href="3-2 IP 상세.html" class="ip-card">
+              <div class="ip-img" style="background:linear-gradient(135deg,#D1FAE5,#059669)"><img src="https://picsum.photos/seed/character30/200/200" alt="character" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
+              <div class="ip-content">
+                <div class="ip-category">웹툰</div>
+                <div class="ip-name">초록고양이</div>
+                <div class="ip-author">툰스튜디오</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'browse'});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

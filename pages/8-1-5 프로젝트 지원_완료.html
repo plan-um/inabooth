@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로젝트 지원 완료 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .completion-page{min-height:calc(100vh - var(--header-height));display:flex;align-items:center;justify-content:center;background:var(--color-bg-secondary);padding:var(--space-8)}
+
+    .completion-card{max-width:600px;width:100%;background:white;border-radius:var(--radius-2xl);padding:var(--space-12);text-align:center;box-shadow:var(--shadow-card)}
+
+    .completion-icon{width:120px;height:120px;margin:0 auto var(--space-8);background:linear-gradient(135deg,var(--color-success-light),rgba(16,185,129,0.2));border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;animation:bounceIn 0.6s ease-out}
+    .completion-icon i{width:64px;height:64px;color:var(--color-success)}
+
+    @keyframes bounceIn{
+      0%{transform:scale(0);opacity:0}
+      50%{transform:scale(1.1)}
+      100%{transform:scale(1);opacity:1}
+    }
+
+    .completion-title{font-size:var(--font-size-3xl);font-weight:var(--font-weight-bold);color:var(--color-text-primary);margin-bottom:var(--space-3)}
+    .completion-desc{font-size:var(--font-size-lg);color:var(--color-text-secondary);margin-bottom:var(--space-8);line-height:1.6}
+
+    .submission-info{background:var(--color-bg-secondary);border-radius:var(--radius-lg);padding:var(--space-6);margin-bottom:var(--space-8);text-align:left}
+    .submission-info__title{font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:var(--color-text-primary);margin-bottom:var(--space-4);display:flex;align-items:center;gap:var(--space-2)}
+    .submission-info__title i{color:var(--color-primary)}
+
+    .submission-item{display:flex;justify-content:space-between;padding:var(--space-3) 0;border-bottom:1px solid var(--color-border-light)}
+    .submission-item:last-child{border-bottom:none}
+    .submission-item__label{font-size:var(--font-size-sm);color:var(--color-text-tertiary)}
+    .submission-item__value{font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--color-text-primary)}
+
+    .next-steps{margin-bottom:var(--space-8)}
+    .next-steps__title{font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-4)}
+    .next-steps__list{text-align:left;display:flex;flex-direction:column;gap:var(--space-3)}
+    .next-step{display:flex;align-items:flex-start;gap:var(--space-3)}
+    .next-step__number{width:24px;height:24px;border-radius:var(--radius-full);background:var(--color-primary-light);color:var(--color-primary);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .next-step__text{font-size:var(--font-size-sm);color:var(--color-text-secondary)}
+
+    .completion-actions{display:flex;gap:var(--space-3);justify-content:center}
+
+    @media (max-width: 768px) {
+      .completion-card{padding:var(--space-8)}
+      .completion-actions{flex-direction:column}
+      .completion-actions .btn{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="completion-page" style="padding-top:var(--header-height)">
+    <div class="completion-card">
+      <div class="completion-icon">
+        <i data-lucide="check-circle-2"></i>
+      </div>
+
+      <h1 class="completion-title">지원이 완료되었습니다!</h1>
+      <p class="completion-desc">
+        프로젝트 담당자에게 지원서가 전달되었습니다.<br>
+        검토 후 7일 이내에 결과를 알려드립니다.
+      </p>
+
+      <div class="submission-info">
+        <h3 class="submission-info__title">
+          <i data-lucide="file-check" class="icon-sm"></i>
+          지원 정보
+        </h3>
+        <div class="submission-item">
+          <span class="submission-item__label">지원 프로젝트</span>
+          <span class="submission-item__value">캐릭터 굿즈 콜라보</span>
+        </div>
+        <div class="submission-item">
+          <span class="submission-item__label">지원 IP</span>
+          <span class="submission-item__value">귀여운 곰돌이</span>
+        </div>
+        <div class="submission-item">
+          <span class="submission-item__label">지원 번호</span>
+          <span class="submission-item__value">#APP-2024-0128</span>
+        </div>
+        <div class="submission-item">
+          <span class="submission-item__label">지원 일시</span>
+          <span class="submission-item__value">2024.01.28 15:42</span>
+        </div>
+      </div>
+
+      <div class="next-steps">
+        <h3 class="next-steps__title">다음 단계 안내</h3>
+        <div class="next-steps__list">
+          <div class="next-step">
+            <span class="next-step__number">1</span>
+            <span class="next-step__text">프로젝트 담당자가 지원서를 검토합니다.</span>
+          </div>
+          <div class="next-step">
+            <span class="next-step__number">2</span>
+            <span class="next-step__text">검토 결과에 따라 채팅으로 연락이 올 수 있습니다.</span>
+          </div>
+          <div class="next-step">
+            <span class="next-step__number">3</span>
+            <span class="next-step__text">최종 선정 시 계약 및 협업이 진행됩니다.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="completion-actions">
+        <a href="9-7-3 마이부스_지원 현황.html" class="btn btn--secondary btn--lg">
+          <i data-lucide="folder-open" class="icon-sm"></i>
+          지원 현황 보기
+        </a>
+        <a href="4-1 오픈 프로젝트.html" class="btn btn--primary btn--lg">
+          <i data-lucide="search" class="icon-sm"></i>
+          다른 프로젝트 찾기
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'project'});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

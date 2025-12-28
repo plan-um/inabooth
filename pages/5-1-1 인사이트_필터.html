@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인사이트 필터 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.main-content {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      padding-bottom: var(--space-8);
+      min-height: 100vh;
+    }
+
+    /* Modal-style Filter Panel */
+    .filter-panel {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-8);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .filter-panel__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-6);
+    }
+
+    .filter-panel__title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+    }
+
+    .filter-section {
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-8);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .filter-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .filter-section__label {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-4);
+      display: block;
+    }
+
+    .filter-options {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .filter-option {
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-full);
+      border: 1.5px solid var(--color-border);
+      background: white;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .filter-option:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .filter-option.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    .filter-panel__actions {
+      display: flex;
+      gap: var(--space-4);
+      margin-top: var(--space-8);
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="filter-panel">
+        <div class="filter-panel__header">
+          <h2 class="filter-panel__title">상세 필터</h2>
+          <a href="5-1 인사이트.html">
+            <i data-lucide="x" class="icon"></i>
+          </a>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-section">
+          <label class="filter-section__label">콘텐츠 카테고리</label>
+          <div class="filter-options">
+            <button class="filter-option active">전체</button>
+            <button class="filter-option">비즈니스 전략</button>
+            <button class="filter-option">트렌드 & 시장 동향</button>
+            <button class="filter-option">인터뷰</button>
+            <button class="filter-option">업데이트 - 인사이드 부스</button>
+          </div>
+        </div>
+
+        <!-- Read Status Filter (Members Only) -->
+        <div class="filter-section">
+          <label class="filter-section__label">읽기 상태 (회원 전용)</label>
+          <div class="filter-options">
+            <button class="filter-option active">전체</button>
+            <button class="filter-option">읽은 글</button>
+            <button class="filter-option">안 읽은 글</button>
+          </div>
+        </div>
+
+        <!-- Scrapped Filter (Members Only) -->
+        <div class="filter-section">
+          <label class="filter-section__label">스크랩</label>
+          <div class="filter-options">
+            <button class="filter-option active">전체</button>
+            <button class="filter-option">스크랩한 글만 보기</button>
+          </div>
+        </div>
+
+        <!-- Sort Options -->
+        <div class="filter-section">
+          <label class="filter-section__label">정렬</label>
+          <div class="filter-options">
+            <button class="filter-option active">최신 업데이트순</button>
+            <button class="filter-option">전체 인기순</button>
+            <button class="filter-option">동일 포지션 인기순 (회원)</button>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="filter-panel__actions">
+          <button class="btn btn--secondary">초기화</button>
+          <a href="5-1 인사이트.html" class="btn btn--primary">적용하기</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({ activePage: 'insight' });
+
+    // Filter option toggle
+    document.querySelectorAll('.filter-option').forEach(option => {
+      option.addEventListener('click', function() {
+        const section = this.closest('.filter-section');
+        const isMultiSelect = false; // Change to true for multi-select sections
+
+        if (!isMultiSelect) {
+          section.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
+        }
+
+        this.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+name: Sync Pages to Notion
+
+on:
+  push:
+    paths:
+      - 'pages/*.html'
+      - 'pages/scripts/**'
+    branches:
+      - main
+      - master
+      - 'feature/**'
+  workflow_dispatch:  # 수동 실행 허용
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: pages/scripts/package-lock.json
+
+      - name: Install dependencies
+        working-directory: pages/scripts
+        run: npm install
+
+      - name: Sync to Notion
+        working-directory: pages/scripts
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: npm run sync
+
+      - name: Summary
+        run: echo "✅ Notion 동기화 완료!" >> $GITHUB_STEP_SUMMARY

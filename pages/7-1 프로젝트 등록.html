@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로젝트 등록 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.main-content{padding-top:calc(var(--header-height) + var(--space-8));padding-bottom:var(--space-8);min-height:100vh}
+    .form-card{background:white;border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-card)}
+    .form-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .form-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-6)}
+    .progress-steps{display:flex;gap:var(--space-2);margin-bottom:var(--space-6)}
+    .step{flex:1;height:4px;background:var(--color-bg-secondary);border-radius:999px}
+    .step.active{background:var(--color-primary)}
+    .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
+
+    .content-box{padding:var(--space-8);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0;text-align:center}
+    .card-list{display:grid;gap:var(--space-4);margin:var(--space-6) 0}
+    .card-item{padding:var(--space-4);background:white;border:1px solid var(--color-border);border-radius:var(--radius-md)}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="main-content">
+    <div class="container">
+      <div class="form-card">
+        
+        <h1 class="form-title">프로젝트 등록 시작</h1>
+        <p class="form-subtitle">오픈 프로젝트를 등록하고 최적의 IP를 찾아보세요</p>
+        <div style="text-align:center;padding:var(--space-6) 0">
+          <div style="width:80px;height:80px;background:linear-gradient(135deg, var(--color-primary), var(--color-secondary));border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-6)">
+            <i data-lucide="briefcase" style="width:40px;height:40px;color:white"></i>
+          </div>
+          <h2 style="font-size:var(--font-size-xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-3)">오픈 프로젝트로 최적의 IP를 찾아보세요</h2>
+          <p style="color:var(--color-text-secondary);max-width:500px;margin:0 auto var(--space-6)">프로젝트를 등록하면 조건에 맞는 IP 크리에이터들이 직접 지원합니다. 다양한 IP 중에서 최적의 파트너를 선택하세요.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-bottom:var(--space-6)">
+          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-5);text-align:center">
+            <div style="width:48px;height:48px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-3)">
+              <i data-lucide="search" style="color:var(--color-primary)"></i>
+            </div>
+            <div style="font-weight:600;margin-bottom:var(--space-1)">IP 발굴</div>
+            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">조건에 맞는 IP들이 직접 지원합니다</div>
+          </div>
+          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-5);text-align:center">
+            <div style="width:48px;height:48px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-3)">
+              <i data-lucide="users" style="color:var(--color-primary)"></i>
+            </div>
+            <div style="font-weight:600;margin-bottom:var(--space-1)">간편한 비교</div>
+            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">여러 지원자를 한눈에 비교할 수 있습니다</div>
+          </div>
+          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-5);text-align:center">
+            <div style="width:48px;height:48px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-3)">
+              <i data-lucide="shield-check" style="color:var(--color-primary)"></i>
+            </div>
+            <div style="font-weight:600;margin-bottom:var(--space-1)">안전한 협업</div>
+            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">계약서 자동 생성 및 안전결제 지원</div>
+          </div>
+        </div>
+
+        <div style="background:var(--color-warning-light);border:1px solid var(--color-warning);border-radius:var(--radius-md);padding:var(--space-4);display:flex;align-items:center;gap:var(--space-3)">
+          <i data-lucide="info" style="color:var(--color-warning);flex-shrink:0"></i>
+          <div style="font-size:var(--font-size-sm)">
+            <strong>사업자 인증 필요:</strong> 프로젝트 등록을 위해서는 사업자 인증이 필요합니다. <a href="9-2 계정 설정.html" style="color:var(--color-primary);text-decoration:underline">인증하러 가기</a>
+          </div>
+        </div>
+        <div class="form-actions">
+          
+          <a href="7-1-1 프로젝트 등록_기본 정보.html" class="btn btn--primary">다음<i data-lucide="arrow-right" class="icon"></i></a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'project'});lucide.createIcons();</script>
+</body>
+</html>

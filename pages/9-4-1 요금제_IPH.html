@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>요금제 - IP홀더 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main style="padding-top:calc(var(--header-height) + var(--space-8));min-height:70vh;padding-bottom:var(--space-8)">
+    <div class="container">
+      <div class="page-section">
+        <h1 class="page-section__title">IP홀더 요금제</h1>
+        <p class="page-section__desc">IP를 등록하고 협업 기회를 얻으세요. 더 많은 기능이 필요하다면 Pro 또는 Business로 업그레이드하세요.</p>
+
+        <!-- 요금 인상 공지 -->
+        <div style="background:var(--color-warning-light);border:1px solid var(--color-warning);border-radius:var(--radius-md);padding:var(--space-4);margin-bottom:var(--space-6);display:flex;align-items:center;gap:var(--space-3)">
+          <i data-lucide="alert-triangle" style="color:var(--color-warning);flex-shrink:0"></i>
+          <span style="font-size:var(--font-size-sm);color:var(--color-text-primary)"><strong>사전 공지:</strong> 2026년 5월부터 요금이 인상됩니다.</span>
+        </div>
+
+        <div style="display:flex;gap:var(--space-3);margin-bottom:var(--space-6)">
+          <button class="btn btn--primary">IP홀더</button>
+          <a href="9-4-2 요금제_BP.html" class="btn btn--secondary">브랜드 파트너</a>
+        </div>
+
+        <!-- 결제 주기 토글 -->
+        <div style="display:flex;justify-content:center;align-items:center;gap:var(--space-3);margin-bottom:var(--space-6)">
+          <span style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">월간 결제</span>
+          <label style="position:relative;width:48px;height:24px;cursor:pointer">
+            <input type="checkbox" id="billing-toggle" style="opacity:0;width:0;height:0" checked>
+            <span style="position:absolute;inset:0;background:var(--color-primary);border-radius:var(--radius-full);transition:0.3s"></span>
+            <span style="position:absolute;top:2px;left:2px;width:20px;height:20px;background:white;border-radius:50%;transition:0.3s;transform:translateX(24px)"></span>
+          </label>
+          <span style="font-size:var(--font-size-sm);color:var(--color-text-primary);font-weight:600">연간 결제 <span style="color:var(--color-success)">(-30%)</span></span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)">
+          <!-- Basic (무료) -->
+          <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6)">
+            <div style="text-align:center;margin-bottom:var(--space-6)">
+              <div style="font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)">Basic</div>
+              <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-bottom:var(--space-4)">멤버십 구독 없이 사용 가능</div>
+              <div style="font-size:var(--font-size-3xl);font-weight:var(--font-weight-bold);color:var(--color-primary)">₩0<span style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">/월</span></div>
+            </div>
+
+            <div style="border-top:1px solid var(--color-border);padding-top:var(--space-4);margin-bottom:var(--space-4)">
+              <div style="font-size:var(--font-size-xs);font-weight:600;color:var(--color-text-tertiary);margin-bottom:var(--space-3)">수수료</div>
+              <div style="font-size:var(--font-size-sm);display:flex;justify-content:space-between;margin-bottom:var(--space-2)">
+                <span>중개 서비스 수수료</span>
+                <span style="font-weight:600">8%</span>
+              </div>
+              <div style="font-size:var(--font-size-sm);display:flex;justify-content:space-between;margin-bottom:var(--space-2)">
+                <span>결제 수수료 (국내)</span>
+                <span style="font-weight:600">3.8%</span>
+              </div>
+              <div style="font-size:var(--font-size-sm);display:flex;justify-content:space-between">
+                <span>결제 수수료 (해외)</span>
+                <span style="font-weight:600">8.8%</span>
+              </div>
+            </div>
+
+            <ul style="font-size:var(--font-size-sm);color:var(--color-text-secondary);list-style:none;margin-bottom:var(--space-6)">
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> 캐릭터 등록 최대 2개</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> IP 정보 검색 및 조회</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> 기본 필터 / 기본 소팅</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> 오픈 프로젝트 월 1회 지원</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> 문의 수신 월 3건</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> 인사이트 콘텐츠 조회</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="x" class="icon-sm" style="color:var(--color-text-tertiary);flex-shrink:0;margin-top:2px"></i> 고급 필터/정렬 기능</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="x" class="icon-sm" style="color:var(--color-text-tertiary);flex-shrink:0;margin-top:2px"></i> 분석(Analytics) 페이지</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="x" class="icon-sm" style="color:var(--color-text-tertiary);flex-shrink:0;margin-top:2px"></i> IP홀더 인증 마크</li>
+            </ul>
+            <button class="btn btn--secondary" style="width:100%">현재 플랜</button>
+          </div>
+
+          <!-- Pro -->
+          <div style="background:white;border:2px solid var(--color-primary);border-radius:var(--radius-lg);padding:var(--space-6);position:relative">
+            <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg, var(--color-primary), var(--color-secondary));color:white;font-size:10px;font-weight:700;padding:4px 16px;border-radius:var(--radius-full)">인기</div>
+            <div style="text-align:center;margin-bottom:var(--space-6)">
+              <div style="font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)">Pro</div>
+              <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-bottom:var(--space-4)">성장하는 크리에이터, 소규모 팀에 필수</div>
+              <div style="font-size:var(--font-size-3xl);font-weight:var(--font-weight-bold);color:var(--color-primary)">₩14,900<span style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">/월</span></div>
+              <div style="font-size:var(--font-size-xs);color:var(--color-text-tertiary)">연간 결제 시 ₩125,000/년 (VAT 별도)</div>
+            </div>
+
+            <div style="border-top:1px solid var(--color-border);padding-top:var(--space-4);margin-bottom:var(--space-4)">
+              <div style="font-size:var(--font-size-xs);font-weight:600;color:var(--color-text-tertiary);margin-bottom:var(--space-3)">수수료</div>
+              <div style="font-size:var(--font-size-sm);display:flex;justify-content:space-between;margin-bottom:var(--space-2)">
+                <span>중개 서비스 수수료</span>
+                <span style="font-weight:600;color:var(--color-success)">면제</span>
+              </div>
+              <div style="font-size:var(--font-size-sm);display:flex;justify-content:space-between;margin-bottom:var(--space-2)">
+                <span>결제 수수료 (국내)</span>
+                <span style="font-weight:600">3.8%</span>
+              </div>
+              <div style="font-size:var(--font-size-sm);display:flex;justify-content:space-between">
+                <span>결제 수수료 (해외)</span>
+                <span style="font-weight:600">8.8%</span>
+              </div>
+            </div>
+
+            <ul style="font-size:var(--font-size-sm);color:var(--color-text-secondary);list-style:none;margin-bottom:var(--space-6)">
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> <strong>캐릭터 등록 무제한</strong></li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> <strong>오픈 프로젝트 무제한 지원</strong></li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> 고급 필터/정렬 기능</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> 분석(Analytics) 페이지 전체 제공</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> 문의 수신 무제한</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> IP 스크랩/조회 상세 알림</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> IP홀더 인증 마크 (조건 충족 시)</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> 이너부스 5% 할인 쿠폰</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="x" class="icon-sm" style="color:var(--color-text-tertiary);flex-shrink:0;margin-top:2px"></i> 다계정 운영</li>
+            </ul>
+            <button class="btn btn--primary" style="width:100%">업그레이드</button>
+          </div>
+
+          <!-- Business -->
+          <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6)">
+            <div style="text-align:center;margin-bottom:var(--space-6)">
+              <div style="font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)">Business</div>
+              <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-bottom:var(--space-4)">에이전시, IP 운영 효율성 극대화</div>
+              <div style="font-size:var(--font-size-3xl);font-weight:var(--font-weight-bold);color:var(--color-primary)">₩100,000<span style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">/월</span></div>
+              <div style="font-size:var(--font-size-xs);color:var(--color-text-tertiary)">연간 결제 시 ₩800,000/년 (VAT 별도)</div>
+            </div>
+
+            <div style="border-top:1px solid var(--color-border);padding-top:var(--space-4);margin-bottom:var(--space-4)">
+              <div style="font-size:var(--font-size-xs);font-weight:600;color:var(--color-text-tertiary);margin-bottom:var(--space-3)">수수료</div>
+              <div style="font-size:var(--font-size-sm);display:flex;justify-content:space-between;margin-bottom:var(--space-2)">
+                <span>중개 서비스 수수료</span>
+                <span style="font-weight:600;color:var(--color-success)">면제</span>
+              </div>
+              <div style="font-size:var(--font-size-sm);display:flex;justify-content:space-between;margin-bottom:var(--space-2)">
+                <span>결제 수수료 (국내)</span>
+                <span style="font-weight:600">3.8%</span>
+              </div>
+              <div style="font-size:var(--font-size-sm);display:flex;justify-content:space-between">
+                <span>결제 수수료 (해외)</span>
+                <span style="font-weight:600">8.8%</span>
+              </div>
+            </div>
+
+            <ul style="font-size:var(--font-size-sm);color:var(--color-text-secondary);list-style:none;margin-bottom:var(--space-6)">
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> Pro의 모든 기능</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> <strong>IP 등록 무제한</strong></li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> <strong>다계정 운영 최대 5개</strong></li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> IP홀더 인증 마크 (조건 충족 시)</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> 이너부스 5% 할인 쿠폰</li>
+              <li style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) 0"><i data-lucide="check" class="icon-sm" style="color:var(--color-success);flex-shrink:0;margin-top:2px"></i> 엔터프라이즈 맞춤 솔루션</li>
+            </ul>
+            <button class="btn btn--secondary" style="width:100%">문의하기</button>
+          </div>
+        </div>
+
+        <!-- 분석 페이지 상세 안내 -->
+        <div style="margin-top:var(--space-10);background:var(--color-bg-secondary);border-radius:var(--radius-lg);padding:var(--space-6)">
+          <h3 style="font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);margin-bottom:var(--space-4)">Pro/Business 분석(Analytics) 페이지 제공 항목</h3>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);font-size:var(--font-size-sm);color:var(--color-text-secondary)">
+            <div>
+              <div style="font-weight:600;color:var(--color-text-primary);margin-bottom:var(--space-2)">트래픽 분석</div>
+              <ul style="list-style:none;margin:0;padding:0">
+                <li style="padding:var(--space-1) 0">• IP 상세페이지 방문자 평균 체류 시간</li>
+                <li style="padding:var(--space-1) 0">• 유입 경로 분석 (검색, 추천)</li>
+                <li style="padding:var(--space-1) 0">• IP 상세페이지 조회/스크랩/공유율</li>
+                <li style="padding:var(--space-1) 0">• 월별 페이지뷰 추이 그래프</li>
+                <li style="padding:var(--space-1) 0">• Mobile/PC 분포</li>
+                <li style="padding:var(--space-1) 0">• 주요 접속 시간대 분석</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-weight:600;color:var(--color-text-primary);margin-bottom:var(--space-2)">비즈니스 성과</div>
+              <ul style="list-style:none;margin:0;padding:0">
+                <li style="padding:var(--space-1) 0">• 진행 중인 프로젝트 수</li>
+                <li style="padding:var(--space-1) 0">• 계약 성사율</li>
+                <li style="padding:var(--space-1) 0">• 문의 수신 수</li>
+                <li style="padding:var(--space-1) 0">• 누적 거래액 / 평균 거래액</li>
+                <li style="padding:var(--space-1) 0">• 평균 응답 시간 (응답율)</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-weight:600;color:var(--color-text-primary);margin-bottom:var(--space-2)">브랜드 파트너 인사이트</div>
+              <ul style="list-style:none;margin:0;padding:0">
+                <li style="padding:var(--space-1) 0">• 관심 브랜드 파트너 업종 분포</li>
+                <li style="padding:var(--space-1) 0">• 선호하는 IP 유형</li>
+                <li style="padding:var(--space-1) 0">• 브랜드 파트너 기업 국적</li>
+                <li style="padding:var(--space-1) 0">• 제품 카테고리 분포</li>
+                <li style="padding:var(--space-1) 0">• 유입 키워드 분석</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-actions">
+          <a href="9-4 요금제 관리.html" class="btn btn--secondary btn--lg"><i data-lucide="arrow-left" class="icon-sm"></i>이전</a>
+          <a href="9-4-2 요금제_BP.html" class="btn btn--primary btn--lg">다음<i data-lucide="arrow-right" class="icon-sm"></i></a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'mypage', isLoggedIn: true});</script>
+</body>
+</html>

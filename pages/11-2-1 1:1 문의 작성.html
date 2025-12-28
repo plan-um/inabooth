@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>문의 작성 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Background Blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .blob-1 {
+      top: -15%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, #C7D2FE, #DDD6FE);
+    }
+
+    .blob-2 {
+      top: 10%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #FBCFE8, #FCE7F3);
+    }
+
+    /* Layout */
+    .main-content {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      padding-bottom: var(--space-16);
+      min-height: 100vh;
+    }
+
+    /* Page Header */
+    .page-header {
+      margin-bottom: var(--space-8);
+    }
+
+    .page-header__back {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      margin-bottom: var(--space-4);
+      transition: color var(--transition-fast);
+    }
+
+    .page-header__back:hover {
+      color: var(--color-primary);
+    }
+
+    .page-title {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-extrabold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .page-desc {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+    }
+
+    /* Form Container */
+    .form-container {
+      max-width: 720px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+    }
+
+    /* Form Group */
+    .form-group {
+      margin-bottom: var(--space-6);
+    }
+
+    .form-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .form-label__required {
+      color: var(--color-error);
+      margin-left: var(--space-1);
+    }
+
+    .form-hint {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-1);
+    }
+
+    /* Select */
+    .form-select {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-base);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: white;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right var(--space-4) center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    /* Input */
+    .form-input {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-base);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      transition: all var(--transition-fast);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    /* Textarea */
+    .form-textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: var(--space-4);
+      font-size: var(--font-size-base);
+      font-family: inherit;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      resize: vertical;
+      transition: all var(--transition-fast);
+    }
+
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-textarea::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    /* Character Count */
+    .char-count {
+      text-align: right;
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-2);
+    }
+
+    .char-count--over {
+      color: var(--color-error);
+    }
+
+    /* File Upload */
+    .file-upload {
+      border: 2px dashed var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      text-align: center;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .file-upload:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .file-upload__icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--space-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-bg-secondary);
+      border-radius: 50%;
+      color: var(--color-text-tertiary);
+    }
+
+    .file-upload__text {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-1);
+    }
+
+    .file-upload__hint {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .file-upload__input {
+      display: none;
+    }
+
+    /* Uploaded Files */
+    .uploaded-files {
+      margin-top: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .uploaded-file {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+    }
+
+    .uploaded-file__icon {
+      color: var(--color-primary);
+    }
+
+    .uploaded-file__name {
+      flex: 1;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .uploaded-file__size {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .uploaded-file__remove {
+      padding: var(--space-1);
+      background: transparent;
+      border: none;
+      color: var(--color-text-tertiary);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .uploaded-file__remove:hover {
+      background: var(--color-error-light);
+      color: var(--color-error);
+    }
+
+    /* Form Actions */
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-3);
+      margin-top: var(--space-8);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-6);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .btn--secondary {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .btn--secondary:hover {
+      background: var(--color-border-light);
+    }
+
+    .btn--primary {
+      background: var(--color-primary);
+      border: none;
+      color: white;
+    }
+
+    .btn--primary:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn--primary:disabled {
+      background: var(--color-border);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Notice Box */
+    .notice-box {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-info-light);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-6);
+    }
+
+    .notice-box__icon {
+      color: var(--color-info);
+      flex-shrink: 0;
+    }
+
+    .notice-box__content {
+      flex: 1;
+    }
+
+    .notice-box__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-info);
+      margin-bottom: var(--space-1);
+    }
+
+    .notice-box__text {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .form-container {
+        padding: var(--space-5);
+      }
+
+      .form-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- Header injected by shared.js -->
+  <div id="header-placeholder"></div>
+
+  <main class="main-content">
+    <div class="container">
+      <!-- Page Header -->
+      <div class="page-header">
+        <a href="11-2 1:1 문의.html" class="page-header__back">
+          <i data-lucide="arrow-left" class="icon icon-sm"></i>
+          문의 목록으로
+        </a>
+        <h1 class="page-title" id="pageTitle">문의 작성</h1>
+        <p class="page-desc">문의 내용을 상세히 작성해 주시면 빠른 답변에 도움이 됩니다</p>
+      </div>
+
+      <!-- Form -->
+      <div class="form-container">
+        <!-- Notice -->
+        <div class="notice-box">
+          <i data-lucide="info" class="notice-box__icon icon"></i>
+          <div class="notice-box__content">
+            <div class="notice-box__title">문의 전 확인해 주세요</div>
+            <div class="notice-box__text">
+              자주 묻는 질문에서 원하시는 답변을 먼저 확인해 보세요.
+              문의 접수 후 영업일 기준 1~2일 내에 답변 드립니다.
+            </div>
+          </div>
+        </div>
+
+        <form id="inquiryForm">
+          <!-- Category -->
+          <div class="form-group">
+            <label class="form-label">
+              문의 유형
+              <span class="form-label__required">*</span>
+            </label>
+            <select class="form-select" id="category" required>
+              <option value="">문의 유형을 선택해 주세요</option>
+              <option value="account">계정/인증</option>
+              <option value="payment">결제/환불</option>
+              <option value="service">서비스 이용</option>
+              <option value="ip">IP 등록/관리</option>
+              <option value="project">프로젝트</option>
+              <option value="technical">기술 문제</option>
+              <option value="suggestion">제안/건의</option>
+              <option value="other">기타</option>
+            </select>
+          </div>
+
+          <!-- Title -->
+          <div class="form-group">
+            <label class="form-label">
+              제목
+              <span class="form-label__required">*</span>
+            </label>
+            <input type="text" class="form-input" id="title" placeholder="문의 제목을 입력해 주세요" maxlength="100" required>
+            <div class="char-count"><span id="titleCount">0</span>/100</div>
+          </div>
+
+          <!-- Content -->
+          <div class="form-group">
+            <label class="form-label">
+              문의 내용
+              <span class="form-label__required">*</span>
+            </label>
+            <textarea class="form-textarea" id="content" placeholder="문의하실 내용을 상세히 작성해 주세요.&#10;&#10;예시:&#10;- 어떤 상황에서 문제가 발생했나요?&#10;- 어떤 오류 메시지가 표시되었나요?&#10;- 사용 중인 브라우저나 기기 정보" maxlength="2000" required></textarea>
+            <div class="char-count"><span id="contentCount">0</span>/2000</div>
+          </div>
+
+          <!-- File Upload -->
+          <div class="form-group">
+            <label class="form-label">첨부파일</label>
+            <div class="file-upload" id="fileUpload">
+              <div class="file-upload__icon">
+                <i data-lucide="upload" class="icon"></i>
+              </div>
+              <div class="file-upload__text">파일을 드래그하거나 클릭하여 업로드</div>
+              <div class="file-upload__hint">JPG, PNG, PDF 파일 (최대 10MB, 3개까지)</div>
+              <input type="file" class="file-upload__input" id="fileInput" multiple accept=".jpg,.jpeg,.png,.pdf">
+            </div>
+            <div class="uploaded-files" id="uploadedFiles"></div>
+            <p class="form-hint">문제 상황을 설명하는 스크린샷이나 관련 문서를 첨부하시면 더 빠른 해결에 도움이 됩니다.</p>
+          </div>
+
+          <!-- Contact Email -->
+          <div class="form-group">
+            <label class="form-label">답변 받을 이메일</label>
+            <input type="email" class="form-input" id="email" placeholder="example@email.com" value="user@example.com">
+            <p class="form-hint">가입 시 등록한 이메일로 기본 설정됩니다. 다른 이메일로 받으시려면 변경해 주세요.</p>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <button type="button" class="btn btn--secondary" onclick="history.back()">취소</button>
+            <button type="submit" class="btn btn--primary" id="submitBtn">
+              <i data-lucide="send" class="icon icon-sm"></i>
+              문의 등록
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer injected by shared.js -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Shared Components -->
+  <script src="components/shared.js"></script>
+  <script>
+    // Initialize page
+    initPage({ activePage: 'support', isLoggedIn: true });
+    lucide.createIcons();
+
+    // Check if editing
+    const urlParams = new URLSearchParams(window.location.search);
+    const editId = urlParams.get('edit');
+    if (editId) {
+      document.getElementById('pageTitle').textContent = '문의 수정';
+      document.getElementById('submitBtn').innerHTML = '<i data-lucide="check" class="icon icon-sm"></i> 수정 완료';
+      lucide.createIcons();
+
+      // Load existing data (mock)
+      document.getElementById('category').value = 'service';
+      document.getElementById('title').value = 'IP 등록 시 이미지 업로드가 되지 않습니다';
+      document.getElementById('content').value = '캐릭터 IP 등록을 진행하는데 썸네일 이미지 업로드 시 계속 오류가 발생합니다. 이미지 크기는 2MB 이하이고 JPG 파일인데 왜 안 되는지 모르겠어요.';
+      updateCharCount('title');
+      updateCharCount('content');
+    }
+
+    // Character count
+    function updateCharCount(fieldId) {
+      const field = document.getElementById(fieldId);
+      const count = document.getElementById(fieldId + 'Count');
+      count.textContent = field.value.length;
+
+      const maxLength = parseInt(field.getAttribute('maxlength'));
+      if (field.value.length >= maxLength) {
+        count.parentElement.classList.add('char-count--over');
+      } else {
+        count.parentElement.classList.remove('char-count--over');
+      }
+    }
+
+    document.getElementById('title').addEventListener('input', () => updateCharCount('title'));
+    document.getElementById('content').addEventListener('input', () => updateCharCount('content'));
+
+    // File upload
+    const fileUpload = document.getElementById('fileUpload');
+    const fileInput = document.getElementById('fileInput');
+    const uploadedFiles = document.getElementById('uploadedFiles');
+    let files = [];
+
+    fileUpload.addEventListener('click', () => fileInput.click());
+
+    fileUpload.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      fileUpload.style.borderColor = 'var(--color-primary)';
+      fileUpload.style.background = 'var(--color-primary-light)';
+    });
+
+    fileUpload.addEventListener('dragleave', () => {
+      fileUpload.style.borderColor = '';
+      fileUpload.style.background = '';
+    });
+
+    fileUpload.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fileUpload.style.borderColor = '';
+      fileUpload.style.background = '';
+      handleFiles(e.dataTransfer.files);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      handleFiles(e.target.files);
+    });
+
+    function handleFiles(newFiles) {
+      for (let file of newFiles) {
+        if (files.length >= 3) {
+          alert('최대 3개의 파일만 첨부할 수 있습니다.');
+          break;
+        }
+
+        if (file.size > 10 * 1024 * 1024) {
+          alert(`${file.name}: 파일 크기는 10MB를 초과할 수 없습니다.`);
+          continue;
+        }
+
+        const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+        if (!allowedTypes.includes(file.type)) {
+          alert(`${file.name}: JPG, PNG, PDF 파일만 업로드 가능합니다.`);
+          continue;
+        }
+
+        files.push(file);
+      }
+      renderFiles();
+    }
+
+    function renderFiles() {
+      uploadedFiles.innerHTML = files.map((file, index) => `
+        <div class="uploaded-file">
+          <i data-lucide="file" class="uploaded-file__icon icon icon-sm"></i>
+          <span class="uploaded-file__name">${file.name}</span>
+          <span class="uploaded-file__size">${formatFileSize(file.size)}</span>
+          <button type="button" class="uploaded-file__remove" onclick="removeFile(${index})">
+            <i data-lucide="x" class="icon icon-sm"></i>
+          </button>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function removeFile(index) {
+      files.splice(index, 1);
+      renderFiles();
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    // Form submit
+    document.getElementById('inquiryForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const category = document.getElementById('category').value;
+      const title = document.getElementById('title').value;
+      const content = document.getElementById('content').value;
+
+      if (!category || !title || !content) {
+        alert('필수 항목을 모두 입력해 주세요.');
+        return;
+      }
+
+      // In real app, would submit to server
+      console.log('Submitting inquiry:', { category, title, content, files });
+
+      alert(editId ? '문의가 수정되었습니다.' : '문의가 등록되었습니다. 빠른 시일 내에 답변 드리겠습니다.');
+      window.location.href = '11-2 1:1 문의.html';
+    });
+  </script>
+</body>
+</html>

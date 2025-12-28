@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로젝트 상세 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.detail-wrapper {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      padding-bottom: var(--space-20);
+    }
+
+    .detail-layout {
+      display: flex;
+      gap: var(--space-8);
+    }
+
+    /* Main Content */
+    .detail-main {
+      flex: 1;
+    }
+
+    .detail-hero {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      margin-bottom: var(--space-6);
+      box-shadow: var(--shadow-card);
+    }
+
+    .detail-hero__img {
+      width: 100%;
+      height: 300px;
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-6);
+      overflow: hidden;
+    }
+
+    .detail-hero__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-hero__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--space-6);
+    }
+
+    .detail-hero__info h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .detail-hero__type {
+      display: inline-block;
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-2);
+    }
+
+    .detail-hero__actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      background: var(--color-bg-secondary);
+      color: var(--color-text-secondary);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .icon-btn:hover {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .icon-btn .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .detail-hero__company {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+    }
+
+    .company-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-full);
+      background: white;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .company-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .company-info h3 {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .company-info p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    /* Tabs */
+    .detail-tabs {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-6) var(--space-8);
+      box-shadow: var(--shadow-card);
+    }
+
+    .tabs {
+      margin-bottom: var(--space-6);
+      border-bottom: 2px solid var(--color-border-light);
+    }
+
+    .tab {
+      padding: var(--space-3) var(--space-5);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-tertiary);
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .tab:hover {
+      color: var(--color-text-primary);
+    }
+
+    .tab.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+
+    .tab-content {
+      display: none;
+      padding-top: var(--space-4);
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .content-section h2 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: 2px solid var(--color-border-light);
+    }
+
+    .content-section p, .content-section ul {
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-relaxed);
+      margin-bottom: var(--space-4);
+    }
+
+    .content-section ul {
+      list-style: disc;
+      padding-left: var(--space-6);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+
+    .info-item {
+      padding: var(--space-4);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+    }
+
+    .info-item__label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-2);
+    }
+
+    .info-item__value {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .checkbox-item.checked {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Sidebar */
+    .detail-sidebar {
+      width: 360px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-card);
+      margin-bottom: var(--space-6);
+    }
+
+    .sidebar-card h3 {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-5);
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+
+    .stat-item__label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .stat-item__value {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+    }
+
+    .stat-item__value--urgent {
+      color: var(--color-error);
+    }
+
+    .applicant-count {
+      text-align: center;
+      padding: var(--space-4);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-4);
+    }
+
+    .applicant-count__number {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .applicant-count__label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-1);
+    }
+
+    .footer__links a {
+      color: rgba(255, 255, 255, 0.7);
+      transition: color var(--transition-fast);
+    }
+
+    .footer__links a:hover {
+      color: white;
+    }
+
+    .footer__lang-btn.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .detail-layout {
+        flex-direction: column;
+      }
+      .detail-sidebar {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="detail-wrapper">
+    <div class="container">
+      <div class="detail-layout">
+        <!-- Main Content -->
+        <div class="detail-main">
+          <!-- Hero Section -->
+          <div class="detail-hero">
+            <div class="detail-hero__img">
+              <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=600&fit=crop" alt="F&B 브랜드 협업 프로젝트">
+            </div>
+            <div class="detail-hero__header">
+              <div class="detail-hero__info">
+                <span class="detail-hero__type">제품 패키지 디자인</span>
+                <h1>F&B 브랜드 캐릭터 협업 프로젝트</h1>
+              </div>
+              <div class="detail-hero__actions">
+                <button class="icon-btn" title="스크랩" onclick="toggleCardScrap(this, event)">
+                  <i data-lucide="bookmark" class="icon"></i>
+                </button>
+                <button class="icon-btn" title="공유" onclick="shareContent('F&B 브랜드 캐릭터 협업 프로젝트 - INABOOTH')">
+                  <i data-lucide="share-2" class="icon"></i>
+                </button>
+              </div>
+            </div>
+            <div class="detail-hero__company">
+              <div class="company-avatar">
+                <img src="https://i.pravatar.cc/150?img=48" alt="푸드컴퍼니 로고">
+              </div>
+              <div class="company-info">
+                <h3>(주)푸드컴퍼니</h3>
+                <p>식품/F&B • 사업자 인증 완료</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="detail-tabs">
+            <div class="tabs">
+              <button class="tab active" data-tab="overview">개요</button>
+              <button class="tab" data-tab="recruitment">모집 분야</button>
+              <button class="tab" data-tab="design">디자인 방향</button>
+              <button class="tab" data-tab="budget">예산</button>
+              <button class="tab" data-tab="benefits">혜택</button>
+              <button class="tab" data-tab="notice">유의사항</button>
+            </div>
+
+            <!-- Tab: 개요 [4-2-1] -->
+            <div class="tab-content active" id="overview">
+              <div class="content-section">
+                <h2>프로젝트 개요</h2>
+                <p>안녕하세요, (주)푸드컴퍼니입니다.</p>
+                <p>저희는 건강하고 맛있는 간편식을 만드는 F&B 브랜드로, 이번에 신제품 라인 출시를 앞두고 함께할 캐릭터 IP를 찾고 있습니다.</p>
+                <p>MZ세대를 타겟으로 한 귀엽고 친근한 캐릭터와의 협업을 통해, 제품 패키지 디자인부터 마케팅 캠페인까지 함께 진행하고자 합니다.</p>
+                <p>브랜드와 IP 모두에게 윈윈이 될 수 있는 장기적인 파트너십을 기대하고 있으며, 성공적인 협업을 위해 충분한 예산과 지원을 준비했습니다.</p>
+                <p>캐릭터 IP를 보유하신 크리에이터분들의 많은 관심과 지원 부탁드립니다!</p>
+              </div>
+            </div>
+
+            <!-- Tab: 모집 분야 [4-2-2] -->
+            <div class="tab-content" id="recruitment">
+              <div class="content-section">
+                <h2>모집 분야</h2>
+                <p>이번 프로젝트에서는 다음과 같은 협업 분야를 기획하고 있습니다.</p>
+                <ul>
+                  <li><strong>제품 패키지 디자인:</strong> 신제품 라인 5종의 패키지에 캐릭터 적용</li>
+                  <li><strong>마케팅 콜라보:</strong> SNS 캠페인, 온라인 광고 소재 제작</li>
+                  <li><strong>프로모션 굿즈:</strong> 캐릭터 활용 증정품 및 한정 굿즈 제작</li>
+                  <li><strong>팝업스토어:</strong> 오프라인 팝업스토어 공동 운영 (선택사항)</li>
+                </ul>
+                <p>특히 식품 패키지에 적합한 귀엽고 친근한 느낌의 캐릭터를 선호하며, 기존 팬층이 있거나 SNS 채널을 운영 중인 IP라면 더욱 좋습니다.</p>
+              </div>
+            </div>
+
+            <!-- Tab: 디자인 방향 [4-2-3] -->
+            <div class="tab-content" id="design">
+              <div class="content-section">
+                <h2>디자인 방향</h2>
+                <p>저희가 생각하는 이상적인 캐릭터 스타일은 다음과 같습니다.</p>
+                <ul>
+                  <li>귀엽고 친근한 느낌의 동물 또는 음식 캐릭터</li>
+                  <li>밝고 화사한 컬러 팔레트 (파스텔톤 선호)</li>
+                  <li>심플하면서도 개성 있는 디자인</li>
+                  <li>MZ세대가 공감할 수 있는 스토리텔링</li>
+                  <li>다양한 포즈와 표정 활용 가능한 IP</li>
+                </ul>
+                <p>참고 이미지와 무드보드는 선정 후 별도로 공유드릴 예정입니다.</p>
+              </div>
+            </div>
+
+            <!-- Tab: 예산 [4-2-4] -->
+            <div class="tab-content" id="budget">
+              <div class="content-section">
+                <h2>예산 정보</h2>
+                <div class="info-grid">
+                  <div class="info-item">
+                    <div class="info-item__label">프로젝트 예산</div>
+                    <div class="info-item__value">5,000만원 ~ 1억원</div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-item__label">협업 기간</div>
+                    <div class="info-item__value">12개월 (연장 협의 가능)</div>
+                  </div>
+                </div>
+                <h3 style="margin-top: 2rem; margin-bottom: 1rem; font-size: 1.125rem;">추가 요청 사항</h3>
+                <div class="checkbox-grid">
+                  <div class="checkbox-item checked">
+                    <i data-lucide="check" class="icon-sm"></i>
+                    SNS 프로모션 지원
+                  </div>
+                  <div class="checkbox-item checked">
+                    <i data-lucide="check" class="icon-sm"></i>
+                    추가 에셋 제작
+                  </div>
+                  <div class="checkbox-item checked">
+                    <i data-lucide="check" class="icon-sm"></i>
+                    비매품/증정용 라이선스
+                  </div>
+                  <div class="checkbox-item">
+                    <i data-lucide="x" class="icon-sm"></i>
+                    기타
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab: 혜택 [4-2-5] -->
+            <div class="tab-content" id="benefits">
+              <div class="content-section">
+                <h2>참여 IPH 혜택</h2>
+                <ul>
+                  <li>경쟁력 있는 로열티 및 협업비 지급</li>
+                  <li>전국 주요 유통채널 입점을 통한 IP 노출 극대화</li>
+                  <li>온·오프라인 통합 마케팅 캠페인 진행</li>
+                  <li>협업 결과물에 대한 포트폴리오 활용 권한</li>
+                  <li>성과에 따른 추가 인센티브 제공 가능</li>
+                  <li>장기 파트너십 체결 기회</li>
+                </ul>
+                <p>이번 협업을 통해 IP의 인지도와 팬층을 크게 확장할 수 있는 기회가 될 것입니다.</p>
+              </div>
+            </div>
+
+            <!-- Tab: 유의사항 [4-2-6] -->
+            <div class="tab-content" id="notice">
+              <div class="content-section">
+                <h2>유의사항</h2>
+                <ul>
+                  <li>지원 시 IP 포트폴리오와 스타일 가이드북을 필수로 제출해주세요</li>
+                  <li>선정 후 계약서 작성 전 NDA(비밀유지계약) 체결이 필요합니다</li>
+                  <li>저작권 등록 여부 및 라이선스 활용 범위를 명확히 확인합니다</li>
+                  <li>프로젝트 일정에 맞춰 에셋 제작 및 수정이 가능해야 합니다</li>
+                  <li>기존 타 브랜드와의 독점 계약 여부를 사전에 알려주세요</li>
+                  <li>최종 선정은 내부 검토를 거쳐 2주 이내 개별 통보됩니다</li>
+                </ul>
+                <p>기타 문의사항은 이메일 또는 1:1 채팅을 통해 문의해주시기 바랍니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="detail-sidebar">
+          <!-- Project Stats -->
+          <div class="sidebar-card">
+            <h3>프로젝트 정보</h3>
+            <div class="stat-item">
+              <span class="stat-item__label">조회수</span>
+              <span class="stat-item__value">1,247</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-item__label">스크랩</span>
+              <span class="stat-item__value">89</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-item__label">마감일</span>
+              <span class="stat-item__value stat-item__value--urgent">D-15</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-item__label">진행 상태</span>
+              <span class="stat-item__value">모집중</span>
+            </div>
+          </div>
+
+          <!-- Application CTA [4-2-7] -->
+          <div class="sidebar-card">
+            <h3>지원하기</h3>
+            <div class="applicant-count">
+              <div class="applicant-count__number">24</div>
+              <div class="applicant-count__label">현재 지원자 수</div>
+            </div>
+            <button class="btn btn--primary" onclick="window.location.href='8-1 프로젝트 지원.html'">
+              <i data-lucide="send" class="icon-sm"></i>
+              프로젝트 지원하기
+            </button>
+            <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-tertiary); text-align: center;">
+              IPH 회원 전용 • 휴대폰 인증 필요
+            </p>
+          </div>
+
+          <!-- Contact -->
+          <div class="sidebar-card">
+            <h3>문의하기</h3>
+            <button class="btn btn--outline" onclick="window.location.href='10-1 채팅.html'">
+              <i data-lucide="message-circle" class="icon-sm"></i>
+              1:1 채팅 문의
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="./components/shared.js"></script>
+  <script>
+    initPage({ activePage: 'project' });
+
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.dataset.tab;
+
+        // Update active tab
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Update active content
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

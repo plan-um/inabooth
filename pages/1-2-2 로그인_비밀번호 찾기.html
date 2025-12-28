@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>비밀번호 찾기 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+*{box-sizing:border-box;margin:0;padding:0}.blob{position:fixed;border-radius:50%;filter:blur(100px);opacity:0.5;z-index:-1;pointer-events:none;animation:float 12s infinite ease-in-out}.blob-1{top:-15%;left:-10%;width:600px;height:600px;background:linear-gradient(135deg,#C7D2FE,#DDD6FE)}.blob-2{top:10%;right:-10%;width:500px;height:500px;background:linear-gradient(135deg,#FBCFE8,#FCE7F3);animation-delay:3s}@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(30px) scale(1.05)}}.logo{font-size:var(--font-size-xl);font-weight:var(--font-weight-bold);color:var(--color-primary)}.auth-container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:var(--space-8) var(--space-6)}.auth-box{width:100%;max-width:480px;background:white;border-radius:var(--radius-xl);padding:var(--space-12) var(--space-8);box-shadow:0 20px 50px -10px rgba(79,70,229,0.15)}.auth-header{text-align:center;margin-bottom:var(--space-8)}.auth-title{font-size:var(--font-size-3xl);font-weight:var(--font-weight-extrabold);margin-bottom:var(--space-3)}.auth-subtitle{color:var(--color-text-secondary);line-height:1.6}.form-input::placeholder{color:var(--color-text-tertiary)}.info-box{background:var(--color-bg-secondary);border-radius:var(--radius-lg);padding:var(--space-5);margin-bottom:var(--space-6)}.info-box p{font-size:var(--font-size-sm);color:var(--color-text-secondary);line-height:1.6}.btn-group{display:flex;justify-content:space-between;gap:var(--space-3)}.btn--ghost{color:var(--color-text-secondary);border:1.5px solid var(--color-border)}.btn--ghost:hover{background:var(--color-bg-secondary)}.success-message{display:none;background:#D1FAE5;border:1px solid #34D399;border-radius:var(--radius-lg);padding:var(--space-5);color:#065F46;text-align:center}.success-message.show{display:block;margin-bottom:var(--space-6)}
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="logo">INABOOTH</a>
+    </div>
+  </header>
+
+  <main class="auth-container">
+    <div class="auth-box">
+      <div class="auth-header">
+        <h1 class="auth-title">비밀번호 찾기</h1>
+        <p class="auth-subtitle">
+          가입하신 이메일 주소를 입력하시면<br>
+          비밀번호 재설정 링크를 보내드립니다
+        </p>
+      </div>
+
+      <div id="successMessage" class="success-message">
+        <i data-lucide="mail-check" class="icon"></i>
+        <p>이메일로 비밀번호 재설정 링크를 발송했습니다.<br>메일함을 확인해주세요.</p>
+      </div>
+
+      <form id="resetForm">
+        <div class="form-group">
+          <label class="form-label" for="email">가입 이메일</label>
+          <input type="email" id="email" class="form-input" placeholder="example@email.com" required>
+        </div>
+
+        <div class="info-box">
+          <p>
+            • 입력하신 이메일로 비밀번호 재설정 링크가 발송됩니다<br>
+            • 링크는 발송 후 24시간 동안 유효합니다<br>
+            • 스팸 메일함도 확인해주세요
+          </p>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn--ghost" onclick="window.location.href='1-2-1 로그인.html'">
+            <i data-lucide="arrow-left" class="icon"></i>
+            로그인으로
+          </button>
+          <button type="submit" class="btn btn--primary">
+            재설정 링크 발송
+            <i data-lucide="send" class="icon"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    document.getElementById('resetForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Show success message
+      const successMsg = document.getElementById('successMessage');
+      successMsg.classList.add('show');
+
+      // Hide form
+      document.getElementById('resetForm').style.display = 'none';
+
+      // Re-initialize icons
+      lucide.createIcons();
+
+      // Redirect to login after 3 seconds
+      setTimeout(() => {
+        window.location.href = '1-2-1 로그인.html';
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

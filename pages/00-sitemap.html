@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INABOOTH Sitemap</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --sm-bg: #ffffff;
+      --sm-surface: #fafbfc;
+      --sm-border: #e8eaed;
+      --sm-text: #1f2937;
+      --sm-text-secondary: #6b7280;
+      --sm-text-muted: #9ca3af;
+      --sm-accent: #4f46e5;
+      --sm-accent-light: #eef2ff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--sm-bg);
+      color: var(--sm-text);
+      font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .sitemap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 48px 32px 64px;
+    }
+
+    /* Header */
+    .sitemap-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--sm-border);
+    }
+
+    .sitemap-header__brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .sitemap-header__logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--sm-accent);
+      letter-spacing: -0.02em;
+    }
+
+    .sitemap-header__divider {
+      width: 1px;
+      height: 20px;
+      background: var(--sm-border);
+    }
+
+    .sitemap-header__title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--sm-text-secondary);
+    }
+
+    .sitemap-header__stats {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--sm-text-muted);
+    }
+
+    .sitemap-header__stats strong {
+      color: var(--sm-text);
+      font-weight: 600;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .section__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .section__number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--sm-accent);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .section__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--sm-text);
+    }
+
+    .section__desc {
+      font-size: 13px;
+      color: var(--sm-text-muted);
+      margin-left: 4px;
+    }
+
+    .section__count {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--sm-text-muted);
+    }
+
+    /* Page Grid */
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+    }
+
+    .page-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--sm-surface);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .page-card:hover {
+      background: var(--sm-accent-light);
+      border-color: rgba(79, 70, 229, 0.2);
+    }
+
+    .page-card__icon {
+      width: 28px;
+      height: 28px;
+      background: white;
+      border: 1px solid var(--sm-border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .page-card:hover .page-card__icon {
+      background: var(--sm-accent);
+      border-color: var(--sm-accent);
+    }
+
+    .page-card__icon i {
+      width: 14px;
+      height: 14px;
+      color: var(--sm-text-secondary);
+    }
+
+    .page-card:hover .page-card__icon i {
+      color: white;
+    }
+
+    .page-card__content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .page-card__code {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--sm-text-muted);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    .page-card__title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--sm-text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Footer */
+    .sitemap-footer {
+      display: flex;
+      justify-content: center;
+      padding-top: 32px;
+      border-top: 1px solid var(--sm-border);
+      margin-top: 32px;
+    }
+
+    .sitemap-footer__home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      background: var(--sm-text);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: white;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .sitemap-footer__home:hover {
+      background: var(--sm-accent);
+    }
+
+    .sitemap-footer__home i {
+      width: 14px;
+      height: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .sitemap { padding: 32px 16px 48px; }
+      .sitemap-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .page-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .page-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sitemap">
+    <header class="sitemap-header">
+      <div class="sitemap-header__brand">
+        <div class="sitemap-header__logo">INABOOTH</div>
+        <div class="sitemap-header__divider"></div>
+        <h1 class="sitemap-header__title">Sitemap</h1>
+      </div>
+      <div class="sitemap-header__stats">
+        <span>Total</span>
+        <strong>109</strong>
+        <span>pages</span>
+      </div>
+    </header>
+
+    <!-- 1. 회원가입/로그인 -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__number">1</div>
+        <div class="section__info">
+          <h2 class="section__title">Auth</h2>
+          <p class="section__desc">회원가입, 로그인, 인증 플로우</p>
+        </div>
+        <span class="section__count">12</span>
+      </div>
+      <div class="page-grid">
+        <a href="1-1-1 회원가입.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="user-plus"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-1-1</div>
+            <div class="page-card__title">회원가입</div>
+          </div>
+        </a>
+        <a href="1-1-2 회원가입_유형 선택.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="users"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-1-2</div>
+            <div class="page-card__title">유형 선택</div>
+          </div>
+        </a>
+        <a href="1-1-3-1 회원가입_IPH-C 정보입력.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="pen-line"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-1-3-1</div>
+            <div class="page-card__title">IPH-C 정보입력</div>
+          </div>
+        </a>
+        <a href="1-1-3-2 회원가입_IPH-A 정보입력.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="pen-line"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-1-3-2</div>
+            <div class="page-card__title">IPH-A 정보입력</div>
+          </div>
+        </a>
+        <a href="1-1-3-3 회원가입_BP 정보입력.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="briefcase"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-1-3-3</div>
+            <div class="page-card__title">BP 정보입력</div>
+          </div>
+        </a>
+        <a href="1-1-3-4 회원가입_BP 선택정보.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="list-checks"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-1-3-4</div>
+            <div class="page-card__title">BP 선택정보</div>
+          </div>
+        </a>
+        <a href="1-1-4 회원가입_완료.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="check-circle"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-1-4</div>
+            <div class="page-card__title">회원가입 완료</div>
+          </div>
+        </a>
+        <a href="1-2-1 로그인.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="log-in"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-2-1</div>
+            <div class="page-card__title">로그인</div>
+          </div>
+        </a>
+        <a href="1-2-2 로그인_비밀번호 찾기.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="key"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-2-2</div>
+            <div class="page-card__title">비밀번호 찾기</div>
+          </div>
+        </a>
+        <a href="1-2-3 로그인_비밀번호 재설정.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="lock"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-2-3</div>
+            <div class="page-card__title">비밀번호 재설정</div>
+          </div>
+        </a>
+        <a href="1-3-1 휴대폰 인증.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="smartphone"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-3-1</div>
+            <div class="page-card__title">휴대폰 인증</div>
+          </div>
+        </a>
+        <a href="1-3-2 사업자 인증.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="building-2"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">1-3-2</div>
+            <div class="page-card__title">사업자 인증</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 2. 메인 -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__number">2</div>
+        <div class="section__info">
+          <h2 class="section__title">Main</h2>
+          <p class="section__desc">메인 랜딩 페이지</p>
+        </div>
+        <span class="section__count">1</span>
+      </div>
+      <div class="page-grid">
+        <a href="index.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="home"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">2-1</div>
+            <div class="page-card__title">메인</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 3. 탐색 -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__number">3</div>
+        <div class="section__info">
+          <h2 class="section__title">Browse</h2>
+          <p class="section__desc">IP 탐색 및 상세 페이지</p>
+        </div>
+        <span class="section__count">11</span>
+      </div>
+      <div class="page-grid">
+        <a href="3-1 탐색.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="search"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">3-1</div>
+            <div class="page-card__title">탐색</div>
+          </div>
+        </a>
+        <a href="3-1-1 탐색_기본 필터.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="filter"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">3-1-1</div>
+            <div class="page-card__title">기본 필터</div>
+          </div>
+        </a>
+        <a href="3-1-2 탐색_상세 필터.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="sliders-horizontal"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">3-1-2</div>
+            <div class="page-card__title">상세 필터</div>
+          </div>
+        </a>
+        <a href="3-1-3 탐색_정렬.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="arrow-up-down"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">3-1-3</div>
+            <div class="page-card__title">정렬</div>
+          </div>
+        </a>
+        <a href="3-2 IP 상세.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="image"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">3-2</div>
+            <div class="page-card__title">IP 상세</div>
+          </div>
+        </a>
+        <a href="3-2-1 IP 상세_포트폴리오.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="layout-grid"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">3-2-1</div>
+            <div class="page-card__title">포트폴리오</div>
+          </div>
+        </a>
+        <a href="3-2-2 IP 상세_대표 채널.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="radio"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">3-2-2</div>
+            <div class="page-card__title">대표 채널</div>
+          </div>
+        </a>
+        <a href="3-2-3 IP 상세_협업 정보.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="handshake"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">3-2-3</div>
+            <div class="page-card__title">협업 정보</div>
+          </div>
+        </a>
+        <a href="3-2-4 IP 상세_가이드북.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="book-open"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">3-2-4</div>
+            <div class="page-card__title">스타일 가이드북</div>
+          </div>
+        </a>
+        <a href="3-2-5 IP 상세_관련 IP.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="sparkles"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">3-2-5</div>
+            <div class="page-card__title">관련 IP</div>
+          </div>
+        </a>
+        <a href="3-2-6 IP 상세_문의하기.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="message-circle"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">3-2-6</div>
+            <div class="page-card__title">문의하기</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 4. 오픈 프로젝트 -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__number">4</div>
+        <div class="section__info">
+          <h2 class="section__title">Open Project</h2>
+          <p class="section__desc">오픈 프로젝트 목록 및 상세</p>
+        </div>
+        <span class="section__count">10</span>
+      </div>
+      <div class="page-grid">
+        <a href="4-1 오픈 프로젝트.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="folder-open"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">4-1</div>
+            <div class="page-card__title">오픈 프로젝트</div>
+          </div>
+        </a>
+        <a href="4-1-1 오픈 프로젝트_목록.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="list"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">4-1-1</div>
+            <div class="page-card__title">목록</div>
+          </div>
+        </a>
+        <a href="4-1-2 오픈 프로젝트_필터.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="filter"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">4-1-2</div>
+            <div class="page-card__title">필터</div>
+          </div>
+        </a>
+        <a href="4-2 프로젝트 상세.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="file-text"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">4-2</div>
+            <div class="page-card__title">프로젝트 상세</div>
+          </div>
+        </a>
+        <a href="4-2-1 프로젝트 상세_개요.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="info"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">4-2-1</div>
+            <div class="page-card__title">개요</div>
+          </div>
+        </a>
+        <a href="4-2-2 프로젝트 상세_모집 분야.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="tag"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">4-2-2</div>
+            <div class="page-card__title">모집 분야</div>
+          </div>
+        </a>
+        <a href="4-2-3 프로젝트 상세_디자인 방향.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="palette"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">4-2-3</div>
+            <div class="page-card__title">디자인 방향</div>
+          </div>
+        </a>
+        <a href="4-2-4 프로젝트 상세_예산.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="coins"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">4-2-4</div>
+            <div class="page-card__title">예산</div>
+          </div>
+        </a>
+        <a href="4-2-5 프로젝트 상세_혜택.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="gift"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">4-2-5</div>
+            <div class="page-card__title">혜택</div>
+          </div>
+        </a>
+        <a href="4-2-6 프로젝트 상세_유의사항.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="alert-circle"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">4-2-6</div>
+            <div class="page-card__title">유의사항</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 5. 인사이트 -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__number">5</div>
+        <div class="section__info">
+          <h2 class="section__title">Insight</h2>
+          <p class="section__desc">인사이트 목록 및 상세</p>
+        </div>
+        <span class="section__count">3</span>
+      </div>
+      <div class="page-grid">
+        <a href="5-1 인사이트.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="lightbulb"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">5-1</div>
+            <div class="page-card__title">인사이트</div>
+          </div>
+        </a>
+        <a href="5-1-1 인사이트_필터.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="filter"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">5-1-1</div>
+            <div class="page-card__title">필터</div>
+          </div>
+        </a>
+        <a href="5-2 인사이트 상세.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="newspaper"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">5-2</div>
+            <div class="page-card__title">인사이트 상세</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 6. 캐릭터 등록/관리 -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__number">6</div>
+        <div class="section__info">
+          <h2 class="section__title">Character</h2>
+          <p class="section__desc">IP 홀더를 위한 캐릭터 등록 및 관리</p>
+        </div>
+        <span class="section__count">9</span>
+      </div>
+      <div class="page-grid">
+        <a href="6-1 캐릭터 등록.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="image-plus"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">6-1</div>
+            <div class="page-card__title">캐릭터 등록</div>
+          </div>
+        </a>
+        <a href="6-1-1 캐릭터 등록_기본 정보.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="info"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">6-1-1</div>
+            <div class="page-card__title">기본 정보</div>
+          </div>
+        </a>
+        <a href="6-1-2 캐릭터 등록_상세 정보.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="file-text"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">6-1-2</div>
+            <div class="page-card__title">상세 정보</div>
+          </div>
+        </a>
+        <a href="6-1-3 캐릭터 등록_협업 정보.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="handshake"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">6-1-3</div>
+            <div class="page-card__title">협업 정보</div>
+          </div>
+        </a>
+        <a href="6-1-4 캐릭터 등록_공개 설정.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="eye"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">6-1-4</div>
+            <div class="page-card__title">공개 설정</div>
+          </div>
+        </a>
+        <a href="6-1-5 캐릭터 등록_완료.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="check-circle"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">6-1-5</div>
+            <div class="page-card__title">등록 완료</div>
+          </div>
+        </a>
+        <a href="6-2 캐릭터 관리.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="images"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">6-2</div>
+            <div class="page-card__title">캐릭터 관리</div>
+          </div>
+        </a>
+        <a href="6-2-1 캐릭터 관리_상세.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="image"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">6-2-1</div>
+            <div class="page-card__title">캐릭터 상세</div>
+          </div>
+        </a>
+        <a href="6-2-2 캐릭터 삭제 확인.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="trash-2"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">6-2-2</div>
+            <div class="page-card__title">캐릭터 삭제</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 7. 프로젝트 등록/관리 -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__number">7</div>
+        <div class="section__info">
+          <h2 class="section__title">Project Management</h2>
+          <p class="section__desc">브랜드 파트너를 위한 프로젝트 등록 및 관리</p>
+        </div>
+        <span class="section__count">12</span>
+      </div>
+      <div class="page-grid">
+        <a href="7-1 프로젝트 등록.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="folder-plus"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-1</div>
+            <div class="page-card__title">프로젝트 등록</div>
+          </div>
+        </a>
+        <a href="7-1-1 프로젝트 등록_기본 정보.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="info"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-1-1</div>
+            <div class="page-card__title">기본 정보</div>
+          </div>
+        </a>
+        <a href="7-1-2 프로젝트 등록_상세 정보.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="file-text"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-1-2</div>
+            <div class="page-card__title">상세 정보</div>
+          </div>
+        </a>
+        <a href="7-1-3 프로젝트 등록_신청 양식.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="clipboard-list"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-1-3</div>
+            <div class="page-card__title">신청 양식</div>
+          </div>
+        </a>
+        <a href="7-1-4 프로젝트 등록_공개_결제.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="credit-card"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-1-4</div>
+            <div class="page-card__title">공개/결제</div>
+          </div>
+        </a>
+        <a href="7-1-5 프로젝트 등록_완료.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="check-circle"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-1-5</div>
+            <div class="page-card__title">등록 완료</div>
+          </div>
+        </a>
+        <a href="7-2 프로젝트 관리.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="folders"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-2</div>
+            <div class="page-card__title">프로젝트 관리</div>
+          </div>
+        </a>
+        <a href="7-2-1 프로젝트 관리_상세.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="folder-open"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-2-1</div>
+            <div class="page-card__title">프로젝트 상세</div>
+          </div>
+        </a>
+        <a href="7-2-2 프로젝트 수정.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="edit"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-2-2</div>
+            <div class="page-card__title">프로젝트 수정</div>
+          </div>
+        </a>
+        <a href="7-2-3 프로젝트 삭제 확인.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="trash-2"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-2-3</div>
+            <div class="page-card__title">프로젝트 삭제</div>
+          </div>
+        </a>
+        <a href="7-3 지원자 관리.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="users"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-3</div>
+            <div class="page-card__title">지원자 관리</div>
+          </div>
+        </a>
+        <a href="7-3-1 지원자 관리_지원서 상세.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="user-check"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">7-3-1</div>
+            <div class="page-card__title">지원서 상세</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 8. 프로젝트 지원 -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__number">8</div>
+        <div class="section__info">
+          <h2 class="section__title">Application</h2>
+          <p class="section__desc">프로젝트 지원 플로우 및 현황 관리</p>
+        </div>
+        <span class="section__count">9</span>
+      </div>
+      <div class="page-grid">
+        <a href="8-1 프로젝트 지원.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="file-plus"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">8-1</div>
+            <div class="page-card__title">프로젝트 지원</div>
+          </div>
+        </a>
+        <a href="8-1-1 프로젝트 지원_자격 검증.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="shield-check"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">8-1-1</div>
+            <div class="page-card__title">자격 검증</div>
+          </div>
+        </a>
+        <a href="8-1-2 프로젝트 지원_IP 선택.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="image"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">8-1-2</div>
+            <div class="page-card__title">IP 선택</div>
+          </div>
+        </a>
+        <a href="8-1-3 프로젝트 지원_양식 작성.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="edit-3"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">8-1-3</div>
+            <div class="page-card__title">양식 작성</div>
+          </div>
+        </a>
+        <a href="8-1-4 프로젝트 지원_최종 제출.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="send"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">8-1-4</div>
+            <div class="page-card__title">최종 제출</div>
+          </div>
+        </a>
+        <a href="8-1-5 프로젝트 지원_완료.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="check-circle"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">8-1-5</div>
+            <div class="page-card__title">지원 완료</div>
+          </div>
+        </a>
+        <a href="8-2 지원 현황 관리.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="list"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">8-2</div>
+            <div class="page-card__title">지원 현황 관리</div>
+          </div>
+        </a>
+        <a href="8-2-1 지원 현황_상세.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="file-text"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">8-2-1</div>
+            <div class="page-card__title">지원 상세</div>
+          </div>
+        </a>
+        <a href="8-2-2 지원 현황_스크랩.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="bookmark"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">8-2-2</div>
+            <div class="page-card__title">스크랩한 프로젝트</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 9. 마이페이지 -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__number">9</div>
+        <div class="section__info">
+          <h2 class="section__title">My Page</h2>
+          <p class="section__desc">프로필, 설정, 요금제, 마이부스 등</p>
+        </div>
+        <span class="section__count">31</span>
+      </div>
+      <div class="page-grid">
+        <a href="9-1 프로필 관리.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="user"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-1</div>
+            <div class="page-card__title">프로필 관리</div>
+          </div>
+        </a>
+        <a href="9-1-1 프로필 이미지 업로드.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="camera"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-1-1</div>
+            <div class="page-card__title">프로필 이미지 업로드</div>
+          </div>
+        </a>
+        <a href="9-1-2 닉네임 수정.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="at-sign"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-1-2</div>
+            <div class="page-card__title">닉네임 수정</div>
+          </div>
+        </a>
+        <a href="9-1-3 소개글 수정.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="file-edit"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-1-3</div>
+            <div class="page-card__title">소개글 수정</div>
+          </div>
+        </a>
+        <a href="9-1-4 이메일 변경.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="mail"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-1-4</div>
+            <div class="page-card__title">이메일 변경</div>
+          </div>
+        </a>
+        <a href="9-2 설정.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="settings"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-2</div>
+            <div class="page-card__title">계정 설정</div>
+          </div>
+        </a>
+        <a href="9-2-1 휴대폰 인증 변경.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="smartphone"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-2-1</div>
+            <div class="page-card__title">휴대폰 인증 변경</div>
+          </div>
+        </a>
+        <a href="9-2-2 사업자 인증.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="building-2"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-2-2</div>
+            <div class="page-card__title">사업자 인증</div>
+          </div>
+        </a>
+        <a href="9-2-3 비밀번호 변경.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="lock"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-2-3</div>
+            <div class="page-card__title">비밀번호 변경</div>
+          </div>
+        </a>
+        <a href="9-2-4 회원 탈퇴.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="user-x"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-2-4</div>
+            <div class="page-card__title">회원 탈퇴</div>
+          </div>
+        </a>
+        <a href="9-3 계좌 관리.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="credit-card"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-3</div>
+            <div class="page-card__title">계좌 관리</div>
+          </div>
+        </a>
+        <a href="9-3-1 출금 신청.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="wallet"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-3-1</div>
+            <div class="page-card__title">출금 신청</div>
+          </div>
+        </a>
+        <a href="9-3-2 계좌 변경.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="landmark"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-3-2</div>
+            <div class="page-card__title">계좌 변경</div>
+          </div>
+        </a>
+        <a href="9-4 요금제 관리.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="package"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-4</div>
+            <div class="page-card__title">요금제 관리</div>
+          </div>
+        </a>
+        <a href="9-4-1 요금제_IPH.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="star"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-4-1</div>
+            <div class="page-card__title">요금제 - IPH</div>
+          </div>
+        </a>
+        <a href="9-4-2 요금제_BP.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="briefcase"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-4-2</div>
+            <div class="page-card__title">요금제 - BP</div>
+          </div>
+        </a>
+        <a href="9-4-3 요금제_결제 수단.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="wallet"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-4-3</div>
+            <div class="page-card__title">결제 수단</div>
+          </div>
+        </a>
+        <a href="9-4-4 요금제_결제 내역.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="receipt"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-4-4</div>
+            <div class="page-card__title">결제 내역</div>
+          </div>
+        </a>
+        <a href="9-5 관리자 초대.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="user-plus"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-5</div>
+            <div class="page-card__title">관리자 초대</div>
+          </div>
+        </a>
+        <a href="9-5-1 관리자 초대_모달.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="mail"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-5-1</div>
+            <div class="page-card__title">관리자 초대 모달</div>
+          </div>
+        </a>
+        <a href="9-6 알림 설정.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="bell"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-6</div>
+            <div class="page-card__title">알림 설정</div>
+          </div>
+        </a>
+        <a href="9-7 마이부스.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="layout-dashboard"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-7</div>
+            <div class="page-card__title">마이부스</div>
+          </div>
+        </a>
+        <a href="9-7-1 마이부스_IP 관리.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="image"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-7-1</div>
+            <div class="page-card__title">IP 관리</div>
+          </div>
+        </a>
+        <a href="9-7-2 마이부스_프로젝트 관리.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="folder"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-7-2</div>
+            <div class="page-card__title">프로젝트 관리</div>
+          </div>
+        </a>
+        <a href="9-7-3 마이부스_지원 현황.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="clipboard-list"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-7-3</div>
+            <div class="page-card__title">지원 현황</div>
+          </div>
+        </a>
+        <a href="9-7-3-1 지원 취소 확인.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="x-circle"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-7-3-1</div>
+            <div class="page-card__title">지원 취소</div>
+          </div>
+        </a>
+        <a href="9-7-4 마이부스_받은 문의.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="inbox"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-7-4</div>
+            <div class="page-card__title">받은 문의</div>
+          </div>
+        </a>
+        <a href="9-7-5 마이부스_보낸 문의.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="send"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-7-5</div>
+            <div class="page-card__title">보낸 문의</div>
+          </div>
+        </a>
+        <a href="9-7-6 마이부스_스크랩.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="bookmark"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-7-6</div>
+            <div class="page-card__title">스크랩</div>
+          </div>
+        </a>
+        <a href="9-8 내 통계.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="bar-chart-2"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">9-8</div>
+            <div class="page-card__title">내 통계</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 10. 채팅 -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__number">10</div>
+        <div class="section__info">
+          <h2 class="section__title">Chat</h2>
+          <p class="section__desc">채팅, 제안, 결제, 협업 완료 플로우</p>
+        </div>
+        <span class="section__count">7</span>
+      </div>
+      <div class="page-grid">
+        <a href="10-1 채팅.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="message-circle"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">10-1</div>
+            <div class="page-card__title">채팅</div>
+          </div>
+        </a>
+        <a href="10-2 채팅방 상세.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="message-square"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">10-2</div>
+            <div class="page-card__title">채팅방 상세</div>
+          </div>
+        </a>
+        <a href="10-2-1 채팅방_제안_수락.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="handshake"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">10-2-1</div>
+            <div class="page-card__title">제안/수락</div>
+          </div>
+        </a>
+        <a href="10-2-2 채팅방_결제.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="credit-card"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">10-2-2</div>
+            <div class="page-card__title">결제</div>
+          </div>
+        </a>
+        <a href="10-2-3 채팅방_협업 완료.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="check-circle-2"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">10-2-3</div>
+            <div class="page-card__title">협업 완료</div>
+          </div>
+        </a>
+        <a href="10-2-4 채팅방_상호 평가.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="star"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">10-2-4</div>
+            <div class="page-card__title">상호 평가</div>
+          </div>
+        </a>
+        <a href="10-3 문의 폼 모달.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="message-square-plus"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">10-3</div>
+            <div class="page-card__title">협업 문의하기</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 11. 지원 -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__number">11</div>
+        <div class="section__info">
+          <h2 class="section__title">Support</h2>
+          <p class="section__desc">FAQ, 1:1 문의, 고객 지원</p>
+        </div>
+        <span class="section__count">4</span>
+      </div>
+      <div class="page-grid">
+        <a href="11-1 FAQ.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="help-circle"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">11-1</div>
+            <div class="page-card__title">FAQ</div>
+          </div>
+        </a>
+        <a href="11-2 1:1 문의.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="headphones"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">11-2</div>
+            <div class="page-card__title">1:1 문의</div>
+          </div>
+        </a>
+        <a href="11-2-1 1:1 문의 작성.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="edit-3"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">11-2-1</div>
+            <div class="page-card__title">문의 작성</div>
+          </div>
+        </a>
+        <a href="11-2-2 1:1 문의 상세.html" class="page-card">
+          <div class="page-card__icon"><i data-lucide="message-square"></i></div>
+          <div class="page-card__content">
+            <div class="page-card__code">11-2-2</div>
+            <div class="page-card__title">문의 상세</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <footer class="sitemap-footer">
+      <a href="index.html" class="sitemap-footer__home">
+        <i data-lucide="arrow-left"></i>
+        홈으로 돌아가기
+      </a>
+    </footer>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캐릭터 등록 - 공개 설정 - INABOOTH</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+.main-content{padding-top:calc(var(--header-height) + var(--space-8));padding-bottom:var(--space-8);min-height:100vh}
+    .form-card{background:white;border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-card)}
+    .form-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .form-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-6)}
+    .progress-steps{display:flex;gap:var(--space-2);margin-bottom:var(--space-6)}
+    .step{flex:1;height:4px;background:var(--color-bg-secondary);border-radius:999px}
+    .step.active{background:var(--color-primary)}
+    .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
+
+    .content-box{padding:var(--space-6);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main class="main-content">
+    <div class="container">
+      <div class="form-card">
+        <div class="progress-steps"><div class="step active"></div><div class="step active"></div><div class="step active"></div><div class="step active"></div></div>
+        <h1 class="form-title">STEP 4. 공개 설정</h1>
+        <p class="form-subtitle">공개 범위를 설정하고 등록을 완료하세요</p>
+        <form>
+          <div class="form-group">
+            <label class="form-label">공개 범위</label>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <label style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-4);border:2px solid var(--color-primary);border-radius:var(--radius-md);background:var(--color-primary-light);cursor:pointer">
+                <input type="radio" name="visibility" checked style="margin-top:4px">
+                <div>
+                  <div style="font-weight:600">전체 공개</div>
+                  <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">모든 사용자가 IP를 검색하고 협업 문의를 보낼 수 있습니다</div>
+                </div>
+              </label>
+              <label style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="radio" name="visibility" style="margin-top:4px">
+                <div>
+                  <div style="font-weight:600">인증 회원만</div>
+                  <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">사업자 인증을 완료한 회원만 IP를 볼 수 있습니다</div>
+                </div>
+              </label>
+              <label style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="radio" name="visibility" style="margin-top:4px">
+                <div>
+                  <div style="font-weight:600">비공개</div>
+                  <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">IP가 검색되지 않으며, 직접 링크 공유만 가능합니다</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">검색 노출 설정</label>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <label style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-4);background:var(--color-bg-secondary);border-radius:var(--radius-md)">
+                <span>탐색 페이지에 노출</span>
+                <input type="checkbox" checked style="width:20px;height:20px">
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-4);background:var(--color-bg-secondary);border-radius:var(--radius-md)">
+                <span>오픈 프로젝트 추천 대상으로 등록</span>
+                <input type="checkbox" checked style="width:20px;height:20px">
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-4);background:var(--color-bg-secondary);border-radius:var(--radius-md)">
+                <span>뉴스레터/이메일 홍보 허용</span>
+                <input type="checkbox" style="width:20px;height:20px">
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">등록 정보 확인</label>
+            <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-5)">
+              <div style="display:grid;grid-template-columns:120px 1fr;gap:var(--space-3);font-size:var(--font-size-sm)">
+                <span style="color:var(--color-text-tertiary)">캐릭터명</span>
+                <span style="font-weight:500">귀여운 곰돌이 친구들</span>
+                <span style="color:var(--color-text-tertiary)">카테고리</span>
+                <span style="font-weight:500">오리지널 캐릭터</span>
+                <span style="color:var(--color-text-tertiary)">협업 분야</span>
+                <span style="font-weight:500">문구, 패션, 인테리어, 광고</span>
+                <span style="color:var(--color-text-tertiary)">협업 유형</span>
+                <span style="font-weight:500">라이선싱, 공동 제작</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:linear-gradient(135deg, var(--color-primary-light), #FCE7F3);border-radius:var(--radius-md);padding:var(--space-5);display:flex;align-items:center;gap:var(--space-4)">
+            <i data-lucide="sparkles" style="color:var(--color-primary);width:32px;height:32px"></i>
+            <div>
+              <div style="font-weight:600;color:var(--color-primary)">PRO 플랜으로 업그레이드하면</div>
+              <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">상위 노출, 우선 매칭, 통계 분석 등 프리미엄 기능을 이용할 수 있습니다</div>
+            </div>
+          </div>
+        </form>
+        <div class="form-actions">
+          <a href="6-1-3 캐릭터 등록_협업 정보.html" class="btn btn--secondary">이전</a>
+          <a href="6-1-5 캐릭터 등록_완료.html" class="btn btn--primary">완료</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'browse'});</script>
+</body>
+</html>

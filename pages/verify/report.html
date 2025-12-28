@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INABOOTH 페이지 검증 리포트</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Pretendard Variable', -apple-system, sans-serif;
+      background: #f5f5f5;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .date { color: #666; margin-bottom: 2rem; }
+
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .card.pass { border-left: 4px solid #10b981; }
+    .card.warn { border-left: 4px solid #f59e0b; }
+    .card.fail { border-left: 4px solid #ef4444; }
+    .card.total { border-left: 4px solid #3b82f6; }
+    .card-value { font-size: 2.5rem; font-weight: 700; }
+    .card-label { color: #666; font-size: 0.9rem; }
+
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .section h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section h2::before {
+      content: '';
+      width: 4px;
+      height: 1.25rem;
+      background: #3b82f6;
+      border-radius: 2px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th { font-weight: 600; color: #666; font-size: 0.85rem; }
+
+    .status {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .status.pass { background: #d1fae5; color: #059669; }
+    .status.warn { background: #fef3c7; color: #d97706; }
+    .status.fail { background: #fee2e2; color: #dc2626; }
+
+    .issue-card {
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .issue-card.high { background: #fee2e2; border-left: 4px solid #ef4444; }
+    .issue-card.low { background: #fef3c7; border-left: 4px solid #f59e0b; }
+    .issue-title { font-weight: 600; margin-bottom: 0.5rem; }
+    .issue-files {
+      font-size: 0.85rem;
+      color: #666;
+      margin: 0.5rem 0;
+      padding-left: 1rem;
+    }
+    .issue-files li { margin: 0.25rem 0; }
+    .recommendation {
+      font-size: 0.9rem;
+      color: #059669;
+      margin-top: 0.5rem;
+    }
+
+    .progress-bar {
+      height: 24px;
+      background: #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+    }
+    .progress-bar .pass-segment { background: #10b981; }
+    .progress-bar .fail-segment { background: #ef4444; }
+
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .screenshot-card img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+    .screenshot-card p {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>INABOOTH 페이지 검증 리포트</h1>
+    <p class="date">검증일: 2025-12-23 | 검증 방식: 하이브리드 3단계</p>
+
+    <div class="summary-cards">
+      <div class="card total">
+        <div class="card-value">80</div>
+        <div class="card-label">총 페이지</div>
+      </div>
+      <div class="card pass">
+        <div class="card-value">63</div>
+        <div class="card-label">통과 (PASS)</div>
+      </div>
+      <div class="card warn">
+        <div class="card-value">0</div>
+        <div class="card-label">경고 (WARN)</div>
+      </div>
+      <div class="card fail">
+        <div class="card-value">12</div>
+        <div class="card-label">실패 (FAIL)</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>전체 진행률</h2>
+      <div class="progress-bar">
+        <div class="pass-segment" style="width: 78.75%"></div>
+        <div class="fail-segment" style="width: 21.25%"></div>
+      </div>
+      <p style="text-align: center; margin-top: 0.5rem; color: #666;">78.75% 완료</p>
+    </div>
+
+    <div class="section">
+      <h2>Level 1: 정적 분석 결과</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>섹션</th>
+            <th>총계</th>
+            <th>통과</th>
+            <th>실패</th>
+            <th>상태</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1-x 인증</td>
+            <td>13</td>
+            <td>13</td>
+            <td>0</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>2-x 메인</td>
+            <td>7</td>
+            <td>0</td>
+            <td>7</td>
+            <td><span class="status fail">FAIL</span></td>
+            <td>파일 전체 누락</td>
+          </tr>
+          <tr>
+            <td>3-x 탐색</td>
+            <td>11</td>
+            <td>6</td>
+            <td>5</td>
+            <td><span class="status fail">FAIL</span></td>
+            <td>3-2-x 잘못된 콘텐츠</td>
+          </tr>
+          <tr>
+            <td>4-x 오픈 프로젝트</td>
+            <td>11</td>
+            <td>11</td>
+            <td>0</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>5-x 인사이트</td>
+            <td>3</td>
+            <td>3</td>
+            <td>0</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>6-x 캐릭터</td>
+            <td>8</td>
+            <td>8</td>
+            <td>0</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>7-x 프로젝트 등록</td>
+            <td>10</td>
+            <td>10</td>
+            <td>0</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>8-x 프로젝트 지원</td>
+            <td>9</td>
+            <td>9</td>
+            <td>0</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>9-x 마이페이지</td>
+            <td>1</td>
+            <td>1</td>
+            <td>0</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>10-x 채팅</td>
+            <td>7</td>
+            <td>7</td>
+            <td>0</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Level 2: Chrome DevTools MCP 검증</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>페이지</th>
+            <th>상태</th>
+            <th>이슈</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3-2-1 IP 상세_포트폴리오.html</td>
+            <td><span class="status fail">FAIL</span></td>
+            <td>잘못된 콘텐츠 - IP 탐색 페이지 표시</td>
+          </tr>
+          <tr>
+            <td>3-2-2 IP 상세_대표 채널.html</td>
+            <td><span class="status fail">FAIL</span></td>
+            <td>잘못된 콘텐츠 - IP 탐색 페이지 표시</td>
+          </tr>
+          <tr>
+            <td>3-2-4 IP 상세_가이드북.html</td>
+            <td><span class="status fail">FAIL</span></td>
+            <td>잘못된 콘텐츠 - IP 탐색 페이지 표시</td>
+          </tr>
+          <tr>
+            <td>3-2-5 IP 상세_관련 IP.html</td>
+            <td><span class="status fail">FAIL</span></td>
+            <td>잘못된 콘텐츠 - IP 탐색 페이지 표시 (추정)</td>
+          </tr>
+          <tr>
+            <td>3-2-6 IP 상세_문의하기.html</td>
+            <td><span class="status fail">FAIL</span></td>
+            <td>잘못된 콘텐츠 - IP 탐색 페이지 표시 (추정)</td>
+          </tr>
+          <tr>
+            <td>3-2 IP 상세.html</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>메인 상세 페이지 정상</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Level 3: 시각적 QA 스팟체크</h2>
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <img src="screenshots/6-1-1-character-register.png" alt="6-1-1 캐릭터 등록">
+          <p><span class="status pass">PASS</span> 6-1-1 캐릭터 등록_기본 정보</p>
+        </div>
+        <div class="screenshot-card">
+          <img src="screenshots/7-1-1-project-register.png" alt="7-1-1 프로젝트 등록">
+          <p><span class="status pass">PASS</span> 7-1-1 프로젝트 등록_기본 정보</p>
+        </div>
+        <div class="screenshot-card">
+          <img src="screenshots/3-2-ip-detail-correct.png" alt="3-2 IP 상세">
+          <p><span class="status pass">PASS</span> 3-2 IP 상세</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Critical Issues (수정 필요)</h2>
+
+      <div class="issue-card high">
+        <div class="issue-title">1. 메인 랜딩 페이지 전체 누락 (HIGH)</div>
+        <ul class="issue-files">
+          <li>2-1 메인.html</li>
+          <li>2-1-1 메인_인증된 IP.html</li>
+          <li>2-1-2 메인_라이징 IP.html</li>
+          <li>2-1-3 메인_추천 IP.html</li>
+          <li>2-1-4 메인_신규 IP.html</li>
+          <li>2-1-5 메인_타깃팅.html</li>
+          <li>2-1-6 메인_뉴스레터.html</li>
+        </ul>
+        <div class="recommendation">권장: 메뉴구조도.csv 스펙에 따라 메인 페이지 구현</div>
+      </div>
+
+      <div class="issue-card high">
+        <div class="issue-title">2. IP 상세 서브페이지 잘못된 콘텐츠 (HIGH)</div>
+        <ul class="issue-files">
+          <li>3-2-1 IP 상세_포트폴리오.html</li>
+          <li>3-2-2 IP 상세_대표 채널.html</li>
+          <li>3-2-4 IP 상세_가이드북.html</li>
+          <li>3-2-5 IP 상세_관련 IP.html</li>
+          <li>3-2-6 IP 상세_문의하기.html</li>
+        </ul>
+        <div class="recommendation">권장: 4-2-x처럼 3-2.html의 해당 탭으로 리다이렉트하도록 수정</div>
+      </div>
+
+      <div class="issue-card low">
+        <div class="issue-title">3. 폼 필드 접근성 (LOW)</div>
+        <ul class="issue-files">
+          <li>6-1-1 캐릭터 등록_기본 정보.html - form field에 id/name 속성 누락</li>
+        </ul>
+        <div class="recommendation">권장: 폼 필드에 적절한 id, name 속성 추가</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>다음 단계</h2>
+      <ol style="padding-left: 1.5rem;">
+        <li style="margin-bottom: 0.5rem;">2-x 메인 페이지 7개 구현 (우선순위 1)</li>
+        <li style="margin-bottom: 0.5rem;">3-2-x 페이지 5개 리다이렉트 처리 (우선순위 2)</li>
+        <li style="margin-bottom: 0.5rem;">폼 필드 접근성 개선 (우선순위 3)</li>
+        <li>검증 재실행하여 100% 달성 확인</li>
+      </ol>
+    </div>
+  </div>
+</body>
+</html>

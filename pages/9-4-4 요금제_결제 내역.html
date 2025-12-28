@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>결제 내역 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+    
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main style="padding-top:calc(var(--header-height) + var(--space-8));min-height:70vh;padding-bottom:var(--space-8)">
+    <div class="container">
+      <div class="page-section">
+        <h1 class="page-section__title">결제 내역</h1>
+        <p class="page-section__desc">결제 및 청구서 내역을 확인하세요.</p>
+
+        <div style="background:white;border-radius:var(--radius-lg);padding:var(--space-6);box-shadow:var(--shadow-card)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4)">
+            <h3 style="font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold)">최근 결제 내역</h3>
+            <button class="btn btn--secondary" style="font-size:var(--font-size-sm)"><i data-lucide="download" class="icon-sm"></i> 전체 내보내기</button>
+          </div>
+
+          <table style="width:100%;font-size:var(--font-size-sm)">
+            <thead>
+              <tr style="border-bottom:1px solid var(--color-border)">
+                <th style="text-align:left;padding:var(--space-3);color:var(--color-text-tertiary);font-weight:var(--font-weight-medium)">날짜</th>
+                <th style="text-align:left;padding:var(--space-3);color:var(--color-text-tertiary);font-weight:var(--font-weight-medium)">상품</th>
+                <th style="text-align:right;padding:var(--space-3);color:var(--color-text-tertiary);font-weight:var(--font-weight-medium)">금액</th>
+                <th style="text-align:center;padding:var(--space-3);color:var(--color-text-tertiary);font-weight:var(--font-weight-medium)">상태</th>
+                <th style="padding:var(--space-3)"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--color-border)">
+                <td style="padding:var(--space-3)">2024.02.15</td>
+                <td style="padding:var(--space-3)">Pro 플랜 (월정액)</td>
+                <td style="padding:var(--space-3);text-align:right;font-weight:600">₩14,900</td>
+                <td style="padding:var(--space-3);text-align:center"><span class="badge" style="background:var(--color-success-light);color:var(--color-success)">완료</span></td>
+                <td style="padding:var(--space-3);text-align:right"><a href="#" style="color:var(--color-primary);font-size:var(--font-size-xs)">영수증</a></td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--color-border)">
+                <td style="padding:var(--space-3)">2024.02.10</td>
+                <td style="padding:var(--space-3)">프로젝트 Pro 등록 (2024 여름 시즌)</td>
+                <td style="padding:var(--space-3);text-align:right;font-weight:600">₩99,000</td>
+                <td style="padding:var(--space-3);text-align:center"><span class="badge" style="background:var(--color-success-light);color:var(--color-success)">완료</span></td>
+                <td style="padding:var(--space-3);text-align:right"><a href="#" style="color:var(--color-primary);font-size:var(--font-size-xs)">영수증</a></td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--color-border)">
+                <td style="padding:var(--space-3)">2024.01.15</td>
+                <td style="padding:var(--space-3)">Pro 플랜 (월정액)</td>
+                <td style="padding:var(--space-3);text-align:right;font-weight:600">₩14,900</td>
+                <td style="padding:var(--space-3);text-align:center"><span class="badge" style="background:var(--color-success-light);color:var(--color-success)">완료</span></td>
+                <td style="padding:var(--space-3);text-align:right"><a href="#" style="color:var(--color-primary);font-size:var(--font-size-xs)">영수증</a></td>
+              </tr>
+              <tr>
+                <td style="padding:var(--space-3)">2023.12.15</td>
+                <td style="padding:var(--space-3)">Pro 플랜 (월정액)</td>
+                <td style="padding:var(--space-3);text-align:right;font-weight:600">₩14,900</td>
+                <td style="padding:var(--space-3);text-align:center"><span class="badge" style="background:var(--color-success-light);color:var(--color-success)">완료</span></td>
+                <td style="padding:var(--space-3);text-align:right"><a href="#" style="color:var(--color-primary);font-size:var(--font-size-xs)">영수증</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="page-actions">
+          <a href="9-4-3 요금제_결제 수단.html" class="btn btn--secondary btn--lg"><i data-lucide="arrow-left" class="icon-sm"></i>이전</a>
+          <a href="9-5 관리자 초대.html" class="btn btn--primary btn--lg">다음<i data-lucide="arrow-right" class="icon-sm"></i></a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>initPage({activePage:'mypage', isLoggedIn: true});</script>
+</body>
+</html>

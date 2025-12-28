@@ -113,7 +113,7 @@
     .gs-table {
       border-collapse: collapse;
       width: 100%;
-      min-width: 1400px;
+      min-width: 1800px;
     }
 
     .gs-table th,
@@ -155,12 +155,13 @@
     }
 
     /* 컬럼 너비 */
-    .gs-table .col-no { width: 50px; text-align: center; }
-    .gs-table .col-sector { width: 100px; }
-    .gs-table .col-page { width: 200px; }
-    .gs-table .col-storyboard { width: 200px; }
-    .gs-table .col-desc { width: 250px; }
-    .gs-table .col-action { width: 400px; }
+    .gs-table .col-no { width: 40px; text-align: center; }
+    .gs-table .col-sector { width: 80px; }
+    .gs-table .col-depth { width: 120px; }
+    .gs-table .col-storyboard { width: 100px; }
+    .gs-table .col-desc { width: 180px; }
+    .gs-table .col-content { width: 300px; }
+    .gs-table .col-action { width: 350px; }
 
     /* 섹터별 색상 */
     .sector-common { background: #f3f3f3; }
@@ -181,17 +182,6 @@
       font-family: 'Roboto Mono', monospace;
       font-weight: 500;
       color: #1a73e8;
-    }
-
-    /* 페이지 링크 */
-    .page-link {
-      color: #1a73e8;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .page-link:hover {
-      text-decoration: underline;
     }
 
     /* 링크/액션 스타일 */
@@ -231,29 +221,6 @@
       align-items: center;
     }
 
-    /* 검색바 */
-    .search-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: #fff;
-      border-bottom: 1px solid #dadce0;
-    }
-
-    .search-bar input {
-      flex: 1;
-      padding: 8px 12px;
-      border: 1px solid #dadce0;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-
-    .search-bar input:focus {
-      outline: none;
-      border-color: #1a73e8;
-    }
-
     /* 반응형 */
     @media (max-width: 768px) {
       .sheet-meta {
@@ -272,7 +239,7 @@
     <div class="sheet-icon">IA</div>
     <div class="sheet-title">
       <h1>INABOOTH 메뉴구조도</h1>
-      <div class="subtitle">Information Architecture v2.0</div>
+      <div class="subtitle">Information Architecture</div>
     </div>
     <div class="sheet-meta">
       <div class="updated">
@@ -282,19 +249,14 @@
       <div>
         <span>총 </span>
         <strong id="totalRows">0</strong>
-        <span>개 페이지</span>
+        <span>개 항목</span>
       </div>
     </div>
   </header>
 
-  <!-- 검색바 -->
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="검색어 입력 (Ctrl+F)">
-  </div>
-
   <!-- 시트 탭 -->
   <div class="sheet-tabs">
-    <div class="sheet-tab active">페이지 목록</div>
+    <div class="sheet-tab active">메뉴구조도 1.0</div>
   </div>
 
   <!-- 테이블 -->
@@ -305,10 +267,13 @@
           <th class="row-num"></th>
           <th class="col-no">No</th>
           <th class="col-sector">Sector</th>
-          <th class="col-page">페이지명</th>
+          <th class="col-depth">1 depth</th>
+          <th class="col-depth">2 depth</th>
+          <th class="col-depth">3 depth</th>
           <th class="col-storyboard">스토리보드 번호</th>
           <th class="col-desc">설명</th>
-          <th class="col-action">주요 기능/액션</th>
+          <th class="col-content">콘텐츠/데이터</th>
+          <th class="col-action">링크/버튼/액션</th>
         </tr>
       </thead>
       <tbody id="tableBody">
@@ -319,136 +284,164 @@
 
   <!-- 푸터 -->
   <div class="sheet-footer">
-    <div>INABOOTH Information Architecture v2.0</div>
+    <div>INABOOTH Information Architecture v1.0</div>
     <div>
       <span id="filteredCount">0</span> / <span id="totalCount">0</span> 항목 표시 중
     </div>
   </div>
 
   <script>
-    // 페이지 데이터 (한 페이지 = 한 행)
-    const pageData = [
-      // 인증
-      { no: 1, sector: "인증", page: "1-1-1 회원가입", storyboard: "[1-1-1 회원가입]", desc: "이메일 기반 회원가입 입력 화면", action: "이메일/비밀번호 입력, 약관 동의, 소셜 로그인" },
-      { no: 2, sector: "인증", page: "1-1-2 회원가입_유형 선택", storyboard: "[1-1-2 유형 선택]", desc: "사용자 유형 선택 화면", action: "IPH-C/IPH-A/BP 유형 선택" },
-      { no: 3, sector: "인증", page: "1-1-3-1 회원가입_IPH-C 정보입력", storyboard: "[1-1-3-1 IPH-C]", desc: "IPH-C(개인 크리에이터) 정보 입력", action: "작가 이름, 국적, 사업자 여부 입력" },
-      { no: 4, sector: "인증", page: "1-1-3-2 회원가입_IPH-A 정보입력", storyboard: "[1-1-3-2 IPH-A]", desc: "IPH-A(에이전시) 정보 입력", action: "에이전시명, 대표자명, 사업자등록번호 입력" },
-      { no: 5, sector: "인증", page: "1-1-3-3 회원가입_BP 정보입력", storyboard: "[1-1-3-3 BP]", desc: "BP(브랜드파트너) 필수 정보 입력", action: "회사 정보, 담당자, 업종 입력" },
-      { no: 6, sector: "인증", page: "1-1-3-4 회원가입_BP 선택정보", storyboard: "[1-1-3-4 BP 선택]", desc: "BP 선택 정보 입력", action: "주요 제품/서비스, 선호 IP 스타일 선택" },
-      { no: 7, sector: "인증", page: "1-1-4 회원가입_완료", storyboard: "[1-1-4 완료]", desc: "가입 완료 안내", action: "시작하기 버튼 → 메인 이동" },
-      { no: 8, sector: "인증", page: "1-2-1 로그인", storyboard: "[1-2-1 로그인]", desc: "로그인 입력 화면", action: "이메일/비밀번호 입력, 소셜 로그인" },
-      { no: 9, sector: "인증", page: "1-2-2 로그인_비밀번호 찾기", storyboard: "[1-2-2 비밀번호 찾기]", desc: "비밀번호 찾기 이메일 입력", action: "이메일 입력 → 재설정 링크 발송" },
-      { no: 10, sector: "인증", page: "1-2-3 로그인_비밀번호 재설정", storyboard: "[1-2-3 비밀번호 재설정]", desc: "새 비밀번호 입력", action: "새 비밀번호 설정 → 로그인 이동" },
-      { no: 11, sector: "인증", page: "1-3-1 휴대폰 인증", storyboard: "[1-3-1 휴대폰 인증]", desc: "휴대폰 인증 모달/페이지", action: "번호 입력, 인증번호 발송/확인" },
-      { no: 12, sector: "인증", page: "1-3-2 사업자 인증", storyboard: "[1-3-2 사업자 인증]", desc: "사업자 인증 모달/페이지", action: "사업자등록증 업로드, OCR 추출, 국세청 검증" },
+    // CSV 데이터 (기존 구조 유지, 메인은 2-1만)
+    const csvData = `No,Sector,1 depth,2 depth,3 depth,스토리보드 번호,설명,콘텐츠/데이터,링크/버튼/액션
+1,공통,상단 네비게이션,,,STD-01,전역 네비게이션 바,"로고, 메뉴(탐색, 오픈 프로젝트, 인사이트), 검색바, 채팅 아이콘, 프로필 이미지/로그인 버튼","로고→메인, 메뉴→각 섹션, 채팅→채팅 모달, 프로필→팝오버"
+2,,,검색바 확장,,STD-01-1,검색어 입력 시 확장 영역,"최근 검색어(최대 10개), 추천 검색어(최대 5개), 인기 태그","검색어 클릭→탐색 페이지, X→삭제, Enter→검색"
+3,,,프로필 팝오버,,STD-01-2,프로필 클릭 시 팝오버,"프로필 정보, 요금제, 메뉴(내 프로필, 마이부스, 내 통계, 설정, 로그아웃)","각 메뉴→해당 페이지 이동"
+4,,푸터,,,STD-02,전역 푸터 영역,"로고, 이용약관, 개인정보처리방침, FAQ, 회사소개, SNS 아이콘, 언어 변경","각 링크→해당 페이지/채널 이동"
+5,인증,회원가입,이메일 회원가입,,1-1-1,이메일 기반 회원가입,"이메일, 비밀번호, 약관 동의, 소셜 로그인 버튼","다음→유형 선택, 소셜→OAuth 인증"
+6,,,유형 선택,,1-1-2,사용자 유형 선택,"IPH-C(개인 크리에이터), IPH-A(에이전시), BP(브랜드파트너) 카드","선택→정보 입력 페이지"
+7,,,필수 정보 입력,IPH-C,1-1-3-1,IPH-C 정보 입력,"작가 이름, 국적, 사업자 여부","완료→가입 완료"
+8,,,,IPH-A,1-1-3-2,IPH-A 정보 입력,"에이전시명, 대표자명, 사업자등록번호","완료→가입 완료"
+9,,,,BP,1-1-3-3,BP 정보 입력,"회사명, 담당자, 업종","다음→선택정보 입력"
+10,,,,BP 선택정보,1-1-3-4,BP 선택 정보 입력,"주요 제품/서비스, 선호 IP 스타일","완료→가입 완료, 스킵 가능"
+11,,,가입 완료,,1-1-4,가입 완료 안내,"완료 메시지, 환영 문구","시작하기→메인"
+12,,로그인,로그인,,1-2-1,로그인 입력,"이메일, 비밀번호, 소셜 로그인","로그인→메인, 비밀번호 찾기"
+13,,,비밀번호 찾기,,1-2-2,비밀번호 찾기 입력,이메일 입력,발송→이메일 링크 수신
+14,,,비밀번호 재설정,,1-2-3,새 비밀번호 입력,"새 비밀번호, 확인",변경→로그인 페이지
+15,,인증,휴대폰 인증,,1-3-1,휴대폰 인증 모달,"휴대폰 번호, 인증번호, 타이머","발송→SMS, 완료→원래 플로우"
+16,,,사업자 인증,,1-3-2,사업자 인증 모달,"사업자등록증 업로드, OCR 결과","인증→국세청 검증"
+17,메인,메인 랜딩,,,2-1,플랫폼 메인 페이지,"Hero 섹션(헤드라인, 검색), IP 섹션(인증된 IP, 라이징 IP, 추천 IP, 신규 IP), 사용자 타깃팅, 뉴스레터","검색→탐색, IP 카드→상세, 더보기→탐색(필터 적용)"
+18,탐색,IP 탐색,탐색 목록,,3-1,IP 탐색 목록,"검색바, 필터, 정렬, IP 카드 그리드, 페이지네이션","카드→IP 상세, 스크랩, 필터/정렬→목록 갱신"
+19,,,기본 필터,,3-1-1,모든 사용자 접근 필터,"IP 유형, 활용 분야, 스타일, 컬러, 타깃, 원작국가, 인증 여부","필터 선택→목록 필터링"
+20,,,상세 필터,,3-1-2,BP Pro/Business 전용 필터,"저작권 인증, 협업 금액, 프로젝트 이력, SNS 팔로워","필터 선택→목록 필터링 (권한 없을 시 잠금)"
+21,,,정렬 옵션,,3-1-3,정렬 기준 선택,"최신순, 인기순, SNS 팔로워순, 신뢰지수(유료)","정렬→목록 변경"
+22,,,IP 상세,기본 정보,3-2,IP 상세 페이지,"대표이미지, IP명, 원작국가, 카테고리, 태그, IPH 정보, 스크랩/조회수","스크랩, 공유, IPH 프로필 클릭"
+23,,,,포트폴리오,3-2-1,포트폴리오 섹션,"설명(200자 이상), 이미지 갤러리","이미지→라이트박스"
+24,,,,대표 채널,3-2-2,SNS 채널 정보,"채널 아이콘, 이름, 팔로워, 업데이트일","채널→새 탭 이동"
+25,,,,협업 정보,3-2-3,협업 조건,"활용 범위, 최소 금액(MG), 협업 이력, 협업지수(유료)","이력→상세 모달"
+26,,,,스타일 가이드북,3-2-4,가이드북 섹션 (업로드 시),"파일 미리보기, 파일명, 크기","다운로드"
+27,,,,관련 IP 추천,3-2-5,유사 IP 추천,관련 IP 카드(추천 알고리즘),카드→IP 상세
+28,,,,문의하기 CTA,3-2-6,문의하기 버튼 (BP 전용),"협업 문의 CTA, 월 문의 잔여","클릭→조건 검증→문의 폼 모달"
+29,오픈 프로젝트,프로젝트 탐색,랜딩 페이지,,4-1,오픈 프로젝트 랜딩,"프로모션 배너, 가이드 배너, 탭(맞춤/마감임박/인기/전체)","배너→상세, 탭→목록"
+30,,,프로젝트 목록,,4-1-1,프로젝트 카드 목록,"프로젝트 카드(이미지, 제목, 유형, 마감일, BP 정보), 필터, 정렬","카드→상세, 필터/정렬→목록 갱신"
+31,,,필터/정렬,,4-1-2,필터 및 정렬,"진행상태, 거래유형, 품목, 예산 / 최신, 마감임박, 인기","필터/정렬→목록 변경"
+32,,,프로젝트 상세,기본 정보,4-2,프로젝트 상세,"대표이미지, 제목, 유형, 마감일, BP 정보, 스크랩/조회수","스크랩, 공유, BP 프로필"
+33,,,,프로젝트 개요,4-2-1,인사말 및 개요,본문(200자 이상),-
+34,,,,모집 분야,4-2-2,모집 분야 섹션,상세(50자 이상),-
+35,,,,디자인 방향,4-2-3,디자인 방향 (설정 시),설명,-
+36,,,,예산 정보,4-2-4,예산 및 추가 요청,"예산 범위, 추가 요청사항",-
+37,,,,참여 혜택,4-2-5,혜택 섹션,상세(50자 이상),-
+38,,,,유의사항,4-2-6,유의사항,상세(50자 이상),-
+39,,,,지원하기 CTA,4-2-7,지원하기 버튼 (IPH),"CTA, 지원자수, D-day","클릭→검증→지원 플로우"
+40,인사이트,인사이트 탐색,메인 페이지,,5-1,인사이트 메인,"최신/맞춤 인사이트, 필터, 정렬, 카드 그리드","카드→상세, 필터/정렬→목록"
+41,,,필터/정렬,,5-1-1,필터 및 정렬,"카테고리, 읽음/안읽음, 스크랩 / 최신, 인기","필터/정렬→목록 변경"
+42,,,인사이트 상세,,5-2,인사이트 상세,"제목, 카테고리, 발행일, 본문, 추천 목록","스크랩, 공유, 관련 콘텐츠 클릭"
+43,캐릭터 등록,캐릭터 등록,등록 시작,,6-1,등록 시작,"튜토리얼, 단계 안내, 인증 상태","튜토리얼→기본 정보 입력"
+44,,,STEP 1 기본 정보,,6-1-1,기본 정보 입력,"캐릭터명, 대표이미지+AI 배경색, 원작국가, 카테고리, 태그","다음→상세 정보"
+45,,,STEP 2 상세 정보,,6-1-2,상세 정보 입력,"포트폴리오(200자+이미지), 채널 연동, 저작권번호, 가이드북","다음→협업 정보"
+46,,,STEP 3 협업 정보,,6-1-3,협업 정보 입력,"활용 가능 범위, 최소 금액(MG), 협업 이력","다음→공개 설정"
+47,,,STEP 4 공개 설정,,6-1-4,공개 설정,"공개/비공개 토글, 미리보기","등록 완료→완료 페이지"
+48,,,등록 완료,,6-1-5,완료 안내,"완료 메시지, 승인 대기 안내","마이페이지/홈 이동"
+49,,캐릭터 관리,IP 목록,,6-2,내 IP 관리,"IP 카드(상태별), 필터, 정렬","카드→상세, 필터/정렬"
+50,,,IP 상세/수정,,6-2-1,상세 보기 및 수정,"전체 정보, 수정/삭제/공개전환 버튼","수정, 공개전환, 삭제→확인 모달"
+51,,,,삭제 확인,6-2-2,삭제 확인 모달,"경고, IP 정보, 영향 안내","삭제→관리 페이지"
+52,프로젝트 등록,프로젝트 등록,등록 시작,,7-1,등록 시작,"단계 안내, 인증 상태","인증 완료→기본 정보"
+53,,,STEP 1 기본 정보,,7-1-1,기본 정보 입력,"제목, 대표이미지, 협업유형, 마감일, 카테고리, 예산, 개요","다음→상세 정보"
+54,,,STEP 2 상세 정보,,7-1-2,상세 정보 입력,"모집분야, 디자인 방향, 혜택, 유의사항","다음→신청 양식"
+55,,,STEP 3 신청 양식,,7-1-3,양식 커스터마이징,"기본 필드, 커스텀 필드(유형 선택), 순서 변경","다음→공개/결제"
+56,,,STEP 4 공개/결제,,7-1-4,공개 설정 및 결제,"토글, 미리보기, 등록 비용, 결제 정보","결제→완료"
+57,,,등록 완료,,7-1-5,완료 안내,"완료 메시지, 승인 대기","마이페이지/홈"
+58,,프로젝트 관리,프로젝트 목록,,7-2,내 프로젝트 관리,"프로젝트 카드(상태별), 필터, 정렬","카드→상세"
+59,,,프로젝트 상세/관리,,7-2-1,상세 보기 및 관리,"전체 정보, 수정/마감/지원자 관리 버튼, 현황","수정, 마감, 지원자 관리"
+60,,,프로젝트 수정,,7-2-2,수정 화면,"폼 (기본정보~양식), 미리보기","저장→상세 페이지"
+61,,,,삭제 확인,7-2-3,삭제 확인 모달,"경고, 프로젝트 정보","삭제→관리 페이지"
+62,,지원자 관리,지원자 목록,,7-3,지원자 목록,"지원 IPH 카드(상태별), 필터","카드→지원서 상세"
+63,,,지원서 상세,,7-3-1,지원서 상세,"응답 내용, 첨부 파일, IP 정보","IP 상세 보기, 선정/미선정→채팅/알림"
+64,프로젝트 지원,프로젝트 지원,지원 시작,,8-1,지원 시작,"튜토리얼, 단계 안내","튜토리얼→자격 검증"
+65,,,STEP 1 자격 검증,,8-1-1,자격 검증,"휴대폰/사업자 인증, 공개 IP 보유","통과→IP 선택"
+66,,,STEP 2 IP 선택,,8-1-2,IP 선택,"내 공개 IP 카드, 라디오","선택→양식 작성"
+67,,,STEP 3 양식 작성,,8-1-3,양식 작성,"BP 커스텀 필드, 가이드북 첨부","다음→최종 제출"
+68,,,STEP 4 최종 제출,,8-1-4,최종 제출,"미리보기, 주의사항","제출→완료"
+69,,,지원 완료,,8-1-5,완료 안내,"완료 메시지, 링크","지원 현황/홈"
+70,,지원 현황 관리,지원 목록,,8-2,지원 관리,"탭(지원/스크랩), 카드(상태별), 필터, 정렬","카드→프로젝트 상세"
+71,,,지원 상세,,8-2-1,상세 보기,"지원 내용, 상태, 취소 버튼","취소→확인 모달, 선정시→채팅"
+72,,,스크랩 목록,,8-2-2,스크랩 관리,"스크랩 카드, 알림 토글","카드→상세, 스크랩 해제"
+73,마이페이지,프로필 관리,내 프로필,,9-1,프로필 관리,"프로필 이미지, 닉네임, 소개글, 이메일","각 항목→수정 모달"
+74,,,,프로필 이미지 업로드,9-1-1,이미지 업로드 모달,"드래그, 파일 선택, 미리보기","업로드→반영"
+75,,,,닉네임 수정,9-1-2,닉네임 수정 모달,"현재 닉네임, 새 입력, 중복 확인","저장→변경"
+76,,,,소개글 수정,9-1-3,소개글 수정 모달,"에디터, 글자수 표시","저장→변경"
+77,,,,이메일 변경,9-1-4,이메일 변경 모달,"현재, 새 입력, 인증","저장→변경"
+78,,설정,계정/인증 관리,,9-2,설정 페이지,"휴대폰 인증, 사업자 인증, 소셜 연동, 비밀번호, 탈퇴","각 항목→해당 모달/페이지"
+79,,,,휴대폰 인증 변경,9-2-1,인증 변경 페이지,"현재 번호, 새 번호 입력, 인증","완료→변경"
+80,,,,사업자 인증,9-2-2,인증 페이지,"업로드, OCR 미리보기","인증→검증"
+81,,,,비밀번호 변경,9-2-3,변경 페이지,"현재, 새 비밀번호, 확인","변경→완료"
+82,,,,회원 탈퇴,9-2-4,탈퇴 페이지,"안내, 탈퇴 사유, 비밀번호 확인","탈퇴→로그아웃"
+83,,계좌 관리,,,9-3,계좌 관리 (IPH),"계좌 정보, 등록/변경 버튼","등록/변경→모달"
+84,,,,출금 신청,9-3-1,출금 모달,"가능 금액, 입력, 수수료 안내","신청→완료"
+85,,,,계좌 변경,9-3-2,계좌 변경 모달,"은행, 계좌번호, 예금주","저장→변경"
+86,,요금제 관리,,,9-4,요금제 페이지,"현재 요금제, 만료일, 비교표","업그레이드/다운그레이드"
+87,,,,IPH 요금제,9-4-1,IPH 비교표,"Basic/Pro/Business 혜택","선택→결제"
+88,,,,BP 요금제,9-4-2,BP 비교표,"Basic/Pro/Business 혜택","선택→결제"
+89,,,,결제 수단,9-4-3,수단 관리,"카드 정보, 변경 버튼","변경→저장"
+90,,,,결제 내역,9-4-4,내역 목록,"날짜, 금액, 상품, 상태","상세→영수증"
+91,,관리자 초대,,,9-5,초대 및 권한 관리 (Business),"관리자 목록, 초대 버튼(최대 5명)","초대→모달, 권한 변경/삭제"
+92,,,,초대 모달,9-5-1,초대 모달,"이메일, 권한 레벨, 할당 대상","발송→이메일"
+93,,알림 설정,,,9-6,알림 설정,"이메일/카카오/SMS 토글(유형별)","토글→ON/OFF"
+94,,마이부스,대시보드,,9-7,대시보드,"사용자 유형별 요약 카드","전체보기→관리 페이지"
+95,,,,IP 관리,9-7-1,IP 관리 (IPH),"IP 요약, 전체보기 버튼","전체보기→캐릭터 관리"
+96,,,,프로젝트 관리,9-7-2,프로젝트 관리 (BP),"프로젝트 요약, 전체보기","전체보기→프로젝트 관리"
+97,,,,지원한 프로젝트,9-7-3,지원 현황 (IPH),"지원 요약, 전체보기","전체보기→지원 현황"
+98,,,,,지원 취소 확인,9-7-3-1,취소 확인 모달,"경고, 프로젝트 정보","취소→현황 갱신"
+99,,,,받은 문의,9-7-4,문의 요약 (IPH),"최근 문의 카드, 전체보기","전체보기→채팅"
+100,,,,보낸 문의,9-7-5,문의 요약 (BP),"최근 문의 카드, 전체보기","전체보기→채팅"
+101,,,,스크랩 관리,9-7-6,스크랩 관리,"탭(IP/프로젝트/인사이트), 카드","탭→목록, 카드→상세"
+102,,내 통계,통계 대시보드,,9-8,통계 대시보드,"사용자 유형별 통계, 기간 필터, 차트","필터→데이터 갱신"
+103,채팅,채팅,채팅 목록,,10-1,채팅 목록,"채팅방 카드(상태별), 필터, 검색","카드→채팅방 상세"
+104,,,채팅방 상세,,10-2,채팅방 상세,"헤더(상대방 정보), 메시지 영역, 문의 카드, 입력 필드","프로필 클릭, 메시지/파일 전송"
+105,,,,제안/수락,10-2-1,제안 및 수락,"(BP) 제안 보내기, (IPH) 수락/거절","제안→협의중, 수락→결제대기"
+106,,,,결제,10-2-2,결제 기능,"(BP) 결제하기 버튼, 금액","결제→계약체결"
+107,,,,협업 완료,10-2-3,협업 완료,협업 완료 버튼,"완료→상호 평가 모달"
+108,,,,상호 평가,10-2-4,평가 모달,"별점(1~5), 한줄평","제출→협업지수 반영"
+109,,,문의 폼,,10-3,문의 폼 모달 (BP→IPH),"협업 유형, 예산+AI 추천, 추가 요청, 인사말(20~300자)","제출→채팅방 생성"
+110,고객지원,FAQ,,,11-1,FAQ 페이지,"검색바, 카테고리 탭, 아코디언, 피드백, 1:1 문의 CTA","검색, 탭→필터링, 질문 클릭→전개"
+111,,1:1 문의,,,11-2,문의 목록,"문의 목록, 상태 필터, 새 문의 버튼","카드→상세, 새 문의→작성"
+112,,,문의 작성,,11-2-1,작성 화면,"카테고리, 제목, 내용, 파일 첨부","제출→목록"
+113,,,문의 상세,,11-2-2,상세 화면,"제목, 내용, 첨부 파일, 답변, 추가 질문","삭제, 목록으로"`;
 
-      // 메인
-      { no: 13, sector: "메인", page: "2-1 메인", storyboard: "[2-1 메인]", desc: "플랫폼 메인 랜딩 페이지", action: "Hero 섹션, IP 검색, 인증된 IP/라이징 IP/추천 IP/신규 IP 섹션, 뉴스레터 신청" },
+    // 데이터 파싱
+    function parseCSV(csv) {
+      const lines = csv.split('\n');
+      const headers = lines[0].split(',');
+      const data = [];
 
-      // 탐색
-      { no: 14, sector: "탐색", page: "3-1 탐색", storyboard: "[3-1 탐색]", desc: "IP 탐색 목록 페이지", action: "검색, 필터, 정렬, IP 카드 그리드, 스크랩" },
-      { no: 15, sector: "탐색", page: "3-1-1 탐색_기본 필터", storyboard: "[3-1-1 기본 필터]", desc: "모든 사용자 접근 가능 필터", action: "IP 유형, 활용 분야, 스타일, 컬러, 타깃 필터" },
-      { no: 16, sector: "탐색", page: "3-1-2 탐색_상세 필터", storyboard: "[3-1-2 상세 필터]", desc: "BP Pro/Business 전용 필터", action: "저작권 인증, 협업 금액, 프로젝트 이력, SNS 지표 필터" },
-      { no: 17, sector: "탐색", page: "3-1-3 탐색_정렬", storyboard: "[3-1-3 정렬]", desc: "정렬 기준 선택", action: "최신순, 인기순, 팔로워순, 신뢰지수순 등" },
-      { no: 18, sector: "탐색", page: "3-2 IP 상세", storyboard: "[3-2 IP 상세]", desc: "IP 상세 페이지", action: "기본정보, 포트폴리오, 채널, 협업정보, 가이드북, 관련 IP, 문의하기" },
+      for (let i = 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
 
-      // 오픈 프로젝트
-      { no: 19, sector: "오픈 프로젝트", page: "4-1 오픈 프로젝트", storyboard: "[4-1 오픈 프로젝트]", desc: "오픈 프로젝트 랜딩 페이지", action: "프로모션 배너, 가이드 배너, 탭(맞춤/마감임박/인기/전체)" },
-      { no: 20, sector: "오픈 프로젝트", page: "4-1-1 오픈 프로젝트_목록", storyboard: "[4-1-1 목록]", desc: "프로젝트 카드 목록", action: "프로젝트 카드 그리드, 필터, 정렬, 스크랩" },
-      { no: 21, sector: "오픈 프로젝트", page: "4-2 프로젝트 상세", storyboard: "[4-2 프로젝트 상세]", desc: "프로젝트 상세 페이지", action: "기본정보, 개요, 모집분야, 예산, 혜택, 유의사항, 지원하기" },
+        const row = [];
+        let current = '';
+        let inQuotes = false;
 
-      // 인사이트
-      { no: 22, sector: "인사이트", page: "5-1 인사이트", storyboard: "[5-1 인사이트]", desc: "인사이트 메인 페이지", action: "최신/맞춤 인사이트, 필터, 정렬, 카드 그리드" },
-      { no: 23, sector: "인사이트", page: "5-1-1 인사이트_필터", storyboard: "[5-1-1 필터]", desc: "인사이트 필터 및 정렬", action: "카테고리, 읽음 상태, 스크랩 필터" },
-      { no: 24, sector: "인사이트", page: "5-2 인사이트 상세", storyboard: "[5-2 인사이트 상세]", desc: "인사이트 상세 페이지", action: "본문, 관련 콘텐츠 추천, 스크랩, 공유" },
+        for (let j = 0; j < lines[i].length; j++) {
+          const char = lines[i][j];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            row.push(current.trim());
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        row.push(current.trim());
+        data.push(row);
+      }
 
-      // 캐릭터 등록 (IPH)
-      { no: 25, sector: "캐릭터 등록", page: "6-1 캐릭터 등록", storyboard: "[6-1 캐릭터 등록]", desc: "캐릭터 등록 시작 화면", action: "튜토리얼, 단계 안내, 인증 상태 확인" },
-      { no: 26, sector: "캐릭터 등록", page: "6-1-1 캐릭터 등록_기본 정보", storyboard: "[6-1-1 기본 정보]", desc: "STEP 1: 기본 정보 입력", action: "캐릭터명, 대표이미지, AI 배경색, 카테고리, 태그 입력" },
-      { no: 27, sector: "캐릭터 등록", page: "6-1-2 캐릭터 등록_상세 정보", storyboard: "[6-1-2 상세 정보]", desc: "STEP 2: 상세 정보 입력", action: "포트폴리오, 채널 연동, 저작권번호, 가이드북 업로드" },
-      { no: 28, sector: "캐릭터 등록", page: "6-1-3 캐릭터 등록_협업 정보", storyboard: "[6-1-3 협업 정보]", desc: "STEP 3: 협업 정보 입력", action: "활용 가능 범위, 최소 협업 금액, 협업 이력" },
-      { no: 29, sector: "캐릭터 등록", page: "6-1-4 캐릭터 등록_공개 설정", storyboard: "[6-1-4 공개 설정]", desc: "STEP 4: 공개 설정", action: "공개/비공개 토글, 미리보기, 등록 완료" },
-      { no: 30, sector: "캐릭터 등록", page: "6-1-5 캐릭터 등록_완료", storyboard: "[6-1-5 완료]", desc: "등록 완료 안내", action: "승인 대기 안내, 마이페이지/홈 이동" },
-      { no: 31, sector: "캐릭터 등록", page: "6-2 캐릭터 관리", storyboard: "[6-2 캐릭터 관리]", desc: "내 IP 관리 페이지", action: "IP 목록, 상태 필터, 정렬" },
-      { no: 32, sector: "캐릭터 등록", page: "6-2-1 캐릭터 관리_상세", storyboard: "[6-2-1 상세]", desc: "IP 상세/수정 화면", action: "상세 보기, 수정, 공개 전환, 삭제" },
-      { no: 33, sector: "캐릭터 등록", page: "6-2-2 캐릭터 삭제 확인", storyboard: "[6-2-2 삭제 확인]", desc: "캐릭터 삭제 확인 모달", action: "삭제 확인, 취소" },
-
-      // 프로젝트 등록 (BP)
-      { no: 34, sector: "프로젝트 등록", page: "7-1 프로젝트 등록", storyboard: "[7-1 프로젝트 등록]", desc: "프로젝트 등록 시작 화면", action: "단계 안내, 인증 상태 확인" },
-      { no: 35, sector: "프로젝트 등록", page: "7-1-1 프로젝트 등록_기본 정보", storyboard: "[7-1-1 기본 정보]", desc: "STEP 1: 기본 정보 입력", action: "제목, 대표이미지, 협업 유형, 마감일, 예산 입력" },
-      { no: 36, sector: "프로젝트 등록", page: "7-1-2 프로젝트 등록_상세 정보", storyboard: "[7-1-2 상세 정보]", desc: "STEP 2: 상세 정보 입력", action: "모집분야, 디자인 방향, 혜택, 유의사항 입력" },
-      { no: 37, sector: "프로젝트 등록", page: "7-1-3 프로젝트 등록_신청 양식", storyboard: "[7-1-3 신청 양식]", desc: "STEP 3: 신청 양식 커스터마이징", action: "기본 필드, 커스텀 필드 추가, 순서 변경" },
-      { no: 38, sector: "프로젝트 등록", page: "7-1-4 프로젝트 등록_공개_결제", storyboard: "[7-1-4 공개/결제]", desc: "STEP 4: 공개 설정 및 결제", action: "공개/비공개 설정, 결제 처리" },
-      { no: 39, sector: "프로젝트 등록", page: "7-1-5 프로젝트 등록_완료", storyboard: "[7-1-5 완료]", desc: "등록 완료 안내", action: "승인 대기 안내, 마이페이지/홈 이동" },
-      { no: 40, sector: "프로젝트 등록", page: "7-2 프로젝트 관리", storyboard: "[7-2 프로젝트 관리]", desc: "내 프로젝트 관리 페이지", action: "프로젝트 목록, 상태 필터, 정렬" },
-      { no: 41, sector: "프로젝트 등록", page: "7-2-1 프로젝트 관리_상세", storyboard: "[7-2-1 상세]", desc: "프로젝트 상세/관리 화면", action: "상세 보기, 수정, 마감 처리, 지원자 관리" },
-      { no: 42, sector: "프로젝트 등록", page: "7-2-2 프로젝트 수정", storyboard: "[7-2-2 수정]", desc: "프로젝트 수정 화면", action: "프로젝트 정보 수정" },
-      { no: 43, sector: "프로젝트 등록", page: "7-2-3 프로젝트 삭제 확인", storyboard: "[7-2-3 삭제 확인]", desc: "프로젝트 삭제 확인 모달", action: "삭제 확인, 취소" },
-      { no: 44, sector: "프로젝트 등록", page: "7-3 지원자 관리", storyboard: "[7-3 지원자 관리]", desc: "지원자 목록 페이지", action: "지원자 카드, 상태 필터" },
-      { no: 45, sector: "프로젝트 등록", page: "7-3-1 지원자 관리_지원서 상세", storyboard: "[7-3-1 지원서 상세]", desc: "지원서 상세 보기", action: "응답 내용, 첨부 파일, 선정/미선정 처리" },
-
-      // 프로젝트 지원 (IPH)
-      { no: 46, sector: "프로젝트 지원", page: "8-1 프로젝트 지원", storyboard: "[8-1 프로젝트 지원]", desc: "프로젝트 지원 시작 화면", action: "튜토리얼, 단계 안내" },
-      { no: 47, sector: "프로젝트 지원", page: "8-1-1 프로젝트 지원_자격 검증", storyboard: "[8-1-1 자격 검증]", desc: "STEP 1: 자격 검증", action: "휴대폰/사업자 인증, 공개 IP 확인" },
-      { no: 48, sector: "프로젝트 지원", page: "8-1-2 프로젝트 지원_IP 선택", storyboard: "[8-1-2 IP 선택]", desc: "STEP 2: IP 선택", action: "지원할 IP 선택" },
-      { no: 49, sector: "프로젝트 지원", page: "8-1-3 프로젝트 지원_양식 작성", storyboard: "[8-1-3 양식 작성]", desc: "STEP 3: 양식 작성", action: "커스텀 필드 응답, 가이드북 첨부" },
-      { no: 50, sector: "프로젝트 지원", page: "8-1-4 프로젝트 지원_최종 제출", storyboard: "[8-1-4 최종 제출]", desc: "STEP 4: 최종 제출", action: "지원 내용 확인, 제출" },
-      { no: 51, sector: "프로젝트 지원", page: "8-1-5 프로젝트 지원_완료", storyboard: "[8-1-5 완료]", desc: "지원 완료 안내", action: "지원 현황 보기, 홈 이동" },
-      { no: 52, sector: "프로젝트 지원", page: "8-2 지원 현황 관리", storyboard: "[8-2 지원 현황]", desc: "지원한 프로젝트 관리", action: "지원 목록, 상태 필터, 스크랩 탭" },
-      { no: 53, sector: "프로젝트 지원", page: "8-2-1 지원 현황_상세", storyboard: "[8-2-1 상세]", desc: "지원 상세 보기", action: "지원 내용, 상태, 취소 버튼" },
-      { no: 54, sector: "프로젝트 지원", page: "8-2-2 지원 현황_스크랩", storyboard: "[8-2-2 스크랩]", desc: "스크랩한 프로젝트 목록", action: "스크랩 목록, 알림 설정" },
-
-      // 마이페이지
-      { no: 55, sector: "마이페이지", page: "9-1 프로필 관리", storyboard: "[9-1 프로필 관리]", desc: "프로필 관리 페이지", action: "프로필 이미지, 닉네임, 소개글, 이메일 수정" },
-      { no: 56, sector: "마이페이지", page: "9-1-1 프로필 이미지 업로드", storyboard: "[9-1-1 이미지]", desc: "프로필 이미지 업로드 모달", action: "이미지 업로드, 크롭" },
-      { no: 57, sector: "마이페이지", page: "9-1-2 닉네임 수정", storyboard: "[9-1-2 닉네임]", desc: "닉네임 수정 모달", action: "닉네임 변경" },
-      { no: 58, sector: "마이페이지", page: "9-1-3 소개글 수정", storyboard: "[9-1-3 소개글]", desc: "소개글 수정 모달", action: "소개글 편집" },
-      { no: 59, sector: "마이페이지", page: "9-1-4 이메일 변경", storyboard: "[9-1-4 이메일]", desc: "이메일 변경 페이지", action: "새 이메일 입력, 인증" },
-      { no: 60, sector: "마이페이지", page: "9-2 설정", storyboard: "[9-2 설정]", desc: "계정/인증 관리 페이지", action: "인증 상태, 소셜 연동, 비밀번호 변경, 탈퇴" },
-      { no: 61, sector: "마이페이지", page: "9-2-1 휴대폰 인증 변경", storyboard: "[9-2-1 휴대폰]", desc: "휴대폰 인증 변경 페이지", action: "새 번호 인증" },
-      { no: 62, sector: "마이페이지", page: "9-2-2 사업자 인증", storyboard: "[9-2-2 사업자]", desc: "사업자 인증/재인증 페이지", action: "사업자등록증 업로드, 검증" },
-      { no: 63, sector: "마이페이지", page: "9-2-3 비밀번호 변경", storyboard: "[9-2-3 비밀번호]", desc: "비밀번호 변경 페이지", action: "현재/새 비밀번호 입력" },
-      { no: 64, sector: "마이페이지", page: "9-2-4 회원 탈퇴", storyboard: "[9-2-4 탈퇴]", desc: "회원 탈퇴 페이지", action: "탈퇴 사유 입력, 최종 확인" },
-      { no: 65, sector: "마이페이지", page: "9-3 계좌 관리", storyboard: "[9-3 계좌 관리]", desc: "정산 계좌 관리 페이지 (IPH)", action: "계좌 등록/변경" },
-      { no: 66, sector: "마이페이지", page: "9-3-1 출금 신청", storyboard: "[9-3-1 출금]", desc: "출금 신청 페이지", action: "출금 금액 입력, 신청" },
-      { no: 67, sector: "마이페이지", page: "9-3-2 계좌 변경", storyboard: "[9-3-2 계좌]", desc: "계좌 변경 모달", action: "은행, 계좌번호, 예금주 입력" },
-      { no: 68, sector: "마이페이지", page: "9-4 요금제 관리", storyboard: "[9-4 요금제]", desc: "요금제 및 결제 관리", action: "현재 요금제, 비교표, 업그레이드" },
-      { no: 69, sector: "마이페이지", page: "9-4-1 요금제_IPH", storyboard: "[9-4-1 IPH]", desc: "IPH 요금제 비교표", action: "Basic/Pro/Business 비교, 선택" },
-      { no: 70, sector: "마이페이지", page: "9-4-2 요금제_BP", storyboard: "[9-4-2 BP]", desc: "BP 요금제 비교표", action: "Basic/Pro/Business 비교, 선택" },
-      { no: 71, sector: "마이페이지", page: "9-4-3 요금제_결제 수단", storyboard: "[9-4-3 결제 수단]", desc: "결제 수단 관리", action: "카드 등록/변경" },
-      { no: 72, sector: "마이페이지", page: "9-4-4 요금제_결제 내역", storyboard: "[9-4-4 결제 내역]", desc: "결제 내역 목록", action: "결제 내역 조회, 영수증" },
-      { no: 73, sector: "마이페이지", page: "9-5 관리자 초대", storyboard: "[9-5 관리자 초대]", desc: "관리자 초대/권한 관리 (Business)", action: "관리자 목록, 초대, 권한 변경" },
-      { no: 74, sector: "마이페이지", page: "9-5-1 관리자 초대_모달", storyboard: "[9-5-1 초대 모달]", desc: "관리자 초대 모달", action: "이메일, 권한, 할당 대상 입력" },
-      { no: 75, sector: "마이페이지", page: "9-6 알림 설정", storyboard: "[9-6 알림 설정]", desc: "알림 설정 페이지", action: "이메일/카카오/SMS 알림 토글" },
-      { no: 76, sector: "마이페이지", page: "9-7 마이부스", storyboard: "[9-7 마이부스]", desc: "마이부스 대시보드", action: "IP/프로젝트/문의 요약 카드" },
-      { no: 77, sector: "마이페이지", page: "9-7-1 마이부스_IP 관리", storyboard: "[9-7-1 IP 관리]", desc: "내 IP 관리 화면 (IPH)", action: "IP 목록 요약, 전체 보기" },
-      { no: 78, sector: "마이페이지", page: "9-7-2 마이부스_프로젝트 관리", storyboard: "[9-7-2 프로젝트]", desc: "내 프로젝트 관리 화면 (BP)", action: "프로젝트 목록 요약, 전체 보기" },
-      { no: 79, sector: "마이페이지", page: "9-7-3 마이부스_지원 현황", storyboard: "[9-7-3 지원 현황]", desc: "지원 현황 요약 (IPH)", action: "지원 현황 요약, 전체 보기" },
-      { no: 80, sector: "마이페이지", page: "9-7-3-1 지원 취소 확인", storyboard: "[9-7-3-1 취소 확인]", desc: "지원 취소 확인 모달", action: "취소 확인, 사유 입력" },
-      { no: 81, sector: "마이페이지", page: "9-7-4 마이부스_받은 문의", storyboard: "[9-7-4 받은 문의]", desc: "받은 문의 목록 (IPH)", action: "문의 목록, 채팅 이동" },
-      { no: 82, sector: "마이페이지", page: "9-7-5 마이부스_보낸 문의", storyboard: "[9-7-5 보낸 문의]", desc: "보낸 문의 목록 (BP)", action: "문의 목록, 채팅 이동" },
-      { no: 83, sector: "마이페이지", page: "9-7-6 마이부스_스크랩", storyboard: "[9-7-6 스크랩]", desc: "스크랩 관리 화면", action: "IP/프로젝트/인사이트 탭, 스크랩 해제" },
-      { no: 84, sector: "마이페이지", page: "9-8 내 통계", storyboard: "[9-8 내 통계]", desc: "내 통계 대시보드", action: "조회수, 스크랩수, 협업지수 등 통계 차트" },
-
-      // 채팅
-      { no: 85, sector: "채팅", page: "10-1 채팅", storyboard: "[10-1 채팅]", desc: "채팅 목록 페이지", action: "채팅방 목록, 상태 필터, 검색" },
-      { no: 86, sector: "채팅", page: "10-2 채팅방 상세", storyboard: "[10-2 채팅방 상세]", desc: "채팅방 상세 화면", action: "메시지 영역, 문의 카드, 메시지 입력, 파일 첨부" },
-      { no: 87, sector: "채팅", page: "10-2-1 채팅방_제안_수락", storyboard: "[10-2-1 제안/수락]", desc: "제안 및 수락 기능", action: "BP 제안 보내기, IPH 수락/거절" },
-      { no: 88, sector: "채팅", page: "10-2-2 채팅방_결제", storyboard: "[10-2-2 결제]", desc: "결제 기능 영역", action: "BP 결제하기" },
-      { no: 89, sector: "채팅", page: "10-2-3 채팅방_협업 완료", storyboard: "[10-2-3 협업 완료]", desc: "협업 완료 기능", action: "협업 완료 처리" },
-      { no: 90, sector: "채팅", page: "10-2-4 채팅방_상호 평가", storyboard: "[10-2-4 상호 평가]", desc: "상호 평가 모달", action: "별점, 한줄평 입력" },
-      { no: 91, sector: "채팅", page: "10-3 문의 폼 모달", storyboard: "[10-3 문의 폼]", desc: "문의하기 폼 모달 (BP→IPH)", action: "협업 유형, 예산, 인사말 입력 → 채팅방 생성" },
-
-      // 고객지원
-      { no: 92, sector: "고객지원", page: "11-1 FAQ", storyboard: "[11-1 FAQ]", desc: "자주 묻는 질문 페이지", action: "검색, 카테고리 탭, FAQ 아코디언" },
-      { no: 93, sector: "고객지원", page: "11-2 1:1 문의", storyboard: "[11-2 1:1 문의]", desc: "1:1 문의 목록", action: "문의 내역 목록, 새 문의 작성" },
-      { no: 94, sector: "고객지원", page: "11-2-1 1:1 문의 작성", storyboard: "[11-2-1 문의 작성]", desc: "1:1 문의 작성 페이지", action: "카테고리 선택, 제목, 내용 입력" },
-      { no: 95, sector: "고객지원", page: "11-2-2 1:1 문의 상세", storyboard: "[11-2-2 문의 상세]", desc: "1:1 문의 상세 보기", action: "문의 내용, 답변, 추가 문의" }
-    ];
+      return data;
+    }
 
     // 섹터에 따른 클래스 반환
     function getSectorClass(sector) {
       const sectorMap = {
+        '공통': 'sector-common',
         '인증': 'sector-auth',
         '메인': 'sector-main',
         '탐색': 'sector-browse',
@@ -464,16 +457,27 @@
       return sectorMap[sector] || '';
     }
 
+    // 링크 하이라이트
+    function highlightLinks(text) {
+      if (!text) return '';
+      return text.replace(/\[([\w\->\s가-힣]+)\]/g, '<span class="link">[$1]</span>');
+    }
+
     // 테이블 렌더링
     function renderTable(data) {
       const tbody = document.getElementById('tableBody');
       tbody.innerHTML = '';
 
-      data.forEach((item, index) => {
+      let currentSector = '';
+
+      data.forEach((row, index) => {
+        const sector = row[1] || currentSector;
+        if (row[1]) currentSector = row[1];
+
         const tr = document.createElement('tr');
-        tr.className = getSectorClass(item.sector);
-        tr.dataset.sector = item.sector;
-        tr.dataset.search = Object.values(item).join(' ').toLowerCase();
+        tr.className = getSectorClass(sector);
+        tr.dataset.sector = sector;
+        tr.dataset.search = row.join(' ').toLowerCase();
 
         // 행 번호
         const rowNumTd = document.createElement('td');
@@ -481,40 +485,20 @@
         rowNumTd.textContent = index + 1;
         tr.appendChild(rowNumTd);
 
-        // No
-        const noTd = document.createElement('td');
-        noTd.textContent = item.no;
-        tr.appendChild(noTd);
+        // 데이터 셀
+        row.forEach((cell, cellIndex) => {
+          const td = document.createElement('td');
 
-        // Sector
-        const sectorTd = document.createElement('td');
-        sectorTd.textContent = item.sector;
-        tr.appendChild(sectorTd);
+          if (cellIndex === 5) { // 스토리보드 번호
+            td.innerHTML = `<span class="storyboard-num">${cell}</span>`;
+          } else if (cellIndex === 8) { // 링크/버튼/액션
+            td.innerHTML = `<span class="action-text">${highlightLinks(cell)}</span>`;
+          } else {
+            td.textContent = cell;
+          }
 
-        // 페이지명 (링크로)
-        const pageTd = document.createElement('td');
-        const pageLink = document.createElement('a');
-        pageLink.href = item.page + '.html';
-        pageLink.className = 'page-link';
-        pageLink.textContent = item.page;
-        pageLink.target = '_blank';
-        pageTd.appendChild(pageLink);
-        tr.appendChild(pageTd);
-
-        // 스토리보드 번호
-        const storyTd = document.createElement('td');
-        storyTd.innerHTML = `<span class="storyboard-num">${item.storyboard}</span>`;
-        tr.appendChild(storyTd);
-
-        // 설명
-        const descTd = document.createElement('td');
-        descTd.textContent = item.desc;
-        tr.appendChild(descTd);
-
-        // 주요 기능/액션
-        const actionTd = document.createElement('td');
-        actionTd.innerHTML = `<span class="action-text">${item.action}</span>`;
-        tr.appendChild(actionTd);
+          tr.appendChild(td);
+        });
 
         tbody.appendChild(tr);
       });
@@ -556,9 +540,8 @@
 
     // 초기화
     document.addEventListener('DOMContentLoaded', () => {
-      renderTable(pageData);
-
-      document.getElementById('searchInput').addEventListener('input', handleSearch);
+      const data = parseCSV(csvData);
+      renderTable(data);
 
       // 최종 업데이트 시간
       document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString('ko-KR');
@@ -567,7 +550,15 @@
       document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
           e.preventDefault();
-          document.getElementById('searchInput').focus();
+          const searchInput = document.querySelector('.sheet-header input') || document.createElement('input');
+          if (!document.querySelector('.sheet-header input')) {
+            searchInput.type = 'text';
+            searchInput.placeholder = '검색어 입력...';
+            searchInput.style.cssText = 'padding: 6px 12px; border: 1px solid #dadce0; border-radius: 4px; font-size: 14px;';
+            searchInput.addEventListener('input', handleSearch);
+            document.querySelector('.sheet-meta').prepend(searchInput);
+          }
+          searchInput.focus();
         }
       });
     });

@@ -370,6 +370,119 @@
       border-radius: var(--radius-lg); border: 1px solid rgba(79, 70, 229, 0.2);
       margin-bottom: var(--space-4);
     }
+
+    /* 인증 마크 및 뱃지 (#30) - 컴팩트 스타일 */
+    .verification-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .verification-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .verification-badge--phone {
+      background: rgba(22, 163, 74, 0.1);
+      color: #15803D;
+    }
+
+    .verification-badge--business {
+      background: rgba(37, 99, 235, 0.1);
+      color: #1D4ED8;
+    }
+
+    .verification-badge--copyright {
+      background: rgba(147, 51, 234, 0.1);
+      color: #7C3AED;
+    }
+
+    .verification-badge--official {
+      background: linear-gradient(135deg, #4F46E5, #7C3AED);
+      color: white;
+    }
+
+    .verification-badge i {
+      width: 10px;
+      height: 10px;
+      flex-shrink: 0;
+    }
+
+    /* IP 상태 뱃지 - 컴팩트 스타일 */
+    .ip-status-badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: var(--space-3);
+    }
+
+    .ip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .ip-badge--verified {
+      background: linear-gradient(135deg, #4F46E5, #7C3AED);
+      color: white;
+    }
+
+    .ip-badge--pro {
+      background: linear-gradient(135deg, #F59E0B, #D97706);
+      color: white;
+    }
+
+    .ip-badge--new {
+      background: #10B981;
+      color: white;
+    }
+
+    .ip-badge--popular {
+      background: #EC4899;
+      color: white;
+    }
+
+    .ip-badge i {
+      width: 11px;
+      height: 11px;
+      flex-shrink: 0;
+    }
+
+    /* 채널 인증 마크 - 컴팩트 스타일 */
+    .channel-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 1px 5px;
+      background: rgba(22, 163, 74, 0.1);
+      color: #15803D;
+      border-radius: 3px;
+      font-size: 9px;
+      font-weight: 500;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .channel-verified i {
+      width: 9px;
+      height: 9px;
+      flex-shrink: 0;
+    }
     .pro-user-status {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 6px 14px; background: linear-gradient(135deg, #4F46E5, #7C3AED);
@@ -404,10 +517,25 @@
         </div>
 
         <div class="detail-main">
+          <!-- IP 상태 뱃지 (#30) -->
+          <div class="ip-status-badges">
+            <span class="ip-badge ip-badge--verified">
+              <i data-lucide="badge-check"></i>
+              인증 IP
+            </span>
+            <span class="ip-badge ip-badge--pro">
+              <i data-lucide="crown"></i>
+              Pro
+            </span>
+            <span class="ip-badge ip-badge--popular">
+              <i data-lucide="trending-up"></i>
+              인기
+            </span>
+          </div>
+
           <h1>귀여운 곰돌이 친구들</h1>
-          
+
           <div class="detail-meta">
-            <span class="badge">인증 IP</span>
             <span class="meta-item">
               <i data-lucide="flag" class="icon-sm"></i>
               대한민국
@@ -415,6 +543,10 @@
             <span class="meta-item">
               <i data-lucide="tag" class="icon-sm"></i>
               오리지널 캐릭터
+            </span>
+            <span class="meta-item">
+              <i data-lucide="calendar" class="icon-sm"></i>
+              2020년 등록
             </span>
           </div>
 
@@ -428,12 +560,28 @@
 
           <div class="iph-info">
             <div class="iph-avatar"><img src="https://i.pravatar.cc/150?img=32" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
-            <div>
-              <div class="iph-name">스튜디오 베어</div>
-              <div class="iph-badges">
-                <span>✅ 휴대폰 인증</span>
-                <span>🏢 사업자 인증</span>
-                <span>📜 저작권 등록</span>
+            <div style="flex:1">
+              <div class="iph-name">
+                스튜디오 베어
+                <span class="verification-badge verification-badge--official">
+                  <i data-lucide="verified"></i>
+                  공식
+                </span>
+              </div>
+              <!-- 인증 마크 (#30) -->
+              <div class="verification-badges">
+                <span class="verification-badge verification-badge--phone">
+                  <i data-lucide="smartphone"></i>
+                  휴대폰 인증
+                </span>
+                <span class="verification-badge verification-badge--business">
+                  <i data-lucide="building-2"></i>
+                  사업자 인증
+                </span>
+                <span class="verification-badge verification-badge--copyright">
+                  <i data-lucide="scroll-text"></i>
+                  저작권 등록
+                </span>
               </div>
             </div>
           </div>
@@ -516,7 +664,13 @@
               <a href="#" class="channel-item">
                 <div class="channel-icon" style="background:#FF0000;"><i data-lucide="youtube" style="color:white"></i></div>
                 <div class="channel-info">
-                  <div class="channel-name">곰돌이 공식 유튜브</div>
+                  <div class="channel-name">
+                    곰돌이 공식 유튜브
+                    <span class="channel-verified">
+                      <i data-lucide="check-circle"></i>
+                      인증됨
+                    </span>
+                  </div>
                   <div class="channel-stats">구독자 12.5만 · 동영상 89개</div>
                 </div>
                 <i data-lucide="external-link" class="icon-sm" style="color:var(--color-text-tertiary)"></i>
@@ -524,7 +678,13 @@
               <a href="#" class="channel-item">
                 <div class="channel-icon" style="background:linear-gradient(45deg,#405DE6,#5851DB,#833AB4,#C13584,#E1306C,#FD1D1D);"><i data-lucide="instagram" style="color:white"></i></div>
                 <div class="channel-info">
-                  <div class="channel-name">@cute_bear_friends</div>
+                  <div class="channel-name">
+                    @cute_bear_friends
+                    <span class="channel-verified">
+                      <i data-lucide="check-circle"></i>
+                      인증됨
+                    </span>
+                  </div>
                   <div class="channel-stats">팔로워 8.2만 · 게시물 342개</div>
                 </div>
                 <i data-lucide="external-link" class="icon-sm" style="color:var(--color-text-tertiary)"></i>
@@ -532,7 +692,13 @@
               <a href="#" class="channel-item">
                 <div class="channel-icon" style="background:#1DA1F2;"><i data-lucide="twitter" style="color:white"></i></div>
                 <div class="channel-info">
-                  <div class="channel-name">@bear_friends_kr</div>
+                  <div class="channel-name">
+                    @bear_friends_kr
+                    <span class="channel-verified">
+                      <i data-lucide="check-circle"></i>
+                      인증됨
+                    </span>
+                  </div>
                   <div class="channel-stats">팔로워 2.1만 · 트윗 1,234개</div>
                 </div>
                 <i data-lucide="external-link" class="icon-sm" style="color:var(--color-text-tertiary)"></i>
@@ -540,7 +706,13 @@
               <a href="#" class="channel-item">
                 <div class="channel-icon" style="background:#000;"><i data-lucide="globe" style="color:white"></i></div>
                 <div class="channel-info">
-                  <div class="channel-name">공식 홈페이지</div>
+                  <div class="channel-name">
+                    공식 홈페이지
+                    <span class="channel-verified">
+                      <i data-lucide="check-circle"></i>
+                      인증됨
+                    </span>
+                  </div>
                   <div class="channel-stats">www.cutebearfriends.com</div>
                 </div>
                 <i data-lucide="external-link" class="icon-sm" style="color:var(--color-text-tertiary)"></i>
@@ -589,7 +761,7 @@
             <div class="history-list">
               <div class="history-item">
                 <div class="history-title">베어 커피 콜라보레이션</div>
-                <div class="history-meta">F&B · 2024년 1분기 · 스타벅스</div>
+                <div class="history-meta">F&B · 2026년 1분기 · 스타벅스</div>
               </div>
               <div class="history-item">
                 <div class="history-title">곰돌이 문구 시리즈</div>
@@ -611,15 +783,15 @@
               <div class="score-grid">
                 <div class="score-card">
                   <div class="score-value">4.8</div>
-                  <div class="score-label">협업지수</div>
+                  <div class="score-label">협업 활동 지수</div>
                 </div>
                 <div class="score-card">
                   <div class="score-value">4.9</div>
-                  <div class="score-label">매너지수</div>
+                  <div class="score-label">협업 매너 지수</div>
                 </div>
                 <div class="score-card">
                   <div class="score-value">2시간</div>
-                  <div class="score-label">평균 응답</div>
+                  <div class="score-label">평균 응답속도</div>
                 </div>
               </div>
               <div style="margin-top:1rem;padding:1rem;background:var(--color-bg-secondary);border-radius:var(--radius-md);">
@@ -633,7 +805,7 @@
             <div class="locked-overlay">
               <div class="locked-icon"><i data-lucide="lock" style="color:white"></i></div>
               <div class="locked-title">Pro 전용 지표입니다</div>
-              <div class="locked-desc">협업지수와 매너지수는<br>Pro 멤버 전용 기능입니다</div>
+              <div class="locked-desc">협업 활동 지수와 협업 매너 지수는<br>Pro 멤버 전용 기능입니다</div>
               <button class="unlock-btn" onclick="location.href='9-4 요금제 관리.html'">
                 <i data-lucide="crown" class="icon-sm"></i> Pro로 업그레이드
               </button>
@@ -655,15 +827,15 @@
             <div class="score-grid">
               <div class="score-card">
                 <div class="score-value">4.8</div>
-                <div class="score-label">협업지수</div>
+                <div class="score-label">협업 활동 지수</div>
               </div>
               <div class="score-card">
                 <div class="score-value">4.9</div>
-                <div class="score-label">매너지수</div>
+                <div class="score-label">협업 매너 지수</div>
               </div>
               <div class="score-card">
                 <div class="score-value">2시간</div>
-                <div class="score-label">평균 응답</div>
+                <div class="score-label">평균 응답속도</div>
               </div>
             </div>
             <div class="trust-details">

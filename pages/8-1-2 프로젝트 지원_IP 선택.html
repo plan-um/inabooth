@@ -34,6 +34,96 @@
     .ip-card-radio__stats{display:flex;gap:var(--space-4);font-size:var(--font-size-sm);color:var(--color-text-tertiary)}
     .ip-card-radio__stat{display:flex;align-items:center;gap:var(--space-1)}
 
+    /* IP 지원 프로젝트 이력 (#50) */
+    .ip-card-radio__projects {
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .ip-card-radio__projects-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-2);
+    }
+
+    .ip-card-radio__projects-title {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .ip-card-radio__projects-count {
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .ip-card-radio__project-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .ip-card-radio__project-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-2) var(--space-3);
+      background: white;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+    }
+
+    .ip-card-radio.selected .ip-card-radio__project-item {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .ip-card-radio__project-name {
+      color: var(--color-text-primary);
+      font-weight: var(--font-weight-medium);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 140px;
+    }
+
+    .ip-card-radio__project-status {
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      font-size: 10px;
+      font-weight: var(--font-weight-semibold);
+      flex-shrink: 0;
+    }
+
+    .ip-card-radio__project-status--progress {
+      background: #DBEAFE;
+      color: #1D4ED8;
+    }
+
+    .ip-card-radio__project-status--completed {
+      background: #D1FAE5;
+      color: #047857;
+    }
+
+    .ip-card-radio__project-status--rejected {
+      background: #FEE2E2;
+      color: #B91C1C;
+    }
+
+    .ip-card-radio__no-projects {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      text-align: center;
+      padding: var(--space-3);
+      background: white;
+      border-radius: var(--radius-sm);
+    }
+
     .footer__social-link:hover{background:var(--color-primary);color:white}
 
     .footer__links a{color:rgba(255,255,255,0.7);transition:color var(--transition-fast)}
@@ -81,12 +171,32 @@
             <div class="ip-card-radio__check">
               <i data-lucide="check" class="icon-sm"></i>
             </div>
-            <div class="ip-card-radio__img" style="background-image:url('https://picsum.photos/seed/ip17/300/300');background-size:cover;background-position:center;"></div>
-            <h3 class="ip-card-radio__name">귀여운 곰돌이</h3>
+            <img src="images/characters/Random Objects (1).png" alt="귀여운 곰돌이" class="ip-card-radio__img">
+            <h3 class="ip-card-radio__name">귀여운 곰돌이 친구들</h3>
             <p class="ip-card-radio__category">오리지널 캐릭터</p>
             <div class="ip-card-radio__stats">
               <span class="ip-card-radio__stat"><i data-lucide="eye" class="icon-sm"></i>1,234</span>
               <span class="ip-card-radio__stat"><i data-lucide="heart" class="icon-sm"></i>856</span>
+            </div>
+            <!-- IP 지원 프로젝트 이력 (#50) -->
+            <div class="ip-card-radio__projects">
+              <div class="ip-card-radio__projects-header">
+                <span class="ip-card-radio__projects-title">
+                  <i data-lucide="folder" class="icon-sm"></i>
+                  지원 이력
+                </span>
+                <span class="ip-card-radio__projects-count">3건</span>
+              </div>
+              <div class="ip-card-radio__project-list">
+                <div class="ip-card-radio__project-item">
+                  <span class="ip-card-radio__project-name">2025 여름 굿즈 콜라보</span>
+                  <span class="ip-card-radio__project-status ip-card-radio__project-status--completed">계약 완료</span>
+                </div>
+                <div class="ip-card-radio__project-item">
+                  <span class="ip-card-radio__project-name">카페 브랜드 협업</span>
+                  <span class="ip-card-radio__project-status ip-card-radio__project-status--progress">진행 중</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -94,25 +204,54 @@
             <div class="ip-card-radio__check">
               <i data-lucide="check" class="icon-sm"></i>
             </div>
-            <div class="ip-card-radio__img" style="background-image:url('https://picsum.photos/seed/ip18/300/300');background-size:cover;background-position:center;"></div>
+            <img src="images/characters/Random Objects (2).png" alt="신나는 펭귄 친구들" class="ip-card-radio__img">
             <h3 class="ip-card-radio__name">신나는 펭귄 친구들</h3>
             <p class="ip-card-radio__category">이모티콘</p>
             <div class="ip-card-radio__stats">
               <span class="ip-card-radio__stat"><i data-lucide="eye" class="icon-sm"></i>2,456</span>
               <span class="ip-card-radio__stat"><i data-lucide="heart" class="icon-sm"></i>1,234</span>
             </div>
+            <!-- IP 지원 프로젝트 이력 (#50) -->
+            <div class="ip-card-radio__projects">
+              <div class="ip-card-radio__projects-header">
+                <span class="ip-card-radio__projects-title">
+                  <i data-lucide="folder" class="icon-sm"></i>
+                  지원 이력
+                </span>
+                <span class="ip-card-radio__projects-count">1건</span>
+              </div>
+              <div class="ip-card-radio__project-list">
+                <div class="ip-card-radio__project-item">
+                  <span class="ip-card-radio__project-name">문구 브랜드 라이선스</span>
+                  <span class="ip-card-radio__project-status ip-card-radio__project-status--rejected">미선정</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="ip-card-radio" onclick="this.parentElement.querySelectorAll('.ip-card-radio').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')">
             <div class="ip-card-radio__check">
               <i data-lucide="check" class="icon-sm"></i>
             </div>
-            <div class="ip-card-radio__img" style="background-image:url('https://picsum.photos/seed/ip19/300/300');background-size:cover;background-position:center;"></div>
+            <img src="images/characters/Random Objects (3).png" alt="몽글몽글 구름이" class="ip-card-radio__img">
             <h3 class="ip-card-radio__name">몽글몽글 구름이</h3>
             <p class="ip-card-radio__category">애니메이션</p>
             <div class="ip-card-radio__stats">
               <span class="ip-card-radio__stat"><i data-lucide="eye" class="icon-sm"></i>3,789</span>
               <span class="ip-card-radio__stat"><i data-lucide="heart" class="icon-sm"></i>2,145</span>
+            </div>
+            <!-- IP 지원 프로젝트 이력 (#50) -->
+            <div class="ip-card-radio__projects">
+              <div class="ip-card-radio__projects-header">
+                <span class="ip-card-radio__projects-title">
+                  <i data-lucide="folder" class="icon-sm"></i>
+                  지원 이력
+                </span>
+                <span class="ip-card-radio__projects-count">0건</span>
+              </div>
+              <div class="ip-card-radio__no-projects">
+                아직 지원한 프로젝트가 없습니다
+              </div>
             </div>
           </div>
         </div>

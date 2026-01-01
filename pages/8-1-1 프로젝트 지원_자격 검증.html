@@ -39,6 +39,117 @@
     .verification-item.verified .verification-item__status { color: var(--color-success); }
     .verification-item.failed .verification-item__status { color: var(--color-error); }
 
+    /* 요금제별 지원 가능 횟수 (#49) */
+    .plan-quota-card {
+      background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+      border: 2px solid #BAE6FD;
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+    }
+
+    .plan-quota-card__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
+    }
+
+    .plan-quota-card__plan {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .plan-quota-card__badge {
+      padding: var(--space-2) var(--space-3);
+      background: var(--color-primary);
+      color: white;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      border-radius: var(--radius-md);
+    }
+
+    .plan-quota-card__plan-name {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+    }
+
+    .plan-quota-card__upgrade {
+      font-size: var(--font-size-sm);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      text-decoration: none;
+    }
+
+    .plan-quota-card__upgrade:hover {
+      text-decoration: underline;
+    }
+
+    .plan-quota-card__body {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    .plan-quota-card__stat {
+      text-align: center;
+      padding: var(--space-4);
+      background: white;
+      border-radius: var(--radius-md);
+    }
+
+    .plan-quota-card__stat-value {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .plan-quota-card__stat-value.warning {
+      color: #D97706;
+    }
+
+    .plan-quota-card__stat-value.danger {
+      color: var(--color-error);
+    }
+
+    .plan-quota-card__stat-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .plan-quota-card__progress {
+      grid-column: span 3;
+      margin-top: var(--space-2);
+    }
+
+    .plan-quota-card__progress-bar {
+      height: 8px;
+      background: #E0E7FF;
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .plan-quota-card__progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-primary), #818CF8);
+      border-radius: var(--radius-full);
+      transition: width var(--transition-normal);
+    }
+
+    .plan-quota-card__progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-2);
+    }
+
     .footer__social-link:hover { background: var(--color-primary); color: white; }
 
     .footer__links a { color: rgba(255, 255, 255, 0.7); transition: color var(--transition-fast); }
@@ -82,6 +193,43 @@
         <p class="form-section__desc">
           프로젝트 지원에 필요한 자격 요건을 확인합니다.
         </p>
+
+        <!-- 요금제별 지원 가능 횟수 (#49) -->
+        <div class="plan-quota-card">
+          <div class="plan-quota-card__header">
+            <div class="plan-quota-card__plan">
+              <span class="plan-quota-card__badge">PRO</span>
+              <span class="plan-quota-card__plan-name">Pro 요금제</span>
+            </div>
+            <a href="#" class="plan-quota-card__upgrade">
+              요금제 업그레이드
+              <i data-lucide="arrow-up-right" class="icon-sm"></i>
+            </a>
+          </div>
+          <div class="plan-quota-card__body">
+            <div class="plan-quota-card__stat">
+              <div class="plan-quota-card__stat-value">20</div>
+              <div class="plan-quota-card__stat-label">월 지원 가능 횟수</div>
+            </div>
+            <div class="plan-quota-card__stat">
+              <div class="plan-quota-card__stat-value">8</div>
+              <div class="plan-quota-card__stat-label">이번 달 사용</div>
+            </div>
+            <div class="plan-quota-card__stat">
+              <div class="plan-quota-card__stat-value">12</div>
+              <div class="plan-quota-card__stat-label">남은 횟수</div>
+            </div>
+            <div class="plan-quota-card__progress">
+              <div class="plan-quota-card__progress-bar">
+                <div class="plan-quota-card__progress-fill" style="width: 40%"></div>
+              </div>
+              <div class="plan-quota-card__progress-text">
+                <span>8/20 사용</span>
+                <span>2026년 1월 31일 갱신</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="verification-list">
           <div class="verification-item verified">

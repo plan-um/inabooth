@@ -21,6 +21,355 @@
     .content-box{padding:var(--space-8);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0;text-align:center}
     .card-list{display:grid;gap:var(--space-4);margin:var(--space-6) 0}
     .card-item{padding:var(--space-4);background:white;border:1px solid var(--color-border);border-radius:var(--radius-md)}
+
+    /* 예산 추천 (#40) */
+    .budget-section {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+      background: linear-gradient(135deg, #FEF3C7 0%, #FEE2E2 100%);
+    }
+
+    .budget-section__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .budget-section__icon {
+      width: 40px;
+      height: 40px;
+      background: #F59E0B;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .budget-section__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .budget-recommendation {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      background: white;
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-4);
+    }
+
+    .budget-recommendation__value {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .budget-recommendation__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .budget-tags {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+
+    .budget-tag {
+      padding: var(--space-2) var(--space-3);
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .budget-tag:hover {
+      border-color: var(--color-primary);
+    }
+
+    .budget-tag.selected {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    /* 희망 카테고리 (#41) */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-3);
+    }
+
+    .category-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-4);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: white;
+    }
+
+    .category-card:hover {
+      border-color: var(--color-primary);
+    }
+
+    .category-card.selected {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .category-card__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .category-card__name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* 모집분야 (#43) */
+    .recruit-section {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+    }
+
+    .recruit-section__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
+    }
+
+    .recruit-section__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .recruit-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-3);
+    }
+
+    .recruit-item__field {
+      flex: 1;
+    }
+
+    .recruit-item__count {
+      width: 120px;
+    }
+
+    .recruit-item__remove {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      border: none;
+      background: none;
+      color: var(--color-text-tertiary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+    }
+
+    .recruit-item__remove:hover {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    /* 컨시어지 모달 (#48) */
+    .concierge-cta {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      margin-top: var(--space-6);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .concierge-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .concierge-cta__icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .concierge-cta__content {
+      flex: 1;
+    }
+
+    .concierge-cta__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .concierge-cta__desc {
+      font-size: var(--font-size-sm);
+      opacity: 0.9;
+    }
+
+    .concierge-cta__btn {
+      padding: var(--space-3) var(--space-5);
+      background: white;
+      color: var(--color-primary);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .concierge-cta__btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* 모달 스타일 (#48) */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-fast);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.9);
+      transition: transform var(--transition-fast);
+    }
+
+    .modal-overlay.active .modal {
+      transform: scale(1);
+    }
+
+    .modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-6);
+    }
+
+    .modal__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .modal__close {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      border: none;
+      background: var(--color-bg-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .modal__close:hover {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    .modal__feature {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-3);
+    }
+
+    .modal__feature-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .modal__feature-title {
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-1);
+    }
+
+    .modal__feature-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .modal__actions {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-6);
+    }
+
+    .modal__actions .btn {
+      flex: 1;
+    }
   </style>
 </head>
 <body>
@@ -37,50 +386,177 @@
             <textarea class="form-input" rows="5" placeholder="프로젝트의 목적, 배경, 기대 효과 등을 상세히 작성해주세요"></textarea>
           </div>
 
+          <!-- 희망 카테고리 (#41) -->
+          <div class="form-group">
+            <label class="form-label">희망 IP 카테고리 <span style="color:var(--color-error)">*</span></label>
+            <div class="category-grid">
+              <div class="category-card selected" onclick="toggleCategory(this)">
+                <div class="category-card__icon" style="background:#FEE2E2;color:#DC2626">
+                  <i data-lucide="smile" class="icon-sm"></i>
+                </div>
+                <span class="category-card__name">오리지널 캐릭터</span>
+              </div>
+              <div class="category-card" onclick="toggleCategory(this)">
+                <div class="category-card__icon" style="background:#DBEAFE;color:#2563EB">
+                  <i data-lucide="sticker" class="icon-sm"></i>
+                </div>
+                <span class="category-card__name">이모티콘</span>
+              </div>
+              <div class="category-card selected" onclick="toggleCategory(this)">
+                <div class="category-card__icon" style="background:#DCFCE7;color:#16A34A">
+                  <i data-lucide="film" class="icon-sm"></i>
+                </div>
+                <span class="category-card__name">애니메이션</span>
+              </div>
+              <div class="category-card" onclick="toggleCategory(this)">
+                <div class="category-card__icon" style="background:#FEF3C7;color:#D97706">
+                  <i data-lucide="book-open" class="icon-sm"></i>
+                </div>
+                <span class="category-card__name">웹툰/만화</span>
+              </div>
+              <div class="category-card" onclick="toggleCategory(this)">
+                <div class="category-card__icon" style="background:#F3E8FF;color:#7C3AED">
+                  <i data-lucide="palette" class="icon-sm"></i>
+                </div>
+                <span class="category-card__name">일러스트/아트</span>
+              </div>
+              <div class="category-card" onclick="toggleCategory(this)">
+                <div class="category-card__icon" style="background:#FCE7F3;color:#DB2777">
+                  <i data-lucide="gamepad-2" class="icon-sm"></i>
+                </div>
+                <span class="category-card__name">게임/버추얼</span>
+              </div>
+              <div class="category-card" onclick="toggleCategory(this)">
+                <div class="category-card__icon" style="background:#E0E7FF;color:#4F46E5">
+                  <i data-lucide="star" class="icon-sm"></i>
+                </div>
+                <span class="category-card__name">셀럽/인플루언서</span>
+              </div>
+              <div class="category-card" onclick="toggleCategory(this)">
+                <div class="category-card__icon" style="background:#F1F5F9;color:#64748B">
+                  <i data-lucide="more-horizontal" class="icon-sm"></i>
+                </div>
+                <span class="category-card__name">기타</span>
+              </div>
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="form-label">희망하는 IP 스타일</label>
             <div style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="checkbox"> 코믹
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="checkbox"> 심플
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="checkbox"> 감성
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="checkbox"> 트렌디
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="checkbox"> 일상/공감
+              </label>
               <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;background:var(--color-primary-light);border-color:var(--color-primary)">
-                <input type="checkbox" checked> 귀여운/키치
+                <input type="checkbox" checked> 귀여움/키치
               </label>
               <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
-                <input type="checkbox"> 모던/미니멀
+                <input type="checkbox"> 다크/그로테스크
               </label>
               <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
-                <input type="checkbox"> 레트로/빈티지
-              </label>
-              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;background:var(--color-primary-light);border-color:var(--color-primary)">
-                <input type="checkbox" checked> 동물/캐릭터
-              </label>
-              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
-                <input type="checkbox"> 일러스트/아트
+                <input type="checkbox"> 리얼리즘
               </label>
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4)">
-            <div class="form-group">
-              <label class="form-label">예상 예산 범위</label>
-              <select class="form-input">
-                <option>선택해주세요</option>
-                <option>500만원 미만</option>
-                <option selected>500만원 ~ 1,000만원</option>
-                <option>1,000만원 ~ 3,000만원</option>
-                <option>3,000만원 ~ 5,000만원</option>
-                <option>5,000만원 이상</option>
-                <option>협의 후 결정</option>
-              </select>
+          <!-- 모집분야 (#43) -->
+          <div class="recruit-section">
+            <div class="recruit-section__header">
+              <h3 class="recruit-section__title">모집 분야 <span style="color:var(--color-error)">*</span></h3>
+              <button type="button" class="btn btn--secondary btn--sm" onclick="addRecruitField()">
+                <i data-lucide="plus" class="icon-sm"></i> 분야 추가
+              </button>
             </div>
-            <div class="form-group">
-              <label class="form-label">수익 배분 방식</label>
-              <select class="form-input">
-                <option>선택해주세요</option>
-                <option selected>고정 라이선싱 비용</option>
-                <option>매출 기반 로열티</option>
-                <option>고정비 + 로열티 혼합</option>
-                <option>협의 후 결정</option>
-              </select>
+            <div id="recruitFields">
+              <div class="recruit-item">
+                <select class="form-input recruit-item__field">
+                  <option>분야 선택</option>
+                  <option selected>문구/오피스</option>
+                  <option>패션/의류</option>
+                  <option>식품/F&B</option>
+                  <option>인테리어/리빙</option>
+                  <option>뷰티/코스메틱</option>
+                  <option>광고/마케팅</option>
+                  <option>디지털/IT</option>
+                </select>
+                <div class="recruit-item__count">
+                  <input type="number" class="form-input" value="2" min="1" placeholder="모집 인원">
+                </div>
+                <button type="button" class="recruit-item__remove" onclick="removeRecruitField(this)">
+                  <i data-lucide="x" class="icon-sm"></i>
+                </button>
+              </div>
+              <div class="recruit-item">
+                <select class="form-input recruit-item__field">
+                  <option>분야 선택</option>
+                  <option>문구/오피스</option>
+                  <option selected>패션/의류</option>
+                  <option>식품/F&B</option>
+                  <option>인테리어/리빙</option>
+                  <option>뷰티/코스메틱</option>
+                  <option>광고/마케팅</option>
+                  <option>디지털/IT</option>
+                </select>
+                <div class="recruit-item__count">
+                  <input type="number" class="form-input" value="1" min="1" placeholder="모집 인원">
+                </div>
+                <button type="button" class="recruit-item__remove" onclick="removeRecruitField(this)">
+                  <i data-lucide="x" class="icon-sm"></i>
+                </button>
+              </div>
             </div>
+            <p style="font-size:var(--font-size-sm);color:var(--color-text-tertiary);margin-top:var(--space-2)">
+              * 분야별 모집 인원을 설정해주세요. 총 모집 인원은 분야별 인원의 합으로 계산됩니다.
+            </p>
+          </div>
+
+          <!-- 예산 추천 (#40) -->
+          <div class="budget-section">
+            <div class="budget-section__header">
+              <div class="budget-section__icon">
+                <i data-lucide="lightbulb" class="icon-sm"></i>
+              </div>
+              <div>
+                <h3 class="budget-section__title">AI 예산 추천</h3>
+                <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-top:2px;">선택한 카테고리와 모집분야 기반 추천</p>
+              </div>
+            </div>
+            <div class="budget-recommendation">
+              <div>
+                <div class="budget-recommendation__value">800만원 ~ 1,200만원</div>
+                <p class="budget-recommendation__desc">유사 프로젝트 평균 예산 범위입니다</p>
+              </div>
+            </div>
+            <div class="budget-tags">
+              <span class="budget-tag" onclick="selectBudget(this)">500만원 미만</span>
+              <span class="budget-tag selected" onclick="selectBudget(this)">500만원 ~ 1,000만원</span>
+              <span class="budget-tag" onclick="selectBudget(this)">1,000만원 ~ 3,000만원</span>
+              <span class="budget-tag" onclick="selectBudget(this)">3,000만원 이상</span>
+              <span class="budget-tag" onclick="selectBudget(this)">협의 후 결정</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">수익 배분 방식</label>
+            <select class="form-input">
+              <option>선택해주세요</option>
+              <option selected>고정 라이선싱 비용</option>
+              <option>매출 기반 로열티</option>
+              <option>고정비 + 로열티 혼합</option>
+              <option>협의 후 결정</option>
+            </select>
           </div>
 
           <div class="form-group">
@@ -96,7 +572,69 @@
             <label class="form-label">추가 요구사항</label>
             <textarea class="form-input" rows="3" placeholder="예: 저작권 등록된 IP만 지원 가능, SNS 팔로워 1만 이상 우대 등"></textarea>
           </div>
+
+          <!-- 컨시어지 CTA (#48) -->
+          <div class="concierge-cta" onclick="openConciergeModal()">
+            <div class="concierge-cta__icon">
+              <i data-lucide="headphones" style="width:28px;height:28px"></i>
+            </div>
+            <div class="concierge-cta__content">
+              <h3 class="concierge-cta__title">컨시어지 서비스로 더 쉽게 진행하세요</h3>
+              <p class="concierge-cta__desc">전담 매니저가 IP 매칭부터 계약까지 모든 과정을 대행합니다</p>
+            </div>
+            <button type="button" class="concierge-cta__btn">자세히 보기</button>
+          </div>
         </form>
+
+        <!-- 컨시어지 모달 (#48) -->
+        <div class="modal-overlay" id="conciergeModal" onclick="closeConciergeModal(event)">
+          <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal__header">
+              <h2 class="modal__title">컨시어지 서비스</h2>
+              <button class="modal__close" onclick="closeConciergeModal()">
+                <i data-lucide="x" class="icon-sm"></i>
+              </button>
+            </div>
+            <p style="color:var(--color-text-secondary);margin-bottom:var(--space-6)">
+              전담 매니저가 프로젝트의 모든 과정을 함께합니다
+            </p>
+            <div class="modal__feature">
+              <div class="modal__feature-icon">
+                <i data-lucide="search" class="icon-sm"></i>
+              </div>
+              <div>
+                <p class="modal__feature-title">맞춤 IP 매칭</p>
+                <p class="modal__feature-desc">프로젝트에 딱 맞는 IP를 직접 찾아 추천해드립니다</p>
+              </div>
+            </div>
+            <div class="modal__feature">
+              <div class="modal__feature-icon">
+                <i data-lucide="message-square" class="icon-sm"></i>
+              </div>
+              <div>
+                <p class="modal__feature-title">협상 대행</p>
+                <p class="modal__feature-desc">IP 홀더와의 협상을 대신 진행합니다</p>
+              </div>
+            </div>
+            <div class="modal__feature">
+              <div class="modal__feature-icon">
+                <i data-lucide="file-text" class="icon-sm"></i>
+              </div>
+              <div>
+                <p class="modal__feature-title">계약 지원</p>
+                <p class="modal__feature-desc">표준 계약서 작성 및 법률 검토를 지원합니다</p>
+              </div>
+            </div>
+            <div style="background:var(--color-primary-light);padding:var(--space-4);border-radius:var(--radius-md);margin-top:var(--space-4)">
+              <p style="font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:var(--color-primary);margin-bottom:var(--space-1)">서비스 비용</p>
+              <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">협업 성사 시 수수료 10% (최소 50만원)</p>
+            </div>
+            <div class="modal__actions">
+              <button class="btn btn--secondary" onclick="closeConciergeModal()">나중에</button>
+              <button class="btn btn--primary" onclick="alert('컨시어지 서비스 신청이 완료되었습니다.')">서비스 신청하기</button>
+            </div>
+          </div>
+        </div>
         <div class="form-actions">
           <a href="7-1-1 프로젝트 등록_기본 정보.html" class="btn btn--secondary"><i data-lucide="arrow-left" class="icon"></i>이전</a>
           <a href="7-1-3 프로젝트 등록_신청 양식.html" class="btn btn--primary">다음<i data-lucide="arrow-right" class="icon"></i></a>
@@ -106,6 +644,71 @@
   </main>
   <div id="footer-placeholder"></div>
   <script src="components/shared.js"></script>
-  <script>initPage({activePage:'project'});lucide.createIcons();</script>
+  <script>
+    initPage({activePage:'project'});
+    lucide.createIcons();
+
+    // 희망 카테고리 토글 (#41)
+    function toggleCategory(card) {
+      card.classList.toggle('selected');
+    }
+
+    // 예산 선택 (#40)
+    function selectBudget(tag) {
+      document.querySelectorAll('.budget-tag').forEach(t => t.classList.remove('selected'));
+      tag.classList.add('selected');
+    }
+
+    // 모집분야 추가 (#43)
+    function addRecruitField() {
+      const container = document.getElementById('recruitFields');
+      const newItem = document.createElement('div');
+      newItem.className = 'recruit-item';
+      newItem.innerHTML = `
+        <select class="form-input recruit-item__field">
+          <option>분야 선택</option>
+          <option>문구/오피스</option>
+          <option>패션/의류</option>
+          <option>식품/F&B</option>
+          <option>인테리어/리빙</option>
+          <option>뷰티/코스메틱</option>
+          <option>광고/마케팅</option>
+          <option>디지털/IT</option>
+        </select>
+        <div class="recruit-item__count">
+          <input type="number" class="form-input" value="1" min="1" placeholder="모집 인원">
+        </div>
+        <button type="button" class="recruit-item__remove" onclick="removeRecruitField(this)">
+          <i data-lucide="x" class="icon-sm"></i>
+        </button>
+      `;
+      container.appendChild(newItem);
+      lucide.createIcons();
+    }
+
+    // 모집분야 삭제 (#43)
+    function removeRecruitField(btn) {
+      const items = document.querySelectorAll('.recruit-item');
+      if (items.length > 1) {
+        btn.closest('.recruit-item').remove();
+      } else {
+        alert('최소 1개의 모집 분야가 필요합니다.');
+      }
+    }
+
+    // 컨시어지 모달 열기 (#48)
+    function openConciergeModal() {
+      document.getElementById('conciergeModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    // 컨시어지 모달 닫기 (#48)
+    function closeConciergeModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('conciergeModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  </script>
 </body>
 </html>

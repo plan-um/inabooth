@@ -54,6 +54,24 @@
     .uploaded-file__remove{width:24px;height:24px;border:none;background:none;color:var(--color-text-tertiary);cursor:pointer;border-radius:var(--radius-sm)}
     .uploaded-file__remove:hover{background:var(--color-error-light);color:var(--color-error)}
 
+    /* 스타일가이드 자동첨부 (#49) */
+    .styleguide-attach{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:linear-gradient(135deg,#DBEAFE,#E0E7FF);border:1px solid #93C5FD;border-radius:var(--radius-md);margin-bottom:var(--space-3);cursor:pointer;transition:all var(--transition-fast)}
+    .styleguide-attach:hover{background:linear-gradient(135deg,#BFDBFE,#C7D2FE);border-color:#60A5FA}
+    .styleguide-attach__icon{width:36px;height:36px;background:white;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--color-primary)}
+    .styleguide-attach__content{flex:1}
+    .styleguide-attach__title{font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:#1E40AF}
+    .styleguide-attach__desc{font-size:var(--font-size-xs);color:#3B82F6}
+    .styleguide-attach__btn{padding:var(--space-2) var(--space-3);background:var(--color-primary);color:white;border:none;border-radius:var(--radius-sm);font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold);cursor:pointer}
+    .styleguide-attach__btn:hover{background:var(--color-primary-dark)}
+    .styleguide-attach__btn--attached{background:var(--color-success)}
+    .styleguide-attach__btn--attached:hover{background:#059669}
+
+    /* 임시저장 (#50) */
+    .autosave-notice{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-4);background:var(--color-bg-secondary);border-radius:var(--radius-full);font-size:var(--font-size-xs);color:var(--color-text-secondary)}
+    .autosave-notice i{color:var(--color-success)}
+    .temp-save-btn{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-4);background:white;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--font-size-sm);color:var(--color-text-secondary);cursor:pointer;transition:all var(--transition-fast)}
+    .temp-save-btn:hover{border-color:var(--color-primary);color:var(--color-primary)}
+
     .selected-ip{background:var(--color-primary-light);border:1px solid var(--color-primary);border-radius:var(--radius-lg);padding:var(--space-4);margin-bottom:var(--space-6)}
     .selected-ip__label{font-size:var(--font-size-xs);color:var(--color-primary);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-2)}
     .selected-ip__content{display:flex;align-items:center;gap:var(--space-3)}
@@ -100,8 +118,23 @@
       </div>
 
       <div class="form-section">
-        <h1 class="form-section__title">지원서 작성</h1>
-        <p class="form-section__desc">프로젝트에 맞는 제안서를 작성해주세요.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4)">
+          <div>
+            <h1 class="form-section__title" style="margin-bottom:var(--space-1)">지원서 작성</h1>
+            <p class="form-section__desc" style="margin-bottom:0">프로젝트에 맞는 제안서를 작성해주세요.</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:var(--space-3)">
+            <!-- 자동저장 알림 (#50) -->
+            <div class="autosave-notice" id="autosaveNotice" style="display:none">
+              <i data-lucide="check-circle" class="icon-sm"></i>
+              <span>자동 저장됨</span>
+            </div>
+            <button type="button" class="temp-save-btn" onclick="tempSave()">
+              <i data-lucide="save" class="icon-sm"></i>
+              임시 저장
+            </button>
+          </div>
+        </div>
 
         <!-- 선택된 IP 표시 -->
         <div class="selected-ip">
@@ -173,6 +206,19 @@
 
           <div class="form-group">
             <label class="form-group__label">추가 포트폴리오/참고자료</label>
+
+            <!-- 스타일가이드 자동첨부 (#49) -->
+            <div class="styleguide-attach" id="styleguideAttach">
+              <div class="styleguide-attach__icon">
+                <i data-lucide="book-open" class="icon-sm"></i>
+              </div>
+              <div class="styleguide-attach__content">
+                <div class="styleguide-attach__title">스타일 가이드북 자동 첨부</div>
+                <div class="styleguide-attach__desc">등록된 스타일 가이드북을 자동으로 첨부합니다</div>
+              </div>
+              <button type="button" class="styleguide-attach__btn" id="styleguideBtn" onclick="toggleStyleguide(this)">첨부하기</button>
+            </div>
+
             <div class="file-upload" onclick="document.getElementById('fileInput').click()">
               <i data-lucide="upload-cloud" class="file-upload__icon"></i>
               <p class="file-upload__text">파일을 드래그하거나 클릭하여 업로드</p>
@@ -187,7 +233,7 @@
                     <i data-lucide="file-text" class="icon-sm"></i>
                   </div>
                   <div>
-                    <div class="uploaded-file__name">포트폴리오_2024.pdf</div>
+                    <div class="uploaded-file__name">포트폴리오_2026.pdf</div>
                     <div class="uploaded-file__size">2.4 MB</div>
                   </div>
                 </div>
@@ -224,6 +270,37 @@
   <script>
     initPage({activePage:'project'});
     lucide.createIcons();
+
+    // 스타일가이드 첨부 토글 (#49)
+    function toggleStyleguide(btn) {
+      if (btn.classList.contains('styleguide-attach__btn--attached')) {
+        btn.classList.remove('styleguide-attach__btn--attached');
+        btn.textContent = '첨부하기';
+      } else {
+        btn.classList.add('styleguide-attach__btn--attached');
+        btn.textContent = '첨부됨 ✓';
+      }
+    }
+
+    // 임시저장 (#50)
+    function tempSave() {
+      const notice = document.getElementById('autosaveNotice');
+      notice.style.display = 'flex';
+      setTimeout(() => { notice.style.display = 'none'; }, 3000);
+    }
+
+    // 자동저장 (30초마다)
+    let autoSaveTimer;
+    document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
+      input.addEventListener('input', () => {
+        clearTimeout(autoSaveTimer);
+        autoSaveTimer = setTimeout(() => {
+          const notice = document.getElementById('autosaveNotice');
+          notice.style.display = 'flex';
+          setTimeout(() => { notice.style.display = 'none'; }, 2000);
+        }, 30000);
+      });
+    });
   </script>
 </body>
 </html>

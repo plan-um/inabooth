@@ -19,6 +19,159 @@
     .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
 
     .content-box{padding:var(--space-6);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0}
+
+    /* 인증마크 신청 CTA (#36) */
+    .verification-cta {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      color: white;
+      margin-bottom: var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+    }
+
+    .verification-cta__icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .verification-cta__content {
+      flex: 1;
+    }
+
+    .verification-cta__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .verification-cta__desc {
+      font-size: var(--font-size-sm);
+      opacity: 0.9;
+      margin-bottom: var(--space-3);
+    }
+
+    .verification-cta__badges {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .verification-cta__badge {
+      padding: var(--space-1) var(--space-3);
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .verification-cta__btn {
+      padding: var(--space-3) var(--space-5);
+      background: white;
+      color: var(--color-primary);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .verification-cta__btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* 부가서비스 (#16) */
+    .addon-services {
+      margin-bottom: var(--space-6);
+    }
+
+    .addon-services__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-4);
+    }
+
+    .addon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+
+    .addon-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      background: white;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .addon-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-card);
+    }
+
+    .addon-card__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-3);
+    }
+
+    .addon-card--promotion .addon-card__icon {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    .addon-card--concierge .addon-card__icon {
+      background: #DBEAFE;
+      color: #2563EB;
+    }
+
+    .addon-card--analytics .addon-card__icon {
+      background: #DCFCE7;
+      color: #16A34A;
+    }
+
+    .addon-card__title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .addon-card__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-3);
+    }
+
+    .addon-card__price {
+      font-size: var(--font-size-sm);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .addon-card__free {
+      display: inline-block;
+      padding: var(--space-1) var(--space-2);
+      background: #DCFCE7;
+      color: #166534;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-sm);
+    }
   </style>
 </head>
 <body>
@@ -50,8 +203,58 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);font-size:var(--font-size-sm)">
               <div><span style="color:var(--color-text-tertiary)">공개 범위:</span> 전체 공개</div>
               <div><span style="color:var(--color-text-tertiary)">협업 분야:</span> 4개</div>
-              <div><span style="color:var(--color-text-tertiary)">협업 유형:</span> 라이선싱, 공동 제작</div>
-              <div><span style="color:var(--color-text-tertiary)">등록일:</span> 2024.01.15</div>
+              <div><span style="color:var(--color-text-tertiary)">주요 거래 유형:</span> 상품화 라이선스, 이벤트/팝업</div>
+              <div><span style="color:var(--color-text-tertiary)">등록일:</span> 2026.01.15</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 인증마크 신청 CTA (#36) -->
+        <div class="verification-cta">
+          <div class="verification-cta__icon">
+            <i data-lucide="badge-check" style="width:32px;height:32px"></i>
+          </div>
+          <div class="verification-cta__content">
+            <h3 class="verification-cta__title">인증 IP 뱃지를 받아보세요!</h3>
+            <p class="verification-cta__desc">저작권 등록 정보를 인증하면 '인증 IP' 뱃지가 부여되어 BP의 신뢰도를 높이고 더 많은 협업 기회를 얻을 수 있습니다.</p>
+            <div class="verification-cta__badges">
+              <span class="verification-cta__badge">검색 상위 노출</span>
+              <span class="verification-cta__badge">협업 제안 우선</span>
+              <span class="verification-cta__badge">프리미엄 지원</span>
+            </div>
+          </div>
+          <button class="verification-cta__btn" onclick="alert('인증마크 신청 페이지로 이동합니다.')">
+            인증 신청하기
+          </button>
+        </div>
+
+        <!-- 부가서비스 연계 (#16) -->
+        <div class="addon-services">
+          <h3 class="addon-services__title">추천 부가서비스</h3>
+          <div class="addon-grid">
+            <div class="addon-card addon-card--promotion" onclick="alert('IP 홍보 서비스 상세 페이지로 이동')">
+              <div class="addon-card__icon">
+                <i data-lucide="megaphone" class="icon"></i>
+              </div>
+              <h4 class="addon-card__title">IP 홍보 서비스</h4>
+              <p class="addon-card__desc">뉴스레터, SNS 채널을 통해 BP에게 직접 홍보됩니다</p>
+              <span class="addon-card__price">월 99,000원~</span>
+            </div>
+            <div class="addon-card addon-card--concierge" onclick="alert('컨시어지 서비스 상세 페이지로 이동')">
+              <div class="addon-card__icon">
+                <i data-lucide="headphones" class="icon"></i>
+              </div>
+              <h4 class="addon-card__title">컨시어지 서비스</h4>
+              <p class="addon-card__desc">전담 매니저가 협업 협상과 계약을 지원합니다</p>
+              <span class="addon-card__price">협업 성사 시 수수료</span>
+            </div>
+            <div class="addon-card addon-card--analytics" onclick="alert('인사이트 리포트 상세 페이지로 이동')">
+              <div class="addon-card__icon">
+                <i data-lucide="bar-chart-3" class="icon"></i>
+              </div>
+              <h4 class="addon-card__title">인사이트 리포트</h4>
+              <p class="addon-card__desc">내 IP 조회수, 스크랩 수 등 상세 분석 제공</p>
+              <span class="addon-card__free">PRO 무료 제공</span>
             </div>
           </div>
         </div>

@@ -44,7 +44,7 @@
       width: 80px;
       height: 80px;
       border-radius: 50%;
-      background: var(--gradient-primary);
+      background: linear-gradient(135deg, #EC4899 0%, #F472B6 100%);
       margin: 0 auto var(--space-3);
       display: flex;
       align-items: center;
@@ -65,248 +65,11 @@
       align-items: center;
       gap: var(--space-1);
       padding: var(--space-1) var(--space-3);
-      background: var(--color-primary-light);
-      color: var(--color-primary);
+      background: rgba(236, 72, 153, 0.1);
+      color: var(--color-secondary);
       font-size: var(--font-size-xs);
       font-weight: var(--font-weight-semibold);
       border-radius: var(--radius-full);
-    }
-
-    .sidebar__nav {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-1);
-    }
-
-    .sidebar__link {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-      padding: var(--space-3) var(--space-4);
-      border-radius: var(--radius-md);
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-medium);
-      color: var(--color-text-secondary);
-      transition: all var(--transition-fast);
-    }
-
-    .sidebar__link:hover {
-      background: var(--color-bg-secondary);
-      color: var(--color-text-primary);
-    }
-
-    .sidebar__link.active {
-      background: var(--color-primary-light);
-      color: var(--color-primary);
-    }
-
-    .sidebar__link__badge {
-      margin-left: auto;
-      padding: 2px 8px;
-      background: var(--color-secondary);
-      color: white;
-      font-size: var(--font-size-xs);
-      font-weight: var(--font-weight-semibold);
-      border-radius: var(--radius-full);
-    }
-
-    /* 메인 콘텐츠 */
-    .dashboard__main {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-6);
-    }
-
-    /* 환영 메시지 */
-    .welcome-card {
-      background: var(--gradient-primary);
-      border-radius: var(--radius-xl);
-      padding: var(--space-8);
-      color: white;
-    }
-
-    .welcome-card__title {
-      font-size: var(--font-size-2xl);
-      font-weight: var(--font-weight-bold);
-      margin-bottom: var(--space-2);
-    }
-
-    .welcome-card__desc {
-      opacity: 0.9;
-      font-size: var(--font-size-base);
-    }
-
-    /* 통계 카드 */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-4);
-    }
-
-    .stat-card {
-      background: white;
-      border-radius: var(--radius-lg);
-      padding: var(--space-5);
-      box-shadow: var(--shadow-card);
-    }
-
-    .stat-card__icon {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: var(--space-3);
-    }
-
-    .stat-card__icon--primary { background: var(--color-primary-light); color: var(--color-primary); }
-    .stat-card__icon--secondary { background: rgba(236, 72, 153, 0.1); color: var(--color-secondary); }
-    .stat-card__icon--mint { background: rgba(6, 182, 212, 0.1); color: var(--color-accent-mint); }
-    .stat-card__icon--success { background: var(--color-success-light); color: var(--color-success); }
-
-    .stat-card__value {
-      font-size: var(--font-size-2xl);
-      font-weight: var(--font-weight-bold);
-      color: var(--color-text-primary);
-      margin-bottom: var(--space-1);
-    }
-
-    .stat-card__label {
-      font-size: var(--font-size-sm);
-      color: var(--color-text-tertiary);
-    }
-
-    /* 퀵 액션 */
-    .quick-actions {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-4);
-    }
-
-    .quick-action {
-      display: flex;
-      align-items: center;
-      gap: var(--space-4);
-      padding: var(--space-5);
-      background: white;
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-card);
-      transition: all var(--transition-fast);
-    }
-
-    .quick-action:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .quick-action__icon {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-md);
-      background: var(--color-primary-light);
-      color: var(--color-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .quick-action__text {
-      flex: 1;
-    }
-
-    .quick-action__title {
-      font-size: var(--font-size-base);
-      font-weight: var(--font-weight-semibold);
-      color: var(--color-text-primary);
-      margin-bottom: 2px;
-    }
-
-    .quick-action__desc {
-      font-size: var(--font-size-xs);
-      color: var(--color-text-tertiary);
-    }
-
-    /* 최근 활동 */
-    .activity-section {
-      background: white;
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-card);
-    }
-
-    .activity__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--space-5) var(--space-6);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .activity__title {
-      font-size: var(--font-size-lg);
-      font-weight: var(--font-weight-bold);
-    }
-
-    .activity__more {
-      font-size: var(--font-size-sm);
-      color: var(--color-primary);
-      font-weight: var(--font-weight-medium);
-    }
-
-    .activity__list {
-      padding: var(--space-4) 0;
-    }
-
-    .activity__item {
-      display: flex;
-      align-items: flex-start;
-      gap: var(--space-4);
-      padding: var(--space-4) var(--space-6);
-      transition: background var(--transition-fast);
-    }
-
-    .activity__item:hover {
-      background: var(--color-bg-secondary);
-    }
-
-    .activity__icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .activity__icon--view { background: var(--color-primary-light); color: var(--color-primary); }
-    .activity__icon--like { background: rgba(236, 72, 153, 0.1); color: var(--color-secondary); }
-    .activity__icon--apply { background: var(--color-success-light); color: var(--color-success); }
-    .activity__icon--message { background: rgba(6, 182, 212, 0.1); color: var(--color-accent-mint); }
-
-    .activity__content {
-      flex: 1;
-    }
-
-    .activity__text {
-      font-size: var(--font-size-sm);
-      color: var(--color-text-primary);
-      margin-bottom: 4px;
-    }
-
-    .activity__text strong {
-      font-weight: var(--font-weight-semibold);
-      color: var(--color-primary);
-    }
-
-    .activity__time {
-      font-size: var(--font-size-xs);
-      color: var(--color-text-tertiary);
-    }
-
-    @media (max-width: 1024px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .quick-actions { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* 국적 및 인증마크 */
@@ -361,19 +124,169 @@
       color: var(--color-text-secondary);
     }
 
-    .sidebar__badge--rising {
-      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-      color: #B45309;
+    .sidebar__badge--active {
+      background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+      color: #1D4ED8;
     }
 
-    .sidebar__badge--pick {
-      background: linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%);
-      color: var(--color-primary);
+    .sidebar__badge--trusted {
+      background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+      color: #047857;
     }
 
-    .sidebar__badge--top {
-      background: linear-gradient(135deg, #DCFCE7 0%, #BBF7D0 100%);
-      color: #15803D;
+    .sidebar__nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .sidebar__link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .sidebar__link:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .sidebar__link.active {
+      background: rgba(236, 72, 153, 0.1);
+      color: var(--color-secondary);
+    }
+
+    .sidebar__link__badge {
+      margin-left: auto;
+      padding: 2px 8px;
+      background: var(--color-secondary);
+      color: white;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-full);
+    }
+
+    /* 메인 콘텐츠 */
+    .dashboard__main {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    /* 환영 메시지 */
+    .welcome-card {
+      background: linear-gradient(135deg, #EC4899 0%, #F472B6 100%);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      color: white;
+    }
+
+    .welcome-card__title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .welcome-card__desc {
+      opacity: 0.9;
+      font-size: var(--font-size-base);
+    }
+
+    /* 통계 카드 */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-card);
+    }
+
+    .stat-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-3);
+    }
+
+    .stat-card__icon--primary { background: rgba(236, 72, 153, 0.1); color: var(--color-secondary); }
+    .stat-card__icon--secondary { background: var(--color-primary-light); color: var(--color-primary); }
+    .stat-card__icon--mint { background: rgba(6, 182, 212, 0.1); color: var(--color-accent-mint); }
+    .stat-card__icon--success { background: var(--color-success-light); color: var(--color-success); }
+
+    .stat-card__value {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .stat-card__label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    /* 퀵 액션 */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+
+    .quick-action {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-fast);
+    }
+
+    .quick-action:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .quick-action__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: rgba(236, 72, 153, 0.1);
+      color: var(--color-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quick-action__text {
+      flex: 1;
+    }
+
+    .quick-action__title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: 2px;
+    }
+
+    .quick-action__desc {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
     }
 
     /* 협업 관리 섹션 */
@@ -419,9 +332,9 @@
     }
 
     .collab__tab.active {
-      color: var(--color-primary);
-      background: var(--color-primary-light);
-      border-color: var(--color-primary);
+      color: var(--color-secondary);
+      background: rgba(236, 72, 153, 0.1);
+      border-color: var(--color-secondary);
     }
 
     .collab__list {
@@ -493,6 +406,88 @@
       color: #047857;
     }
 
+    /* 최근 활동 */
+    .activity-section {
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+    }
+
+    .activity__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .activity__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .activity__more {
+      font-size: var(--font-size-sm);
+      color: var(--color-secondary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .activity__list {
+      padding: var(--space-4) 0;
+    }
+
+    .activity__item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-6);
+      transition: background var(--transition-fast);
+    }
+
+    .activity__item:hover {
+      background: var(--color-bg-secondary);
+    }
+
+    .activity__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .activity__icon--view { background: var(--color-primary-light); color: var(--color-primary); }
+    .activity__icon--apply { background: var(--color-success-light); color: var(--color-success); }
+    .activity__icon--message { background: rgba(6, 182, 212, 0.1); color: var(--color-accent-mint); }
+    .activity__icon--project { background: rgba(236, 72, 153, 0.1); color: var(--color-secondary); }
+
+    .activity__content {
+      flex: 1;
+    }
+
+    .activity__text {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+
+    .activity__text strong {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-secondary);
+    }
+
+    .activity__time {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .quick-actions { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 768px) {
       .dashboard__layout {
         grid-template-columns: 1fr;
@@ -516,69 +511,60 @@
         <!-- 사이드바 -->
         <aside class="dashboard__sidebar">
           <div class="sidebar__profile">
-            <div class="sidebar__avatar">H</div>
-            <div class="sidebar__name">홍길동</div>
+            <div class="sidebar__avatar">A</div>
+            <div class="sidebar__name">ABC 브랜드</div>
             <!-- 국적 -->
             <div class="sidebar__country">
               <span class="sidebar__country-flag">🇰🇷</span>
               <span>대한민국</span>
             </div>
             <span class="sidebar__type">
-              <i data-lucide="palette" class="icon icon-sm"></i>
-              IP 홀더 (개인)
+              <i data-lucide="building-2" class="icon icon-sm"></i>
+              브랜드 파트너 (기업)
             </span>
             <!-- 인증마크 -->
             <span class="sidebar__verified">
               <i data-lucide="badge-check" class="icon icon-sm"></i>
-              인증 완료
+              사업자 인증
             </span>
             <!-- 활동 뱃지 -->
             <div class="sidebar__badges">
-              <span class="sidebar__badge sidebar__badge--rising">
-                <i data-lucide="trending-up" class="icon-xs"></i>
-                라이징
+              <span class="sidebar__badge sidebar__badge--active">
+                <i data-lucide="zap" class="icon-xs"></i>
+                활발한 파트너
               </span>
-              <span class="sidebar__badge sidebar__badge--pick">
-                <i data-lucide="star" class="icon-xs"></i>
-                이너부스 픽
-              </span>
-              <span class="sidebar__badge sidebar__badge--top">
-                <i data-lucide="award" class="icon-xs"></i>
-                TOP 10
+              <span class="sidebar__badge sidebar__badge--trusted">
+                <i data-lucide="shield-check" class="icon-xs"></i>
+                신뢰 파트너
               </span>
             </div>
           </div>
 
           <nav class="sidebar__nav">
-            <a href="9-7 마이부스.html" class="sidebar__link active">
+            <a href="9-7 마이부스_BP.html" class="sidebar__link active">
               <i data-lucide="layout-dashboard" class="icon icon-sm"></i>
               대시보드
             </a>
-            <a href="9-7-1 마이부스_IP 관리.html" class="sidebar__link">
-              <i data-lucide="palette" class="icon icon-sm"></i>
-              내 IP 관리
-              <span class="sidebar__link__badge">3</span>
+            <a href="#" class="sidebar__link">
+              <i data-lucide="folder" class="icon icon-sm"></i>
+              내 프로젝트 관리
+              <span class="sidebar__link__badge">5</span>
             </a>
             <a href="#" class="sidebar__link">
               <i data-lucide="handshake" class="icon icon-sm"></i>
-              협업 관리
-              <span class="sidebar__link__badge">2</span>
+              협업 이력
+              <span class="sidebar__link__badge">3</span>
             </a>
-            <a href="9-7-3 마이부스_지원 현황.html" class="sidebar__link">
-              <i data-lucide="send" class="icon icon-sm"></i>
-              지원 현황
-              <span class="sidebar__link__badge">2</span>
+            <a href="#" class="sidebar__link">
+              <i data-lucide="users" class="icon icon-sm"></i>
+              지원자 관리
+              <span class="sidebar__link__badge">12</span>
             </a>
-            <a href="9-7-4 마이부스_받은 문의.html" class="sidebar__link">
-              <i data-lucide="inbox" class="icon icon-sm"></i>
-              받은 문의
-              <span class="sidebar__link__badge">5</span>
-            </a>
-            <a href="9-7-5 마이부스_보낸 문의.html" class="sidebar__link">
+            <a href="#" class="sidebar__link">
               <i data-lucide="message-square" class="icon icon-sm"></i>
               보낸 문의
             </a>
-            <a href="9-7-6 마이부스_스크랩.html" class="sidebar__link">
+            <a href="#" class="sidebar__link">
               <i data-lucide="bookmark" class="icon icon-sm"></i>
               스크랩
             </a>
@@ -597,60 +583,60 @@
         <div class="dashboard__main">
           <!-- 환영 메시지 -->
           <div class="welcome-card">
-            <h1 class="welcome-card__title">안녕하세요, 홍길동님!</h1>
-            <p class="welcome-card__desc">오늘도 새로운 협업 기회가 기다리고 있어요. 확인해보세요!</p>
+            <h1 class="welcome-card__title">안녕하세요, ABC 브랜드님!</h1>
+            <p class="welcome-card__desc">새로운 IP 지원이 들어왔어요. 확인해보세요!</p>
           </div>
 
           <!-- 통계 카드 -->
           <div class="stats-grid">
             <div class="stat-card">
               <div class="stat-card__icon stat-card__icon--primary">
-                <i data-lucide="eye" class="icon"></i>
+                <i data-lucide="folder" class="icon"></i>
               </div>
-              <div class="stat-card__value">2,456</div>
-              <div class="stat-card__label">총 조회수</div>
+              <div class="stat-card__value">5</div>
+              <div class="stat-card__label">진행 중 프로젝트</div>
             </div>
             <div class="stat-card">
               <div class="stat-card__icon stat-card__icon--secondary">
-                <i data-lucide="heart" class="icon"></i>
+                <i data-lucide="users" class="icon"></i>
               </div>
-              <div class="stat-card__value">128</div>
-              <div class="stat-card__label">스크랩 수</div>
+              <div class="stat-card__value">24</div>
+              <div class="stat-card__label">총 지원자</div>
             </div>
             <div class="stat-card">
               <div class="stat-card__icon stat-card__icon--mint">
-                <i data-lucide="message-circle" class="icon"></i>
+                <i data-lucide="eye" class="icon"></i>
               </div>
-              <div class="stat-card__value">15</div>
-              <div class="stat-card__label">받은 문의</div>
+              <div class="stat-card__value">1,892</div>
+              <div class="stat-card__label">프로젝트 조회수</div>
             </div>
             <div class="stat-card">
               <div class="stat-card__icon stat-card__icon--success">
                 <i data-lucide="check-circle" class="icon"></i>
               </div>
-              <div class="stat-card__value">8</div>
-              <div class="stat-card__label">협업 완료</div>
+              <div class="stat-card__value">12</div>
+              <div class="stat-card__label">완료 협업</div>
             </div>
           </div>
 
           <!-- 퀵 액션 -->
           <div class="quick-actions">
-            <a href="6-1 캐릭터 등록.html" class="quick-action">
+            <a href="7-1 프로젝트 등록.html" class="quick-action">
               <div class="quick-action__icon">
                 <i data-lucide="plus" class="icon"></i>
               </div>
               <div class="quick-action__text">
-                <div class="quick-action__title">새 IP 등록</div>
-                <div class="quick-action__desc">캐릭터 IP 추가하기</div>
+                <div class="quick-action__title">프로젝트 등록</div>
+                <div class="quick-action__desc">새 프로젝트 시작하기</div>
               </div>
             </a>
-            <a href="4-1 오픈 프로젝트.html" class="quick-action">
-              <div class="quick-action__icon" style="background: rgba(236, 72, 153, 0.1); color: var(--color-secondary);">
+            <a href="3-1 IP 탐색.html" class="quick-action">
+              <div class="quick-action__icon" style="background: var(--color-primary-light); color: var(--color-primary);">
                 <i data-lucide="search" class="icon"></i>
               </div>
               <div class="quick-action__text">
-                <div class="quick-action__title">프로젝트 찾기</div>
-                <div class="quick-action__desc">오픈 프로젝트 탐색</div>
+                <div class="quick-action__title">IP 탐색</div>
+                <div class="quick-action__desc">새로운 IP 찾기</div>
               </div>
             </a>
             <a href="9-8 내 통계.html" class="quick-action">
@@ -667,7 +653,7 @@
           <!-- 협업 관리 -->
           <section class="collab-section">
             <div class="collab__header">
-              <h2 class="collab__title">협업 현황</h2>
+              <h2 class="collab__title">진행 중인 협업</h2>
               <div class="collab__tabs">
                 <button class="collab__tab active">진행 중</button>
                 <button class="collab__tab">완료</button>
@@ -680,23 +666,23 @@
                   <div class="collab__item-title">2025 여름 굿즈 콜라보</div>
                   <div class="collab__item-meta">
                     <span class="collab__item-type">제품 생산</span>
-                    <span>ABC 브랜드</span>
                     <span>귀여운 곰돌이 친구들</span>
+                    <span>홍길동</span>
                   </div>
                 </div>
-                <span class="collab__item-status collab__item-status--progress">협업 진행중</span>
+                <span class="collab__item-status collab__item-status--progress">진행 중</span>
               </div>
               <div class="collab__item">
-                <img src="images/characters/Random Objects (2).png" alt="" class="collab__item-img">
+                <img src="images/characters/Random Objects (3).png" alt="" class="collab__item-img">
                 <div class="collab__item-content">
-                  <div class="collab__item-title">카페 브랜드 협업</div>
+                  <div class="collab__item-title">브랜드 캐릭터 라이선스</div>
                   <div class="collab__item-meta">
-                    <span class="collab__item-type">브랜드 콜라보</span>
-                    <span>XYZ 커피</span>
-                    <span>신나는 펭귄 친구들</span>
+                    <span class="collab__item-type">라이선스</span>
+                    <span>몽글몽글 구름이</span>
+                    <span>김작가</span>
                   </div>
                 </div>
-                <span class="collab__item-status collab__item-status--completed">계약 체결</span>
+                <span class="collab__item-status collab__item-status--completed">계약 완료</span>
               </div>
             </div>
           </section>
@@ -709,20 +695,20 @@
             </div>
             <div class="activity__list">
               <div class="activity__item">
+                <div class="activity__icon activity__icon--apply">
+                  <i data-lucide="user-plus" class="icon icon-sm"></i>
+                </div>
+                <div class="activity__content">
+                  <div class="activity__text"><strong>2025 여름 굿즈 콜라보</strong>에 새 지원자가 있습니다</div>
+                  <div class="activity__time">15분 전</div>
+                </div>
+              </div>
+              <div class="activity__item">
                 <div class="activity__icon activity__icon--view">
                   <i data-lucide="eye" class="icon icon-sm"></i>
                 </div>
                 <div class="activity__content">
-                  <div class="activity__text"><strong>귀여운 곰돌이 친구들</strong> IP가 45회 조회되었습니다</div>
-                  <div class="activity__time">10분 전</div>
-                </div>
-              </div>
-              <div class="activity__item">
-                <div class="activity__icon activity__icon--like">
-                  <i data-lucide="heart" class="icon icon-sm"></i>
-                </div>
-                <div class="activity__content">
-                  <div class="activity__text"><strong>ABC 브랜드</strong>에서 IP를 스크랩했습니다</div>
+                  <div class="activity__text"><strong>신제품 캐릭터 협업</strong> 프로젝트가 120회 조회되었습니다</div>
                   <div class="activity__time">1시간 전</div>
                 </div>
               </div>
@@ -731,16 +717,16 @@
                   <i data-lucide="message-circle" class="icon icon-sm"></i>
                 </div>
                 <div class="activity__content">
-                  <div class="activity__text"><strong>XYZ 코스메틱</strong>에서 협업 문의가 왔습니다</div>
+                  <div class="activity__text"><strong>홍길동</strong>님에게 협업 문의 답변이 왔습니다</div>
                   <div class="activity__time">3시간 전</div>
                 </div>
               </div>
               <div class="activity__item">
-                <div class="activity__icon activity__icon--apply">
-                  <i data-lucide="check-circle" class="icon icon-sm"></i>
+                <div class="activity__icon activity__icon--project">
+                  <i data-lucide="folder-check" class="icon icon-sm"></i>
                 </div>
                 <div class="activity__content">
-                  <div class="activity__text"><strong>키즈 캠페인</strong> 프로젝트 지원이 승인되었습니다</div>
+                  <div class="activity__text"><strong>브랜드 캐릭터 라이선스</strong> 협업이 완료되었습니다</div>
                   <div class="activity__time">어제</div>
                 </div>
               </div>

@@ -356,6 +356,251 @@
       }
     }
 
+    /* 섹션 타이틀 */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .section-title__icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section-title__icon--bp {
+      background: rgba(236, 72, 153, 0.1);
+      color: var(--color-secondary);
+    }
+
+    .section-title__icon--iph {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .section-title__text {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .section-title__count {
+      padding: 2px 10px;
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-full);
+    }
+
+    /* 상태 요약 카드 */
+    .status-summary-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+
+    .status-card-item {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+
+    .status-card-item__value {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: 2px;
+    }
+
+    .status-card-item__value--pending { color: var(--color-warning); }
+    .status-card-item__value--reviewing { color: var(--color-primary); }
+    .status-card-item__value--accepted { color: var(--color-success); }
+    .status-card-item__value--rejected { color: var(--color-text-tertiary); }
+
+    .status-card-item__label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    /* 지원 목록 아이템 */
+    .application-item {
+      display: flex;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      border-radius: var(--radius-xl);
+      background: white;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-fast);
+    }
+
+    .application-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .application-item__image {
+      width: 100px;
+      height: 70px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .application-item__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .application-item__content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .application-item__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-1);
+    }
+
+    .application-item__status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .application-item__status--pending {
+      background: var(--color-warning-light);
+      color: var(--color-warning);
+    }
+
+    .application-item__status--reviewing {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .application-item__status--accepted {
+      background: var(--color-success-light);
+      color: var(--color-success);
+    }
+
+    .application-item__status--rejected {
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-tertiary);
+    }
+
+    .application-item__title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-1);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .application-item__meta {
+      display: flex;
+      gap: var(--space-3);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .application-item__ip {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-sm);
+      margin-top: var(--space-2);
+    }
+
+    .application-item__ip-image {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .application-item__ip-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .application-item__ip-name {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .application-item__actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      justify-content: center;
+    }
+
+    .application-item__action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-1);
+      padding: var(--space-2) var(--space-3);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .application-item__action:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .application-item__action--primary {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    .application-item__action--danger:hover {
+      border-color: var(--color-error);
+      color: var(--color-error);
+      background: var(--color-error-light);
+    }
+
+    .application-item__ip-label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .application-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    @media (max-width: 1024px) {
+      .status-summary-row { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 768px) {
       .dashboard__layout {
         grid-template-columns: 1fr;
@@ -378,6 +623,19 @@
       .project-item__stats {
         flex-wrap: wrap;
         gap: var(--space-3);
+      }
+
+      .application-item {
+        flex-direction: column;
+      }
+
+      .application-item__image {
+        width: 100%;
+        height: 120px;
+      }
+
+      .application-item__actions {
+        flex-direction: row;
       }
     }
   </style>
@@ -412,10 +670,11 @@
             <a href="9-7-2 마이부스_프로젝트 관리.html" class="sidebar__link active">
               <i data-lucide="folder" class="icon icon-sm"></i>
               프로젝트 관리
+              <span class="sidebar__link__badge">7</span>
             </a>
-            <a href="9-7-3 마이부스_지원 현황.html" class="sidebar__link">
-              <i data-lucide="send" class="icon icon-sm"></i>
-              지원 현황
+            <a href="#" class="sidebar__link">
+              <i data-lucide="handshake" class="icon icon-sm"></i>
+              협업 관리
               <span class="sidebar__link__badge">2</span>
             </a>
             <a href="9-7-4 마이부스_받은 문의.html" class="sidebar__link">
@@ -424,7 +683,7 @@
               <span class="sidebar__link__badge">5</span>
             </a>
             <a href="9-7-5 마이부스_보낸 문의.html" class="sidebar__link">
-              <i data-lucide="send" class="icon icon-sm"></i>
+              <i data-lucide="message-square" class="icon icon-sm"></i>
               보낸 문의
             </a>
             <a href="9-7-6 마이부스_스크랩.html" class="sidebar__link">
@@ -435,6 +694,10 @@
               <i data-lucide="bar-chart-3" class="icon icon-sm"></i>
               내 통계
             </a>
+            <a href="9-4 요금제 관리.html" class="sidebar__link">
+              <i data-lucide="credit-card" class="icon icon-sm"></i>
+              요금제
+            </a>
           </nav>
         </aside>
 
@@ -444,12 +707,21 @@
           <div class="page-header">
             <div>
               <h1 class="page-header__title">프로젝트 관리</h1>
-              <p class="page-header__desc">내가 등록한 오픈 프로젝트를 관리합니다</p>
+              <p class="page-header__desc">등록한 프로젝트와 지원한 프로젝트를 관리합니다</p>
             </div>
             <a href="5-1 프로젝트 등록.html" class="btn btn--primary btn--md">
               <i data-lucide="plus" class="icon icon-sm"></i>
               새 프로젝트 등록
             </a>
+          </div>
+
+          <!-- 섹션 1: 등록한 프로젝트 (BP) -->
+          <div class="section-title">
+            <span class="section-title__icon section-title__icon--bp">
+              <i data-lucide="briefcase" class="icon"></i>
+            </span>
+            <span class="section-title__text">등록한 프로젝트</span>
+            <span class="section-title__count">4</span>
           </div>
 
           <!-- 탭 필터 -->
@@ -477,13 +749,13 @@
             <!-- 프로젝트 1 - 모집중 -->
             <div class="project-item">
               <div class="project-item__image">
-                <img src="https://picsum.photos/seed/proj1/360/240" alt="2024 여름 캠페인">
+                <img src="https://picsum.photos/seed/proj1/360/240" alt="2026 여름 캠페인">
               </div>
               <div class="project-item__content">
                 <div class="project-item__header">
                   <span class="project-item__status project-item__status--recruiting">모집중</span>
                 </div>
-                <h3 class="project-item__title">2024 여름 시즌 음료 캠페인 캐릭터 콜라보</h3>
+                <h3 class="project-item__title">2026 여름 시즌 음료 캠페인 캐릭터 콜라보</h3>
                 <div class="project-item__meta">
                   <span class="project-item__meta-item">
                     <i data-lucide="calendar" class="icon icon-sm"></i>
@@ -597,7 +869,7 @@
                 <div class="project-item__meta">
                   <span class="project-item__meta-item">
                     <i data-lucide="calendar" class="icon icon-sm"></i>
-                    2024.01 ~ 2024.06
+                    2026.01 ~ 2026.06
                   </span>
                   <span class="project-item__meta-item">
                     <i data-lucide="tag" class="icon icon-sm"></i>
@@ -670,6 +942,255 @@
               </div>
             </div>
           </div>
+
+          <!-- 섹션 2: 지원한 프로젝트 (IPH) -->
+          <div class="section-title" style="margin-top: var(--space-8);">
+            <span class="section-title__icon section-title__icon--iph">
+              <i data-lucide="send" class="icon"></i>
+            </span>
+            <span class="section-title__text">지원한 프로젝트</span>
+            <span class="section-title__count">5</span>
+          </div>
+
+          <!-- 상태 요약 -->
+          <div class="status-summary-row">
+            <div class="status-card-item">
+              <div class="status-card-item__value status-card-item__value--pending">2</div>
+              <div class="status-card-item__label">검토 대기</div>
+            </div>
+            <div class="status-card-item">
+              <div class="status-card-item__value status-card-item__value--reviewing">1</div>
+              <div class="status-card-item__label">검토중</div>
+            </div>
+            <div class="status-card-item">
+              <div class="status-card-item__value status-card-item__value--accepted">1</div>
+              <div class="status-card-item__label">수락됨</div>
+            </div>
+            <div class="status-card-item">
+              <div class="status-card-item__value status-card-item__value--rejected">1</div>
+              <div class="status-card-item__label">거절됨</div>
+            </div>
+          </div>
+
+          <!-- 지원 목록 -->
+          <div class="application-list">
+                <!-- 지원 1 - 검토 대기 -->
+                <div class="application-item">
+                  <div class="application-item__image">
+                    <img src="https://picsum.photos/seed/app1/280/200" alt="글로벌 식음료 브랜드">
+                  </div>
+                  <div class="application-item__content">
+                    <div class="application-item__header">
+                      <span class="application-item__status application-item__status--pending">
+                        <i data-lucide="clock" class="icon icon-xs"></i>
+                        검토 대기
+                      </span>
+                    </div>
+                    <h3 class="application-item__title">글로벌 식음료 브랜드 여름 캠페인</h3>
+                    <div class="application-item__meta">
+                      <span class="application-item__meta-item">
+                        <i data-lucide="building" class="icon icon-sm"></i>
+                        ABC 코퍼레이션
+                      </span>
+                      <span class="application-item__meta-item">
+                        <i data-lucide="calendar" class="icon icon-sm"></i>
+                        지원일: 2026.01.15
+                      </span>
+                    </div>
+                    <div class="application-item__ip">
+                      <div class="application-item__ip-image">
+                        <img src="https://picsum.photos/seed/ip1/80/80" alt="귀여운 곰돌이">
+                      </div>
+                      <div>
+                        <div class="application-item__ip-name">귀여운 곰돌이 친구들</div>
+                        <div class="application-item__ip-label">지원 IP</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="application-item__actions">
+                    <button class="application-item__action" onclick="location.href='4-2 프로젝트 상세.html'">
+                      <i data-lucide="eye" class="icon icon-sm"></i>
+                      상세보기
+                    </button>
+                    <a href="9-7-3-1 지원 취소 확인.html" class="application-item__action application-item__action--danger">
+                      <i data-lucide="x" class="icon icon-sm"></i>
+                      취소
+                    </a>
+                  </div>
+                </div>
+
+                <!-- 지원 2 - 검토 대기 -->
+                <div class="application-item">
+                  <div class="application-item__image">
+                    <img src="https://picsum.photos/seed/app2/280/200" alt="키즈 에듀테크">
+                  </div>
+                  <div class="application-item__content">
+                    <div class="application-item__header">
+                      <span class="application-item__status application-item__status--pending">
+                        <i data-lucide="clock" class="icon icon-xs"></i>
+                        검토 대기
+                      </span>
+                    </div>
+                    <h3 class="application-item__title">키즈 에듀테크 앱 캐릭터 파트너십</h3>
+                    <div class="application-item__meta">
+                      <span class="application-item__meta-item">
+                        <i data-lucide="building" class="icon icon-sm"></i>
+                        스마트에듀
+                      </span>
+                      <span class="application-item__meta-item">
+                        <i data-lucide="calendar" class="icon icon-sm"></i>
+                        지원일: 2026.01.12
+                      </span>
+                    </div>
+                    <div class="application-item__ip">
+                      <div class="application-item__ip-image">
+                        <img src="https://picsum.photos/seed/ip2/80/80" alt="우주 탐험 캣">
+                      </div>
+                      <div>
+                        <div class="application-item__ip-name">우주 탐험 캣</div>
+                        <div class="application-item__ip-label">지원 IP</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="application-item__actions">
+                    <button class="application-item__action" onclick="location.href='4-2 프로젝트 상세.html'">
+                      <i data-lucide="eye" class="icon icon-sm"></i>
+                      상세보기
+                    </button>
+                    <a href="9-7-3-1 지원 취소 확인.html" class="application-item__action application-item__action--danger">
+                      <i data-lucide="x" class="icon icon-sm"></i>
+                      취소
+                    </a>
+                  </div>
+                </div>
+
+                <!-- 지원 3 - 검토중 -->
+                <div class="application-item">
+                  <div class="application-item__image">
+                    <img src="https://picsum.photos/seed/app3/280/200" alt="패션 브랜드">
+                  </div>
+                  <div class="application-item__content">
+                    <div class="application-item__header">
+                      <span class="application-item__status application-item__status--reviewing">
+                        <i data-lucide="loader" class="icon icon-xs"></i>
+                        검토중
+                      </span>
+                    </div>
+                    <h3 class="application-item__title">패션 브랜드 콜라보레이션 프로젝트</h3>
+                    <div class="application-item__meta">
+                      <span class="application-item__meta-item">
+                        <i data-lucide="building" class="icon icon-sm"></i>
+                        트렌디웨어
+                      </span>
+                      <span class="application-item__meta-item">
+                        <i data-lucide="calendar" class="icon icon-sm"></i>
+                        지원일: 2026.01.08
+                      </span>
+                    </div>
+                    <div class="application-item__ip">
+                      <div class="application-item__ip-image">
+                        <img src="https://picsum.photos/seed/ip1/80/80" alt="귀여운 곰돌이">
+                      </div>
+                      <div>
+                        <div class="application-item__ip-name">귀여운 곰돌이 친구들</div>
+                        <div class="application-item__ip-label">지원 IP</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="application-item__actions">
+                    <button class="application-item__action" onclick="location.href='4-2 프로젝트 상세.html'">
+                      <i data-lucide="eye" class="icon icon-sm"></i>
+                      상세보기
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 지원 4 - 수락됨 -->
+                <div class="application-item">
+                  <div class="application-item__image">
+                    <img src="https://picsum.photos/seed/app4/280/200" alt="문구 브랜드">
+                  </div>
+                  <div class="application-item__content">
+                    <div class="application-item__header">
+                      <span class="application-item__status application-item__status--accepted">
+                        <i data-lucide="check" class="icon icon-xs"></i>
+                        수락됨
+                      </span>
+                    </div>
+                    <h3 class="application-item__title">문구 브랜드 캐릭터 라이선싱</h3>
+                    <div class="application-item__meta">
+                      <span class="application-item__meta-item">
+                        <i data-lucide="building" class="icon icon-sm"></i>
+                        펜슬러브
+                      </span>
+                      <span class="application-item__meta-item">
+                        <i data-lucide="calendar" class="icon icon-sm"></i>
+                        수락일: 2026.01.05
+                      </span>
+                    </div>
+                    <div class="application-item__ip">
+                      <div class="application-item__ip-image">
+                        <img src="https://picsum.photos/seed/ip1/80/80" alt="귀여운 곰돌이">
+                      </div>
+                      <div>
+                        <div class="application-item__ip-name">귀여운 곰돌이 친구들</div>
+                        <div class="application-item__ip-label">지원 IP</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="application-item__actions">
+                    <button class="application-item__action application-item__action--primary" onclick="location.href='10-2 채팅방 상세.html'">
+                      <i data-lucide="message-circle" class="icon icon-sm"></i>
+                      협업 채팅
+                    </button>
+                    <button class="application-item__action" onclick="location.href='4-2 프로젝트 상세.html'">
+                      <i data-lucide="eye" class="icon icon-sm"></i>
+                      상세보기
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 지원 5 - 거절됨 -->
+                <div class="application-item" style="opacity: 0.6;">
+                  <div class="application-item__image">
+                    <img src="https://picsum.photos/seed/app5/280/200" alt="화장품 브랜드">
+                  </div>
+                  <div class="application-item__content">
+                    <div class="application-item__header">
+                      <span class="application-item__status application-item__status--rejected">
+                        <i data-lucide="x" class="icon icon-xs"></i>
+                        거절됨
+                      </span>
+                    </div>
+                    <h3 class="application-item__title">프리미엄 화장품 한정판 콜라보</h3>
+                    <div class="application-item__meta">
+                      <span class="application-item__meta-item">
+                        <i data-lucide="building" class="icon icon-sm"></i>
+                        뷰티플러스
+                      </span>
+                      <span class="application-item__meta-item">
+                        <i data-lucide="calendar" class="icon icon-sm"></i>
+                        결과일: 2026.01.03
+                      </span>
+                    </div>
+                    <div class="application-item__ip">
+                      <div class="application-item__ip-image">
+                        <img src="https://picsum.photos/seed/ip2/80/80" alt="우주 탐험 캣">
+                      </div>
+                      <div>
+                        <div class="application-item__ip-name">우주 탐험 캣</div>
+                        <div class="application-item__ip-label">지원 IP</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="application-item__actions">
+                    <button class="application-item__action" onclick="location.href='4-2 프로젝트 상세.html'">
+                      <i data-lucide="eye" class="icon icon-sm"></i>
+                      상세보기
+                    </button>
+                  </div>
+                </div>
+              </div>
         </div>
       </div>
     </div>

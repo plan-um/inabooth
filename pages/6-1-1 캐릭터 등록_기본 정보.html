@@ -35,6 +35,133 @@
     .tag{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);background:var(--color-primary-light);color:var(--color-primary);border-radius:var(--radius-full);font-size:var(--font-size-sm)}
     .tag-remove{cursor:pointer;display:flex;align-items:center}
     .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--color-border)}
+
+    /* 배경색 자동제안 (#13) */
+    .bg-color-suggestion {
+      margin-top: var(--space-4);
+      padding: var(--space-4);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      display: none;
+    }
+
+    .bg-color-suggestion.active {
+      display: block;
+    }
+
+    .bg-color-suggestion__label {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .bg-color-suggestion__label i {
+      color: var(--color-primary);
+    }
+
+    .bg-color-options {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .bg-color-option {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    .bg-color-option:hover {
+      transform: scale(1.1);
+    }
+
+    .bg-color-option.selected {
+      border-color: var(--color-primary);
+    }
+
+    .bg-color-option.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .bg-color-custom {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      border: 2px dashed var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .bg-color-custom:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .bg-color-custom input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* 분야/스타일/타깃 (#34) */
+    .multi-select-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .multi-select-chip {
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: white;
+    }
+
+    .multi-select-chip:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .multi-select-chip.selected {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    .form-group-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    @media (max-width: 768px) {
+      .form-group-row {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -59,10 +186,28 @@
           </div>
           <div class="form-group">
             <label class="form-label required">대표 이미지</label>
-            <div class="upload-area">
+            <div class="upload-area" id="imageUploadArea">
               <i data-lucide="image" class="upload-icon"></i>
               <p style="color:var(--color-text-secondary);">클릭하여 이미지 업로드</p>
               <p style="font-size:var(--font-size-sm);color:var(--color-text-tertiary);margin-top:var(--space-2);">권장 사이즈: 800x800px</p>
+            </div>
+            <!-- 배경색 자동제안 (#13) -->
+            <div class="bg-color-suggestion active" id="bgColorSuggestion">
+              <div class="bg-color-suggestion__label">
+                <i data-lucide="palette" class="icon icon-sm"></i>
+                AI가 추출한 추천 배경색 (클릭하여 선택)
+              </div>
+              <div class="bg-color-options">
+                <div class="bg-color-option selected" style="background: #FFE5E5;" data-color="#FFE5E5" onclick="selectBgColor(this)"></div>
+                <div class="bg-color-option" style="background: #E5F0FF;" data-color="#E5F0FF" onclick="selectBgColor(this)"></div>
+                <div class="bg-color-option" style="background: #E5FFE5;" data-color="#E5FFE5" onclick="selectBgColor(this)"></div>
+                <div class="bg-color-option" style="background: #FFF5E5;" data-color="#FFF5E5" onclick="selectBgColor(this)"></div>
+                <div class="bg-color-option" style="background: #F5E5FF;" data-color="#F5E5FF" onclick="selectBgColor(this)"></div>
+                <label class="bg-color-custom">
+                  <i data-lucide="plus" class="icon icon-sm"></i>
+                  <input type="color" id="customBgColor" onchange="setCustomBgColor(this)">
+                </label>
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -95,6 +240,14 @@
                 <div class="radio-card-content">웹툰/만화</div>
               </label>
               <label class="radio-card">
+                <input type="radio" name="category" value="illustration">
+                <div class="radio-card-content">서브컬쳐/일러스트</div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="category" value="mascot">
+                <div class="radio-card-content">마스코트/브랜드</div>
+              </label>
+              <label class="radio-card">
                 <input type="radio" name="category" value="game">
                 <div class="radio-card-content">게임</div>
               </label>
@@ -104,6 +257,52 @@
               </label>
             </div>
           </div>
+
+          <!-- 분야/스타일/타깃 (#34) -->
+          <div class="form-group-row">
+            <div class="form-group">
+              <label class="form-label required">분야</label>
+              <div class="multi-select-group" data-max="3">
+                <span class="multi-select-chip" onclick="toggleChip(this)">문구/오피스</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">인테리어/가구</span>
+                <span class="multi-select-chip selected" onclick="toggleChip(this)">패션/의류</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">액세서리/주얼리</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">식품/F&B</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">생활용품/리빙</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">모바일/디지털 콘텐츠</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">출판/문학</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">교육/키즈</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">전시/행사</span>
+              </div>
+              <p style="font-size:var(--font-size-xs);color:var(--color-text-tertiary);margin-top:var(--space-2);">협업을 원하는 분야를 최대 3개 선택하세요</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">스타일</label>
+              <div class="multi-select-group" data-max="3">
+                <span class="multi-select-chip" onclick="toggleChip(this)">코믹</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">심플</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">감성</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">트렌디</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">일상/공감</span>
+                <span class="multi-select-chip selected" onclick="toggleChip(this)">귀여움/키치</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">다크/그로테스크</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">리얼리즘</span>
+              </div>
+              <p style="font-size:var(--font-size-xs);color:var(--color-text-tertiary);margin-top:var(--space-2);">캐릭터 스타일을 최대 3개 선택하세요</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">타깃 / 팬층</label>
+              <div class="multi-select-group" data-max="3">
+                <span class="multi-select-chip" onclick="toggleChip(this)">키즈/패밀리</span>
+                <span class="multi-select-chip selected" onclick="toggleChip(this)">MZ세대</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">글로벌</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">남성 중심</span>
+                <span class="multi-select-chip" onclick="toggleChip(this)">여성 중심</span>
+              </div>
+              <p style="font-size:var(--font-size-xs);color:var(--color-text-tertiary);margin-top:var(--space-2);">주요 타깃/팬층을 선택하세요</p>
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="form-label">태그 (최대 10개)</label>
             <div class="tag-input-wrapper">
@@ -122,6 +321,52 @@
   </main>
   <div id="footer-placeholder"></div>
   <script src="components/shared.js"></script>
-  <script>initPage({activePage:'browse'});</script>
+  <script>
+    initPage({activePage:'browse'});
+
+    // 배경색 선택 (#13)
+    function selectBgColor(element) {
+      document.querySelectorAll('.bg-color-option').forEach(opt => opt.classList.remove('selected'));
+      element.classList.add('selected');
+      const color = element.dataset.color;
+      console.log('Selected background color:', color);
+    }
+
+    function setCustomBgColor(input) {
+      const color = input.value;
+      const container = input.closest('.bg-color-options');
+      document.querySelectorAll('.bg-color-option').forEach(opt => opt.classList.remove('selected'));
+
+      // 커스텀 색상 적용
+      const customLabel = input.closest('.bg-color-custom');
+      customLabel.style.background = color;
+      customLabel.style.borderStyle = 'solid';
+      customLabel.style.borderColor = 'var(--color-primary)';
+      console.log('Custom background color:', color);
+    }
+
+    // 칩 토글 (#34)
+    function toggleChip(element) {
+      const group = element.closest('.multi-select-group');
+      const maxSelect = parseInt(group.dataset.max) || 3;
+      const selectedCount = group.querySelectorAll('.selected').length;
+
+      if (element.classList.contains('selected')) {
+        element.classList.remove('selected');
+      } else if (selectedCount < maxSelect) {
+        element.classList.add('selected');
+      } else {
+        alert(`최대 ${maxSelect}개까지 선택할 수 있습니다.`);
+      }
+    }
+
+    // 라디오 카드 선택 처리
+    document.querySelectorAll('.radio-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+      });
+    });
+  </script>
 </body>
 </html>

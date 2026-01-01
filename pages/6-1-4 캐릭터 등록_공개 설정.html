@@ -19,6 +19,179 @@
     .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
 
     .content-box{padding:var(--space-6);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0}
+
+    /* 공개 설정 라디오 카드 (#45) */
+    .visibility-card {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .visibility-card:hover {
+      border-color: var(--color-primary);
+    }
+
+    .visibility-card.selected {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .visibility-card__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .visibility-card--public .visibility-card__icon {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .visibility-card--verified .visibility-card__icon {
+      background: #DBEAFE;
+      color: #1E40AF;
+    }
+
+    .visibility-card--private .visibility-card__icon {
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+
+    .visibility-card__title {
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: 4px;
+    }
+
+    .visibility-card__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .visibility-card input[type="radio"] {
+      margin-top: 4px;
+    }
+
+    /* 할인 최소금액 (#35) */
+    .discount-section {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-top: var(--space-6);
+      background: white;
+    }
+
+    .discount-section__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .discount-section__icon {
+      width: 40px;
+      height: 40px;
+      background: #FEF3C7;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #D97706;
+    }
+
+    .discount-section__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .discount-toggle {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 48px;
+      height: 24px;
+      background: var(--color-border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+
+    .toggle-switch.active {
+      background: var(--color-primary);
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: transform var(--transition-fast);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .toggle-switch.active::after {
+      transform: translateX(24px);
+    }
+
+    .discount-fields {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+      padding: var(--space-4);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+    }
+
+    .discount-fields.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .discount-input-group {
+      position: relative;
+    }
+
+    .discount-input-group .form-input {
+      padding-right: 40px;
+    }
+
+    .discount-input-group__suffix {
+      position: absolute;
+      right: var(--space-3);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-tertiary);
+      font-size: var(--font-size-sm);
+    }
+
+    .discount-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
+      padding: var(--space-3);
+      background: #FEF3C7;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: #92400E;
+    }
   </style>
 </head>
 <body>
@@ -30,30 +203,79 @@
         <h1 class="form-title">STEP 4. 공개 설정</h1>
         <p class="form-subtitle">공개 범위를 설정하고 등록을 완료하세요</p>
         <form>
+          <!-- 공개 범위 (#45) -->
           <div class="form-group">
             <label class="form-label">공개 범위</label>
             <div style="display:flex;flex-direction:column;gap:var(--space-3)">
-              <label style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-4);border:2px solid var(--color-primary);border-radius:var(--radius-md);background:var(--color-primary-light);cursor:pointer">
-                <input type="radio" name="visibility" checked style="margin-top:4px">
+              <label class="visibility-card visibility-card--public selected" onclick="selectVisibility(this)">
+                <div class="visibility-card__icon">
+                  <i data-lucide="globe" class="icon"></i>
+                </div>
+                <input type="radio" name="visibility" value="public" checked>
                 <div>
-                  <div style="font-weight:600">전체 공개</div>
-                  <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">모든 사용자가 IP를 검색하고 협업 문의를 보낼 수 있습니다</div>
+                  <div class="visibility-card__title">전체 공개</div>
+                  <div class="visibility-card__desc">모든 사용자가 IP를 검색하고 협업 문의를 보낼 수 있습니다</div>
                 </div>
               </label>
-              <label style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
-                <input type="radio" name="visibility" style="margin-top:4px">
+              <label class="visibility-card visibility-card--verified" onclick="selectVisibility(this)">
+                <div class="visibility-card__icon">
+                  <i data-lucide="shield-check" class="icon"></i>
+                </div>
+                <input type="radio" name="visibility" value="verified">
                 <div>
-                  <div style="font-weight:600">인증 회원만</div>
-                  <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">사업자 인증을 완료한 회원만 IP를 볼 수 있습니다</div>
+                  <div class="visibility-card__title">인증 회원만</div>
+                  <div class="visibility-card__desc">사업자 인증을 완료한 BP 회원만 IP를 볼 수 있습니다</div>
                 </div>
               </label>
-              <label style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
-                <input type="radio" name="visibility" style="margin-top:4px">
+              <label class="visibility-card visibility-card--private" onclick="selectVisibility(this)">
+                <div class="visibility-card__icon">
+                  <i data-lucide="lock" class="icon"></i>
+                </div>
+                <input type="radio" name="visibility" value="private">
                 <div>
-                  <div style="font-weight:600">비공개</div>
-                  <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">IP가 검색되지 않으며, 직접 링크 공유만 가능합니다</div>
+                  <div class="visibility-card__title">비공개</div>
+                  <div class="visibility-card__desc">IP가 검색되지 않으며, 직접 링크 공유만 가능합니다</div>
                 </div>
               </label>
+            </div>
+          </div>
+
+          <!-- 할인 최소금액 설정 (#35) -->
+          <div class="discount-section">
+            <div class="discount-section__header">
+              <div class="discount-section__icon">
+                <i data-lucide="percent" class="icon"></i>
+              </div>
+              <div>
+                <h3 class="discount-section__title">할인 조건 설정</h3>
+                <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-top:2px;">협업 계약 시 적용할 할인 조건을 설정하세요</p>
+              </div>
+            </div>
+            <div class="discount-toggle">
+              <div class="toggle-switch active" id="discountToggle" onclick="toggleDiscount()"></div>
+              <span>할인 조건 사용</span>
+            </div>
+            <div class="discount-fields" id="discountFields">
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">할인 최소금액</label>
+                <div class="discount-input-group">
+                  <input type="text" class="form-input" placeholder="예: 1,000" value="500">
+                  <span class="discount-input-group__suffix">만원</span>
+                </div>
+                <p style="font-size:var(--font-size-xs);color:var(--color-text-tertiary);margin-top:4px;">이 금액 이상 계약 시 할인 적용</p>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">할인율</label>
+                <div class="discount-input-group">
+                  <input type="text" class="form-input" placeholder="예: 10" value="10">
+                  <span class="discount-input-group__suffix">%</span>
+                </div>
+                <p style="font-size:var(--font-size-xs);color:var(--color-text-tertiary);margin-top:4px;">조건 충족 시 적용되는 할인율</p>
+              </div>
+            </div>
+            <div class="discount-notice">
+              <i data-lucide="info" class="icon-sm" style="flex-shrink:0;margin-top:2px"></i>
+              <span>할인 조건은 협업 제안서에 자동으로 표시되며, BP가 프로젝트 예산을 설정할 때 참고할 수 있습니다.</span>
             </div>
           </div>
 
@@ -85,8 +307,8 @@
                 <span style="font-weight:500">오리지널 캐릭터</span>
                 <span style="color:var(--color-text-tertiary)">협업 분야</span>
                 <span style="font-weight:500">문구, 패션, 인테리어, 광고</span>
-                <span style="color:var(--color-text-tertiary)">협업 유형</span>
-                <span style="font-weight:500">라이선싱, 공동 제작</span>
+                <span style="color:var(--color-text-tertiary)">주요 거래 유형</span>
+                <span style="font-weight:500">상품화 라이선스, 이벤트/팝업</span>
               </div>
             </div>
           </div>
@@ -108,6 +330,31 @@
   </main>
   <div id="footer-placeholder"></div>
   <script src="components/shared.js"></script>
-  <script>initPage({activePage:'browse'});</script>
+  <script>
+    initPage({activePage:'browse'});
+
+    // 공개 범위 선택 (#45)
+    function selectVisibility(element) {
+      document.querySelectorAll('.visibility-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      element.classList.add('selected');
+      element.querySelector('input[type="radio"]').checked = true;
+    }
+
+    // 할인 토글 (#35)
+    function toggleDiscount() {
+      const toggle = document.getElementById('discountToggle');
+      const fields = document.getElementById('discountFields');
+
+      toggle.classList.toggle('active');
+
+      if (toggle.classList.contains('active')) {
+        fields.classList.remove('disabled');
+      } else {
+        fields.classList.add('disabled');
+      }
+    }
+  </script>
 </body>
 </html>

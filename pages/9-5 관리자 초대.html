@@ -160,6 +160,66 @@
       color: var(--color-text-tertiary);
     }
 
+    .admin-item__meta {
+      display: flex;
+      gap: var(--space-4);
+      margin-top: var(--space-2);
+    }
+
+    .admin-item__meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .admin-item__meta-item i {
+      width: 12px;
+      height: 12px;
+    }
+
+    .admin-item__assigned {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      min-width: 180px;
+    }
+
+    .admin-item__assigned-label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .admin-item__assigned-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1);
+    }
+
+    .admin-item__assigned-tag {
+      padding: 2px 8px;
+      background: var(--color-bg-tertiary);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      color: var(--color-text-secondary);
+    }
+
+    .admin-item__assigned-tag--ip {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .admin-item__assigned-tag--project {
+      background: #DBEAFE;
+      color: #1D4ED8;
+    }
+
+    .admin-item__assigned-more {
+      font-size: 11px;
+      color: var(--color-text-tertiary);
+    }
+
     .admin-item__role {
       display: inline-flex;
       align-items: center;
@@ -347,11 +407,24 @@
           </div>
 
           <div class="admin-list">
+            <!-- 소유자 -->
             <div class="admin-item">
               <div class="admin-item__avatar">홍</div>
               <div class="admin-item__info">
                 <div class="admin-item__name">홍길동</div>
                 <div class="admin-item__email">hong***@email.com</div>
+                <div class="admin-item__meta">
+                  <span class="admin-item__meta-item">
+                    <i data-lucide="clock"></i>
+                    마지막 접속: 현재 접속 중
+                  </span>
+                </div>
+              </div>
+              <div class="admin-item__assigned">
+                <span class="admin-item__assigned-label">할당된 IP/프로젝트</span>
+                <div class="admin-item__assigned-list">
+                  <span class="admin-item__assigned-tag">전체 권한</span>
+                </div>
               </div>
               <span class="admin-item__role admin-item__role--owner">
                 <i data-lucide="crown" class="icon icon-xs" style="margin-right: 4px;"></i>
@@ -362,11 +435,26 @@
               </div>
             </div>
 
+            <!-- 관리자 -->
             <div class="admin-item">
               <div class="admin-item__avatar" style="background: linear-gradient(135deg, #06B6D4, #3B82F6);">김</div>
               <div class="admin-item__info">
                 <div class="admin-item__name">김영희</div>
                 <div class="admin-item__email">kim***@email.com</div>
+                <div class="admin-item__meta">
+                  <span class="admin-item__meta-item">
+                    <i data-lucide="clock"></i>
+                    마지막 접속: 2026.01.01 14:32
+                  </span>
+                </div>
+              </div>
+              <div class="admin-item__assigned">
+                <span class="admin-item__assigned-label">할당된 IP/프로젝트</span>
+                <div class="admin-item__assigned-list">
+                  <span class="admin-item__assigned-tag admin-item__assigned-tag--ip">귀여운 곰돌이</span>
+                  <span class="admin-item__assigned-tag admin-item__assigned-tag--ip">신나는 펭귄</span>
+                  <span class="admin-item__assigned-tag admin-item__assigned-tag--project">굿즈 콜라보</span>
+                </div>
               </div>
               <span class="admin-item__role admin-item__role--admin">관리자</span>
               <div class="admin-item__actions">
@@ -379,11 +467,25 @@
               </div>
             </div>
 
+            <!-- 에디터 -->
             <div class="admin-item">
               <div class="admin-item__avatar" style="background: linear-gradient(135deg, #F59E0B, #EF4444);">박</div>
               <div class="admin-item__info">
                 <div class="admin-item__name">박철수</div>
                 <div class="admin-item__email">park***@email.com</div>
+                <div class="admin-item__meta">
+                  <span class="admin-item__meta-item">
+                    <i data-lucide="clock"></i>
+                    마지막 접속: 2025.12.28 09:15
+                  </span>
+                </div>
+              </div>
+              <div class="admin-item__assigned">
+                <span class="admin-item__assigned-label">할당된 IP/프로젝트</span>
+                <div class="admin-item__assigned-list">
+                  <span class="admin-item__assigned-tag admin-item__assigned-tag--ip">몽글몽글 구름이</span>
+                  <span class="admin-item__assigned-more">+2개</span>
+                </div>
               </div>
               <span class="admin-item__role admin-item__role--editor">에디터</span>
               <div class="admin-item__actions">
@@ -410,7 +512,7 @@
                 </div>
                 <div class="pending-item__text">
                   <span class="pending-item__email">lee***@email.com</span>
-                  <span class="pending-item__status">2024.03.20 초대됨 · 관리자 권한</span>
+                  <span class="pending-item__status">2026.03.20 초대됨 · 관리자 권한</span>
                 </div>
               </div>
               <div>

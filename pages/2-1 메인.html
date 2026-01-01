@@ -355,6 +355,127 @@
       color: var(--color-primary);
     }
 
+    /* Platform Intro Section */
+    .platform-intro {
+      padding: var(--space-16) 0;
+      background: var(--color-bg-primary);
+    }
+
+    .platform-intro__header {
+      text-align: center;
+      margin-bottom: var(--space-12);
+    }
+
+    .platform-intro__title {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-4);
+    }
+
+    .platform-intro__subtitle {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .platform-features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+
+    .platform-feature {
+      text-align: center;
+      padding: var(--space-6);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-xl);
+      transition: all var(--transition-normal);
+    }
+
+    .platform-feature:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .platform-feature__icon {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-lg);
+      color: var(--color-primary);
+      margin: 0 auto var(--space-4);
+    }
+
+    .platform-feature__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .platform-feature__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-relaxed);
+    }
+
+    /* Section Separator */
+    .section__separator {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-6);
+    }
+
+    .section__number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--gradient-primary);
+      color: white;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      border-radius: var(--radius-full);
+    }
+
+    .section__label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* User Type Targeting (#25) */
+    .targeting-card[data-user-type] {
+      display: none;
+    }
+
+    /* Default: 비회원 */
+    .targeting-card[data-user-type="guest"] {
+      display: block;
+    }
+
+    /* IPH 유저 */
+    body[data-user-type="iph"] .targeting-card[data-user-type="guest"] {
+      display: none;
+    }
+    body[data-user-type="iph"] .targeting-card[data-user-type="iph"] {
+      display: block;
+    }
+
+    /* BP 유저 */
+    body[data-user-type="bp"] .targeting-card[data-user-type="guest"] {
+      display: none;
+    }
+    body[data-user-type="bp"] .targeting-card[data-user-type="bp"] {
+      display: block;
+    }
+
     /* Newsletter Section */
     .newsletter {
       background: var(--gradient-primary);
@@ -418,6 +539,12 @@
       }
     }
 
+    @media (max-width: 1024px) {
+      .platform-features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     @media (max-width: 768px) {
       .hero__title {
         font-size: var(--font-size-3xl);
@@ -438,6 +565,10 @@
 
       .newsletter__form {
         flex-direction: column;
+      }
+
+      .platform-features {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -483,9 +614,63 @@
       </div>
     </section>
 
-    <!-- 인증된 IP Section -->
+    <!-- Platform Intro Section (#24) -->
+    <section class="platform-intro" id="platform-intro">
+      <div class="section__container">
+        <div class="platform-intro__header">
+          <h2 class="platform-intro__title">INABOOTH가 연결하는 새로운 협업</h2>
+          <p class="platform-intro__subtitle">
+            캐릭터 IP와 브랜드가 만나는 가장 효율적인 방법을 제공합니다
+          </p>
+        </div>
+        <div class="platform-features">
+          <div class="platform-feature">
+            <div class="platform-feature__icon">
+              <i data-lucide="shield-check" style="width:32px;height:32px"></i>
+            </div>
+            <h3 class="platform-feature__title">검증된 IP</h3>
+            <p class="platform-feature__desc">
+              엄격한 인증 절차를 통해 검증된 캐릭터 IP만 등록됩니다
+            </p>
+          </div>
+          <div class="platform-feature">
+            <div class="platform-feature__icon">
+              <i data-lucide="zap" style="width:32px;height:32px"></i>
+            </div>
+            <h3 class="platform-feature__title">빠른 매칭</h3>
+            <p class="platform-feature__desc">
+              AI 기반 추천으로 브랜드에 딱 맞는 IP를 빠르게 찾아드립니다
+            </p>
+          </div>
+          <div class="platform-feature">
+            <div class="platform-feature__icon">
+              <i data-lucide="file-text" style="width:32px;height:32px"></i>
+            </div>
+            <h3 class="platform-feature__title">안전한 계약</h3>
+            <p class="platform-feature__desc">
+              표준 계약서 템플릿과 에스크로 결제로 안전하게 협업합니다
+            </p>
+          </div>
+          <div class="platform-feature">
+            <div class="platform-feature__icon">
+              <i data-lucide="headphones" style="width:32px;height:32px"></i>
+            </div>
+            <h3 class="platform-feature__title">전담 지원</h3>
+            <p class="platform-feature__desc">
+              컨시어지 서비스로 협업 전 과정을 전문가가 지원합니다
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 인증된 IP Section (#23 - Section 1) -->
     <section class="section" id="verified">
       <div class="section__container">
+        <div class="section__separator">
+          <span class="section__number">1</span>
+          <span class="section__label">VERIFIED IP</span>
+        </div>
         <div class="section__header">
           <h2 class="section__title">인증된 IP</h2>
           <a href="3-1 탐색.html?filter=verified" class="section__more">
@@ -561,9 +746,13 @@
       </div>
     </section>
 
-    <!-- 라이징 IP Section -->
+    <!-- 라이징 IP Section (#23 - Section 2) -->
     <section class="section section--alt" id="rising">
       <div class="section__container">
+        <div class="section__separator">
+          <span class="section__number">2</span>
+          <span class="section__label">RISING IP</span>
+        </div>
         <div class="section__header">
           <h2 class="section__title">라이징 IP</h2>
           <a href="3-1 탐색.html?sort=rising" class="section__more">
@@ -639,11 +828,15 @@
       </div>
     </section>
 
-    <!-- 추천 IP Section -->
+    <!-- 추천 IP Section (#23 - Section 3) -->
     <section class="section" id="featured">
       <div class="section__container">
+        <div class="section__separator">
+          <span class="section__number">3</span>
+          <span class="section__label">INABOOTH PICK</span>
+        </div>
         <div class="section__header">
-          <h2 class="section__title">이너부스 추천 IP</h2>
+          <h2 class="section__title">이너부스픽 IP</h2>
           <a href="3-1 탐색.html?filter=featured" class="section__more">
             더보기 <i data-lucide="chevron-right" style="width:18px;height:18px"></i>
           </a>
@@ -717,9 +910,13 @@
       </div>
     </section>
 
-    <!-- 신규 IP Section -->
+    <!-- 신규 IP Section (#23 - Section 4) -->
     <section class="section section--alt" id="new">
       <div class="section__container">
+        <div class="section__separator">
+          <span class="section__number">4</span>
+          <span class="section__label">NEW UPDATE</span>
+        </div>
         <div class="section__header">
           <h2 class="section__title">신규 업데이트 IP</h2>
           <a href="3-1 탐색.html?sort=latest" class="section__more">
@@ -795,14 +992,15 @@
       </div>
     </section>
 
-    <!-- 타깃팅 Section -->
+    <!-- 타깃팅 Section (#25 - 사용자 유형별 노출) -->
     <section class="section" id="targeting">
       <div class="section__container">
         <div class="section__header">
           <h2 class="section__title">INABOOTH와 함께하세요</h2>
         </div>
         <div class="targeting-grid">
-          <a href="3-1 탐색.html" class="targeting-card">
+          <!-- 비회원용 카드들 -->
+          <a href="3-1 탐색.html" class="targeting-card" data-user-type="guest">
             <div class="targeting-card__icon">
               <i data-lucide="search" style="width:28px;height:28px"></i>
             </div>
@@ -815,20 +1013,20 @@
               <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
             </div>
           </a>
-          <a href="4-1 오픈 프로젝트.html" class="targeting-card">
+          <a href="4-1 오픈 프로젝트.html" class="targeting-card" data-user-type="guest">
             <div class="targeting-card__icon">
               <i data-lucide="briefcase" style="width:28px;height:28px"></i>
             </div>
             <h3 class="targeting-card__title">오픈 프로젝트</h3>
             <p class="targeting-card__desc">
               브랜드의 협업 프로젝트를 둘러보세요.
-              IPH라면 다양한 기업과의 콜라보 기회를 잡을 수 있습니다.
+              어떤 브랜드가 IP를 찾고 있는지 확인해보세요.
             </p>
             <div class="targeting-card__arrow">
               <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
             </div>
           </a>
-          <a href="1-1-1 회원가입.html" class="targeting-card">
+          <a href="1-1-1 회원가입.html" class="targeting-card" data-user-type="guest">
             <div class="targeting-card__icon">
               <i data-lucide="user-plus" style="width:28px;height:28px"></i>
             </div>
@@ -836,6 +1034,88 @@
             <p class="targeting-card__desc">
               무료로 가입하고 INABOOTH의 모든 기능을 경험해보세요.
               IP 홀더와 브랜드 모두 환영합니다.
+            </p>
+            <div class="targeting-card__arrow">
+              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
+            </div>
+          </a>
+
+          <!-- IPH용 카드들 (프로젝트 둘러보기 강조) -->
+          <a href="4-1 오픈 프로젝트.html" class="targeting-card" data-user-type="iph">
+            <div class="targeting-card__icon">
+              <i data-lucide="briefcase" style="width:28px;height:28px"></i>
+            </div>
+            <h3 class="targeting-card__title">프로젝트 둘러보기</h3>
+            <p class="targeting-card__desc">
+              새로운 협업 기회를 찾아보세요.
+              다양한 브랜드의 오픈 프로젝트에 지원할 수 있습니다.
+            </p>
+            <div class="targeting-card__arrow">
+              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
+            </div>
+          </a>
+          <a href="6-1-1 캐릭터 등록_기본.html" class="targeting-card" data-user-type="iph">
+            <div class="targeting-card__icon">
+              <i data-lucide="plus-circle" style="width:28px;height:28px"></i>
+            </div>
+            <h3 class="targeting-card__title">IP 등록하기</h3>
+            <p class="targeting-card__desc">
+              새로운 캐릭터 IP를 등록하고
+              더 많은 브랜드와 협업 기회를 만들어보세요.
+            </p>
+            <div class="targeting-card__arrow">
+              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
+            </div>
+          </a>
+          <a href="9-7 마이부스.html" class="targeting-card" data-user-type="iph">
+            <div class="targeting-card__icon">
+              <i data-lucide="layout-dashboard" style="width:28px;height:28px"></i>
+            </div>
+            <h3 class="targeting-card__title">마이부스 관리</h3>
+            <p class="targeting-card__desc">
+              등록된 IP와 협업 현황을 한눈에 확인하고
+              효율적으로 관리하세요.
+            </p>
+            <div class="targeting-card__arrow">
+              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
+            </div>
+          </a>
+
+          <!-- BP용 카드들 (IP 탐색하기 강조) -->
+          <a href="3-1 탐색.html" class="targeting-card" data-user-type="bp">
+            <div class="targeting-card__icon">
+              <i data-lucide="search" style="width:28px;height:28px"></i>
+            </div>
+            <h3 class="targeting-card__title">IP 탐색하기</h3>
+            <p class="targeting-card__desc">
+              브랜드에 딱 맞는 캐릭터 IP를 찾아보세요.
+              다양한 필터로 원하는 스타일의 IP를 검색할 수 있습니다.
+            </p>
+            <div class="targeting-card__arrow">
+              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
+            </div>
+          </a>
+          <a href="7-1-1 프로젝트 등록_기본.html" class="targeting-card" data-user-type="bp">
+            <div class="targeting-card__icon">
+              <i data-lucide="folder-plus" style="width:28px;height:28px"></i>
+            </div>
+            <h3 class="targeting-card__title">프로젝트 등록</h3>
+            <p class="targeting-card__desc">
+              협업 프로젝트를 등록하고
+              최적의 IP 홀더를 찾아보세요.
+            </p>
+            <div class="targeting-card__arrow">
+              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
+            </div>
+          </a>
+          <a href="9-7 마이부스.html" class="targeting-card" data-user-type="bp">
+            <div class="targeting-card__icon">
+              <i data-lucide="layout-dashboard" style="width:28px;height:28px"></i>
+            </div>
+            <h3 class="targeting-card__title">마이부스 관리</h3>
+            <p class="targeting-card__desc">
+              진행 중인 프로젝트와 협업 현황을
+              한눈에 확인하고 관리하세요.
             </p>
             <div class="targeting-card__arrow">
               <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
@@ -868,6 +1148,28 @@
   <script src="components/shared.js"></script>
   <script>
     lucide.createIcons();
+
+    // User Type Targeting (#25)
+    // 사용자 유형에 따라 다른 카드 표시
+    // userType: 'guest' (비회원), 'iph' (IP홀더), 'bp' (브랜드파트너)
+    function setUserTypeTargeting() {
+      // URL 파라미터로 테스트 가능 (?userType=iph 또는 ?userType=bp)
+      const urlParams = new URLSearchParams(window.location.search);
+      const testUserType = urlParams.get('userType');
+
+      // 실제 환경에서는 로그인 상태에서 사용자 유형 확인
+      // localStorage 또는 세션에서 가져올 수 있음
+      const storedUserType = localStorage.getItem('userType');
+
+      // 우선순위: URL 파라미터 > 저장된 값 > 기본값(guest)
+      const userType = testUserType || storedUserType || 'guest';
+
+      // body에 data-user-type 속성 설정
+      document.body.setAttribute('data-user-type', userType);
+    }
+
+    // 페이지 로드 시 실행
+    setUserTypeTargeting();
   </script>
 </body>
 </html>

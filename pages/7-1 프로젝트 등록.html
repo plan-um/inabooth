@@ -21,6 +21,188 @@
     .content-box{padding:var(--space-8);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0;text-align:center}
     .card-list{display:grid;gap:var(--space-4);margin:var(--space-6) 0}
     .card-item{padding:var(--space-4);background:white;border:1px solid var(--color-border);border-radius:var(--radius-md)}
+
+    /* Project Type Selection */
+    .project-type-selection {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+      margin: var(--space-8) 0;
+    }
+
+    .project-type-card {
+      position: relative;
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      text-align: center;
+    }
+
+    .project-type-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-type-card.selected {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .project-type-card__check {
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-4);
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-full);
+      border: 2px solid var(--color-border);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+    }
+
+    .project-type-card.selected .project-type-card__check {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    .project-type-card__badge {
+      position: absolute;
+      top: var(--space-4);
+      left: var(--space-4);
+      padding: var(--space-1) var(--space-3);
+      background: linear-gradient(135deg, #F59E0B, #D97706);
+      color: white;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      border-radius: var(--radius-full);
+    }
+
+    .project-type-card__icon {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-5);
+    }
+
+    .project-type-card__icon--general {
+      background: linear-gradient(135deg, #E0E7FF, #C7D2FE);
+      color: var(--color-primary);
+    }
+
+    .project-type-card__icon--premium {
+      background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+      color: #D97706;
+    }
+
+    .project-type-card__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .project-type-card__price {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .project-type-card__price-note {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-5);
+    }
+
+    .project-type-card__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-5);
+      line-height: 1.6;
+    }
+
+    .project-type-card__features {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .project-type-card__feature {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .project-type-card__feature i {
+      color: var(--color-success);
+      flex-shrink: 0;
+    }
+
+    .project-type-card__feature--disabled {
+      color: var(--color-text-tertiary);
+      text-decoration: line-through;
+    }
+
+    .project-type-card__feature--disabled i {
+      color: var(--color-text-tertiary);
+    }
+
+    /* Premium Benefits Banner */
+    .premium-benefits {
+      background: linear-gradient(135deg, #1E1B4B, #312E81);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      margin-top: var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      color: white;
+    }
+
+    .premium-benefits__icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .premium-benefits__content {
+      flex: 1;
+    }
+
+    .premium-benefits__title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-1);
+    }
+
+    .premium-benefits__desc {
+      font-size: var(--font-size-sm);
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .project-type-selection {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -29,55 +211,149 @@
     <div class="container">
       <div class="form-card">
         
-        <h1 class="form-title">프로젝트 등록 시작</h1>
-        <p class="form-subtitle">오픈 프로젝트를 등록하고 최적의 IP를 찾아보세요</p>
-        <div style="text-align:center;padding:var(--space-6) 0">
-          <div style="width:80px;height:80px;background:linear-gradient(135deg, var(--color-primary), var(--color-secondary));border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-6)">
-            <i data-lucide="briefcase" style="width:40px;height:40px;color:white"></i>
+        <h1 class="form-title">프로젝트 유형 선택</h1>
+        <p class="form-subtitle">프로젝트 목적에 맞는 유형을 선택해주세요</p>
+
+        <!-- Project Type Selection -->
+        <div class="project-type-selection">
+          <!-- General Project -->
+          <div class="project-type-card selected" onclick="selectProjectType(this, 'general')">
+            <div class="project-type-card__check">
+              <i data-lucide="check" class="icon-sm"></i>
+            </div>
+            <div class="project-type-card__icon project-type-card__icon--general">
+              <i data-lucide="briefcase" style="width:36px;height:36px"></i>
+            </div>
+            <h3 class="project-type-card__title">일반 프로젝트</h3>
+            <div class="project-type-card__price">무료</div>
+            <div class="project-type-card__price-note">기본 기능 제공</div>
+            <p class="project-type-card__desc">
+              기본적인 프로젝트 등록과 IP 매칭 서비스를 이용할 수 있습니다.
+            </p>
+            <div class="project-type-card__features">
+              <div class="project-type-card__feature">
+                <i data-lucide="check" class="icon-sm"></i>
+                <span>프로젝트 기본 등록</span>
+              </div>
+              <div class="project-type-card__feature">
+                <i data-lucide="check" class="icon-sm"></i>
+                <span>IP 지원자 확인</span>
+              </div>
+              <div class="project-type-card__feature">
+                <i data-lucide="check" class="icon-sm"></i>
+                <span>기본 채팅 기능</span>
+              </div>
+              <div class="project-type-card__feature">
+                <i data-lucide="check" class="icon-sm"></i>
+                <span>표준 계약서 템플릿</span>
+              </div>
+              <div class="project-type-card__feature project-type-card__feature--disabled">
+                <i data-lucide="x" class="icon-sm"></i>
+                <span>상단 노출 (미지원)</span>
+              </div>
+              <div class="project-type-card__feature project-type-card__feature--disabled">
+                <i data-lucide="x" class="icon-sm"></i>
+                <span>전담 매니저 (미지원)</span>
+              </div>
+            </div>
           </div>
-          <h2 style="font-size:var(--font-size-xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-3)">오픈 프로젝트로 최적의 IP를 찾아보세요</h2>
-          <p style="color:var(--color-text-secondary);max-width:500px;margin:0 auto var(--space-6)">프로젝트를 등록하면 조건에 맞는 IP 크리에이터들이 직접 지원합니다. 다양한 IP 중에서 최적의 파트너를 선택하세요.</p>
+
+          <!-- Premium Project -->
+          <div class="project-type-card" onclick="selectProjectType(this, 'premium')">
+            <span class="project-type-card__badge">추천</span>
+            <div class="project-type-card__check">
+              <i data-lucide="check" class="icon-sm"></i>
+            </div>
+            <div class="project-type-card__icon project-type-card__icon--premium">
+              <i data-lucide="crown" style="width:36px;height:36px"></i>
+            </div>
+            <h3 class="project-type-card__title">프리미엄 프로젝트</h3>
+            <div class="project-type-card__price">99,000원</div>
+            <div class="project-type-card__price-note">프로젝트 1건 기준</div>
+            <p class="project-type-card__desc">
+              더 많은 노출과 전담 지원으로 빠른 IP 매칭을 경험하세요.
+            </p>
+            <div class="project-type-card__features">
+              <div class="project-type-card__feature">
+                <i data-lucide="check" class="icon-sm"></i>
+                <span>일반 프로젝트 모든 기능</span>
+              </div>
+              <div class="project-type-card__feature">
+                <i data-lucide="check" class="icon-sm"></i>
+                <span>메인/탐색 페이지 상단 노출</span>
+              </div>
+              <div class="project-type-card__feature">
+                <i data-lucide="check" class="icon-sm"></i>
+                <span>프리미엄 배지 부여</span>
+              </div>
+              <div class="project-type-card__feature">
+                <i data-lucide="check" class="icon-sm"></i>
+                <span>전담 매니저 배정</span>
+              </div>
+              <div class="project-type-card__feature">
+                <i data-lucide="check" class="icon-sm"></i>
+                <span>IP 추천 리포트 제공</span>
+              </div>
+              <div class="project-type-card__feature">
+                <i data-lucide="check" class="icon-sm"></i>
+                <span>우선 고객 지원</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-bottom:var(--space-6)">
-          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-5);text-align:center">
-            <div style="width:48px;height:48px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-3)">
-              <i data-lucide="search" style="color:var(--color-primary)"></i>
-            </div>
-            <div style="font-weight:600;margin-bottom:var(--space-1)">IP 발굴</div>
-            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">조건에 맞는 IP들이 직접 지원합니다</div>
+        <!-- Premium Benefits Banner -->
+        <div class="premium-benefits">
+          <div class="premium-benefits__icon">
+            <i data-lucide="sparkles" style="width:24px;height:24px"></i>
           </div>
-          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-5);text-align:center">
-            <div style="width:48px;height:48px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-3)">
-              <i data-lucide="users" style="color:var(--color-primary)"></i>
-            </div>
-            <div style="font-weight:600;margin-bottom:var(--space-1)">간편한 비교</div>
-            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">여러 지원자를 한눈에 비교할 수 있습니다</div>
-          </div>
-          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-5);text-align:center">
-            <div style="width:48px;height:48px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-3)">
-              <i data-lucide="shield-check" style="color:var(--color-primary)"></i>
-            </div>
-            <div style="font-weight:600;margin-bottom:var(--space-1)">안전한 협업</div>
-            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">계약서 자동 생성 및 안전결제 지원</div>
+          <div class="premium-benefits__content">
+            <div class="premium-benefits__title">프리미엄 프로젝트의 평균 매칭 속도는 일반 대비 2.3배 빠릅니다</div>
+            <div class="premium-benefits__desc">상단 노출과 전담 매니저 지원으로 더 많은 IP홀더의 관심을 받아보세요</div>
           </div>
         </div>
 
-        <div style="background:var(--color-warning-light);border:1px solid var(--color-warning);border-radius:var(--radius-md);padding:var(--space-4);display:flex;align-items:center;gap:var(--space-3)">
+        <div style="background:var(--color-warning-light);border:1px solid var(--color-warning);border-radius:var(--radius-md);padding:var(--space-4);display:flex;align-items:center;gap:var(--space-3);margin-top:var(--space-6)">
           <i data-lucide="info" style="color:var(--color-warning);flex-shrink:0"></i>
           <div style="font-size:var(--font-size-sm)">
             <strong>사업자 인증 필요:</strong> 프로젝트 등록을 위해서는 사업자 인증이 필요합니다. <a href="9-2 계정 설정.html" style="color:var(--color-primary);text-decoration:underline">인증하러 가기</a>
           </div>
         </div>
-        <div class="form-actions">
-          
-          <a href="7-1-1 프로젝트 등록_기본 정보.html" class="btn btn--primary">다음<i data-lucide="arrow-right" class="icon"></i></a>
+
+        <div class="form-actions" style="justify-content:flex-end">
+          <a href="7-1-1 프로젝트 등록_기본 정보.html" class="btn btn--primary btn--lg" id="nextBtn">
+            다음 단계
+            <i data-lucide="arrow-right" class="icon-sm"></i>
+          </a>
         </div>
       </div>
     </div>
   </main>
   <div id="footer-placeholder"></div>
   <script src="components/shared.js"></script>
-  <script>initPage({activePage:'project'});lucide.createIcons();</script>
+  <script>
+    initPage({activePage:'project'});
+    lucide.createIcons();
+
+    // Project type selection
+    let selectedType = 'general';
+
+    function selectProjectType(card, type) {
+      // Remove selected from all cards
+      document.querySelectorAll('.project-type-card').forEach(c => {
+        c.classList.remove('selected');
+      });
+      // Add selected to clicked card
+      card.classList.add('selected');
+      selectedType = type;
+
+      // Re-render icons for the check marks
+      lucide.createIcons();
+
+      // Update next button href if needed (could pass type as query param)
+      const nextBtn = document.getElementById('nextBtn');
+      nextBtn.href = `7-1-1 프로젝트 등록_기본 정보.html?type=${type}`;
+    }
+  </script>
 </body>
 </html>

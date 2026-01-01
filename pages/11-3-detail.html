@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공지사항 상세 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      z-index: -1;
+      pointer-events: none;
+      animation: float 12s infinite ease-in-out;
+    }
+    .blob-1 {
+      top: -15%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, #C7D2FE, #DDD6FE);
+    }
+    .blob-2 {
+      top: 20%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #A7F3D0, #6EE7B7);
+      animation-delay: 3s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(30px) scale(1.05); }
+    }
+
+    .detail-page {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      min-height: 100vh;
+      padding-bottom: var(--space-16);
+    }
+
+    .detail-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .detail-back {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-6);
+      transition: color var(--transition-fast);
+    }
+    .detail-back:hover {
+      color: var(--color-primary);
+    }
+
+    .detail-card {
+      background: white;
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    .detail-header {
+      padding: var(--space-8);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .detail-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .detail-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+    }
+    .detail-badge--notice {
+      background: var(--color-error-light);
+      color: var(--color-error);
+    }
+    .detail-badge--update {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+    .detail-badge--event {
+      background: var(--color-warning-light);
+      color: #D97706;
+    }
+    .detail-badge--tip {
+      background: var(--color-success-light);
+      color: var(--color-success);
+    }
+
+    .detail-date {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    .detail-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      line-height: 1.4;
+    }
+
+    .detail-body {
+      padding: var(--space-8);
+    }
+
+    .detail-content {
+      font-size: var(--font-size-base);
+      line-height: 1.9;
+      color: var(--color-text-secondary);
+    }
+
+    .detail-content p {
+      margin-bottom: var(--space-4);
+    }
+
+    .detail-content h3 {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin: var(--space-8) 0 var(--space-4);
+    }
+
+    .detail-content h3:first-child {
+      margin-top: 0;
+    }
+
+    .detail-content ul, .detail-content ol {
+      margin: var(--space-4) 0;
+      padding-left: var(--space-6);
+    }
+
+    .detail-content li {
+      margin-bottom: var(--space-3);
+    }
+
+    .detail-content strong {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+    }
+
+    .detail-footer {
+      padding: var(--space-6) var(--space-8);
+      border-top: 1px solid var(--color-border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .detail-nav {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .detail-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      background: white;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .detail-nav-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+    .detail-nav-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      .detail-header, .detail-body {
+        padding: var(--space-6);
+      }
+      .detail-title {
+        font-size: var(--font-size-xl);
+      }
+      .detail-footer {
+        flex-direction: column;
+        gap: var(--space-4);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div id="header-placeholder"></div>
+
+  <main class="detail-page">
+    <div class="container">
+      <div class="detail-container">
+        <a href="11-3 공지사항.html" class="detail-back">
+          <i data-lucide="arrow-left" class="icon icon-sm"></i>
+          공지사항 목록으로
+        </a>
+
+        <div class="detail-card">
+          <div class="detail-header">
+            <div class="detail-meta">
+              <span class="detail-badge" id="detailBadge">공지</span>
+              <span class="detail-date" id="detailDate">2025.12.28</span>
+            </div>
+            <h1 class="detail-title" id="detailTitle">공지사항 제목</h1>
+          </div>
+
+          <div class="detail-body">
+            <div class="detail-content" id="detailContent">
+              <p>내용을 불러오는 중...</p>
+            </div>
+          </div>
+
+          <div class="detail-footer">
+            <a href="11-3 공지사항.html" class="btn btn--secondary">
+              <i data-lucide="list" class="icon icon-sm"></i>
+              목록으로
+            </a>
+            <div class="detail-nav">
+              <button class="detail-nav-btn" id="prevBtn">
+                <i data-lucide="chevron-left" class="icon icon-sm"></i>
+                이전글
+              </button>
+              <button class="detail-nav-btn" id="nextBtn">
+                다음글
+                <i data-lucide="chevron-right" class="icon icon-sm"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'faq'});
+
+    var notices = {
+      1: {
+        type: 'notice',
+        badge: '공지',
+        date: '2025.12.28',
+        title: '[중요] 2026년 서비스 이용약관 개정 안내',
+        content: '<p>안녕하세요, INABOOTH입니다.</p><p>2026년 1월 1일부터 적용되는 서비스 이용약관 개정 사항을 안내드립니다.</p><h3>주요 변경 사항</h3><ul><li><strong>개인정보 처리방침 개정</strong>: 개인정보보호법 개정에 따른 처리방침 업데이트</li><li><strong>수수료 정책 변경</strong>: 협업 성사 시 수수료율 조정 (기존 10%에서 8%로 인하)</li><li><strong>저작권 보호 강화</strong>: IP 무단 사용 시 제재 조치 강화</li><li><strong>분쟁 해결 절차 개선</strong>: 중재 프로세스 간소화</li></ul><h3>시행일</h3><p>2026년 1월 1일부터 적용됩니다.</p><p>궁금한 점이 있으시면 채널톡으로 문의해주세요.</p><p>감사합니다.</p>'
+      },
+      2: {
+        type: 'update',
+        badge: '업데이트',
+        date: '2025.12.26',
+        title: 'v2.5.0 업데이트 - 협업 관리 기능 강화',
+        content: '<p>안녕하세요, INABOOTH입니다.</p><p>협업 진행 상황을 더 쉽게 관리할 수 있는 새로운 기능들이 추가되었습니다.</p><h3>주요 업데이트 내용</h3><ul><li><strong>프로젝트 타임라인</strong>: 협업 전체 일정을 한눈에 확인할 수 있습니다.</li><li><strong>마일스톤 설정</strong>: 주요 단계별 목표를 설정하고 진행률을 추적하세요.</li><li><strong>자동 알림</strong>: 마감일, 피드백 요청 등 중요한 일정을 놓치지 않도록 알려드립니다.</li><li><strong>파일 버전 관리</strong>: 업로드된 파일의 수정 이력을 확인할 수 있습니다.</li></ul><h3>개선 사항</h3><ul><li>채팅 메시지 검색 기능 추가</li><li>대용량 파일 업로드 속도 개선</li><li>모바일에서 계약서 미리보기 개선</li></ul><p>감사합니다.</p>'
+      },
+      3: {
+        type: 'event',
+        badge: '이벤트',
+        date: '2025.12.24',
+        title: '연말 프로모션 - Pro 요금제 30% 할인',
+        content: '<p>안녕하세요, INABOOTH입니다.</p><p>2025년을 마무리하며 특별한 혜택을 드립니다!</p><h3>프로모션 내용</h3><ul><li><strong>Pro 요금제 30% 할인</strong>: 연간 구독 시 적용</li><li><strong>추가 혜택</strong>: 프리미엄 분석 리포트 3개월 무료 제공</li><li><strong>얼리버드 특전</strong>: 선착순 100명 추가 10% 할인</li></ul><h3>프로모션 기간</h3><p>2025년 12월 24일 ~ 12월 31일</p><h3>참여 방법</h3><p>마이부스 메뉴에서 요금제 관리로 이동 후 Pro 요금제 선택하면 자동 적용됩니다.</p><p>이번 기회를 놓치지 마세요!</p>'
+      },
+      4: {
+        type: 'tip',
+        badge: '이용 팁',
+        date: '2025.12.22',
+        title: '효과적인 IP 소개 페이지 작성법',
+        content: '<p>기업 담당자의 눈길을 사로잡는 IP 소개 페이지를 만드는 방법을 알려드립니다.</p><h3>1. 첫인상이 중요합니다</h3><ul><li>고해상도 대표 이미지를 사용하세요</li><li>캐릭터의 특징을 한눈에 보여주는 이미지를 선택하세요</li></ul><h3>2. 스토리텔링을 활용하세요</h3><ul><li>캐릭터의 세계관과 스토리를 상세히 설명하세요</li><li>타겟 고객층과 활용 분야를 명확히 제시하세요</li></ul><h3>3. 포트폴리오를 충실히</h3><ul><li>다양한 각도와 표정의 이미지를 업로드하세요</li><li>실제 활용 사례가 있다면 반드시 포함하세요</li></ul><h3>4. 인증을 받으세요</h3><ul><li>저작권 등록 인증으로 신뢰도를 높이세요</li><li>사업자 인증은 기업 협업에 필수입니다</li></ul>'
+      },
+      5: {
+        type: 'notice',
+        badge: '공지',
+        date: '2025.12.20',
+        title: '연말연시 고객센터 운영 안내',
+        content: '<p>안녕하세요, INABOOTH입니다.</p><p>연말연시 고객센터 운영 일정을 안내드립니다.</p><h3>휴무 기간</h3><p>2025년 12월 30일(월) ~ 2026년 1월 1일(수)</p><h3>운영 재개</h3><p>2026년 1월 2일(목)부터 정상 운영</p><h3>긴급 문의</h3><p>휴무 기간 중 긴급한 문의는 이메일(help@inabooth.com)로 남겨주시면 순차적으로 답변 드리겠습니다.</p><p>감사합니다.</p>'
+      },
+      6: {
+        type: 'update',
+        badge: '업데이트',
+        date: '2025.12.15',
+        title: 'v2.4.2 패치 - 성능 개선 및 버그 수정',
+        content: '<p>안녕하세요, INABOOTH입니다.</p><p>서비스 안정성과 사용성을 개선했습니다.</p><h3>성능 개선</h3><ul><li>IP 검색 속도 50% 향상</li><li>이미지 로딩 최적화</li><li>페이지 전환 속도 개선</li></ul><h3>버그 수정</h3><ul><li>이미지 업로드 시 간헐적 오류 수정</li><li>모바일에서 필터 적용 안 되는 문제 해결</li><li>알림 중복 발송 문제 수정</li></ul><p>더 나은 서비스를 위해 노력하겠습니다.</p>'
+      },
+      7: {
+        type: 'tip',
+        badge: '이용 팁',
+        date: '2025.12.10',
+        title: '저작권 등록 인증으로 신뢰도 높이기',
+        content: '<p>저작권 등록번호 인증의 혜택과 방법을 안내합니다.</p><h3>저작권 인증의 혜택</h3><ul><li><strong>신뢰도 향상</strong>: 인증 배지가 프로필에 표시됩니다</li><li><strong>검색 우선 노출</strong>: 검색 결과에서 상위에 노출됩니다</li><li><strong>분쟁 시 보호</strong>: 저작권 분쟁 시 우선적으로 보호받습니다</li></ul><h3>인증 방법</h3><ol><li>마이부스 메뉴에서 인증 관리로 이동</li><li>저작권 등록번호 인증 선택</li><li>등록번호 입력 및 등록증 사본 업로드</li><li>검토 후 1-2일 내 승인</li></ol><p>지금 바로 인증받고 더 많은 협업 기회를 얻으세요!</p>'
+      },
+      8: {
+        type: 'event',
+        badge: '이벤트',
+        date: '2025.12.05',
+        title: '[종료] 신규 가입 웰컴 이벤트',
+        content: '<p>안녕하세요, INABOOTH입니다.</p><p>12월 한 달간 진행된 신규 가입 웰컴 이벤트가 종료되었습니다.</p><h3>이벤트 결과</h3><ul><li>총 참여자: 1,234명</li><li>당첨자: 100명 (Pro 요금제 1개월 무료)</li></ul><h3>당첨자 안내</h3><p>당첨자분들께는 개별 알림과 이메일로 안내드렸습니다.</p><p>Pro 요금제 혜택은 2026년 1월 1일부터 자동 적용됩니다.</p><p>많은 참여에 감사드리며, 앞으로도 다양한 이벤트를 준비하겠습니다!</p>'
+      }
+    };
+
+    var badgeClasses = {
+      notice: 'detail-badge--notice',
+      update: 'detail-badge--update',
+      event: 'detail-badge--event',
+      tip: 'detail-badge--tip'
+    };
+
+    var noticeIds = [1, 2, 3, 4, 5, 6, 7, 8];
+
+    function getUrlParam(param) {
+      var urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    function loadNotice(id) {
+      var notice = notices[id];
+      if (!notice) {
+        document.getElementById('detailTitle').textContent = '공지사항을 찾을 수 없습니다';
+        document.getElementById('detailContent').innerHTML = '<p>요청하신 공지사항이 존재하지 않습니다.</p>';
+        return;
+      }
+
+      document.getElementById('detailBadge').className = 'detail-badge ' + badgeClasses[notice.type];
+      document.getElementById('detailBadge').textContent = notice.badge;
+      document.getElementById('detailDate').textContent = notice.date;
+      document.getElementById('detailTitle').textContent = notice.title;
+      document.getElementById('detailContent').innerHTML = notice.content;
+      document.title = notice.title + ' - INABOOTH';
+
+      var currentIndex = noticeIds.indexOf(parseInt(id));
+      var prevBtn = document.getElementById('prevBtn');
+      var nextBtn = document.getElementById('nextBtn');
+
+      if (currentIndex > 0) {
+        prevBtn.disabled = false;
+        prevBtn.onclick = function() {
+          window.location.href = '11-3-detail.html?id=' + noticeIds[currentIndex - 1];
+        };
+      } else {
+        prevBtn.disabled = true;
+      }
+
+      if (currentIndex < noticeIds.length - 1) {
+        nextBtn.disabled = false;
+        nextBtn.onclick = function() {
+          window.location.href = '11-3-detail.html?id=' + noticeIds[currentIndex + 1];
+        };
+      } else {
+        nextBtn.disabled = true;
+      }
+    }
+
+    var noticeId = getUrlParam('id') || 1;
+    loadNotice(noticeId);
+    lucide.createIcons();
+  </script>
+</body>
+</html>

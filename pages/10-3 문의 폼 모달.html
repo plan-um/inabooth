@@ -291,35 +291,42 @@
           <p class="inquiry-form__desc">곰돌이 IP 홀더에게 협업을 제안해보세요. 문의 내용은 채팅으로 전달됩니다.</p>
 
           <div class="form-group">
-            <label class="form-label">협업 유형 <span class="required">*</span></label>
+            <label class="form-label">주요 거래 유형 <span class="required">*</span></label>
             <div class="collab-types">
               <label class="collab-type selected">
                 <input type="radio" name="collab_type" value="licensing" checked>
                 <div class="collab-type__icon">
                   <i data-lucide="file-signature"></i>
                 </div>
-                <span class="collab-type__name">라이선싱</span>
+                <span class="collab-type__name">제품 생산 및 상품화 라이선스</span>
               </label>
               <label class="collab-type">
-                <input type="radio" name="collab_type" value="product">
+                <input type="radio" name="collab_type" value="marketing">
                 <div class="collab-type__icon">
-                  <i data-lucide="package"></i>
+                  <i data-lucide="megaphone"></i>
                 </div>
-                <span class="collab-type__name">콜라보 상품</span>
+                <span class="collab-type__name">마케팅 협업 캠페인</span>
+              </label>
+              <label class="collab-type">
+                <input type="radio" name="collab_type" value="promotion">
+                <div class="collab-type__icon">
+                  <i data-lucide="monitor-play"></i>
+                </div>
+                <span class="collab-type__name">온라인 광고 및 프로모션</span>
               </label>
               <label class="collab-type">
                 <input type="radio" name="collab_type" value="event">
                 <div class="collab-type__icon">
                   <i data-lucide="calendar"></i>
                 </div>
-                <span class="collab-type__name">이벤트/팝업</span>
+                <span class="collab-type__name">이벤트, 전시, 팝업스토어</span>
               </label>
               <label class="collab-type">
-                <input type="radio" name="collab_type" value="other">
+                <input type="radio" name="collab_type" value="distribution">
                 <div class="collab-type__icon">
-                  <i data-lucide="message-circle"></i>
+                  <i data-lucide="shopping-cart"></i>
                 </div>
-                <span class="collab-type__name">기타 문의</span>
+                <span class="collab-type__name">유통 목적의 상품 구매</span>
               </label>
             </div>
           </div>
@@ -338,6 +345,74 @@
             <label class="form-label" for="message">문의 내용 <span class="required">*</span></label>
             <textarea id="message" class="form-input" rows="5" placeholder="협업하고 싶은 내용을 자세히 작성해주세요.&#10;&#10;• 협업 목적&#10;• 예상 일정&#10;• 예산 범위 (선택)" style="width:100%;resize:vertical"></textarea>
             <p class="form-hint">구체적으로 작성할수록 빠른 답변을 받을 수 있습니다.</p>
+          </div>
+
+          <!-- 예산 범위 (STO-010-01-02) -->
+          <div class="form-group">
+            <label class="form-label">예산 범위</label>
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-3); align-items: center;">
+              <select class="form-input" style="width: 100%;">
+                <option value="">최소 금액</option>
+                <option value="100">100만원</option>
+                <option value="300">300만원</option>
+                <option value="500">500만원</option>
+                <option value="1000">1,000만원</option>
+                <option value="3000">3,000만원</option>
+                <option value="5000">5,000만원</option>
+              </select>
+              <span style="color: var(--color-text-tertiary);">~</span>
+              <select class="form-input" style="width: 100%;">
+                <option value="">최대 금액</option>
+                <option value="300">300만원</option>
+                <option value="500">500만원</option>
+                <option value="1000">1,000만원</option>
+                <option value="3000">3,000만원</option>
+                <option value="5000">5,000만원</option>
+                <option value="10000">1억원 이상</option>
+              </select>
+            </div>
+            <p class="form-hint">예산 범위를 선택하면 더 정확한 제안을 받을 수 있습니다.</p>
+          </div>
+
+          <!-- 희망 협업 기간 (STO-010-01-02) -->
+          <div class="form-group">
+            <label class="form-label">희망 협업 기간</label>
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-3); align-items: center;">
+              <input type="date" class="form-input" style="width: 100%;">
+              <span style="color: var(--color-text-tertiary);">~</span>
+              <input type="date" class="form-input" style="width: 100%;">
+            </div>
+          </div>
+
+          <!-- 활용 범위 (STO-010-01-02) -->
+          <div class="form-group">
+            <label class="form-label">활용 범위 (복수 선택 가능)</label>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+              <label style="display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast);">
+                <input type="checkbox" name="usage" value="product" style="accent-color: var(--color-primary);">
+                <span style="font-size: var(--font-size-sm);">제품/상품</span>
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast);">
+                <input type="checkbox" name="usage" value="online" style="accent-color: var(--color-primary);">
+                <span style="font-size: var(--font-size-sm);">온라인 광고</span>
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast);">
+                <input type="checkbox" name="usage" value="offline" style="accent-color: var(--color-primary);">
+                <span style="font-size: var(--font-size-sm);">오프라인 광고</span>
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast);">
+                <input type="checkbox" name="usage" value="event" style="accent-color: var(--color-primary);">
+                <span style="font-size: var(--font-size-sm);">이벤트/전시</span>
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast);">
+                <input type="checkbox" name="usage" value="sns" style="accent-color: var(--color-primary);">
+                <span style="font-size: var(--font-size-sm);">SNS/콘텐츠</span>
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast);">
+                <input type="checkbox" name="usage" value="packaging" style="accent-color: var(--color-primary);">
+                <span style="font-size: var(--font-size-sm);">패키지</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">

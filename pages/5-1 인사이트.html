@@ -243,6 +243,118 @@ ul {
     .footer__lang-btn.active {
       color: white;
     }
+
+    /* 인사이트 검색 필드 (#33) */
+    .insight-search {
+      position: relative;
+      margin-bottom: var(--space-6);
+    }
+
+    .insight-search__input {
+      width: 100%;
+      padding: var(--space-4) var(--space-5);
+      padding-left: calc(var(--space-5) + 24px);
+      font-size: var(--font-size-base);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: white;
+      transition: all var(--transition-fast);
+    }
+
+    .insight-search__input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .insight-search__input::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    .insight-search__icon {
+      position: absolute;
+      left: var(--space-5);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-tertiary);
+      pointer-events: none;
+    }
+
+    .insight-search__btn {
+      position: absolute;
+      right: var(--space-2);
+      top: 50%;
+      transform: translateY(-50%);
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+
+    .insight-search__btn:hover {
+      background: var(--color-primary-dark);
+    }
+
+    /* 섹션 분리 (#32) */
+    .insight-section {
+      margin-bottom: var(--space-12);
+    }
+
+    .insight-section__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .insight-section__title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .insight-section__title-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-md);
+      color: var(--color-primary);
+    }
+
+    .insight-section__more {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: opacity var(--transition-fast);
+    }
+
+    .insight-section__more:hover {
+      opacity: 0.8;
+    }
+
+    /* 맞춤 추천 카드 스타일 */
+    .insight-card--recommended {
+      border: 2px solid var(--color-primary-light);
+    }
+
+    .insight-card--recommended .insight-card__category {
+      background: linear-gradient(135deg, var(--color-primary), #7C3AED);
+    }
   </style>
 </head>
 <body>
@@ -260,6 +372,13 @@ ul {
       <div class="page-header">
         <h1 class="page-title">인사이트</h1>
         <p class="page-desc">IP 비즈니스 트렌드와 성공 사례를 확인하세요</p>
+      </div>
+
+      <!-- Search Bar (#33) -->
+      <div class="insight-search">
+        <i data-lucide="search" class="icon icon-sm insight-search__icon"></i>
+        <input type="text" class="insight-search__input" placeholder="인사이트 검색 (예: 캐릭터 라이선싱, F&B 협업 전략)" id="insightSearch">
+        <button class="insight-search__btn" onclick="searchInsight()">검색</button>
       </div>
 
       <!-- Filter Bar -->
@@ -287,140 +406,237 @@ ul {
         </div>
       </div>
 
-      <!-- Insight Grid -->
-      <div class="insight-grid">
-        <!-- Card 1 -->
-        <a href="5-2 인사이트 상세.html" class="insight-card">
-          <div class="insight-card__img-wrap">
-            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
-            <span class="insight-card__category">비즈니스 전략</span>
-          </div>
-          <div class="insight-card__content">
-            <h3 class="insight-card__title">캐릭터 IP 라이선싱 시장의 최신 트렌드</h3>
-            <p class="insight-card__desc">2024년 글로벌 캐릭터 IP 라이선싱 시장 규모와 주요 성장 동력을 분석합니다.</p>
-            <div class="insight-card__meta">
-              <span class="insight-card__date">
-                <i data-lucide="calendar" class="icon icon-sm"></i>
-                2024.12.15
-              </span>
-              <span class="insight-card__views">
-                <i data-lucide="eye" class="icon icon-sm"></i>
-                1,234
-              </span>
+      <!-- Recommended Insights Section (#32) -->
+      <section class="insight-section">
+        <div class="insight-section__header">
+          <h2 class="insight-section__title">
+            <span class="insight-section__title-icon">
+              <i data-lucide="sparkles" class="icon icon-sm"></i>
+            </span>
+            맞춤 추천
+          </h2>
+          <a href="#" class="insight-section__more">
+            더보기
+            <i data-lucide="chevron-right" class="icon icon-sm"></i>
+          </a>
+        </div>
+        <div class="insight-grid">
+          <!-- Recommended Card 1 -->
+          <a href="5-2 인사이트 상세.html" class="insight-card insight-card--recommended">
+            <div class="insight-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+              <span class="insight-card__category">맞춤 추천</span>
             </div>
-          </div>
-        </a>
+            <div class="insight-card__content">
+              <h3 class="insight-card__title">캐릭터 IP 라이선싱 시장의 최신 트렌드</h3>
+              <p class="insight-card__desc">2026년 글로벌 캐릭터 IP 라이선싱 시장 규모와 주요 성장 동력을 분석합니다.</p>
+              <div class="insight-card__meta">
+                <span class="insight-card__date">
+                  <i data-lucide="calendar" class="icon icon-sm"></i>
+                  2026.12.15
+                </span>
+                <span class="insight-card__views">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  1,234
+                </span>
+              </div>
+            </div>
+          </a>
 
-        <!-- Card 2 -->
-        <a href="5-2 인사이트 상세.html" class="insight-card">
-          <div class="insight-card__img-wrap">
-            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
-            <span class="insight-card__category">트렌드 & 시장 동향</span>
-          </div>
-          <div class="insight-card__content">
-            <h3 class="insight-card__title">MZ세대가 선호하는 캐릭터 스타일 분석</h3>
-            <p class="insight-card__desc">데이터로 살펴보는 MZ세대 타깃 캐릭터 디자인의 핵심 요소</p>
-            <div class="insight-card__meta">
-              <span class="insight-card__date">
-                <i data-lucide="calendar" class="icon icon-sm"></i>
-                2024.12.10
-              </span>
-              <span class="insight-card__views">
-                <i data-lucide="eye" class="icon icon-sm"></i>
-                2,156
-              </span>
+          <!-- Recommended Card 2 -->
+          <a href="5-2 인사이트 상세.html" class="insight-card insight-card--recommended">
+            <div class="insight-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+              <span class="insight-card__category">맞춤 추천</span>
             </div>
-          </div>
-        </a>
+            <div class="insight-card__content">
+              <h3 class="insight-card__title">성공적인 IP 협업 사례 - 펭수 × 던킨도너츠</h3>
+              <p class="insight-card__desc">월 매출 30% 증가를 달성한 협업 프로젝트의 비하인드 스토리</p>
+              <div class="insight-card__meta">
+                <span class="insight-card__date">
+                  <i data-lucide="calendar" class="icon icon-sm"></i>
+                  2026.12.05
+                </span>
+                <span class="insight-card__views">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  3,421
+                </span>
+              </div>
+            </div>
+          </a>
 
-        <!-- Card 3 -->
-        <a href="5-2 인사이트 상세.html" class="insight-card">
-          <div class="insight-card__img-wrap">
-            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
-            <span class="insight-card__category">인터뷰</span>
-          </div>
-          <div class="insight-card__content">
-            <h3 class="insight-card__title">성공적인 IP 협업 사례 - 펭수 × 던킨도너츠</h3>
-            <p class="insight-card__desc">월 매출 30% 증가를 달성한 협업 프로젝트의 비하인드 스토리</p>
-            <div class="insight-card__meta">
-              <span class="insight-card__date">
-                <i data-lucide="calendar" class="icon icon-sm"></i>
-                2024.12.05
-              </span>
-              <span class="insight-card__views">
-                <i data-lucide="eye" class="icon icon-sm"></i>
-                3,421
-              </span>
+          <!-- Recommended Card 3 -->
+          <a href="5-2 인사이트 상세.html" class="insight-card insight-card--recommended">
+            <div class="insight-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+              <span class="insight-card__category">맞춤 추천</span>
             </div>
-          </div>
-        </a>
+            <div class="insight-card__content">
+              <h3 class="insight-card__title">F&B 업계의 캐릭터 협업 전략</h3>
+              <p class="insight-card__desc">식품 브랜드가 캐릭터 IP를 활용하는 5가지 효과적인 방법</p>
+              <div class="insight-card__meta">
+                <span class="insight-card__date">
+                  <i data-lucide="calendar" class="icon icon-sm"></i>
+                  2026.11.28
+                </span>
+                <span class="insight-card__views">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  1,876
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
 
-        <!-- Card 4 -->
-        <a href="5-2 인사이트 상세.html" class="insight-card">
-          <div class="insight-card__img-wrap">
-            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
-            <span class="insight-card__category">업데이트 - 인사이드 부스</span>
-          </div>
-          <div class="insight-card__content">
-            <h3 class="insight-card__title">INABOOTH 신규 기능 업데이트 안내</h3>
-            <p class="insight-card__desc">AI 기반 IP 매칭 시스템과 협업 지수 기능이 새롭게 추가되었습니다.</p>
-            <div class="insight-card__meta">
-              <span class="insight-card__date">
-                <i data-lucide="calendar" class="icon icon-sm"></i>
-                2024.12.01
-              </span>
-              <span class="insight-card__views">
-                <i data-lucide="eye" class="icon icon-sm"></i>
-                987
-              </span>
+      <!-- Latest Insights Section (#32) -->
+      <section class="insight-section">
+        <div class="insight-section__header">
+          <h2 class="insight-section__title">
+            <span class="insight-section__title-icon">
+              <i data-lucide="clock" class="icon icon-sm"></i>
+            </span>
+            최신 인사이트
+          </h2>
+          <a href="#" class="insight-section__more">
+            전체보기
+            <i data-lucide="chevron-right" class="icon icon-sm"></i>
+          </a>
+        </div>
+        <div class="insight-grid">
+          <!-- Latest Card 1 -->
+          <a href="5-2 인사이트 상세.html" class="insight-card">
+            <div class="insight-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+              <span class="insight-card__category">트렌드 & 시장 동향</span>
             </div>
-          </div>
-        </a>
+            <div class="insight-card__content">
+              <h3 class="insight-card__title">MZ세대가 선호하는 캐릭터 스타일 분석</h3>
+              <p class="insight-card__desc">데이터로 살펴보는 MZ세대 타깃 캐릭터 디자인의 핵심 요소</p>
+              <div class="insight-card__meta">
+                <span class="insight-card__date">
+                  <i data-lucide="calendar" class="icon icon-sm"></i>
+                  2026.12.10
+                </span>
+                <span class="insight-card__views">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  2,156
+                </span>
+              </div>
+            </div>
+          </a>
 
-        <!-- Card 5 -->
-        <a href="5-2 인사이트 상세.html" class="insight-card">
-          <div class="insight-card__img-wrap">
-            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
-            <span class="insight-card__category">비즈니스 전략</span>
-          </div>
-          <div class="insight-card__content">
-            <h3 class="insight-card__title">F&B 업계의 캐릭터 협업 전략</h3>
-            <p class="insight-card__desc">식품 브랜드가 캐릭터 IP를 활용하는 5가지 효과적인 방법</p>
-            <div class="insight-card__meta">
-              <span class="insight-card__date">
-                <i data-lucide="calendar" class="icon icon-sm"></i>
-                2024.11.28
-              </span>
-              <span class="insight-card__views">
-                <i data-lucide="eye" class="icon icon-sm"></i>
-                1,876
-              </span>
+          <!-- Latest Card 2 -->
+          <a href="5-2 인사이트 상세.html" class="insight-card">
+            <div class="insight-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+              <span class="insight-card__category">업데이트 - 인사이드 부스</span>
             </div>
-          </div>
-        </a>
+            <div class="insight-card__content">
+              <h3 class="insight-card__title">INABOOTH 신규 기능 업데이트 안내</h3>
+              <p class="insight-card__desc">AI 기반 IP 매칭 시스템과 협업 지수 기능이 새롭게 추가되었습니다.</p>
+              <div class="insight-card__meta">
+                <span class="insight-card__date">
+                  <i data-lucide="calendar" class="icon icon-sm"></i>
+                  2026.12.01
+                </span>
+                <span class="insight-card__views">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  987
+                </span>
+              </div>
+            </div>
+          </a>
 
-        <!-- Card 6 -->
-        <a href="5-2 인사이트 상세.html" class="insight-card">
-          <div class="insight-card__img-wrap">
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
-            <span class="insight-card__category">트렌드 & 시장 동향</span>
-          </div>
-          <div class="insight-card__content">
-            <h3 class="insight-card__title">2025년 주목해야 할 캐릭터 IP 트렌드</h3>
-            <p class="insight-card__desc">내년 시장을 주도할 캐릭터 디자인과 협업 방식을 미리 살펴봅니다.</p>
-            <div class="insight-card__meta">
-              <span class="insight-card__date">
-                <i data-lucide="calendar" class="icon icon-sm"></i>
-                2024.11.25
-              </span>
-              <span class="insight-card__views">
-                <i data-lucide="eye" class="icon icon-sm"></i>
-                2,543
-              </span>
+          <!-- Latest Card 3 -->
+          <a href="5-2 인사이트 상세.html" class="insight-card">
+            <div class="insight-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+              <span class="insight-card__category">트렌드 & 시장 동향</span>
             </div>
-          </div>
-        </a>
-      </div>
+            <div class="insight-card__content">
+              <h3 class="insight-card__title">2025년 주목해야 할 캐릭터 IP 트렌드</h3>
+              <p class="insight-card__desc">내년 시장을 주도할 캐릭터 디자인과 협업 방식을 미리 살펴봅니다.</p>
+              <div class="insight-card__meta">
+                <span class="insight-card__date">
+                  <i data-lucide="calendar" class="icon icon-sm"></i>
+                  2026.11.25
+                </span>
+                <span class="insight-card__views">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  2,543
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Latest Card 4 -->
+          <a href="5-2 인사이트 상세.html" class="insight-card">
+            <div class="insight-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+              <span class="insight-card__category">인터뷰</span>
+            </div>
+            <div class="insight-card__content">
+              <h3 class="insight-card__title">인기 IP 홀더 인터뷰 - 캐릭터 크리에이터 김작가</h3>
+              <p class="insight-card__desc">100만 팔로워를 보유한 캐릭터 크리에이터의 성공 비결</p>
+              <div class="insight-card__meta">
+                <span class="insight-card__date">
+                  <i data-lucide="calendar" class="icon icon-sm"></i>
+                  2026.11.20
+                </span>
+                <span class="insight-card__views">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  1,543
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Latest Card 5 -->
+          <a href="5-2 인사이트 상세.html" class="insight-card">
+            <div class="insight-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+              <span class="insight-card__category">비즈니스 전략</span>
+            </div>
+            <div class="insight-card__content">
+              <h3 class="insight-card__title">로열티 협상의 기술 - BP가 알아야 할 핵심 포인트</h3>
+              <p class="insight-card__desc">IP 협업 계약 시 양측이 Win-Win하는 로열티 구조 설계 방법</p>
+              <div class="insight-card__meta">
+                <span class="insight-card__date">
+                  <i data-lucide="calendar" class="icon icon-sm"></i>
+                  2026.11.15
+                </span>
+                <span class="insight-card__views">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  2,087
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Latest Card 6 -->
+          <a href="5-2 인사이트 상세.html" class="insight-card">
+            <div class="insight-card__img-wrap">
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop" alt="Insight" class="insight-card__img">
+              <span class="insight-card__category">트렌드 & 시장 동향</span>
+            </div>
+            <div class="insight-card__content">
+              <h3 class="insight-card__title">패션 업계의 캐릭터 콜라보 성공 공식</h3>
+              <p class="insight-card__desc">의류 브랜드가 캐릭터 IP로 매출 상승을 이끌어낸 실전 전략</p>
+              <div class="insight-card__meta">
+                <span class="insight-card__date">
+                  <i data-lucide="calendar" class="icon icon-sm"></i>
+                  2026.11.10
+                </span>
+                <span class="insight-card__views">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  1,765
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
     </div>
   </main>
 
@@ -430,6 +646,32 @@ ul {
   <script src="components/shared.js"></script>
   <script>
     initPage({ activePage: 'insight' });
+
+    // 검색 기능 (#33)
+    function searchInsight() {
+      const query = document.getElementById('insightSearch').value.trim();
+      if (query) {
+        // 실제 구현에서는 서버 검색 또는 필터링 로직
+        alert(`"${query}" 검색 결과를 표시합니다.`);
+        // window.location.href = `5-1-1 인사이트_필터.html?q=${encodeURIComponent(query)}`;
+      }
+    }
+
+    // 검색 엔터키 지원
+    document.getElementById('insightSearch').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchInsight();
+      }
+    });
+
+    // 필터 칩 클릭 핸들러
+    document.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const parent = chip.closest('.filter-options');
+        parent.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
   </script>
 </body>
 </html>

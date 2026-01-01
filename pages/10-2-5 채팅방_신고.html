@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사용자 신고 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .report-page {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      min-height: 100vh;
+      padding-bottom: var(--space-8);
+      background: var(--color-bg-secondary);
+    }
+
+    .report-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+    }
+
+    .report-header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .report-header__icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-4);
+      background: var(--color-error-light);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-error);
+    }
+
+    .report-header__title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .report-header__desc {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+    }
+
+    .report-target {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-6);
+    }
+
+    .report-target__avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: var(--gradient-primary);
+    }
+
+    .report-target__avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+    }
+
+    .report-target__name {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .report-target__label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-5);
+    }
+
+    .form-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-2);
+    }
+
+    .form-label .required {
+      color: var(--color-error);
+    }
+
+    .report-reasons {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .report-reason {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .report-reason:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .report-reason input {
+      display: none;
+    }
+
+    .report-reason input:checked + .report-reason__radio {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+    }
+
+    .report-reason input:checked + .report-reason__radio::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .report-reason__radio {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all var(--transition-fast);
+    }
+
+    .report-reason__text {
+      font-size: var(--font-size-sm);
+    }
+
+    .report-actions {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-8);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .report-actions .btn {
+      flex: 1;
+    }
+
+    .notice-box {
+      background: var(--color-warning-light);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-top: var(--space-5);
+    }
+
+    .notice-box__title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-warning-dark);
+      margin-bottom: var(--space-2);
+    }
+
+    .notice-box__text {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="report-page">
+    <div class="container">
+      <div class="report-card">
+        <div class="report-header">
+          <div class="report-header__icon">
+            <i data-lucide="flag" class="icon icon-lg"></i>
+          </div>
+          <h1 class="report-header__title">사용자 신고</h1>
+          <p class="report-header__desc">부적절한 행위를 신고해주세요. 운영팀에서 검토 후 조치합니다.</p>
+        </div>
+
+        <div class="report-target">
+          <div class="report-target__avatar">
+            <img src="images/characters/Random Objects (1).png" alt="스튜디오 베어">
+          </div>
+          <div>
+            <div class="report-target__name">스튜디오 베어</div>
+            <div class="report-target__label">신고 대상</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">신고 사유 <span class="required">*</span></label>
+          <div class="report-reasons">
+            <label class="report-reason">
+              <input type="radio" name="reason" value="spam">
+              <span class="report-reason__radio"></span>
+              <span class="report-reason__text">스팸 또는 광고성 메시지</span>
+            </label>
+            <label class="report-reason">
+              <input type="radio" name="reason" value="fraud">
+              <span class="report-reason__radio"></span>
+              <span class="report-reason__text">사기 또는 허위 정보</span>
+            </label>
+            <label class="report-reason">
+              <input type="radio" name="reason" value="harassment">
+              <span class="report-reason__radio"></span>
+              <span class="report-reason__text">욕설, 비방, 괴롭힘</span>
+            </label>
+            <label class="report-reason">
+              <input type="radio" name="reason" value="copyright">
+              <span class="report-reason__radio"></span>
+              <span class="report-reason__text">저작권 침해 의심</span>
+            </label>
+            <label class="report-reason">
+              <input type="radio" name="reason" value="inappropriate">
+              <span class="report-reason__radio"></span>
+              <span class="report-reason__text">부적절한 콘텐츠</span>
+            </label>
+            <label class="report-reason">
+              <input type="radio" name="reason" value="other">
+              <span class="report-reason__radio"></span>
+              <span class="report-reason__text">기타</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="detail">상세 내용 <span class="required">*</span></label>
+          <textarea id="detail" class="form-input" rows="4" placeholder="신고 사유를 구체적으로 작성해주세요. 증거가 될 수 있는 대화 내용이나 상황을 설명해주시면 검토에 도움이 됩니다." style="width:100%;resize:vertical"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">증거 파일 첨부 (선택)</label>
+          <div style="border:2px dashed var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);text-align:center;cursor:pointer;transition:all var(--transition-fast)" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='var(--color-border)'">
+            <i data-lucide="upload" style="color:var(--color-text-tertiary);margin-bottom:var(--space-2)"></i>
+            <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">스크린샷 등 증거 파일 첨부</p>
+            <p style="font-size:var(--font-size-xs);color:var(--color-text-tertiary)">최대 10MB, JPG/PNG</p>
+          </div>
+        </div>
+
+        <div class="notice-box">
+          <div class="notice-box__title">
+            <i data-lucide="alert-triangle" style="width:14px;height:14px"></i>
+            신고 시 유의사항
+          </div>
+          <p class="notice-box__text">
+            • 허위 신고 시 서비스 이용이 제한될 수 있습니다.<br>
+            • 신고 내용은 운영팀만 확인하며, 신고자 정보는 상대방에게 공개되지 않습니다.<br>
+            • 처리 결과는 알림으로 안내드립니다.
+          </p>
+        </div>
+
+        <div class="report-actions">
+          <a href="10-2 채팅방 상세.html" class="btn btn--secondary btn--lg">취소</a>
+          <button class="btn btn--primary btn--lg" onclick="submitReport()">
+            <i data-lucide="send" class="icon icon-sm"></i>
+            신고하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'chat', isLoggedIn: true});
+    lucide.createIcons();
+
+    function submitReport() {
+      const reason = document.querySelector('input[name="reason"]:checked');
+      const detail = document.getElementById('detail').value;
+
+      if (!reason) {
+        Toast.error('신고 사유를 선택해주세요.');
+        return;
+      }
+
+      if (!detail.trim()) {
+        Toast.error('상세 내용을 입력해주세요.');
+        return;
+      }
+
+      Toast.success('신고가 접수되었습니다. 검토 후 조치하겠습니다.');
+      setTimeout(() => {
+        location.href = '10-2 채팅방 상세.html';
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

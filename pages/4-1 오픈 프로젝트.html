@@ -314,6 +314,36 @@
       font-weight: var(--font-weight-semibold);
     }
 
+    /* D-day + 날짜 표시 (#31) */
+    .project-card__deadline-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .project-card__deadline-dday {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .project-card__deadline-date {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      font-weight: var(--font-weight-regular);
+    }
+
+    .project-card__deadline--urgent .project-card__deadline-dday {
+      color: var(--color-error);
+    }
+
+    .project-card__deadline--urgent .project-card__deadline-date {
+      color: var(--color-error);
+      opacity: 0.8;
+    }
+
     .project-card__scrap {
       width: 32px;
       height: 32px;
@@ -447,9 +477,12 @@
                 <span class="project-card__company-name">(주)푸드컴퍼니</span>
               </div>
               <div class="project-card__footer">
-                <div class="project-card__deadline">
-                  <i data-lucide="clock" class="icon icon-sm"></i>
-                  D-15
+                <div class="project-card__deadline-info">
+                  <div class="project-card__deadline-dday">
+                    <i data-lucide="clock" class="icon icon-sm"></i>
+                    D-15
+                  </div>
+                  <div class="project-card__deadline-date">2025.01.14 마감</div>
                 </div>
                 <button class="project-card__scrap">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>
@@ -472,9 +505,12 @@
                 <span class="project-card__company-name">패션하우스</span>
               </div>
               <div class="project-card__footer">
-                <div class="project-card__deadline project-card__deadline--urgent">
-                  <i data-lucide="clock" class="icon icon-sm"></i>
-                  D-3
+                <div class="project-card__deadline-info project-card__deadline--urgent">
+                  <div class="project-card__deadline-dday">
+                    <i data-lucide="clock" class="icon icon-sm"></i>
+                    D-3
+                  </div>
+                  <div class="project-card__deadline-date">2025.01.02 마감</div>
                 </div>
                 <button class="project-card__scrap">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>
@@ -496,9 +532,12 @@
                 <span class="project-card__company-name">스테이셔너리코</span>
               </div>
               <div class="project-card__footer">
-                <div class="project-card__deadline">
-                  <i data-lucide="clock" class="icon icon-sm"></i>
-                  D-22
+                <div class="project-card__deadline-info">
+                  <div class="project-card__deadline-dday">
+                    <i data-lucide="clock" class="icon icon-sm"></i>
+                    D-22
+                  </div>
+                  <div class="project-card__deadline-date">2025.01.21 마감</div>
                 </div>
                 <button class="project-card__scrap">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>
@@ -520,9 +559,12 @@
                 <span class="project-card__company-name">카페앤</span>
               </div>
               <div class="project-card__footer">
-                <div class="project-card__deadline">
-                  <i data-lucide="clock" class="icon icon-sm"></i>
-                  D-10
+                <div class="project-card__deadline-info">
+                  <div class="project-card__deadline-dday">
+                    <i data-lucide="clock" class="icon icon-sm"></i>
+                    D-10
+                  </div>
+                  <div class="project-card__deadline-date">2025.01.09 마감</div>
                 </div>
                 <button class="project-card__scrap">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>
@@ -544,9 +586,12 @@
                 <span class="project-card__company-name">리빙플러스</span>
               </div>
               <div class="project-card__footer">
-                <div class="project-card__deadline">
-                  <i data-lucide="clock" class="icon icon-sm"></i>
-                  D-18
+                <div class="project-card__deadline-info">
+                  <div class="project-card__deadline-dday">
+                    <i data-lucide="clock" class="icon icon-sm"></i>
+                    D-18
+                  </div>
+                  <div class="project-card__deadline-date">2025.01.17 마감</div>
                 </div>
                 <button class="project-card__scrap">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>
@@ -568,9 +613,12 @@
                 <span class="project-card__company-name">뷰티랩</span>
               </div>
               <div class="project-card__footer">
-                <div class="project-card__deadline">
-                  <i data-lucide="clock" class="icon icon-sm"></i>
-                  D-25
+                <div class="project-card__deadline-info">
+                  <div class="project-card__deadline-dday">
+                    <i data-lucide="clock" class="icon icon-sm"></i>
+                    D-25
+                  </div>
+                  <div class="project-card__deadline-date">2025.01.24 마감</div>
                 </div>
                 <button class="project-card__scrap">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>

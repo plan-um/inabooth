@@ -1,7 +1,7 @@
 /**
  * INABOOTH 통합 컴포넌트 시스템
  * 헤더, 푸터, 모달, 폼 검증 등 모든 페이지에서 공유되는 요소
- * v2.0 - 2024.12
+ * v2.0 - 2026.12
  */
 
 // ========================================
@@ -10,6 +10,164 @@
 const currentPath = window.location.pathname;
 const isFileProtocol = window.location.protocol === 'file:';
 const basePath = '';
+
+// ========================================
+// 1.1 사용자 역할 관리 시스템
+// ========================================
+/**
+ * 사용자 역할 타입:
+ * - 'guest': 비로그인 상태
+ * - 'iph': IP홀더 (크리에이터)
+ * - 'bp': 브랜드 파트너 (기업)
+ */
+const UserRole = {
+  GUEST: 'guest',
+  IPH: 'iph',
+  BP: 'bp'
+};
+
+// 현재 사용자 역할 가져오기
+function getUserRole() {
+  return localStorage.getItem('inabooth_user_role') || UserRole.GUEST;
+}
+
+// 사용자 역할 설정
+function setUserRole(role) {
+  if (Object.values(UserRole).includes(role)) {
+    localStorage.setItem('inabooth_user_role', role);
+    return true;
+  }
+  return false;
+}
+
+// 로그인 여부 확인
+function isLoggedIn() {
+  const role = getUserRole();
+  return role === UserRole.IPH || role === UserRole.BP;
+}
+
+// 사용자 역할 전환
+function switchUserRole() {
+  const currentRole = getUserRole();
+  if (currentRole === UserRole.IPH) {
+    setUserRole(UserRole.BP);
+    Toast.success('브랜드 파트너 모드로 전환되었습니다');
+  } else if (currentRole === UserRole.BP) {
+    setUserRole(UserRole.IPH);
+    Toast.success('IP홀더 모드로 전환되었습니다');
+  }
+  // 헤더 다시 렌더링
+  setTimeout(() => window.location.reload(), 500);
+}
+
+// 로그인 처리 (데모용)
+function handleLogin(role = UserRole.IPH) {
+  setUserRole(role);
+  Toast.success('로그인되었습니다');
+  setTimeout(() => {
+    window.location.href = basePath + 'index.html';
+  }, 500);
+}
+
+// 로그아웃 처리
+function handleLogout() {
+  localStorage.removeItem('inabooth_user_role');
+  Toast.info('로그아웃되었습니다.');
+  setTimeout(() => {
+    window.location.href = basePath + 'index.html';
+  }, 1000);
+}
+
+// 페이지 접근 권한 정의
+const PageAccess = {
+  // 모든 사용자 접근 가능
+  public: ['index.html', '2-1 메인.html', '3-1 탐색.html', '4-1 오픈 프로젝트.html', '5-1 인사이트.html'],
+  // IPH 전용 페이지 (캐릭터 등록/관리, 프로젝트 지원)
+  iphOnly: ['6-1', '6-2', '8-1', '8-2'],
+  // BP 전용 페이지 (프로젝트 등록/관리, 지원자 관리)
+  bpOnly: ['7-1', '7-2', '7-3'],
+  // 로그인 필수 페이지
+  authRequired: ['9-', '10-']
+};
+
+// 현재 페이지 접근 권한 체크
+// ⚠️ 테스트 모드: 모든 페이지 접근 허용
+const TEST_MODE = true;
+
+function checkPageAccess() {
+  // 테스트 모드에서는 모든 페이지 접근 허용
+  if (TEST_MODE) {
+    // 페이지에 맞는 역할 자동 설정
+    const path = window.location.pathname;
+    const fileName = path.split('/').pop() || 'index.html';
+
+    // IPH 페이지면 자동으로 IPH 역할 설정
+    if (PageAccess.iphOnly.some(prefix => fileName.startsWith(prefix))) {
+      if (getUserRole() !== UserRole.IPH) {
+        setUserRole(UserRole.IPH);
+      }
+    }
+    // BP 페이지면 자동으로 BP 역할 설정
+    else if (PageAccess.bpOnly.some(prefix => fileName.startsWith(prefix))) {
+      if (getUserRole() !== UserRole.BP) {
+        setUserRole(UserRole.BP);
+      }
+    }
+    // 로그인 필수 페이지면 기본 IPH로 설정
+    else if (PageAccess.authRequired.some(prefix => fileName.startsWith(prefix))) {
+      if (!isLoggedIn()) {
+        setUserRole(UserRole.IPH);
+      }
+    }
+    return true;
+  }
+
+  const path = window.location.pathname;
+  const fileName = path.split('/').pop() || 'index.html';
+  const role = getUserRole();
+
+  // IPH 전용 페이지 체크
+  if (PageAccess.iphOnly.some(prefix => fileName.startsWith(prefix))) {
+    if (role !== UserRole.IPH) {
+      showAccessDenied('IP홀더');
+      return false;
+    }
+  }
+
+  // BP 전용 페이지 체크
+  if (PageAccess.bpOnly.some(prefix => fileName.startsWith(prefix))) {
+    if (role !== UserRole.BP) {
+      showAccessDenied('브랜드 파트너');
+      return false;
+    }
+  }
+
+  // 로그인 필수 페이지 체크
+  if (PageAccess.authRequired.some(prefix => fileName.startsWith(prefix))) {
+    if (!isLoggedIn()) {
+      showLoginRequired();
+      return false;
+    }
+  }
+
+  return true;
+}
+
+// 접근 거부 메시지 표시
+function showAccessDenied(requiredRole) {
+  Toast.warning(`이 페이지는 ${requiredRole} 전용입니다`);
+  setTimeout(() => {
+    window.location.href = basePath + 'index.html';
+  }, 1500);
+}
+
+// 로그인 필요 메시지 표시
+function showLoginRequired() {
+  Toast.info('로그인이 필요한 페이지입니다');
+  setTimeout(() => {
+    window.location.href = basePath + '1-2-1 로그인.html';
+  }, 1500);
+}
 
 // 공통 CSS 주입
 (function injectSharedCSS() {
@@ -25,6 +183,10 @@ const basePath = '';
 // 2. 헤더 HTML 템플릿
 // ========================================
 function getHeaderHTML(activePage = '') {
+  const role = getUserRole();
+  const headerActions = getHeaderActionsHTML(role);
+  const mobileNavActions = getMobileNavActionsHTML(role);
+
   return `
   <!-- Background Blobs -->
   <div class="blob blob-1"></div>
@@ -54,15 +216,7 @@ function getHeaderHTML(activePage = '') {
       </div>
 
       <div class="header__actions" id="headerActions">
-        <a href="${basePath}10-1 채팅.html" class="icon-btn">
-          <i data-lucide="message-circle" class="icon"></i>
-          <span class="icon-btn__badge"></span>
-        </a>
-        <a href="${basePath}1-2-1 로그인.html" class="btn btn--ghost">로그인</a>
-        <a href="${basePath}1-1-1 회원가입.html" class="btn btn--primary">
-          <i data-lucide="plus-circle" class="icon icon-sm"></i>
-          회원가입
-        </a>
+        ${headerActions}
         <button class="hamburger" id="hamburgerBtn" aria-label="메뉴 열기">
           <span class="hamburger__icon"></span>
         </button>
@@ -94,13 +248,98 @@ function getHeaderHTML(activePage = '') {
         <i data-lucide="message-circle" class="icon"></i>
         채팅
       </a>
+      ${mobileNavActions}
+    </div>
+  </nav>
+  `;
+}
+
+// 역할별 헤더 액션 HTML
+function getHeaderActionsHTML(role) {
+  if (role === UserRole.GUEST) {
+    // 비로그인 상태
+    return `
+      <a href="${basePath}1-2-1 로그인.html" class="btn btn--ghost">로그인</a>
+      <a href="${basePath}1-1-1 회원가입.html" class="btn btn--primary">
+        <i data-lucide="user-plus" class="icon icon-sm"></i>
+        회원가입
+      </a>
+    `;
+  } else if (role === UserRole.IPH) {
+    // IP홀더
+    return `
+      <a href="${basePath}10-1 채팅.html" class="icon-btn">
+        <i data-lucide="message-circle" class="icon"></i>
+        <span class="icon-btn__badge"></span>
+      </a>
+      <a href="${basePath}9-6 알림 설정.html" class="icon-btn">
+        <i data-lucide="bell" class="icon"></i>
+      </a>
+      <a href="${basePath}6-1 캐릭터 등록.html" class="btn btn--primary">
+        <i data-lucide="palette" class="icon icon-sm"></i>
+        캐릭터 등록
+      </a>
+      <div class="profile-trigger" id="profileTrigger">
+        <button class="icon-btn" id="profileBtn">
+          <img src="${basePath}images/people/Random People (1).png" alt="프로필" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+        </button>
+        ${getProfilePopoverHTML(role)}
+      </div>
+    `;
+  } else if (role === UserRole.BP) {
+    // 브랜드 파트너
+    return `
+      <a href="${basePath}10-1 채팅.html" class="icon-btn">
+        <i data-lucide="message-circle" class="icon"></i>
+        <span class="icon-btn__badge"></span>
+      </a>
+      <a href="${basePath}9-6 알림 설정.html" class="icon-btn">
+        <i data-lucide="bell" class="icon"></i>
+      </a>
+      <a href="${basePath}7-1 프로젝트 등록.html" class="btn btn--primary">
+        <i data-lucide="briefcase" class="icon icon-sm"></i>
+        프로젝트 등록
+      </a>
+      <div class="profile-trigger" id="profileTrigger">
+        <button class="icon-btn" id="profileBtn">
+          <img src="${basePath}images/people/Random People (1).png" alt="프로필" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+        </button>
+        ${getProfilePopoverHTML(role)}
+      </div>
+    `;
+  }
+  return '';
+}
+
+// 역할별 모바일 네비게이션 액션 HTML
+function getMobileNavActionsHTML(role) {
+  if (role === UserRole.GUEST) {
+    return `
       <div class="mobile-nav__actions">
         <a href="${basePath}1-2-1 로그인.html" class="btn btn--outline btn--lg">로그인</a>
         <a href="${basePath}1-1-1 회원가입.html" class="btn btn--primary btn--lg">회원가입</a>
       </div>
-    </div>
-  </nav>
-  `;
+    `;
+  } else if (role === UserRole.IPH) {
+    return `
+      <div class="mobile-nav__actions">
+        <a href="${basePath}6-1 캐릭터 등록.html" class="btn btn--primary btn--lg">
+          <i data-lucide="palette" class="icon icon-sm"></i>
+          캐릭터 등록
+        </a>
+      </div>
+    `;
+  } else if (role === UserRole.BP) {
+    return `
+      <div class="mobile-nav__actions">
+        <a href="${basePath}7-1 프로젝트 등록.html" class="btn btn--primary btn--lg">
+          <i data-lucide="briefcase" class="icon icon-sm"></i>
+          프로젝트 등록
+        </a>
+      </div>
+    `;
+  }
+  return '';
 }
 
 // 로그인 상태 헤더 (프로필 아이콘 포함)
@@ -180,7 +419,7 @@ function getFooterHTML() {
       </div>
 
       <div class="footer__bottom">
-        <p class="footer__copyright">&copy; 2024 INABOOTH. All rights reserved.</p>
+        <p class="footer__copyright">&copy; 2026 INABOOTH. All rights reserved.</p>
         <div class="footer__lang">
           <button class="footer__lang-btn active">한국어</button>
           <button class="footer__lang-btn">English</button>
@@ -195,16 +434,54 @@ function getFooterHTML() {
 // ========================================
 // 4. 프로필 팝오버 HTML
 // ========================================
-function getProfilePopoverHTML() {
+function getProfilePopoverHTML(role = UserRole.IPH) {
+  const roleLabel = role === UserRole.IPH ? 'IP홀더' : '브랜드 파트너';
+  const switchLabel = role === UserRole.IPH ? '브랜드 파트너로 전환' : 'IP홀더로 전환';
+  const switchIcon = role === UserRole.IPH ? 'briefcase' : 'palette';
+  const roleBadgeClass = role === UserRole.IPH ? 'profile-popover__role--iph' : 'profile-popover__role--bp';
+
+  // 역할별 전용 메뉴
+  const roleSpecificMenu = role === UserRole.IPH ? `
+      <a href="${basePath}6-2 캐릭터 관리.html" class="profile-popover__item">
+        <i data-lucide="image" class="icon icon-sm"></i>
+        내 캐릭터 관리
+      </a>
+      <a href="${basePath}9-7-3 마이부스_지원 현황.html" class="profile-popover__item">
+        <i data-lucide="file-text" class="icon icon-sm"></i>
+        지원 현황
+      </a>
+  ` : `
+      <a href="${basePath}7-2 프로젝트 관리.html" class="profile-popover__item">
+        <i data-lucide="folder" class="icon icon-sm"></i>
+        내 프로젝트 관리
+      </a>
+      <a href="${basePath}7-3 지원자 관리.html" class="profile-popover__item">
+        <i data-lucide="users" class="icon icon-sm"></i>
+        지원자 관리
+      </a>
+  `;
+
   return `
   <div class="profile-popover" id="profilePopover">
     <div class="profile-popover__header">
       <img src="${basePath}images/people/Random People (1).png" alt="Profile" class="profile-popover__avatar">
       <div class="profile-popover__info">
         <span class="profile-popover__name">홍길동</span>
-        <span class="profile-popover__plan">Pro 멤버</span>
+        <span class="profile-popover__role ${roleBadgeClass}">${roleLabel}</span>
       </div>
     </div>
+
+    <!-- 역할 전환 버튼 -->
+    <div class="profile-popover__switch">
+      <button class="profile-popover__switch-btn" onclick="switchUserRole()">
+        <i data-lucide="${switchIcon}" class="icon icon-sm"></i>
+        ${switchLabel}
+        <i data-lucide="arrow-right" class="icon icon-sm" style="margin-left:auto"></i>
+      </button>
+    </div>
+
+    <div class="profile-popover__divider"></div>
+
     <div class="profile-popover__menu">
       <a href="${basePath}9-1 프로필 관리.html" class="profile-popover__item">
         <i data-lucide="user" class="icon icon-sm"></i>
@@ -214,6 +491,7 @@ function getProfilePopoverHTML() {
         <i data-lucide="layout-dashboard" class="icon icon-sm"></i>
         마이부스
       </a>
+      ${roleSpecificMenu}
       <a href="${basePath}9-8 내 통계.html" class="profile-popover__item">
         <i data-lucide="bar-chart-2" class="icon icon-sm"></i>
         내 통계
@@ -614,14 +892,6 @@ function initProfilePopover() {
   });
 }
 
-function handleLogout() {
-  // 로그아웃 처리 (데모용)
-  Toast.info('로그아웃되었습니다.');
-  setTimeout(() => {
-    window.location.href = basePath + 'index.html';
-  }, 1000);
-}
-
 // ========================================
 // 11. 뉴스레터 구독
 // ========================================
@@ -647,23 +917,20 @@ function openNewsletterModal() {
 // 12. 컴포넌트 주입
 // ========================================
 function injectComponents(options = {}) {
-  const { activePage = '', showHeader = true, showFooter = true, isLoggedIn = false } = options;
+  const { activePage = '', showHeader = true, showFooter = true, checkAccess = true } = options;
 
-  // 헤더 주입
+  // 페이지 접근 권한 체크 (checkAccess가 true인 경우만)
+  if (checkAccess && !checkPageAccess()) {
+    return; // 권한 없으면 중단 (리다이렉트됨)
+  }
+
+  // 헤더 주입 (역할에 따라 자동으로 다른 헤더 렌더링)
   if (showHeader) {
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder) {
       headerPlaceholder.innerHTML = getHeaderHTML(activePage);
     } else {
       document.body.insertAdjacentHTML('afterbegin', getHeaderHTML(activePage));
-    }
-
-    // 로그인 상태면 헤더 액션 교체
-    if (isLoggedIn) {
-      const headerActions = document.getElementById('headerActions');
-      if (headerActions) {
-        headerActions.innerHTML = getLoggedInHeaderActions();
-      }
     }
   }
 

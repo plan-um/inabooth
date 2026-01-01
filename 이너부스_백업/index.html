@@ -1649,142 +1649,11 @@
     }
 
     /* ========================================
-       PLATFORM INTRO SECTION (#24)
-    ======================================== */
-    .platform-intro {
-      padding: var(--space-16) 0;
-      background: var(--color-bg-primary);
-    }
-
-    .platform-intro__header {
-      text-align: center;
-      margin-bottom: var(--space-12);
-    }
-
-    .platform-intro__title {
-      font-size: var(--font-size-3xl);
-      font-weight: var(--font-weight-bold);
-      margin-bottom: var(--space-4);
-    }
-
-    .platform-intro__subtitle {
-      font-size: var(--font-size-lg);
-      color: var(--color-text-secondary);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .platform-features {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-6);
-    }
-
-    .platform-feature {
-      text-align: center;
-      padding: var(--space-6);
-      background: var(--color-bg-secondary);
-      border-radius: var(--radius-xl);
-      transition: all var(--transition-normal);
-    }
-
-    .platform-feature:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .platform-feature__icon {
-      width: 64px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--color-primary-light);
-      border-radius: var(--radius-lg);
-      color: var(--color-primary);
-      margin: 0 auto var(--space-4);
-    }
-
-    .platform-feature__title {
-      font-size: var(--font-size-lg);
-      font-weight: var(--font-weight-semibold);
-      margin-bottom: var(--space-2);
-    }
-
-    .platform-feature__desc {
-      font-size: var(--font-size-sm);
-      color: var(--color-text-secondary);
-      line-height: var(--line-height-relaxed);
-    }
-
-    /* ========================================
-       SECTION SEPARATOR (#23)
-    ======================================== */
-    .section__separator {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-      margin-bottom: var(--space-6);
-    }
-
-    .section__number {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      background: var(--gradient-primary);
-      color: white;
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-bold);
-      border-radius: var(--radius-full);
-    }
-
-    .section__label {
-      font-size: var(--font-size-xs);
-      color: var(--color-text-tertiary);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* ========================================
-       USER TYPE TARGETING (#25)
-    ======================================== */
-    .targeting-card[data-user-type] {
-      display: none;
-    }
-
-    /* Default: 비회원 */
-    .targeting-card[data-user-type="guest"] {
-      display: block;
-    }
-
-    /* IPH 유저 */
-    body[data-user-type="iph"] .targeting-card[data-user-type="guest"] {
-      display: none;
-    }
-    body[data-user-type="iph"] .targeting-card[data-user-type="iph"] {
-      display: block;
-    }
-
-    /* BP 유저 */
-    body[data-user-type="bp"] .targeting-card[data-user-type="guest"] {
-      display: none;
-    }
-    body[data-user-type="bp"] .targeting-card[data-user-type="bp"] {
-      display: block;
-    }
-
-    /* ========================================
        RESPONSIVE - TABLET (1024px)
     ======================================== */
     @media (max-width: 1024px) {
       .ip-grid {
         grid-template-columns: repeat(3, 1fr);
-      }
-
-      .platform-features {
-        grid-template-columns: repeat(2, 1fr);
       }
 
       .targeting__grid {
@@ -1875,16 +1744,6 @@
 
       .category-tabs::-webkit-scrollbar {
         display: none;
-      }
-
-      /* Platform Intro Mobile */
-      .platform-features {
-        grid-template-columns: 1fr;
-        gap: var(--space-4);
-      }
-
-      .platform-feature {
-        padding: var(--space-5);
       }
 
       /* Targeting Mobile */
@@ -2712,58 +2571,6 @@
     </section>
 
     <!-- ========================================
-         PLATFORM INTRO SECTION (#24)
-    ======================================== -->
-    <section class="platform-intro" id="platform-intro">
-      <div class="container">
-        <div class="platform-intro__header">
-          <h2 class="platform-intro__title">INABOOTH가 연결하는 새로운 협업</h2>
-          <p class="platform-intro__subtitle">
-            캐릭터 IP와 브랜드가 만나는 가장 효율적인 방법을 제공합니다
-          </p>
-        </div>
-        <div class="platform-features">
-          <div class="platform-feature">
-            <div class="platform-feature__icon">
-              <i data-lucide="shield-check" style="width:32px;height:32px"></i>
-            </div>
-            <h3 class="platform-feature__title">검증된 IP</h3>
-            <p class="platform-feature__desc">
-              엄격한 인증 절차를 통해 검증된 캐릭터 IP만 등록됩니다
-            </p>
-          </div>
-          <div class="platform-feature">
-            <div class="platform-feature__icon">
-              <i data-lucide="zap" style="width:32px;height:32px"></i>
-            </div>
-            <h3 class="platform-feature__title">빠른 매칭</h3>
-            <p class="platform-feature__desc">
-              AI 기반 추천으로 브랜드에 딱 맞는 IP를 빠르게 찾아드립니다
-            </p>
-          </div>
-          <div class="platform-feature">
-            <div class="platform-feature__icon">
-              <i data-lucide="file-text" style="width:32px;height:32px"></i>
-            </div>
-            <h3 class="platform-feature__title">안전한 계약</h3>
-            <p class="platform-feature__desc">
-              표준 계약서 템플릿과 에스크로 결제로 안전하게 협업합니다
-            </p>
-          </div>
-          <div class="platform-feature">
-            <div class="platform-feature__icon">
-              <i data-lucide="headphones" style="width:32px;height:32px"></i>
-            </div>
-            <h3 class="platform-feature__title">전담 지원</h3>
-            <p class="platform-feature__desc">
-              컨시어지 서비스로 협업 전 과정을 전문가가 지원합니다
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================
          PERSONA SECTION (CTA CARDS)
     ======================================== -->
     <section class="persona-section">
@@ -2878,601 +2685,933 @@
     </div>
 
     <!-- ========================================
-         SECTION 1: 인증된 IP (VERIFIED IP)
+         UNIFIED IP SECTION
     ======================================== -->
-    <section id="verified-ip" class="section">
+    <section id="ip-browse" class="ip-unified-section">
       <div class="container">
-        <div class="section__separator">
-          <span class="section__number">1</span>
-          <span class="section__label">VERIFIED IP</span>
-        </div>
-        <div class="section-header">
+        <div class="section-header animate-on-scroll">
           <div class="section-header__left">
-            <h2 class="section-title">인증된 IP</h2>
-            <p class="section-desc">엄격한 검증을 통과한 신뢰할 수 있는 IP</p>
+            <h2 class="section-title">지금 주목받는 IP</h2>
+            <p class="section-desc">인증된 캐릭터 IP들을 만나보세요</p>
           </div>
-          <a href="3-1 탐색.html?filter=verified" class="btn-more">더보기 <i data-lucide="chevron-right" class="icon icon-sm"></i></a>
         </div>
+
         <div class="ip-grid">
           <div class="ip-card">
             <div class="ip-card__img-wrap">
               <img src="images/characters/Random Objects (1).png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--verified">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>2.4k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>348</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  2.4k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  348
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">오리지널 캐릭터</div>
               <div class="ip-card__name">에코프렌즈</div>
-              <div class="ip-card__author"><img src="images/people/michael-dam-mEZ3PoFGs_k-unsplash.png" alt="" class="ip-card__author-img">그린스튜디오</div>
+              <div class="ip-card__author">
+                <img src="images/people/michael-dam-mEZ3PoFGs_k-unsplash.png" alt="" class="ip-card__author-img">
+                그린스튜디오
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
               <img src="images/characters/Random Objects (2).png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--verified">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>1.8k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>256</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  1.8k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  256
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">이모티콘</div>
               <div class="ip-card__name">버블프렌즈</div>
-              <div class="ip-card__author"><img src="images/people/Random People (6).png" alt="" class="ip-card__author-img">버블스튜디오</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (6).png" alt="" class="ip-card__author-img">
+                버블스튜디오
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
               <img src="images/characters/Random Objects (3).png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--verified">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>3.2k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>521</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  3.2k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  521
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">마스코트/브랜드</div>
               <div class="ip-card__name">스마일리</div>
-              <div class="ip-card__author"><img src="images/people/Random People (10).png" alt="" class="ip-card__author-img">스마일컴퍼니</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (10).png" alt="" class="ip-card__author-img">
+                스마일컴퍼니
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
               <img src="images/characters/Random Objects (4).png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--verified">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>4.1k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>689</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  4.1k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  689
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">웹툰/만화</div>
               <div class="ip-card__name">판타지랜드</div>
-              <div class="ip-card__author"><img src="images/people/Random People (11).png" alt="" class="ip-card__author-img">판타지웍스</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (11).png" alt="" class="ip-card__author-img">
+                판타지웍스
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
               <img src="images/characters/image 5.png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--verified">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>1.9k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>287</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  1.9k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  287
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">오리지널 캐릭터</div>
               <div class="ip-card__name">블루베어</div>
-              <div class="ip-card__author"><img src="images/people/Random People (1).png" alt="" class="ip-card__author-img">스튜디오블루</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (1).png" alt="" class="ip-card__author-img">
+                스튜디오블루
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
               <img src="images/characters/image 4.png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--verified">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>2.1k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>312</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  2.1k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  312
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">이모티콘</div>
               <div class="ip-card__name">레몬프렌즈</div>
-              <div class="ip-card__author"><img src="images/people/Random People (2).png" alt="" class="ip-card__author-img">레몬스튜디오</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (2).png" alt="" class="ip-card__author-img">
+                레몬스튜디오
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
               <img src="images/characters/Rectangle 1.png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--verified">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>1.5k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>198</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  1.5k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  198
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
-              <div class="ip-card__category">애니메이션</div>
-              <div class="ip-card__name">스타캣</div>
-              <div class="ip-card__author"><img src="images/people/Random People (3).png" alt="" class="ip-card__author-img">스타스튜디오</div>
+              <div class="ip-card__category">SNS/인스타툰</div>
+              <div class="ip-card__name">핑크래빗</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (3).png" alt="" class="ip-card__author-img">
+                핑크팩토리
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
-              <img src="images/characters/image 6.png" alt="IP" class="ip-card__img">
+              <img src="images/characters/image 8.png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--verified">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>2.8k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>423</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  2.8k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  445
+                </span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">게임</div>
+              <div class="ip-card__name">미니몬스터</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (4).png" alt="" class="ip-card__author-img">
+                몬스터랩
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- More IP Cards -->
+        <div class="ip-grid" style="margin-top: var(--space-8);">
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 9.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">인기</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  892
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  156
+                </span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">SNS/인스타툰</div>
+              <div class="ip-card__name">데일리몽</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (1).png" alt="" class="ip-card__author-img">
+                몽스튜디오
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 11.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">인기</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  756
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  134
+                </span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">오리지널 캐릭터</div>
+              <div class="ip-card__name">선셋팝</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (2).png" alt="" class="ip-card__author-img">
+                팝아트랩
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 12.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">인기</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  634
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  98
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">게임</div>
               <div class="ip-card__name">픽셀히어로</div>
-              <div class="ip-card__author"><img src="images/people/Random People (4).png" alt="" class="ip-card__author-img">픽셀게임즈</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (3).png" alt="" class="ip-card__author-img">
+                픽셀스튜디오
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 13.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">인기</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  521
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  87
+                </span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">이모티콘</div>
+              <div class="ip-card__name">무드캣</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (4).png" alt="" class="ip-card__author-img">
+                캣아트
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (1).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">인기</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  487
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  76
+                </span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">마스코트/브랜드</div>
+              <div class="ip-card__name">커피버디</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (5).png" alt="" class="ip-card__author-img">
+                커피랩
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (2).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">인기</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  412
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  63
+                </span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">애니메이션</div>
+              <div class="ip-card__name">스타키즈</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (6).png" alt="" class="ip-card__author-img">
+                스타애니
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (3).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">인기</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  378
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  54
+                </span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">웹툰/만화</div>
+              <div class="ip-card__name">드림월드</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (7).png" alt="" class="ip-card__author-img">
+                드림코믹스
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (4).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">인기</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  345
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  48
+                </span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">서브컬쳐/일러스트</div>
+              <div class="ip-card__name">판타지아</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (8).png" alt="" class="ip-card__author-img">
+                판타지랩
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- ========================================
-         SECTION 2: 라이징 IP (RISING IP)
-    ======================================== -->
-    <section id="rising-ip" class="section section--alt">
-      <div class="container">
-        <div class="section__separator">
-          <span class="section__number">2</span>
-          <span class="section__label">RISING IP</span>
-        </div>
-        <div class="section-header">
-          <div class="section-header__left">
-            <h2 class="section-title">라이징 IP</h2>
-            <p class="section-desc">급성장 중인 주목할 만한 IP</p>
-          </div>
-          <a href="3-1 탐색.html?filter=rising" class="btn-more">더보기 <i data-lucide="chevron-right" class="icon icon-sm"></i></a>
-        </div>
-        <div class="ip-grid">
+        <!-- Featured IP Cards -->
+        <div class="ip-grid" style="margin-top: var(--space-8);">
           <div class="ip-card">
             <div class="ip-card__img-wrap">
-              <img src="images/characters/image 7.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <img src="images/characters/image 14.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>5.2k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>892</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  5.2k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  892
+                </span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">애니메이션</div>
+              <div class="ip-card__name">스카이드림</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (5).png" alt="" class="ip-card__author-img">
+                드림웍스코리아
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 15.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  4.8k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  756
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">오리지널 캐릭터</div>
               <div class="ip-card__name">코지베어</div>
-              <div class="ip-card__author"><img src="images/people/Random People (7).png" alt="" class="ip-card__author-img">코지아트</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (7).png" alt="" class="ip-card__author-img">
+                코지아트
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
-              <img src="images/characters/image 8.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <img src="images/characters/image 16.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>4.8k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>756</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  3.9k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  612
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">서브컬쳐/일러스트</div>
               <div class="ip-card__name">네온시티</div>
-              <div class="ip-card__author"><img src="images/people/Random People (8).png" alt="" class="ip-card__author-img">네온랩</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (8).png" alt="" class="ip-card__author-img">
+                네온랩
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
-              <img src="images/characters/image 9.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <img src="images/characters/image 17.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>3.9k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>612</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  3.5k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  534
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">마스코트/브랜드</div>
               <div class="ip-card__name">해피덕</div>
-              <div class="ip-card__author"><img src="images/people/Random People (9).png" alt="" class="ip-card__author-img">해피스튜디오</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (9).png" alt="" class="ip-card__author-img">
+                해피스튜디오
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
-              <img src="images/characters/image 10.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <img src="images/characters/image 9.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>6.1k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>934</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  3.1k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  478
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">오리지널 캐릭터</div>
               <div class="ip-card__name">러블리캣</div>
-              <div class="ip-card__author"><img src="images/people/Random People (10).png" alt="" class="ip-card__author-img">러블리아트</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (10).png" alt="" class="ip-card__author-img">
+                러블리아트
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
               <img src="images/characters/image 11.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>4.3k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>678</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  2.7k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  412
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">이모티콘</div>
               <div class="ip-card__name">스위트베리</div>
-              <div class="ip-card__author"><img src="images/people/Random People (11).png" alt="" class="ip-card__author-img">베리스튜디오</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (11).png" alt="" class="ip-card__author-img">
+                베리스튜디오
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
               <img src="images/characters/image 12.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>3.5k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>523</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  2.3k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  356
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">게임</div>
               <div class="ip-card__name">로봇워리어</div>
-              <div class="ip-card__author"><img src="images/people/Random People (12).png" alt="" class="ip-card__author-img">로봇게임즈</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (12).png" alt="" class="ip-card__author-img">
+                로봇게임즈
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
               <img src="images/characters/image 13.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>2.9k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>412</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  2.1k
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  298
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">SNS/인스타툰</div>
               <div class="ip-card__name">데일리토끼</div>
-              <div class="ip-card__author"><img src="images/people/michael-dam-mEZ3PoFGs_k-unsplash.png" alt="" class="ip-card__author-img">데일리툰</div>
-            </div>
-          </div>
-          <div class="ip-card">
-            <div class="ip-card__img-wrap">
-              <img src="images/characters/image 14.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>7.2k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.1k</span>
+              <div class="ip-card__author">
+                <img src="images/people/michael-dam-mEZ3PoFGs_k-unsplash.png" alt="" class="ip-card__author-img">
+                데일리툰
               </div>
             </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">웹툰/만화</div>
-              <div class="ip-card__name">드래곤월드</div>
-              <div class="ip-card__author"><img src="images/people/Random People (5).png" alt="" class="ip-card__author-img">드래곤스튜디오</div>
-            </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- ========================================
-         SECTION 3: 이너부스픽 IP (INABOOTH PICK)
-    ======================================== -->
-    <section id="inabooth-pick" class="section">
-      <div class="container">
-        <div class="section__separator">
-          <span class="section__number">3</span>
-          <span class="section__label">INABOOTH PICK</span>
-        </div>
-        <div class="section-header">
-          <div class="section-header__left">
-            <h2 class="section-title">이너부스픽 IP</h2>
-            <p class="section-desc">INABOOTH가 엄선한 협업 추천 IP</p>
-          </div>
-          <a href="3-1 탐색.html?filter=pick" class="btn-more">더보기 <i data-lucide="chevron-right" class="icon icon-sm"></i></a>
-        </div>
-        <div class="ip-grid">
+        <!-- New IP Cards -->
+        <div class="ip-grid" style="margin-top: var(--space-8);">
           <div class="ip-card">
             <div class="ip-card__img-wrap">
-              <img src="images/characters/image 15.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <img src="images/characters/image 18.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>8.4k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.5k</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  124
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  28
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">오리지널 캐릭터</div>
-              <div class="ip-card__name">문프렌즈</div>
-              <div class="ip-card__author"><img src="images/people/Random People (1).png" alt="" class="ip-card__author-img">문스튜디오</div>
+              <div class="ip-card__name">프레시프렌즈</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (12).png" alt="" class="ip-card__author-img">
+                프레시아트
+              </div>
             </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
-              <img src="images/characters/image 16.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <img src="images/characters/image 19.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>6.7k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.2k</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  98
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  21
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">이모티콘</div>
-              <div class="ip-card__name">플라워버니</div>
-              <div class="ip-card__author"><img src="images/people/Random People (2).png" alt="" class="ip-card__author-img">플라워아트</div>
-            </div>
-          </div>
-          <div class="ip-card">
-            <div class="ip-card__img-wrap">
-              <img src="images/characters/image 17.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>9.1k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.8k</span>
+              <div class="ip-card__name">럭키버니</div>
+              <div class="ip-card__author">
+                <img src="images/people/ethan-haddox-NTjSR3zYpsY-unsplash.png" alt="" class="ip-card__author-img">
+                럭키스튜디오
               </div>
             </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">마스코트/브랜드</div>
-              <div class="ip-card__name">체리팝</div>
-              <div class="ip-card__author"><img src="images/people/Random People (3).png" alt="" class="ip-card__author-img">체리웍스</div>
-            </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
-              <img src="images/characters/Random Objects (1).png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <img src="images/characters/image 20.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>5.6k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>987</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  76
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  15
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">웹툰/만화</div>
-              <div class="ip-card__name">스페이스캣</div>
-              <div class="ip-card__author"><img src="images/people/Random People (4).png" alt="" class="ip-card__author-img">스페이스툰</div>
-            </div>
-          </div>
-          <div class="ip-card">
-            <div class="ip-card__img-wrap">
-              <img src="images/characters/Random Objects (2).png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>7.3k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.3k</span>
+              <div class="ip-card__name">미스터리월드</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People 사진.png" alt="" class="ip-card__author-img">
+                미스터리웍스
               </div>
             </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">애니메이션</div>
-              <div class="ip-card__name">레인보우팡</div>
-              <div class="ip-card__author"><img src="images/people/Random People (5).png" alt="" class="ip-card__author-img">레인보우아트</div>
-            </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
-              <img src="images/characters/Random Objects (3).png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <img src="images/characters/image 21.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>4.8k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>856</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  54
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  12
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">게임</div>
-              <div class="ip-card__name">닌자캣</div>
-              <div class="ip-card__author"><img src="images/people/Random People (6).png" alt="" class="ip-card__author-img">닌자게임즈</div>
-            </div>
-          </div>
-          <div class="ip-card">
-            <div class="ip-card__img-wrap">
-              <img src="images/characters/Random Objects (4).png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>6.2k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.1k</span>
+              <div class="ip-card__name">스페이스캡틴</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People.png" alt="" class="ip-card__author-img">
+                스페이스게임즈
               </div>
             </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">SNS/인스타툰</div>
-              <div class="ip-card__name">모닝커피</div>
-              <div class="ip-card__author"><img src="images/people/Random People (7).png" alt="" class="ip-card__author-img">모닝툰</div>
-            </div>
           </div>
+
           <div class="ip-card">
             <div class="ip-card__img-wrap">
               <img src="images/characters/image 5.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>5.1k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>923</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  42
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  8
+                </span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">마스코트/브랜드</div>
+              <div class="ip-card__name">브랜디</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (1).png" alt="" class="ip-card__author-img">
+                브랜드스튜디오
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 4.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  38
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  6
+                </span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">애니메이션</div>
+              <div class="ip-card__name">컬러월드</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (2).png" alt="" class="ip-card__author-img">
+                컬러애니
+              </div>
+            </div>
+          </div>
+
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Rectangle 1.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  31
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  5
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">서브컬쳐/일러스트</div>
               <div class="ip-card__name">사이버펑크</div>
-              <div class="ip-card__author"><img src="images/people/Random People (8).png" alt="" class="ip-card__author-img">사이버랩</div>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (3).png" alt="" class="ip-card__author-img">
+                사이버랩
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- ========================================
-         SECTION 4: 신규 업데이트 IP (NEW UPDATE)
-    ======================================== -->
-    <section id="new-ip" class="section section--alt">
-      <div class="container">
-        <div class="section__separator">
-          <span class="section__number">4</span>
-          <span class="section__label">NEW UPDATE</span>
-        </div>
-        <div class="section-header">
-          <div class="section-header__left">
-            <h2 class="section-title">신규 업데이트 IP</h2>
-            <p class="section-desc">새롭게 등록된 따끈따끈한 IP</p>
-          </div>
-          <a href="3-1 탐색.html?filter=new" class="btn-more">더보기 <i data-lucide="chevron-right" class="icon icon-sm"></i></a>
-        </div>
-        <div class="ip-grid">
           <div class="ip-card">
             <div class="ip-card__img-wrap">
-              <img src="images/characters/image 18.png" alt="IP" class="ip-card__img">
+              <img src="images/characters/image 8.png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <button class="ip-card__scrap">
+                <i data-lucide="bookmark" class="icon icon-sm"></i>
+              </button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>124</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>28</span>
-              </div>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">오리지널 캐릭터</div>
-              <div class="ip-card__name">스노우래빗</div>
-              <div class="ip-card__author"><img src="images/people/Random People (9).png" alt="" class="ip-card__author-img">스노우아트</div>
-            </div>
-          </div>
-          <div class="ip-card">
-            <div class="ip-card__img-wrap">
-              <img src="images/characters/image 19.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>89</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>15</span>
-              </div>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">이모티콘</div>
-              <div class="ip-card__name">선샤인베어</div>
-              <div class="ip-card__author"><img src="images/people/Random People (10).png" alt="" class="ip-card__author-img">선샤인랩</div>
-            </div>
-          </div>
-          <div class="ip-card">
-            <div class="ip-card__img-wrap">
-              <img src="images/characters/image 20.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>156</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>32</span>
-              </div>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">마스코트/브랜드</div>
-              <div class="ip-card__name">민트초코</div>
-              <div class="ip-card__author"><img src="images/people/Random People (11).png" alt="" class="ip-card__author-img">민트스튜디오</div>
-            </div>
-          </div>
-          <div class="ip-card">
-            <div class="ip-card__img-wrap">
-              <img src="images/characters/image 21.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>67</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>12</span>
-              </div>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">웹툰/만화</div>
-              <div class="ip-card__name">판다일기</div>
-              <div class="ip-card__author"><img src="images/people/Random People (12).png" alt="" class="ip-card__author-img">판다툰</div>
-            </div>
-          </div>
-          <div class="ip-card">
-            <div class="ip-card__img-wrap">
-              <img src="images/characters/image 4.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>203</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>45</span>
-              </div>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">애니메이션</div>
-              <div class="ip-card__name">갤럭시팡</div>
-              <div class="ip-card__author"><img src="images/people/michael-dam-mEZ3PoFGs_k-unsplash.png" alt="" class="ip-card__author-img">갤럭시아트</div>
-            </div>
-          </div>
-          <div class="ip-card">
-            <div class="ip-card__img-wrap">
-              <img src="images/characters/image 6.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>78</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>18</span>
-              </div>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">게임</div>
-              <div class="ip-card__name">파이터팽귄</div>
-              <div class="ip-card__author"><img src="images/people/Random People (1).png" alt="" class="ip-card__author-img">펭귄게임즈</div>
-            </div>
-          </div>
-          <div class="ip-card">
-            <div class="ip-card__img-wrap">
-              <img src="images/characters/image 7.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>45</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>8</span>
+                <span class="ip-card__stat">
+                  <i data-lucide="eye" class="icon icon-sm"></i>
+                  27
+                </span>
+                <span class="ip-card__stat">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                  4
+                </span>
               </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">SNS/인스타툰</div>
               <div class="ip-card__name">미니일상</div>
-              <div class="ip-card__author"><img src="images/people/Random People (2).png" alt="" class="ip-card__author-img">일상툰</div>
-            </div>
-          </div>
-          <div class="ip-card">
-            <div class="ip-card__img-wrap">
-              <img src="images/characters/image 8.png" alt="IP" class="ip-card__img">
-              <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>112</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>24</span>
+              <div class="ip-card__author">
+                <img src="images/people/Random People (4).png" alt="" class="ip-card__author-img">
+                일상툰
               </div>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">서브컬쳐/일러스트</div>
-              <div class="ip-card__name">오로라팡</div>
-              <div class="ip-card__author"><img src="images/people/Random People (3).png" alt="" class="ip-card__author-img">오로라랩</div>
             </div>
           </div>
         </div>
+
+        <!-- Load More Button -->
+        <div class="section-more">
+          <button class="btn-more" id="loadMoreBtn" onclick="loadMoreIPs()">
+            더 보기
+            <i data-lucide="chevron-down" class="icon icon-sm"></i>
+          </button>
+        </div>
       </div>
     </section>
-
 
     <!-- ========================================
          PARTNERS SECTION
@@ -3504,15 +3643,10 @@
     </section>
 
     <!-- ========================================
-         SUCCESS CASES SECTION (#23 - Section 2)
+         SUCCESS CASES SECTION
     ======================================== -->
     <section class="cases-section">
       <div class="container">
-        <!-- Section Separator (#23) -->
-        <div class="section__separator">
-          <span class="section__number">5</span>
-          <span class="section__label">SUCCESS CASES</span>
-        </div>
         <div class="section-header">
           <div class="section-header__left">
             <h2 class="section-title">성공 사례</h2>
@@ -3675,15 +3809,10 @@
     </section>
 
     <!-- ========================================
-         FAQ PREVIEW SECTION (#23 - Section 3)
+         FAQ PREVIEW SECTION
     ======================================== -->
     <section class="faq-preview-section">
       <div class="container">
-        <!-- Section Separator (#23) -->
-        <div class="section__separator">
-          <span class="section__number">6</span>
-          <span class="section__label">FAQ</span>
-        </div>
         <div class="section-header">
           <div class="section-header__left">
             <h2 class="section-title">자주 묻는 질문</h2>
@@ -3755,15 +3884,10 @@
     </section>
 
     <!-- ========================================
-         PRICING SECTION (#23 - Section 4)
+         PRICING SECTION
     ======================================== -->
     <section class="pricing-section">
       <div class="container">
-        <!-- Section Separator (#23) -->
-        <div class="section__separator">
-          <span class="section__number">7</span>
-          <span class="section__label">PRICING</span>
-        </div>
         <div class="section-header">
           <h2 class="section-title">합리적인 요금제</h2>
           <p class="section-subtitle">무료로 시작하고, 필요에 따라 업그레이드하세요</p>

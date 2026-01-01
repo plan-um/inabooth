@@ -381,6 +381,75 @@
       transform: scale(1.1);
     }
 
+    /* 공유 버튼 */
+    .ip-card__share {
+      position: absolute;
+      top: var(--space-3);
+      right: calc(var(--space-3) + 36px);
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-tertiary);
+      transition: all var(--transition-fast);
+      opacity: 0;
+    }
+
+    .ip-card:hover .ip-card__share {
+      opacity: 1;
+    }
+
+    .ip-card__share:hover {
+      background: white;
+      color: var(--color-primary);
+      transform: scale(1.1);
+    }
+
+    /* 협업 지수 */
+    .ip-card__collab-score {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-2);
+      padding-top: var(--space-2);
+      border-top: 1px solid var(--color-border-light);
+      position: relative;
+    }
+
+    .ip-card__collab-score--blur::after {
+      content: 'Pro 전용';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(3px);
+      font-size: 10px;
+      color: var(--color-primary);
+      font-weight: 600;
+      border-radius: 4px;
+    }
+
+    .ip-card__score-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .ip-card__score-item i {
+      color: var(--color-primary);
+    }
+
+    .ip-card__score-value {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+    }
+
     .ip-card__stats {
       position: absolute;
       bottom: var(--space-3);
@@ -511,6 +580,12 @@
       <div class="browse-layout">
         <!-- Filter Sidebar -->
         <aside class="filter-sidebar">
+          <!-- 상세 필터 버튼 - 눈에 띄게 상단 배치 -->
+          <a href="3-1-2 탐색_상세 필터.html" class="detail-filter-btn" style="display:flex;align-items:center;justify-content:center;gap:var(--space-2);width:100%;padding:var(--space-4);background:var(--gradient-primary);color:white;border-radius:var(--radius-md);font-weight:600;margin-bottom:var(--space-6);box-shadow:var(--shadow-md);transition:all var(--transition-fast)">
+            <i data-lucide="sliders-horizontal" style="width:18px;height:18px"></i>
+            상세 필터 (Pro)
+          </a>
+
           <div class="filter-section">
             <h3 class="filter-section__title">IP 유형</h3>
             <div class="filter-options">
@@ -538,6 +613,18 @@
                 <input type="radio" name="ip-type" value="illustration">
                 <span>서브컬쳐/일러스트</span>
               </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="mascot">
+                <span>마스코트/브랜드</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="game">
+                <span>게임</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="other">
+                <span>기타</span>
+              </label>
             </div>
           </div>
 
@@ -557,8 +644,32 @@
                 <span>패션/의류</span>
               </label>
               <label class="radio-card">
+                <input type="radio" name="field" value="accessory">
+                <span>액세서리/주얼리</span>
+              </label>
+              <label class="radio-card">
                 <input type="radio" name="field" value="fnb">
                 <span>식품/F&B</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="living">
+                <span>생활용품/리빙</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="digital">
+                <span>모바일/디지털 콘텐츠</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="publishing">
+                <span>출판/문학</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="education">
+                <span>교육/키즈</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="event">
+                <span>전시/행사</span>
               </label>
             </div>
           </div>
@@ -581,6 +692,104 @@
               <label class="radio-card">
                 <input type="radio" name="style" value="trendy">
                 <span>트렌디</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="daily">
+                <span>일상/공감</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="cute">
+                <span>귀여움/키치</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="dark">
+                <span>다크/그로테스크</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="realism">
+                <span>리얼리즘</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">컬러</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#FF6B6B;border:2px solid transparent;cursor:pointer" title="레드"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#FF922B;border:2px solid transparent;cursor:pointer" title="오렌지"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#FCC419;border:2px solid transparent;cursor:pointer" title="옐로우"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#51CF66;border:2px solid transparent;cursor:pointer" title="그린"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#339AF0;border:2px solid transparent;cursor:pointer" title="블루"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#7950F2;border:2px solid transparent;cursor:pointer" title="퍼플"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#E64980;border:2px solid transparent;cursor:pointer" title="핑크"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#212529;border:2px solid transparent;cursor:pointer" title="블랙"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#F8F9FA;border:2px solid var(--color-border);cursor:pointer" title="화이트"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:linear-gradient(135deg,#FF6B6B,#339AF0,#51CF66);border:2px solid transparent;cursor:pointer" title="멀티컬러"></button>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">IP 타깃/팬층</h3>
+            <div class="filter-options">
+              <label class="radio-card">
+                <input type="radio" name="target" value="kids">
+                <span>키즈/패밀리</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="target" value="mz">
+                <span>MZ세대</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="target" value="global">
+                <span>글로벌</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="target" value="male">
+                <span>남성 중심</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="target" value="female">
+                <span>여성 중심</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">IP 원작국가</h3>
+            <div class="filter-options">
+              <label class="radio-card">
+                <input type="radio" name="country" value="kr">
+                <span>🇰🇷 한국</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="country" value="jp">
+                <span>🇯🇵 일본</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="country" value="us">
+                <span>🇺🇸 미국</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="country" value="cn">
+                <span>🇨🇳 중국</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="country" value="other">
+                <span>🌍 기타</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">IPH 인증</h3>
+            <div class="filter-options">
+              <label class="radio-card">
+                <input type="radio" name="verified" value="all">
+                <span>전체</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="verified" value="verified">
+                <span>인증된 IP만</span>
               </label>
             </div>
           </div>
@@ -644,7 +853,10 @@
               <div class="ip-card__img-wrap">
                 <img src="images/characters/Random Objects (2).png" alt="심플베어 IP" class="ip-card__img">
                 <span class="ip-card__badge">인증</span>
-                <button class="ip-card__scrap">
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('심플베어 이모티콘')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>
                 </button>
                 <div class="ip-card__stats">
@@ -664,7 +876,16 @@
                 <div class="ip-card__author">
                   미니멀 스튜디오
                 </div>
-                <span class="ip-card__style-tag">심플</span>
+                <div class="ip-card__collab-score">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.8</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">92</span>
+                  </span>
+                </div>
               </div>
             </a>
 
@@ -673,7 +894,10 @@
               <div class="ip-card__img-wrap">
                 <img src="images/characters/Random Objects (5).png" alt="라인프렌즈 IP" class="ip-card__img">
                 <span class="ip-card__badge ip-card__badge--new">NEW</span>
-                <button class="ip-card__scrap">
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('덕덕이의 일상')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>
                 </button>
                 <div class="ip-card__stats">
@@ -693,7 +917,16 @@
                 <div class="ip-card__author">
                   심플크루
                 </div>
-                <span class="ip-card__style-tag">심플</span>
+                <div class="ip-card__collab-score ip-card__collab-score--blur">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.5</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">78</span>
+                  </span>
+                </div>
               </div>
             </a>
 
@@ -701,7 +934,10 @@
             <a href="3-2 IP 상세.html" class="ip-card">
               <div class="ip-card__img-wrap">
                 <img src="images/characters/image 4.png" alt="모노래빗 IP" class="ip-card__img">
-                <button class="ip-card__scrap">
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('모노래빗')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>
                 </button>
                 <div class="ip-card__stats">
@@ -721,7 +957,16 @@
                 <div class="ip-card__author">
                   화이트스페이스
                 </div>
-                <span class="ip-card__style-tag">심플</span>
+                <div class="ip-card__collab-score">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.9</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">85</span>
+                  </span>
+                </div>
               </div>
             </a>
 
@@ -730,7 +975,10 @@
               <div class="ip-card__img-wrap">
                 <img src="images/characters/Random Objects (1).png" alt="클린펭귄 IP" class="ip-card__img">
                 <span class="ip-card__badge">인증</span>
-                <button class="ip-card__scrap">
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('클린펭귄')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>
                 </button>
                 <div class="ip-card__stats">
@@ -750,7 +998,16 @@
                 <div class="ip-card__author">
                   퓨어디자인
                 </div>
-                <span class="ip-card__style-tag">심플</span>
+                <div class="ip-card__collab-score">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.7</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">95</span>
+                  </span>
+                </div>
               </div>
             </a>
 
@@ -758,7 +1015,10 @@
             <a href="3-2 IP 상세.html" class="ip-card">
               <div class="ip-card__img-wrap">
                 <img src="images/characters/Random Objects (3).png" alt="미니캣 IP" class="ip-card__img">
-                <button class="ip-card__scrap">
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('미니캣 모먼트')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>
                 </button>
                 <div class="ip-card__stats">
@@ -778,7 +1038,16 @@
                 <div class="ip-card__author">
                   라인아트 스튜디오
                 </div>
-                <span class="ip-card__style-tag">심플</span>
+                <div class="ip-card__collab-score ip-card__collab-score--blur">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.6</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">88</span>
+                  </span>
+                </div>
               </div>
             </a>
 
@@ -787,7 +1056,10 @@
               <div class="ip-card__img-wrap">
                 <img src="images/characters/Random Objects (4).png" alt="심플독 IP" class="ip-card__img">
                 <span class="ip-card__badge ip-card__badge--new">NEW</span>
-                <button class="ip-card__scrap">
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('심플독 데일리')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
                   <i data-lucide="bookmark" class="icon icon-sm"></i>
                 </button>
                 <div class="ip-card__stats">
@@ -807,7 +1079,16 @@
                 <div class="ip-card__author">
                   깔끔한 크리에이터
                 </div>
-                <span class="ip-card__style-tag">심플</span>
+                <div class="ip-card__collab-score ip-card__collab-score--blur">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.3</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">65</span>
+                  </span>
+                </div>
               </div>
             </a>
           </div>
@@ -865,6 +1146,38 @@
         setTimeout(() => tag.remove(), 200);
       });
     });
+
+    // Share IP function
+    function shareIP(ipName) {
+      const url = window.location.href;
+      if (navigator.share) {
+        navigator.share({
+          title: `${ipName} - INABOOTH`,
+          text: `${ipName} IP를 확인해보세요!`,
+          url: url
+        });
+      } else {
+        navigator.clipboard.writeText(url).then(() => {
+          Toast.success('링크가 복사되었습니다.');
+        });
+      }
+    }
+
+    // Toggle scrap function
+    function toggleScrap(btn) {
+      const icon = btn.querySelector('i');
+      const isScraped = btn.classList.toggle('scraped');
+      if (isScraped) {
+        icon.setAttribute('data-lucide', 'bookmark-check');
+        btn.style.color = 'var(--color-accent-pink)';
+        Toast.success('스크랩에 추가되었습니다.');
+      } else {
+        icon.setAttribute('data-lucide', 'bookmark');
+        btn.style.color = '';
+        Toast.info('스크랩에서 제거되었습니다.');
+      }
+      lucide.createIcons();
+    }
 
     // Initialize Lucide icons
     lucide.createIcons();

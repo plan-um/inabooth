@@ -260,10 +260,9 @@
       font-size: var(--font-size-base);
       font-weight: var(--font-weight-bold);
       margin-bottom: var(--space-2);
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+      white-space: nowrap;
       overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .scrap-card__meta {
@@ -325,6 +324,29 @@
       background: var(--color-primary-dark);
     }
 
+    /* 인사이트 타입 */
+    .scrap-card__type--insight {
+      background: rgba(16, 185, 129, 0.9);
+      color: white;
+    }
+
+    .scrap-card__category {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      background: var(--color-bg-tertiary);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .scrap-card__date {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
     @media (max-width: 1200px) {
       .scrap-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -376,10 +398,11 @@
             <a href="9-7-2 마이부스_프로젝트 관리.html" class="sidebar__link">
               <i data-lucide="folder" class="icon icon-sm"></i>
               프로젝트 관리
+              <span class="sidebar__link__badge">9</span>
             </a>
-            <a href="9-7-3 마이부스_지원 현황.html" class="sidebar__link">
-              <i data-lucide="send" class="icon icon-sm"></i>
-              지원 현황
+            <a href="#" class="sidebar__link">
+              <i data-lucide="handshake" class="icon icon-sm"></i>
+              협업 관리
               <span class="sidebar__link__badge">2</span>
             </a>
             <a href="9-7-4 마이부스_받은 문의.html" class="sidebar__link">
@@ -388,7 +411,7 @@
               <span class="sidebar__link__badge">5</span>
             </a>
             <a href="9-7-5 마이부스_보낸 문의.html" class="sidebar__link">
-              <i data-lucide="send" class="icon icon-sm"></i>
+              <i data-lucide="message-square" class="icon icon-sm"></i>
               보낸 문의
             </a>
             <a href="9-7-6 마이부스_스크랩.html" class="sidebar__link active">
@@ -398,6 +421,10 @@
             <a href="9-8 내 통계.html" class="sidebar__link">
               <i data-lucide="bar-chart-3" class="icon icon-sm"></i>
               내 통계
+            </a>
+            <a href="9-4 요금제 관리.html" class="sidebar__link">
+              <i data-lucide="credit-card" class="icon icon-sm"></i>
+              요금제
             </a>
           </nav>
         </aside>
@@ -414,7 +441,7 @@
           <div class="tab-filter">
             <div class="tab-filter__item active">
               전체
-              <span class="tab-filter__item__count">8</span>
+              <span class="tab-filter__item__count">11</span>
             </div>
             <div class="tab-filter__item" onclick="this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active')">
               캐릭터 IP
@@ -422,6 +449,10 @@
             </div>
             <div class="tab-filter__item" onclick="this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active')">
               오픈 프로젝트
+              <span class="tab-filter__item__count">3</span>
+            </div>
+            <div class="tab-filter__item" onclick="this.parentElement.querySelector('.active').classList.remove('active'); this.classList.add('active')">
+              인사이트
               <span class="tab-filter__item__count">3</span>
             </div>
           </div>
@@ -438,6 +469,10 @@
                 </div>
               </div>
               <div class="scrap-card__content">
+                <span class="scrap-card__category">
+                  <i data-lucide="sparkles" class="icon icon-xs"></i>
+                  오리지널 캐릭터
+                </span>
                 <h3 class="scrap-card__title">해피프렌즈 - 행복한 동물 친구들</h3>
                 <div class="scrap-card__meta">
                   <div class="scrap-card__author">
@@ -471,7 +506,11 @@
                 </div>
               </div>
               <div class="scrap-card__content">
-                <h3 class="scrap-card__title">2024 여름 시즌 음료 캠페인</h3>
+                <span class="scrap-card__category">
+                  <i data-lucide="coffee" class="icon icon-xs"></i>
+                  식음료
+                </span>
+                <h3 class="scrap-card__title">2026 여름 시즌 음료 캠페인</h3>
                 <div class="scrap-card__meta">
                   <div class="scrap-card__author">
                     <div class="scrap-card__author-avatar">
@@ -504,6 +543,10 @@
                 </div>
               </div>
               <div class="scrap-card__content">
+                <span class="scrap-card__category">
+                  <i data-lucide="tv" class="icon icon-xs"></i>
+                  애니메이션
+                </span>
                 <h3 class="scrap-card__title">스타라이트 유니버스 - 우주 모험</h3>
                 <div class="scrap-card__meta">
                   <div class="scrap-card__author">
@@ -537,6 +580,10 @@
                 </div>
               </div>
               <div class="scrap-card__content">
+                <span class="scrap-card__category">
+                  <i data-lucide="graduation-cap" class="icon icon-xs"></i>
+                  교육
+                </span>
                 <h3 class="scrap-card__title">키즈 에듀테크 앱 캐릭터 파트너십</h3>
                 <div class="scrap-card__meta">
                   <div class="scrap-card__author">
@@ -570,6 +617,10 @@
                 </div>
               </div>
               <div class="scrap-card__content">
+                <span class="scrap-card__category">
+                  <i data-lucide="pen-tool" class="icon icon-xs"></i>
+                  일러스트
+                </span>
                 <h3 class="scrap-card__title">드림캐처스 - 꿈을 잡는 요정들</h3>
                 <div class="scrap-card__meta">
                   <div class="scrap-card__author">
@@ -603,6 +654,10 @@
                 </div>
               </div>
               <div class="scrap-card__content">
+                <span class="scrap-card__category">
+                  <i data-lucide="sparkles" class="icon icon-xs"></i>
+                  오리지널 캐릭터
+                </span>
                 <h3 class="scrap-card__title">정글프렌즈 - 열대우림 친구들</h3>
                 <div class="scrap-card__meta">
                   <div class="scrap-card__author">
@@ -636,6 +691,10 @@
                 </div>
               </div>
               <div class="scrap-card__content">
+                <span class="scrap-card__category">
+                  <i data-lucide="shirt" class="icon icon-xs"></i>
+                  패션/뷰티
+                </span>
                 <h3 class="scrap-card__title">패션 브랜드 콜라보레이션 프로젝트</h3>
                 <div class="scrap-card__meta">
                   <div class="scrap-card__author">
@@ -669,6 +728,10 @@
                 </div>
               </div>
               <div class="scrap-card__content">
+                <span class="scrap-card__category">
+                  <i data-lucide="smile" class="icon icon-xs"></i>
+                  이모티콘
+                </span>
                 <h3 class="scrap-card__title">로보펫 - 미래에서 온 반려로봇</h3>
                 <div class="scrap-card__meta">
                   <div class="scrap-card__author">
@@ -690,6 +753,102 @@
                 </div>
               </div>
               <a href="3-2 캐릭터 상세.html" class="scrap-card__action">상세보기</a>
+            </div>
+
+            <!-- 스크랩 9 - 인사이트 -->
+            <div class="scrap-card">
+              <div class="scrap-card__image">
+                <img src="https://picsum.photos/seed/insight1/400/300" alt="캐릭터 라이선싱 트렌드">
+                <span class="scrap-card__type scrap-card__type--insight">인사이트</span>
+                <div class="scrap-card__bookmark">
+                  <i data-lucide="heart" class="icon icon-sm" fill="currentColor"></i>
+                </div>
+              </div>
+              <div class="scrap-card__content">
+                <span class="scrap-card__category">
+                  <i data-lucide="trending-up" class="icon icon-xs"></i>
+                  트렌드 리포트
+                </span>
+                <h3 class="scrap-card__title">2026 캐릭터 라이선싱 시장 전망과 핵심 트렌드</h3>
+                <div class="scrap-card__meta">
+                  <span class="scrap-card__date">2026.01.10</span>
+                </div>
+                <div class="scrap-card__stats">
+                  <span class="scrap-card__stat">
+                    <i data-lucide="eye" class="icon icon-xs"></i>
+                    1.2K
+                  </span>
+                  <span class="scrap-card__stat">
+                    <i data-lucide="bookmark" class="icon icon-xs"></i>
+                    89
+                  </span>
+                </div>
+              </div>
+              <a href="6-2 인사이트 상세.html" class="scrap-card__action">상세보기</a>
+            </div>
+
+            <!-- 스크랩 10 - 인사이트 -->
+            <div class="scrap-card">
+              <div class="scrap-card__image">
+                <img src="https://picsum.photos/seed/insight2/400/300" alt="성공 사례">
+                <span class="scrap-card__type scrap-card__type--insight">인사이트</span>
+                <div class="scrap-card__bookmark">
+                  <i data-lucide="heart" class="icon icon-sm" fill="currentColor"></i>
+                </div>
+              </div>
+              <div class="scrap-card__content">
+                <span class="scrap-card__category">
+                  <i data-lucide="star" class="icon icon-xs"></i>
+                  성공 사례
+                </span>
+                <h3 class="scrap-card__title">소규모 IP가 대형 브랜드와 협업에 성공한 비결</h3>
+                <div class="scrap-card__meta">
+                  <span class="scrap-card__date">2026.01.05</span>
+                </div>
+                <div class="scrap-card__stats">
+                  <span class="scrap-card__stat">
+                    <i data-lucide="eye" class="icon icon-xs"></i>
+                    2.8K
+                  </span>
+                  <span class="scrap-card__stat">
+                    <i data-lucide="bookmark" class="icon icon-xs"></i>
+                    156
+                  </span>
+                </div>
+              </div>
+              <a href="6-2 인사이트 상세.html" class="scrap-card__action">상세보기</a>
+            </div>
+
+            <!-- 스크랩 11 - 인사이트 -->
+            <div class="scrap-card">
+              <div class="scrap-card__image">
+                <img src="https://picsum.photos/seed/insight3/400/300" alt="계약 가이드">
+                <span class="scrap-card__type scrap-card__type--insight">인사이트</span>
+                <div class="scrap-card__bookmark">
+                  <i data-lucide="heart" class="icon icon-sm" fill="currentColor"></i>
+                </div>
+              </div>
+              <div class="scrap-card__content">
+                <span class="scrap-card__category">
+                  <i data-lucide="file-text" class="icon icon-xs"></i>
+                  실무 가이드
+                </span>
+                <h3 class="scrap-card__title">캐릭터 라이선싱 계약서 작성 시 꼭 확인해야 할 10가지</h3>
+                <div class="scrap-card__meta">
+                  <span class="scrap-card__date">2025.12.28</span>
+                </div>
+                <div class="scrap-card__stats">
+                  <span class="scrap-card__stat">
+                    <i data-lucide="eye" class="icon icon-xs"></i>
+                    3.5K
+                  </span>
+                  <span class="scrap-card__stat">
+                    <i data-lucide="bookmark" class="icon icon-xs"></i>
+                    234
+                  </span>
+                </div>
+              </div>
+              <a href="6-2 인사이트 상세.html" class="scrap-card__action">상세보기</a>
             </div>
           </div>
         </div>

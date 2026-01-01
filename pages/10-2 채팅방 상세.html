@@ -60,6 +60,7 @@
       border-bottom: 1px solid var(--color-border-light);
       cursor: pointer;
       transition: background var(--transition-fast);
+      position: relative;
     }
 
     .chat-item:hover {
@@ -70,9 +71,13 @@
       background: var(--color-primary-light);
     }
 
+    .chat-item.unread {
+      background: rgba(79, 70, 229, 0.03);
+    }
+
     .chat-item__avatar {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: var(--radius-md);
       background: var(--color-bg-tertiary);
       flex-shrink: 0;
@@ -90,23 +95,77 @@
       min-width: 0;
     }
 
+    .chat-item__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
     .chat-item__name {
       font-size: var(--font-size-sm);
       font-weight: var(--font-weight-semibold);
-      margin-bottom: 2px;
+      color: var(--color-text-primary);
+    }
+
+    .chat-item__time {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .chat-item__project {
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+      margin-bottom: 4px;
     }
 
     .chat-item__message {
-      font-size: var(--font-size-xs);
+      font-size: var(--font-size-sm);
       color: var(--color-text-secondary);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .chat-item__time {
-      font-size: var(--font-size-xs);
-      color: var(--color-text-tertiary);
+    .chat-item.unread .chat-item__message {
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+    }
+
+    .chat-item__badge {
+      width: 8px;
+      height: 8px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      margin-left: var(--space-2);
+    }
+
+    /* 고정핀 기능 */
+    .chat-item__pin {
+      position: absolute;
+      top: 50%;
+      right: var(--space-2);
+      transform: translateY(-50%);
+      color: var(--color-warning);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      background: none;
+      border: none;
+      padding: var(--space-1);
+      cursor: pointer;
+    }
+
+    .chat-item:hover .chat-item__pin {
+      opacity: 0.5;
+    }
+
+    .chat-item.pinned .chat-item__pin {
+      opacity: 1;
+    }
+
+    .chat-item.pinned {
+      background: rgba(245, 158, 11, 0.05);
+      border-left: 3px solid var(--color-warning);
     }
 
     /* 채팅 메인 영역 */
@@ -341,6 +400,51 @@
       gap: var(--space-2);
     }
 
+    /* 더보기 메뉴 */
+    .chat-more-menu {
+      position: relative;
+    }
+
+    .chat-more-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: var(--space-2);
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--color-border);
+      min-width: 160px;
+      z-index: 100;
+      display: none;
+    }
+
+    .chat-more-dropdown.show {
+      display: block;
+    }
+
+    .chat-more-dropdown__item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      transition: background var(--transition-fast);
+    }
+
+    .chat-more-dropdown__item:hover {
+      background: var(--color-bg-secondary);
+    }
+
+    .chat-more-dropdown__item--danger {
+      color: var(--color-error);
+    }
+
+    .chat-more-dropdown__item--danger:hover {
+      background: var(--color-error-light);
+    }
+
     @media (max-width: 1024px) {
       .chat-container {
         grid-template-columns: 1fr;
@@ -369,33 +473,54 @@
           </div>
 
           <div class="chat-list">
-            <a href="10-2 채팅방 상세.html" class="chat-item active">
+            <!-- 읽지 않은 채팅 (고정됨) -->
+            <a href="10-2 채팅방 상세.html" class="chat-item active unread pinned" onclick="event.preventDefault(); if(!event.target.closest('.chat-item__pin')) location.href=this.href;">
+              <button class="chat-item__pin" onclick="event.preventDefault(); event.stopPropagation(); togglePin(this.closest('.chat-item'));" title="고정 해제">
+                <i data-lucide="pin" class="icon icon-sm"></i>
+              </button>
               <div class="chat-item__avatar">
                 <img src="images/characters/Random Objects (1).png" alt="곰돌이 친구들">
               </div>
               <div class="chat-item__content">
-                <div class="chat-item__name">스튜디오 베어</div>
+                <div class="chat-item__header">
+                  <span class="chat-item__name">스튜디오 베어</span>
+                  <span class="chat-item__time">방금 전</span>
+                </div>
+                <div class="chat-item__project">🎯 2025 여름 캠페인 프로젝트</div>
                 <div class="chat-item__message">네, 협업 조건 검토 후 내일까지 회신드리겠습니다!</div>
               </div>
-              <span class="chat-item__time">방금 전</span>
+              <span class="chat-item__badge"></span>
             </a>
 
-            <a href="10-2-1 채팅방_제안_수락.html" class="chat-item">
+            <!-- 읽은 채팅 -->
+            <a href="10-2-1 채팅방_제안_수락.html" class="chat-item" onclick="event.preventDefault(); if(!event.target.closest('.chat-item__pin')) location.href=this.href;">
+              <button class="chat-item__pin" onclick="event.preventDefault(); event.stopPropagation(); togglePin(this.closest('.chat-item'));" title="고정하기">
+                <i data-lucide="pin" class="icon icon-sm"></i>
+              </button>
               <div class="chat-item__avatar" style="background: linear-gradient(135deg, #06B6D4, #3B82F6);"><img src="https://i.pravatar.cc/150?img=6" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
               <div class="chat-item__content">
-                <div class="chat-item__name">오션프렌즈</div>
-                <div class="chat-item__message">계약서 초안 전달드렸습니다.</div>
+                <div class="chat-item__header">
+                  <span class="chat-item__name">오션프렌즈</span>
+                  <span class="chat-item__time">어제</span>
+                </div>
+                <div class="chat-item__project">🎯 키즈 F&B 패키지 협업</div>
+                <div class="chat-item__message">계약서 초안 전달드렸습니다. 확인 부탁드려요.</div>
               </div>
-              <span class="chat-item__time">어제</span>
             </a>
 
-            <a href="10-2-2 채팅방_결제.html" class="chat-item">
+            <a href="10-2-2 채팅방_결제.html" class="chat-item" onclick="event.preventDefault(); if(!event.target.closest('.chat-item__pin')) location.href=this.href;">
+              <button class="chat-item__pin" onclick="event.preventDefault(); event.stopPropagation(); togglePin(this.closest('.chat-item'));" title="고정하기">
+                <i data-lucide="pin" class="icon icon-sm"></i>
+              </button>
               <div class="chat-item__avatar" style="background: linear-gradient(135deg, #F59E0B, #EF4444);"><img src="https://i.pravatar.cc/150?img=7" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
               <div class="chat-item__content">
-                <div class="chat-item__name">선샤인 캐릭터</div>
-                <div class="chat-item__message">결제가 완료되었습니다.</div>
+                <div class="chat-item__header">
+                  <span class="chat-item__name">선샤인 캐릭터</span>
+                  <span class="chat-item__time">3일 전</span>
+                </div>
+                <div class="chat-item__project">🎯 문구류 라이선싱</div>
+                <div class="chat-item__message">결제가 완료되었습니다. 감사합니다!</div>
               </div>
-              <span class="chat-item__time">3일 전</span>
             </a>
           </div>
         </aside>
@@ -419,9 +544,21 @@
               <button class="btn btn--ghost btn--sm" onclick="Toast.info('음성통화 기능 준비중입니다.')">
                 <i data-lucide="phone" class="icon icon-sm"></i>
               </button>
-              <button class="btn btn--ghost btn--sm">
-                <i data-lucide="more-vertical" class="icon icon-sm"></i>
-              </button>
+              <div class="chat-more-menu">
+                <button class="btn btn--ghost btn--sm chat-more-btn" onclick="toggleMoreMenu()">
+                  <i data-lucide="more-vertical" class="icon icon-sm"></i>
+                </button>
+                <div class="chat-more-dropdown" id="chatMoreDropdown">
+                  <a href="10-2-5 채팅방_신고.html" class="chat-more-dropdown__item">
+                    <i data-lucide="flag" class="icon icon-sm"></i>
+                    신고하기
+                  </a>
+                  <a href="10-2-6 채팅방_나가기.html" class="chat-more-dropdown__item chat-more-dropdown__item--danger">
+                    <i data-lucide="log-out" class="icon icon-sm"></i>
+                    채팅방 나가기
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -556,6 +693,36 @@
   <script>
     initPage({activePage:'chat', isLoggedIn: true});
     lucide.createIcons();
+
+    // 더보기 메뉴 토글
+    function toggleMoreMenu() {
+      const dropdown = document.getElementById('chatMoreDropdown');
+      dropdown.classList.toggle('show');
+    }
+
+    // 외부 클릭 시 메뉴 닫기
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.chat-more-menu')) {
+        document.getElementById('chatMoreDropdown').classList.remove('show');
+      }
+    });
+
+    // 고정핀 토글
+    function togglePin(chatItem) {
+      chatItem.classList.toggle('pinned');
+      const isPinned = chatItem.classList.contains('pinned');
+      const pinBtn = chatItem.querySelector('.chat-item__pin');
+      pinBtn.title = isPinned ? '고정 해제' : '고정하기';
+
+      if (isPinned) {
+        Toast.success('채팅이 상단에 고정되었습니다.');
+        const chatList = chatItem.closest('.chat-list');
+        chatList.insertBefore(chatItem, chatList.firstChild);
+      } else {
+        Toast.info('채팅 고정이 해제되었습니다.');
+      }
+      lucide.createIcons();
+    }
   </script>
 </body>
 </html>

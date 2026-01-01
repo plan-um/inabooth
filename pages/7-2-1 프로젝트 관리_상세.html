@@ -21,6 +21,133 @@
     .content-box{padding:var(--space-8);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0;text-align:center}
     .card-list{display:grid;gap:var(--space-4);margin:var(--space-6) 0}
     .card-item{padding:var(--space-4);background:white;border:1px solid var(--color-border);border-radius:var(--radius-md)}
+
+    /* 애널리틱스 CTA (#47) */
+    .analytics-cta {
+      background: linear-gradient(135deg, #0EA5E9 0%, #3B82F6 100%);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      margin-bottom: var(--space-6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .analytics-cta::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .analytics-cta__icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .analytics-cta__content {
+      flex: 1;
+    }
+
+    .analytics-cta__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .analytics-cta__desc {
+      font-size: var(--font-size-sm);
+      opacity: 0.9;
+      margin-bottom: var(--space-3);
+    }
+
+    .analytics-cta__features {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .analytics-cta__feature {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-sm);
+      opacity: 0.9;
+    }
+
+    .analytics-cta__btn {
+      padding: var(--space-3) var(--space-5);
+      background: white;
+      color: #0EA5E9;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .analytics-cta__btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 통계 카드 개선 (#47) */
+    .stat-card {
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      text-align: center;
+      transition: all var(--transition-fast);
+    }
+
+    .stat-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-card);
+    }
+
+    .stat-card__value {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .stat-card__value--primary {
+      color: var(--color-primary);
+    }
+
+    .stat-card__label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .stat-card__change {
+      font-size: var(--font-size-xs);
+      margin-top: var(--space-1);
+    }
+
+    .stat-card__change--up {
+      color: var(--color-success);
+    }
+
+    .stat-card__change--down {
+      color: var(--color-error);
+    }
   </style>
 </head>
 <body>
@@ -33,48 +160,68 @@
           <a href="7-2 프로젝트 관리.html" style="color:var(--color-text-secondary)"><i data-lucide="arrow-left"></i></a>
           <div style="flex:1">
             <div style="display:flex;align-items:center;gap:var(--space-2)">
-              <h1 class="form-title" style="margin-bottom:0">2024 여름 시즌 굿즈 콜라보</h1>
+              <h1 class="form-title" style="margin-bottom:0">2026 여름 시즌 굿즈 콜라보</h1>
               <span class="badge" style="background:var(--color-success-light);color:var(--color-success)">모집중</span>
             </div>
-            <p class="form-subtitle" style="margin-bottom:0">문구/오피스 • 라이선싱</p>
+            <p class="form-subtitle" style="margin-bottom:0">문구/오피스 • 상품화 라이선스</p>
           </div>
           <a href="7-2-2 프로젝트 수정.html" class="btn btn--secondary"><i data-lucide="edit" class="icon-sm"></i> 수정</a>
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);margin-bottom:var(--space-6)">
-          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
-            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);color:var(--color-primary)">8</div>
-            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">지원자</div>
+          <div class="stat-card">
+            <div class="stat-card__value stat-card__value--primary">8</div>
+            <div class="stat-card__label">지원자</div>
+            <div class="stat-card__change stat-card__change--up">+3 이번 주</div>
           </div>
-          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
-            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold)">1,234</div>
-            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">조회수</div>
+          <div class="stat-card">
+            <div class="stat-card__value">1,234</div>
+            <div class="stat-card__label">조회수</div>
+            <div class="stat-card__change stat-card__change--up">+15% 전주 대비</div>
           </div>
-          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
-            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold)">45</div>
-            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">관심</div>
+          <div class="stat-card">
+            <div class="stat-card__value">45</div>
+            <div class="stat-card__label">관심</div>
+            <div class="stat-card__change stat-card__change--up">+8 이번 주</div>
           </div>
-          <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);text-align:center">
-            <div style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold)">14일</div>
-            <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">모집 마감까지</div>
+          <div class="stat-card">
+            <div class="stat-card__value">14일</div>
+            <div class="stat-card__label">모집 마감까지</div>
           </div>
+        </div>
+
+        <!-- 애널리틱스 CTA (#47) -->
+        <div class="analytics-cta">
+          <div class="analytics-cta__icon">
+            <i data-lucide="bar-chart-3" style="width:28px;height:28px"></i>
+          </div>
+          <div class="analytics-cta__content">
+            <h3 class="analytics-cta__title">상세 애널리틱스로 성과를 분석하세요</h3>
+            <p class="analytics-cta__desc">프로젝트 조회수 추이, 지원자 분석, 성과 비교 등 상세한 인사이트를 확인하세요</p>
+            <div class="analytics-cta__features">
+              <span class="analytics-cta__feature"><i data-lucide="trending-up" class="icon-sm"></i> 트렌드 분석</span>
+              <span class="analytics-cta__feature"><i data-lucide="pie-chart" class="icon-sm"></i> 지원자 통계</span>
+              <span class="analytics-cta__feature"><i data-lucide="download" class="icon-sm"></i> 리포트 다운로드</span>
+            </div>
+          </div>
+          <button class="analytics-cta__btn">애널리틱스 보기</button>
         </div>
 
         <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-5);margin-bottom:var(--space-6)">
           <h3 style="font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-4)">프로젝트 정보</h3>
           <div style="display:grid;grid-template-columns:120px 1fr 120px 1fr;gap:var(--space-3);font-size:var(--font-size-sm)">
             <span style="color:var(--color-text-tertiary)">모집 기간</span>
-            <span>2024.02.01 ~ 2024.02.28</span>
+            <span>2026.02.01 ~ 2026.02.28</span>
             <span style="color:var(--color-text-tertiary)">예상 예산</span>
             <span>500만원 ~ 1,000만원</span>
-            <span style="color:var(--color-text-tertiary)">협업 유형</span>
-            <span>라이선싱</span>
+            <span style="color:var(--color-text-tertiary)">주요 거래 유형</span>
+            <span>제품 생산 및 상품화 라이선스</span>
             <span style="color:var(--color-text-tertiary)">수익 배분</span>
             <span>고정 라이선싱 비용</span>
             <span style="color:var(--color-text-tertiary)">공개 범위</span>
             <span>전체 공개</span>
             <span style="color:var(--color-text-tertiary)">등록일</span>
-            <span>2024.01.25</span>
+            <span>2026.01.25</span>
           </div>
         </div>
 
@@ -88,7 +235,7 @@
               <img src="images/characters/Random Objects (1).png" style="width:50px;height:50px;border-radius:var(--radius-md);object-fit:cover">
               <div style="flex:1">
                 <div style="font-weight:600">귀여운 곰돌이 친구들</div>
-                <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">스튜디오 베어 • 지원일: 2024.02.10</div>
+                <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">스튜디오 베어 • 지원일: 2026.02.10</div>
               </div>
               <span class="badge" style="background:var(--color-warning-light);color:var(--color-warning)">검토 대기</span>
               <a href="7-3-1 지원자 관리_지원서 상세.html" class="btn btn--secondary" style="font-size:var(--font-size-sm)">지원서 보기</a>
@@ -97,7 +244,7 @@
               <img src="images/characters/Random Objects (2).png" style="width:50px;height:50px;border-radius:var(--radius-md);object-fit:cover">
               <div style="flex:1">
                 <div style="font-weight:600">신나는 펭귄 친구들</div>
-                <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">펭귄스튜디오 • 지원일: 2024.02.08</div>
+                <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">펭귄스튜디오 • 지원일: 2026.02.08</div>
               </div>
               <span class="badge" style="background:var(--color-success-light);color:var(--color-success)">검토 완료</span>
               <a href="7-3-1 지원자 관리_지원서 상세.html" class="btn btn--secondary" style="font-size:var(--font-size-sm)">지원서 보기</a>

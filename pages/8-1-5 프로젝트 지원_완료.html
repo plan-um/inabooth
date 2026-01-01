@@ -41,6 +41,15 @@
     .next-step__number{width:24px;height:24px;border-radius:var(--radius-full);background:var(--color-primary-light);color:var(--color-primary);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .next-step__text{font-size:var(--font-size-sm);color:var(--color-text-secondary)}
 
+    /* 알림 설정 안내 (#51) */
+    .notification-notice{background:linear-gradient(135deg,#DBEAFE,#E0E7FF);border:1px solid #93C5FD;border-radius:var(--radius-lg);padding:var(--space-5);margin-bottom:var(--space-8);display:flex;align-items:center;gap:var(--space-4)}
+    .notification-notice__icon{width:48px;height:48px;background:#3B82F6;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:white;flex-shrink:0}
+    .notification-notice__content{flex:1}
+    .notification-notice__title{font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:#1E40AF;margin-bottom:var(--space-1)}
+    .notification-notice__desc{font-size:var(--font-size-xs);color:#3B82F6}
+    .notification-notice__btn{padding:var(--space-2) var(--space-4);background:#3B82F6;color:white;border:none;border-radius:var(--radius-md);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);cursor:pointer;transition:all var(--transition-fast);white-space:nowrap}
+    .notification-notice__btn:hover{background:#2563EB}
+
     .completion-actions{display:flex;gap:var(--space-3);justify-content:center}
 
     @media (max-width: 768px) {
@@ -80,11 +89,11 @@
         </div>
         <div class="submission-item">
           <span class="submission-item__label">지원 번호</span>
-          <span class="submission-item__value">#APP-2024-0128</span>
+          <span class="submission-item__value">#APP-2026-0128</span>
         </div>
         <div class="submission-item">
           <span class="submission-item__label">지원 일시</span>
-          <span class="submission-item__value">2024.01.28 15:42</span>
+          <span class="submission-item__value">2026.01.28 15:42</span>
         </div>
       </div>
 
@@ -104,6 +113,18 @@
             <span class="next-step__text">최종 선정 시 계약 및 협업이 진행됩니다.</span>
           </div>
         </div>
+      </div>
+
+      <!-- 알림 설정 안내 (#51) -->
+      <div class="notification-notice">
+        <div class="notification-notice__icon">
+          <i data-lucide="bell" style="width:24px;height:24px"></i>
+        </div>
+        <div class="notification-notice__content">
+          <div class="notification-notice__title">지원 결과 알림을 받아보세요</div>
+          <div class="notification-notice__desc">이메일, 푸시 알림으로 지원 결과와 프로젝트 소식을 빠르게 받아보세요</div>
+        </div>
+        <button class="notification-notice__btn">알림 설정</button>
       </div>
 
       <div class="completion-actions">

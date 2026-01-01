@@ -21,6 +21,140 @@
     .content-box{padding:var(--space-8);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0;text-align:center}
     .card-list{display:grid;gap:var(--space-4);margin:var(--space-6) 0}
     .card-item{padding:var(--space-4);background:white;border:1px solid var(--color-border);border-radius:var(--radius-md)}
+
+    /* 대표 이미지 첨부 (#18) */
+    .cover-image-section {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--space-6);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .cover-image-upload {
+      aspect-ratio: 16/9;
+      border: 2px dashed var(--color-border);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: var(--color-bg-secondary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-image-upload:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .cover-image-upload.has-image {
+      border: none;
+    }
+
+    .cover-image-upload.has-image:hover .cover-image-upload__overlay {
+      opacity: 1;
+    }
+
+    .cover-image-upload__preview {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cover-image-upload__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      color: white;
+    }
+
+    .cover-image-upload__icon {
+      width: 48px;
+      height: 48px;
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-tertiary);
+    }
+
+    .cover-image-upload__text {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .cover-image-upload__formats {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .cover-image-upload__format {
+      padding: var(--space-1) var(--space-2);
+      background: white;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .cover-image-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .cover-image-info__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .cover-image-info__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .cover-image-tips {
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+    }
+
+    .cover-image-tips__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .cover-image-tips__list {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      padding-left: var(--space-5);
+      margin: 0;
+    }
+
+    .cover-image-tips__list li {
+      margin-bottom: var(--space-1);
+    }
   </style>
 </head>
 <body>
@@ -32,9 +166,47 @@
         <h1 class="form-title">STEP 1. 기본 정보</h1>
         <p class="form-subtitle">프로젝트의 기본 정보를 입력해주세요</p>
         <form>
+          <!-- 대표 이미지 첨부 (#18) -->
+          <div class="cover-image-section">
+            <div class="cover-image-upload has-image" onclick="document.getElementById('coverImageInput').click()">
+              <input type="file" id="coverImageInput" style="display:none" accept="image/*" onchange="previewCoverImage(this)">
+              <img src="images/characters/Random Objects (1).png" alt="대표 이미지" class="cover-image-upload__preview" id="coverPreview">
+              <div class="cover-image-upload__overlay">
+                <i data-lucide="camera" style="width:24px;height:24px"></i>
+                <span>이미지 변경</span>
+              </div>
+              <!-- 이미지 없을 때 표시 -->
+              <div class="cover-image-upload__icon" style="display:none" id="uploadPlaceholder">
+                <i data-lucide="image-plus" style="width:24px;height:24px"></i>
+              </div>
+              <p class="cover-image-upload__text" style="display:none">클릭하여 이미지 업로드</p>
+              <div class="cover-image-upload__formats" style="display:none">
+                <span class="cover-image-upload__format">JPG</span>
+                <span class="cover-image-upload__format">PNG</span>
+                <span class="cover-image-upload__format">WEBP</span>
+              </div>
+            </div>
+            <div class="cover-image-info">
+              <h3 class="cover-image-info__title">대표 이미지 <span style="color:var(--color-error)">*</span></h3>
+              <p class="cover-image-info__desc">프로젝트를 대표하는 이미지를 업로드해주세요. 탐색 페이지와 프로젝트 상세에서 보여집니다.</p>
+              <div class="cover-image-tips">
+                <p class="cover-image-tips__title">
+                  <i data-lucide="lightbulb" class="icon-sm" style="color:#D97706"></i>
+                  이미지 가이드
+                </p>
+                <ul class="cover-image-tips__list">
+                  <li>권장 크기: 1200 x 675px (16:9 비율)</li>
+                  <li>최대 파일 크기: 5MB</li>
+                  <li>프로젝트 성격이 잘 드러나는 이미지 권장</li>
+                  <li>텍스트가 적은 이미지가 노출에 유리합니다</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="form-label">프로젝트명 <span style="color:var(--color-error)">*</span></label>
-            <input type="text" class="form-input" placeholder="예: 2024 여름 시즌 굿즈 콜라보">
+            <input type="text" class="form-input" placeholder="예: 2026 여름 시즌 굿즈 콜라보">
           </div>
 
           <div class="form-group">
@@ -68,16 +240,22 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">협업 유형 <span style="color:var(--color-error)">*</span></label>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)">
+            <label class="form-label">주요 거래 유형 <span style="color:var(--color-error)">*</span></label>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-3)">
               <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:2px solid var(--color-primary);border-radius:var(--radius-md);background:var(--color-primary-light);cursor:pointer">
-                <input type="radio" name="type" checked> 라이선싱
+                <input type="radio" name="collab-type" value="licensing" checked> 제품 생산 및 상품화 라이선스
               </label>
               <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
-                <input type="radio" name="type"> 콜라보레이션
+                <input type="radio" name="collab-type" value="marketing"> 마케팅 협업 캠페인
               </label>
               <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
-                <input type="radio" name="type"> 공동 제작
+                <input type="radio" name="collab-type" value="promotion"> 온라인 광고 및 프로모션
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="radio" name="collab-type" value="event"> 이벤트, 전시, 팝업스토어
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="radio" name="collab-type" value="distribution"> 유통 목적의 상품 구매
               </label>
             </div>
           </div>
@@ -106,6 +284,25 @@
   </main>
   <div id="footer-placeholder"></div>
   <script src="components/shared.js"></script>
-  <script>initPage({activePage:'project'});lucide.createIcons();</script>
+  <script>
+    initPage({activePage:'project'});
+    lucide.createIcons();
+
+    // 대표 이미지 미리보기 (#18)
+    function previewCoverImage(input) {
+      const preview = document.getElementById('coverPreview');
+      const uploadContainer = input.closest('.cover-image-upload');
+
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+          uploadContainer.classList.add('has-image');
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
 </body>
 </html>

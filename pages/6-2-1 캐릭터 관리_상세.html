@@ -13,12 +13,385 @@
     .form-card{background:white;border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-card)}
     .form-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
     .form-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-6)}
-    .progress-steps{display:flex;gap:var(--space-2);margin-bottom:var(--space-6)}
-    .step{flex:1;height:4px;background:var(--color-bg-secondary);border-radius:999px}
-    .step.active{background:var(--color-primary)}
-    .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
 
-    .content-box{padding:var(--space-6);background:var(--color-bg-secondary);border-radius:var(--radius-md);margin:var(--space-6) 0}
+    /* 섹션 구분자 */
+    .section-divider {
+      height: 1px;
+      background: var(--color-border);
+      margin: var(--space-8) 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-5);
+    }
+
+    .section-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .section-title i {
+      color: var(--color-primary);
+    }
+
+    /* 인증마크 배너 */
+    .certification-banner {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border: 1px solid #F59E0B;
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .certification-banner__icon {
+      width: 48px;
+      height: 48px;
+      background: #F59E0B;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .certification-banner__content {
+      flex: 1;
+    }
+
+    .certification-banner__title {
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-1);
+    }
+
+    .certification-banner__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    /* 스타일가이드 카드 */
+    .styleguide-card {
+      background: linear-gradient(135deg, var(--color-primary-light) 0%, #E0E7FF 100%);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+    }
+
+    .styleguide-card__header {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+
+    .styleguide-card__icon {
+      width: 56px;
+      height: 56px;
+      background: var(--color-primary);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .styleguide-card__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-1);
+    }
+
+    .styleguide-card__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .styleguide-card__benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+
+    .styleguide-benefit {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      text-align: center;
+    }
+
+    .styleguide-benefit__icon {
+      width: 40px;
+      height: 40px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-2);
+      color: var(--color-primary);
+    }
+
+    .styleguide-benefit__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-1);
+    }
+
+    .styleguide-benefit__desc {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .styleguide-card__pricing {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+    }
+
+    .styleguide-price {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-2);
+    }
+
+    .styleguide-price__amount {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .styleguide-price__unit {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .styleguide-price__original {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      text-decoration: line-through;
+    }
+
+    /* 포트폴리오 관리 */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--space-4);
+    }
+
+    .portfolio-item {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--color-bg-secondary);
+      cursor: grab;
+    }
+
+    .portfolio-item:active {
+      cursor: grabbing;
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .portfolio-item__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .portfolio-item:hover .portfolio-item__overlay {
+      opacity: 1;
+    }
+
+    .portfolio-item__btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      background: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .portfolio-item__btn:hover {
+      transform: scale(1.1);
+    }
+
+    .portfolio-item__btn--delete {
+      color: #DC2626;
+    }
+
+    .portfolio-item__btn--edit {
+      color: var(--color-primary);
+    }
+
+    .portfolio-item__order {
+      position: absolute;
+      top: var(--space-2);
+      left: var(--space-2);
+      width: 24px;
+      height: 24px;
+      background: var(--color-primary);
+      color: white;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .portfolio-item--add {
+      border: 2px dashed var(--color-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .portfolio-item--add:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .portfolio-item--add i {
+      color: var(--color-text-tertiary);
+    }
+
+    .portfolio-item--add span {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    /* 채널 관리 */
+    .channel-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-3);
+    }
+
+    .channel-item__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .channel-item__icon--instagram {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: white;
+    }
+
+    .channel-item__icon--youtube {
+      background: #FF0000;
+      color: white;
+    }
+
+    .channel-item__info {
+      flex: 1;
+    }
+
+    .channel-item__name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .channel-item__url {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .channel-item__stats {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .channel-item__actions {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .channel-item__btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .channel-item__btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .channel-item__btn--delete:hover {
+      border-color: #DC2626;
+      color: #DC2626;
+    }
+
+    /* 협업 조건 그리드 */
+    .collab-condition-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    /* 협업 이력 */
+    .collab-history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-4);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .collab-history-item:last-child {
+      border-bottom: none;
+    }
   </style>
 </head>
 <body>
@@ -26,55 +399,136 @@
   <main class="main-content">
     <div class="container">
       <div class="form-card">
-        
+
+        <!-- 헤더 -->
         <div style="display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)">
           <a href="6-2 캐릭터 관리.html" style="color:var(--color-text-secondary)"><i data-lucide="arrow-left"></i></a>
-          <div>
+          <div style="flex:1">
             <h1 class="form-title" style="margin-bottom:0">캐릭터 상세 정보</h1>
-            <p class="form-subtitle" style="margin-bottom:0">캐릭터 정보를 수정하거나 삭제할 수 있습니다</p>
+            <p class="form-subtitle" style="margin-bottom:0">캐릭터의 모든 정보를 수정할 수 있습니다</p>
           </div>
+          <a href="3-2 IP 상세.html" class="btn btn--secondary" target="_blank">
+            <i data-lucide="external-link" class="icon-sm"></i> 공개 페이지 보기
+          </a>
+        </div>
+
+        <!-- 인증마크 신청 배너 -->
+        <div class="certification-banner">
+          <div class="certification-banner__icon">
+            <i data-lucide="badge-check" style="width:24px;height:24px"></i>
+          </div>
+          <div class="certification-banner__content">
+            <p class="certification-banner__title">인증마크를 신청하세요!</p>
+            <p class="certification-banner__desc">인증된 IP는 검색 노출이 50% 증가하고, 기업 신뢰도가 높아집니다. 심사 후 3일 내 결과 안내</p>
+          </div>
+          <button class="btn btn--primary" onclick="applyVerification()">
+            <i data-lucide="shield-check" class="icon-sm"></i> 인증마크 신청
+          </button>
+        </div>
+
+        <!-- =============== 1. 기본 정보 섹션 =============== -->
+        <div class="section-header">
+          <h2 class="section-title">
+            <i data-lucide="user" style="width:20px;height:20px"></i>
+            기본 정보
+          </h2>
         </div>
 
         <div style="display:grid;grid-template-columns:200px 1fr;gap:var(--space-6);margin-bottom:var(--space-6)">
           <div>
             <img src="images/characters/Random Objects (1).png" style="width:100%;aspect-ratio:1;border-radius:var(--radius-lg);object-fit:cover;margin-bottom:var(--space-3)">
-            <button class="btn btn--secondary" style="width:100%"><i data-lucide="camera" class="icon-sm"></i> 이미지 변경</button>
+            <button class="btn btn--secondary" style="width:100%"><i data-lucide="camera" class="icon-sm"></i> 대표 이미지 변경</button>
           </div>
           <div>
             <div class="form-group">
-              <label class="form-label">캐릭터명</label>
+              <label class="form-label">캐릭터명 *</label>
               <input type="text" class="form-input" value="귀여운 곰돌이 친구들">
             </div>
-            <div class="form-group">
-              <label class="form-label">카테고리</label>
-              <select class="form-input">
-                <option selected>오리지널 캐릭터</option>
-                <option>이모티콘</option>
-                <option>애니메이션/영상</option>
-                <option>웹툰/만화</option>
-              </select>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)">
+              <div class="form-group">
+                <label class="form-label">IP 유형</label>
+                <select class="form-input">
+                  <option selected>오리지널 캐릭터</option>
+                  <option>이모티콘</option>
+                  <option>애니메이션/영상</option>
+                  <option>웹툰/만화</option>
+                  <option>마스코트/브랜드</option>
+                  <option>게임</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">공개 상태</label>
+                <div style="display:flex;gap:var(--space-3)">
+                  <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-4);border:2px solid var(--color-primary);border-radius:var(--radius-md);background:var(--color-primary-light);cursor:pointer;flex:1;justify-content:center">
+                    <input type="radio" name="status" checked> 공개
+                  </label>
+                  <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;flex:1;justify-content:center">
+                    <input type="radio" name="status"> 비공개
+                  </label>
+                </div>
+              </div>
             </div>
             <div class="form-group">
-              <label class="form-label">공개 상태</label>
-              <div style="display:flex;gap:var(--space-3)">
-                <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-4);border:2px solid var(--color-primary);border-radius:var(--radius-md);background:var(--color-primary-light);cursor:pointer">
-                  <input type="radio" name="status" checked> 공개
-                </label>
-                <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
-                  <input type="radio" name="status"> 비공개
-                </label>
-              </div>
+              <label class="form-label">캐릭터 소개</label>
+              <textarea class="form-input" rows="3">귀여운 곰돌이 친구들은 숲 속에 사는 다정한 곰돌이 가족입니다. 매일 새로운 모험을 떠나며 우정과 사랑을 나누는 이야기를 담고 있습니다.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- =============== 2. 상세 정보 섹션 =============== -->
+        <div class="section-header">
+          <h2 class="section-title">
+            <i data-lucide="file-text" style="width:20px;height:20px"></i>
+            상세 정보
+          </h2>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-bottom:var(--space-6)">
+          <div class="form-group">
+            <label class="form-label">IP 스타일</label>
+            <select class="form-input">
+              <option>코믹</option>
+              <option selected>심플</option>
+              <option>감성</option>
+              <option>트렌디</option>
+              <option>일상/공감</option>
+              <option>귀여움/키치</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">IP 타깃/팬층</label>
+            <select class="form-input">
+              <option>키즈/패밀리</option>
+              <option selected>MZ세대</option>
+              <option>글로벌</option>
+              <option>남성 중심</option>
+              <option>여성 중심</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">IP 원작국가</label>
+            <select class="form-input">
+              <option selected>🇰🇷 한국</option>
+              <option>🇯🇵 일본</option>
+              <option>🇺🇸 미국</option>
+              <option>🇨🇳 중국</option>
+              <option>🌍 기타</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">메인 컬러</label>
+            <div style="display:flex;gap:var(--space-2);align-items:center">
+              <input type="color" value="#8B5CF6" style="width:40px;height:40px;border:none;border-radius:var(--radius-md);cursor:pointer">
+              <input type="text" class="form-input" value="#8B5CF6" style="width:100px">
+              <span style="font-size:var(--font-size-sm);color:var(--color-text-tertiary)">퍼플</span>
             </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-label">캐릭터 소개</label>
-          <textarea class="form-input" rows="4">귀여운 곰돌이 친구들은 숲 속에 사는 다정한 곰돌이 가족입니다. 매일 새로운 모험을 떠나며 우정과 사랑을 나누는 이야기를 담고 있습니다.</textarea>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">협업 가능 분야</label>
+          <label class="form-label">IP 활용 가능 분야 (복수 선택)</label>
           <div style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
             <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;background:var(--color-primary-light);border-color:var(--color-primary)">
               <input type="checkbox" checked> 문구/오피스
@@ -94,11 +548,277 @@
             <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;background:var(--color-primary-light);border-color:var(--color-primary)">
               <input type="checkbox" checked> 광고/마케팅
             </label>
+            <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+              <input type="checkbox"> 액세서리/주얼리
+            </label>
+            <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+              <input type="checkbox"> 모바일/디지털 콘텐츠
+            </label>
           </div>
         </div>
 
-        <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-5);margin-bottom:var(--space-6)">
-          <h3 style="font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-4)">통계</h3>
+        <div class="section-divider"></div>
+
+        <!-- =============== 3. 협업 조건 섹션 =============== -->
+        <div class="section-header">
+          <h2 class="section-title">
+            <i data-lucide="handshake" style="width:20px;height:20px"></i>
+            협업 조건
+          </h2>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">주요 거래 유형 (복수 선택)</label>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)">
+            <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);border:2px solid var(--color-primary);border-radius:var(--radius-md);background:var(--color-primary-light);cursor:pointer">
+              <input type="checkbox" checked> 제품 생산 및 상품화 라이선스
+            </label>
+            <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+              <input type="checkbox"> 마케팅 협업 캠페인
+            </label>
+            <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+              <input type="checkbox"> 온라인 광고 및 프로모션
+            </label>
+            <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);border:2px solid var(--color-primary);border-radius:var(--radius-md);background:var(--color-primary-light);cursor:pointer">
+              <input type="checkbox" checked> 이벤트, 전시, 팝업스토어
+            </label>
+            <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+              <input type="checkbox"> 유통 목적의 상품 구매
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);cursor:pointer">
+            <input type="checkbox" id="conditionApplyCheck" checked onchange="toggleConditionFields(this.checked)">
+            <span class="form-label" style="margin-bottom:0">협업 조건 설정 (체크 해제 시 협의 후 결정)</span>
+          </label>
+          <div id="conditionFields" class="collab-condition-grid">
+            <div>
+              <label style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">최소 계약 금액</label>
+              <div style="display:flex;align-items:center;gap:var(--space-2)">
+                <input type="text" class="form-input" id="minAmount" placeholder="금액 입력" value="5,000,000">
+                <span>원</span>
+              </div>
+            </div>
+            <div>
+              <label style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">수익 배분율</label>
+              <div style="display:flex;align-items:center;gap:var(--space-2)">
+                <input type="text" class="form-input" id="revenueShare" placeholder="%" value="15">
+                <span>%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- =============== 4. 포트폴리오 섹션 =============== -->
+        <div class="section-header">
+          <h2 class="section-title">
+            <i data-lucide="images" style="width:20px;height:20px"></i>
+            포트폴리오
+            <span style="font-size:var(--font-size-sm);color:var(--color-text-secondary);font-weight:normal;margin-left:var(--space-2)">4/10</span>
+          </h2>
+          <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">드래그하여 순서 변경 가능</p>
+        </div>
+
+        <div class="portfolio-grid" style="margin-bottom:var(--space-4)">
+          <div class="portfolio-item">
+            <span class="portfolio-item__order">1</span>
+            <img src="images/characters/Random Objects (1).png" alt="Portfolio 1">
+            <div class="portfolio-item__overlay">
+              <button class="portfolio-item__btn portfolio-item__btn--edit" title="이미지 변경">
+                <i data-lucide="pencil" class="icon-sm"></i>
+              </button>
+              <button class="portfolio-item__btn portfolio-item__btn--delete" title="삭제" onclick="removePortfolioItem(this)">
+                <i data-lucide="trash-2" class="icon-sm"></i>
+              </button>
+            </div>
+          </div>
+          <div class="portfolio-item">
+            <span class="portfolio-item__order">2</span>
+            <img src="images/characters/Random Objects (2).png" alt="Portfolio 2">
+            <div class="portfolio-item__overlay">
+              <button class="portfolio-item__btn portfolio-item__btn--edit" title="이미지 변경">
+                <i data-lucide="pencil" class="icon-sm"></i>
+              </button>
+              <button class="portfolio-item__btn portfolio-item__btn--delete" title="삭제" onclick="removePortfolioItem(this)">
+                <i data-lucide="trash-2" class="icon-sm"></i>
+              </button>
+            </div>
+          </div>
+          <div class="portfolio-item">
+            <span class="portfolio-item__order">3</span>
+            <img src="images/characters/Random Objects (3).png" alt="Portfolio 3">
+            <div class="portfolio-item__overlay">
+              <button class="portfolio-item__btn portfolio-item__btn--edit" title="이미지 변경">
+                <i data-lucide="pencil" class="icon-sm"></i>
+              </button>
+              <button class="portfolio-item__btn portfolio-item__btn--delete" title="삭제" onclick="removePortfolioItem(this)">
+                <i data-lucide="trash-2" class="icon-sm"></i>
+              </button>
+            </div>
+          </div>
+          <div class="portfolio-item">
+            <span class="portfolio-item__order">4</span>
+            <img src="images/characters/Random Objects (4).png" alt="Portfolio 4">
+            <div class="portfolio-item__overlay">
+              <button class="portfolio-item__btn portfolio-item__btn--edit" title="이미지 변경">
+                <i data-lucide="pencil" class="icon-sm"></i>
+              </button>
+              <button class="portfolio-item__btn portfolio-item__btn--delete" title="삭제" onclick="removePortfolioItem(this)">
+                <i data-lucide="trash-2" class="icon-sm"></i>
+              </button>
+            </div>
+          </div>
+          <div class="portfolio-item portfolio-item--add" onclick="document.getElementById('portfolioUpload').click()">
+            <input type="file" id="portfolioUpload" style="display:none" accept="image/*" multiple>
+            <i data-lucide="plus" style="width:24px;height:24px"></i>
+            <span>이미지 추가</span>
+          </div>
+        </div>
+        <p style="font-size:var(--font-size-sm);color:var(--color-text-tertiary)">
+          * 첫 번째 이미지가 대표 이미지로 설정됩니다. JPG, PNG, WEBP 형식 (최대 5MB)
+        </p>
+
+        <div class="section-divider"></div>
+
+        <!-- =============== 5. 채널 관리 섹션 =============== -->
+        <div class="section-header">
+          <h2 class="section-title">
+            <i data-lucide="share-2" style="width:20px;height:20px"></i>
+            채널 관리
+          </h2>
+          <button class="btn btn--secondary btn--sm">
+            <i data-lucide="plus" class="icon-sm"></i> 채널 추가
+          </button>
+        </div>
+
+        <div style="margin-bottom:var(--space-6)">
+          <div class="channel-item">
+            <div class="channel-item__icon channel-item__icon--instagram">
+              <i data-lucide="instagram" class="icon-sm"></i>
+            </div>
+            <div class="channel-item__info">
+              <p class="channel-item__name">인스타그램</p>
+              <p class="channel-item__url">instagram.com/cutebear_official</p>
+            </div>
+            <div class="channel-item__stats">팔로워 125,000</div>
+            <div class="channel-item__actions">
+              <button class="channel-item__btn" title="수정"><i data-lucide="pencil" class="icon-sm"></i></button>
+              <button class="channel-item__btn channel-item__btn--delete" title="삭제"><i data-lucide="trash-2" class="icon-sm"></i></button>
+            </div>
+          </div>
+          <div class="channel-item">
+            <div class="channel-item__icon channel-item__icon--youtube">
+              <i data-lucide="youtube" class="icon-sm"></i>
+            </div>
+            <div class="channel-item__info">
+              <p class="channel-item__name">유튜브</p>
+              <p class="channel-item__url">youtube.com/@cutebear</p>
+            </div>
+            <div class="channel-item__stats">구독자 45,000</div>
+            <div class="channel-item__actions">
+              <button class="channel-item__btn" title="수정"><i data-lucide="pencil" class="icon-sm"></i></button>
+              <button class="channel-item__btn channel-item__btn--delete" title="삭제"><i data-lucide="trash-2" class="icon-sm"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- =============== 6. 스타일가이드 신청 섹션 =============== -->
+        <div class="section-header">
+          <h2 class="section-title">
+            <i data-lucide="palette" style="width:20px;height:20px"></i>
+            스타일가이드 신청
+          </h2>
+        </div>
+
+        <div class="styleguide-card">
+          <div class="styleguide-card__header">
+            <div class="styleguide-card__icon">
+              <i data-lucide="book-open" style="width:28px;height:28px"></i>
+            </div>
+            <div>
+              <h3 class="styleguide-card__title">AI 기반 스타일가이드 자동 생성</h3>
+              <p class="styleguide-card__desc">귀하의 캐릭터에 맞는 전문 스타일가이드를 AI가 자동으로 생성합니다. 협업 파트너에게 일관된 브랜드 이미지를 전달하세요.</p>
+            </div>
+          </div>
+          <div class="styleguide-card__benefits">
+            <div class="styleguide-benefit">
+              <div class="styleguide-benefit__icon">
+                <i data-lucide="file-type" class="icon-sm"></i>
+              </div>
+              <p class="styleguide-benefit__title">컬러 팔레트 & 타이포</p>
+              <p class="styleguide-benefit__desc">브랜드 컬러 및 폰트 가이드</p>
+            </div>
+            <div class="styleguide-benefit">
+              <div class="styleguide-benefit__icon">
+                <i data-lucide="layout" class="icon-sm"></i>
+              </div>
+              <p class="styleguide-benefit__title">로고 사용 가이드</p>
+              <p class="styleguide-benefit__desc">정확한 로고 사용 규정</p>
+            </div>
+            <div class="styleguide-benefit">
+              <div class="styleguide-benefit__icon">
+                <i data-lucide="download" class="icon-sm"></i>
+              </div>
+              <p class="styleguide-benefit__title">PDF 다운로드</p>
+              <p class="styleguide-benefit__desc">협업사 전달용 PDF 제공</p>
+            </div>
+          </div>
+          <div class="styleguide-card__pricing">
+            <div class="styleguide-price">
+              <span class="styleguide-price__original">50,000원</span>
+              <span class="styleguide-price__amount">29,900</span>
+              <span class="styleguide-price__unit">원 / 1회</span>
+            </div>
+            <button class="btn btn--primary" onclick="applyStyleguide()">
+              <i data-lucide="credit-card" class="icon-sm"></i> 스타일가이드 신청하기
+            </button>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- =============== 7. 협업 이력 섹션 =============== -->
+        <div class="section-header">
+          <h2 class="section-title">
+            <i data-lucide="history" style="width:20px;height:20px"></i>
+            협업 이력
+          </h2>
+        </div>
+
+        <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);margin-bottom:var(--space-6)">
+          <div class="collab-history-item">
+            <div>
+              <div style="font-weight:600">카카오 × 귀여운 곰돌이</div>
+              <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">이모티콘 콜라보 • 2024.01</div>
+            </div>
+            <span class="badge badge--success">완료</span>
+          </div>
+          <div class="collab-history-item">
+            <div>
+              <div style="font-weight:600">모나미 × 귀여운 곰돌이</div>
+              <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">문구 라이선싱 • 2023.08</div>
+            </div>
+            <span class="badge badge--success">완료</span>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- =============== 8. 통계 섹션 =============== -->
+        <div class="section-header">
+          <h2 class="section-title">
+            <i data-lucide="bar-chart-3" style="width:20px;height:20px"></i>
+            통계
+          </h2>
+        </div>
+
+        <div style="background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-5);margin-bottom:var(--space-8)">
           <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-4);text-align:center">
             <div><div style="font-size:var(--font-size-xl);font-weight:var(--font-weight-bold)">4,230</div><div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">조회수</div></div>
             <div><div style="font-size:var(--font-size-xl);font-weight:var(--font-weight-bold)">856</div><div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">찜</div></div>
@@ -108,11 +828,14 @@
           </div>
         </div>
 
-        <div class="form-actions" style="justify-content:space-between">
-          <a href="6-2-2 캐릭터 삭제 확인.html" class="btn btn--secondary" style="color:var(--color-error)"><i data-lucide="trash-2" class="icon-sm"></i> 삭제</a>
+        <!-- 하단 액션 버튼 -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:var(--space-6);border-top:1px solid var(--color-border)">
+          <a href="6-2-2 캐릭터 삭제 확인.html" class="btn btn--secondary" style="color:var(--color-error)"><i data-lucide="trash-2" class="icon-sm"></i> 캐릭터 삭제</a>
           <div style="display:flex;gap:var(--space-3)">
             <a href="6-2 캐릭터 관리.html" class="btn btn--secondary">취소</a>
-            <button class="btn btn--primary">변경사항 저장</button>
+            <button class="btn btn--primary" onclick="saveChanges()">
+              <i data-lucide="save" class="icon-sm"></i> 변경사항 저장
+            </button>
           </div>
         </div>
       </div>
@@ -120,6 +843,71 @@
   </main>
   <div id="footer-placeholder"></div>
   <script src="components/shared.js"></script>
-  <script>initPage({activePage:'browse'});</script>
+  <script>
+    initPage({activePage:'browse'});
+
+    // 협업 조건 토글
+    function toggleConditionFields(isApply) {
+      const fields = document.getElementById('conditionFields');
+      const minAmount = document.getElementById('minAmount');
+      const revenueShare = document.getElementById('revenueShare');
+
+      if (isApply) {
+        fields.style.opacity = '1';
+        fields.style.pointerEvents = 'auto';
+        minAmount.disabled = false;
+        revenueShare.disabled = false;
+      } else {
+        fields.style.opacity = '0.4';
+        fields.style.pointerEvents = 'none';
+        minAmount.disabled = true;
+        revenueShare.disabled = true;
+      }
+    }
+
+    // 포트폴리오 아이템 삭제
+    function removePortfolioItem(btn) {
+      if (confirm('이 이미지를 삭제하시겠습니까?')) {
+        const item = btn.closest('.portfolio-item');
+        item.remove();
+        updatePortfolioOrder();
+        Toast.success('이미지가 삭제되었습니다.');
+      }
+    }
+
+    // 포트폴리오 순서 업데이트
+    function updatePortfolioOrder() {
+      const items = document.querySelectorAll('.portfolio-item:not(.portfolio-item--add)');
+      items.forEach((item, index) => {
+        const orderBadge = item.querySelector('.portfolio-item__order');
+        if (orderBadge) {
+          orderBadge.textContent = index + 1;
+        }
+      });
+      // 카운트 업데이트
+      const count = items.length;
+      const countEl = document.querySelector('.section-title span');
+      if (countEl && countEl.textContent.includes('/')) {
+        countEl.textContent = count + '/10';
+      }
+    }
+
+    // 인증마크 신청
+    function applyVerification() {
+      Toast.info('인증마크 신청 페이지로 이동합니다.');
+      // 실제 구현 시 신청 페이지로 이동
+    }
+
+    // 스타일가이드 신청
+    function applyStyleguide() {
+      Toast.info('결제 페이지로 이동합니다.');
+      // 실제 구현 시 결제 페이지로 이동
+    }
+
+    // 변경사항 저장
+    function saveChanges() {
+      Toast.success('변경사항이 저장되었습니다.');
+    }
+  </script>
 </body>
 </html>

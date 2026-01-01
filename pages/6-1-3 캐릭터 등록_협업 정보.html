@@ -61,34 +61,47 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">협업 유형</label>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)">
+            <label class="form-label">주요 거래 유형</label>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-3)">
               <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:2px solid var(--color-primary);border-radius:var(--radius-md);background:var(--color-primary-light);cursor:pointer">
-                <input type="checkbox" checked> 라이선싱
+                <input type="checkbox" name="collab-type" value="licensing" checked> 제품 생산 및 상품화 라이선스
               </label>
               <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
-                <input type="checkbox"> 콜라보레이션
+                <input type="checkbox" name="collab-type" value="marketing"> 마케팅 협업 캠페인
               </label>
               <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
-                <input type="checkbox" checked> 공동 제작
+                <input type="checkbox" name="collab-type" value="promotion"> 온라인 광고 및 프로모션
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:2px solid var(--color-primary);border-radius:var(--radius-md);background:var(--color-primary-light);cursor:pointer">
+                <input type="checkbox" name="collab-type" value="event" checked> 이벤트, 전시, 팝업스토어
+              </label>
+              <label style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer">
+                <input type="checkbox" name="collab-type" value="distribution"> 유통 목적의 상품 구매
               </label>
             </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">협업 조건</label>
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4)">
+
+            <!-- 조건 적용 체크박스 -->
+            <label style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);cursor:pointer">
+              <input type="checkbox" id="conditionApplyCheck" checked onchange="toggleConditionFields(this.checked)">
+              <span style="font-size:var(--font-size-sm)">조건 적용 (체크 해제 시 협의 후 결정)</span>
+            </label>
+
+            <div id="conditionFields" style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);transition:opacity 0.2s">
               <div>
                 <label style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">최소 계약 금액</label>
                 <div style="display:flex;align-items:center;gap:var(--space-2)">
-                  <input type="text" class="form-input" placeholder="금액 입력" value="5,000,000">
+                  <input type="text" class="form-input" id="minAmount" placeholder="금액 입력" value="5,000,000">
                   <span>원</span>
                 </div>
               </div>
               <div>
                 <label style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">수익 배분율</label>
                 <div style="display:flex;align-items:center;gap:var(--space-2)">
-                  <input type="text" class="form-input" placeholder="%" value="15">
+                  <input type="text" class="form-input" id="revenueShare" placeholder="%" value="15">
                   <span>%</span>
                 </div>
               </div>
@@ -101,16 +114,16 @@
               <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-3) 0;border-bottom:1px solid var(--color-border)">
                 <div>
                   <div style="font-weight:600">카카오 × 귀여운 곰돌이</div>
-                  <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">이모티콘 콜라보 • 2024.01</div>
+                  <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">이모티콘 콜라보 • 2026.01</div>
                 </div>
-                <span class="badge" style="background:var(--color-success-light);color:var(--color-success)">완료</span>
+                <span class="badge badge--success">완료</span>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-3) 0">
                 <div>
                   <div style="font-weight:600">모나미 × 귀여운 곰돌이</div>
                   <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">문구 라이선싱 • 2023.08</div>
                 </div>
-                <span class="badge" style="background:var(--color-success-light);color:var(--color-success)">완료</span>
+                <span class="badge badge--success">완료</span>
               </div>
             </div>
           </div>
@@ -124,6 +137,26 @@
   </main>
   <div id="footer-placeholder"></div>
   <script src="components/shared.js"></script>
-  <script>initPage({activePage:'browse'});</script>
+  <script>
+    initPage({activePage:'browse'});
+
+    function toggleConditionFields(isApply) {
+      const fields = document.getElementById('conditionFields');
+      const minAmount = document.getElementById('minAmount');
+      const revenueShare = document.getElementById('revenueShare');
+
+      if (isApply) {
+        fields.style.opacity = '1';
+        fields.style.pointerEvents = 'auto';
+        minAmount.disabled = false;
+        revenueShare.disabled = false;
+      } else {
+        fields.style.opacity = '0.4';
+        fields.style.pointerEvents = 'none';
+        minAmount.disabled = true;
+        revenueShare.disabled = true;
+      }
+    }
+  </script>
 </body>
 </html>

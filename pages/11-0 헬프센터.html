@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>헬프센터 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/shared.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Background Blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      z-index: -1;
+      pointer-events: none;
+      animation: float 12s infinite ease-in-out;
+    }
+
+    .blob-1 {
+      top: -15%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, #C7D2FE, #DDD6FE);
+    }
+
+    .blob-2 {
+      top: 10%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #FBCFE8, #FCE7F3);
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(30px) scale(1.05); }
+    }
+
+    .help-page {
+      padding-top: calc(var(--header-height) + var(--space-8));
+      min-height: 100vh;
+      padding-bottom: var(--space-16);
+    }
+
+    /* Hero Section */
+    .help-hero {
+      text-align: center;
+      padding: var(--space-12) 0;
+      margin-bottom: var(--space-12);
+    }
+
+    .help-hero__title {
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--space-4);
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .help-hero__desc {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    /* Search */
+    .help-search {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .help-search__wrap {
+      position: relative;
+    }
+
+    .help-search__icon {
+      position: absolute;
+      left: var(--space-5);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-tertiary);
+    }
+
+    .help-search__input {
+      width: 100%;
+      padding: var(--space-5) var(--space-5) var(--space-5) 52px;
+      font-size: var(--font-size-lg);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      background: white;
+      box-shadow: var(--shadow-lg);
+      transition: all var(--transition-fast);
+    }
+
+    .help-search__input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    /* Quick Links */
+    .help-categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-bottom: var(--space-12);
+    }
+
+    .help-category {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      transition: all var(--transition-normal);
+      cursor: pointer;
+    }
+
+    .help-category:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .help-category__icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-4);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .help-category__icon--faq {
+      background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    }
+
+    .help-category__icon--notice {
+      background: linear-gradient(135deg, #10B981, #14B8A6);
+    }
+
+    .help-category__icon--contact {
+      background: linear-gradient(135deg, #EC4899, #F472B6);
+    }
+
+    .help-category__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .help-category__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .help-category__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-primary);
+    }
+
+    /* Popular Questions */
+    .help-section {
+      margin-bottom: var(--space-12);
+    }
+
+    .help-section__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .help-section__title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .help-section__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-primary);
+    }
+
+    .popular-questions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    .popular-question {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-fast);
+    }
+
+    .popular-question:hover {
+      box-shadow: var(--shadow-card-hover);
+      transform: translateX(4px);
+    }
+
+    .popular-question__icon {
+      width: 40px;
+      height: 40px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .popular-question__text {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      flex: 1;
+    }
+
+    .popular-question__arrow {
+      color: var(--color-text-tertiary);
+    }
+
+    /* Contact CTA */
+    .help-contact {
+      background: linear-gradient(135deg, #EEF2FF 0%, #FCE7F3 100%);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-10);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-8);
+    }
+
+    .help-contact__content {
+      flex: 1;
+    }
+
+    .help-contact__title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .help-contact__desc {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+    }
+
+    .help-contact__actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    @media (max-width: 1024px) {
+      .help-categories {
+        grid-template-columns: 1fr;
+      }
+
+      .popular-questions {
+        grid-template-columns: 1fr;
+      }
+
+      .help-contact {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div id="header-placeholder"></div>
+
+  <main class="help-page">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="help-hero">
+        <h1 class="help-hero__title">무엇을 도와드릴까요?</h1>
+        <p class="help-hero__desc">INABOOTH 이용에 관한 모든 궁금증을 해결해 드립니다</p>
+
+        <div class="help-search">
+          <div class="help-search__wrap">
+            <i data-lucide="search" class="icon help-search__icon"></i>
+            <input type="text" class="help-search__input" placeholder="질문을 검색해보세요...">
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Categories -->
+      <div class="help-categories">
+        <a href="11-1 FAQ.html" class="help-category">
+          <div class="help-category__icon help-category__icon--faq">
+            <i data-lucide="help-circle" class="icon icon-lg"></i>
+          </div>
+          <h3 class="help-category__title">자주 묻는 질문</h3>
+          <p class="help-category__desc">계정, IP 등록, 협업, 결제 등 자주 묻는 질문들을 확인하세요</p>
+          <span class="help-category__link">
+            FAQ 보기 <i data-lucide="arrow-right" class="icon icon-sm"></i>
+          </span>
+        </a>
+
+        <a href="11-3 공지사항.html" class="help-category">
+          <div class="help-category__icon help-category__icon--notice">
+            <i data-lucide="megaphone" class="icon icon-lg"></i>
+          </div>
+          <h3 class="help-category__title">공지사항</h3>
+          <p class="help-category__desc">플랫폼 업데이트, 새로운 기능, 중요 공지를 확인하세요</p>
+          <span class="help-category__link">
+            공지 보기 <i data-lucide="arrow-right" class="icon icon-sm"></i>
+          </span>
+        </a>
+
+        <a href="11-2 1:1 문의.html" class="help-category">
+          <div class="help-category__icon help-category__icon--contact">
+            <i data-lucide="message-circle" class="icon icon-lg"></i>
+          </div>
+          <h3 class="help-category__title">1:1 상담</h3>
+          <p class="help-category__desc">채널톡으로 실시간 상담을 받아보세요</p>
+          <span class="help-category__link">
+            상담하기 <i data-lucide="arrow-right" class="icon icon-sm"></i>
+          </span>
+        </a>
+      </div>
+
+      <!-- Popular Questions -->
+      <div class="help-section">
+        <div class="help-section__header">
+          <h2 class="help-section__title">많이 찾는 질문</h2>
+          <a href="11-1 FAQ.html" class="help-section__link">
+            전체보기 <i data-lucide="arrow-right" class="icon icon-sm"></i>
+          </a>
+        </div>
+
+        <div class="popular-questions">
+          <a href="11-1 FAQ.html#ip-register" class="popular-question">
+            <div class="popular-question__icon">
+              <i data-lucide="palette" class="icon icon-sm"></i>
+            </div>
+            <span class="popular-question__text">IP를 어떻게 등록하나요?</span>
+            <i data-lucide="chevron-right" class="icon icon-sm popular-question__arrow"></i>
+          </a>
+
+          <a href="11-1 FAQ.html#project-apply" class="popular-question">
+            <div class="popular-question__icon">
+              <i data-lucide="folder-open" class="icon icon-sm"></i>
+            </div>
+            <span class="popular-question__text">오픈 프로젝트에 어떻게 지원하나요?</span>
+            <i data-lucide="chevron-right" class="icon icon-sm popular-question__arrow"></i>
+          </a>
+
+          <a href="11-1 FAQ.html#pricing" class="popular-question">
+            <div class="popular-question__icon">
+              <i data-lucide="credit-card" class="icon icon-sm"></i>
+            </div>
+            <span class="popular-question__text">요금제는 어떻게 되나요?</span>
+            <i data-lucide="chevron-right" class="icon icon-sm popular-question__arrow"></i>
+          </a>
+
+          <a href="11-1 FAQ.html#settlement" class="popular-question">
+            <div class="popular-question__icon">
+              <i data-lucide="banknote" class="icon icon-sm"></i>
+            </div>
+            <span class="popular-question__text">정산은 어떻게 받나요?</span>
+            <i data-lucide="chevron-right" class="icon icon-sm popular-question__arrow"></i>
+          </a>
+
+          <a href="11-1 FAQ.html#business-cert" class="popular-question">
+            <div class="popular-question__icon">
+              <i data-lucide="building" class="icon icon-sm"></i>
+            </div>
+            <span class="popular-question__text">사업자 인증은 필수인가요?</span>
+            <i data-lucide="chevron-right" class="icon icon-sm popular-question__arrow"></i>
+          </a>
+
+          <a href="11-1 FAQ.html#copyright" class="popular-question">
+            <div class="popular-question__icon">
+              <i data-lucide="shield-check" class="icon icon-sm"></i>
+            </div>
+            <span class="popular-question__text">저작권 등록번호 인증의 혜택은?</span>
+            <i data-lucide="chevron-right" class="icon icon-sm popular-question__arrow"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact CTA -->
+      <div class="help-contact">
+        <div class="help-contact__content">
+          <h3 class="help-contact__title">아직 해결되지 않으셨나요?</h3>
+          <p class="help-contact__desc">고객센터로 문의해 주시면 신속하게 답변 드리겠습니다. 운영시간: 평일 10:00 - 18:00</p>
+        </div>
+        <div class="help-contact__actions">
+          <a href="11-2 1:1 문의.html" class="btn btn--primary btn--lg">
+            <i data-lucide="message-circle" class="icon icon-sm"></i>
+            채널톡 상담
+          </a>
+          <a href="mailto:help@inabooth.com" class="btn btn--secondary btn--lg">
+            <i data-lucide="mail" class="icon icon-sm"></i>
+            이메일 문의
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="components/shared.js"></script>
+  <script>
+    initPage({activePage:'faq'});
+    lucide.createIcons();
+  </script>
+</body>
+</html>

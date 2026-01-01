@@ -211,6 +211,34 @@
       margin-left: var(--space-2);
     }
 
+    /* 고정핀 기능 */
+    .chat-item__pin {
+      position: absolute;
+      top: 50%;
+      right: var(--space-2);
+      transform: translateY(-50%);
+      color: var(--color-warning);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .chat-item:hover .chat-item__pin {
+      opacity: 0.5;
+    }
+
+    .chat-item.pinned .chat-item__pin {
+      opacity: 1;
+    }
+
+    .chat-item.pinned {
+      background: rgba(245, 158, 11, 0.05);
+      border-left: 3px solid var(--color-warning);
+    }
+
+    .chat-item {
+      position: relative;
+    }
+
     /* 채팅 없음 상태 */
     .chat-empty {
       display: flex;
@@ -295,8 +323,11 @@
           </div>
 
           <div class="chat-list">
-            <!-- 읽지 않은 채팅 -->
-            <a href="10-2 채팅방 상세.html" class="chat-item unread">
+            <!-- 읽지 않은 채팅 (고정됨) -->
+            <a href="10-2 채팅방 상세.html" class="chat-item unread pinned" onclick="event.preventDefault(); if(!event.target.closest('.chat-item__pin')) location.href=this.href;">
+              <button class="chat-item__pin" onclick="event.preventDefault(); event.stopPropagation(); togglePin(this.closest('.chat-item'));" title="고정 해제">
+                <i data-lucide="pin" class="icon icon-sm"></i>
+              </button>
               <div class="chat-item__avatar">
                 <img src="https://picsum.photos/seed/bear1/100/100" alt="곰돌이 친구들">
               </div>
@@ -311,7 +342,10 @@
               <span class="chat-item__badge"></span>
             </a>
 
-            <a href="10-2 채팅방 상세.html" class="chat-item unread">
+            <a href="10-2 채팅방 상세.html" class="chat-item unread" onclick="event.preventDefault(); if(!event.target.closest('.chat-item__pin')) location.href=this.href;">
+              <button class="chat-item__pin" onclick="event.preventDefault(); event.stopPropagation(); togglePin(this.closest('.chat-item'));" title="고정하기">
+                <i data-lucide="pin" class="icon icon-sm"></i>
+              </button>
               <div class="chat-item__avatar" style="background: linear-gradient(135deg, #EC4899, #8B5CF6);"><img src="https://i.pravatar.cc/150?img=2" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
               <div class="chat-item__content">
                 <div class="chat-item__header">
@@ -385,6 +419,24 @@
         tab.classList.add('active');
       });
     });
+
+    // 고정핀 토글
+    function togglePin(chatItem) {
+      chatItem.classList.toggle('pinned');
+      const isPinned = chatItem.classList.contains('pinned');
+      const pinBtn = chatItem.querySelector('.chat-item__pin');
+      pinBtn.title = isPinned ? '고정 해제' : '고정하기';
+
+      if (isPinned) {
+        Toast.success('채팅이 상단에 고정되었습니다.');
+        // 고정된 채팅을 맨 위로 이동
+        const chatList = chatItem.closest('.chat-list');
+        chatList.insertBefore(chatItem, chatList.firstChild);
+      } else {
+        Toast.info('채팅 고정이 해제되었습니다.');
+      }
+      lucide.createIcons();
+    }
   </script>
 </body>
 </html>

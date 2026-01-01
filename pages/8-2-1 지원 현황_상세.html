@@ -3,296 +3,296 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>지원 상세 - INABOOTH</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <title>지원서 상세 - INABOOTH</title>
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
   <link rel="stylesheet" href="components/shared.css">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    .detail-page{padding-top:calc(var(--header-height) + var(--space-6));min-height:100vh;background:var(--color-bg-secondary);padding-bottom:var(--space-8)}
+    .main-content{padding-top:calc(var(--header-height) + var(--space-8));padding-bottom:var(--space-8);min-height:100vh;background:var(--color-bg-secondary)}
+    .form-card{background:white;border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-card)}
+    .form-title{font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .form-subtitle{color:var(--color-text-secondary);margin-bottom:var(--space-6)}
+    .form-actions{display:flex;gap:var(--space-4);margin-top:var(--space-8)}
 
-    .back-link{display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-bottom:var(--space-4);transition:color var(--transition-fast)}
-    .back-link:hover{color:var(--color-primary)}
+    .header-row{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)}
+    .header-row__back{color:var(--color-text-secondary);display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:var(--radius-md);transition:all var(--transition-fast)}
+    .header-row__back:hover{background:var(--color-bg-secondary);color:var(--color-primary)}
 
-    .detail-layout{display:grid;grid-template-columns:1fr 320px;gap:var(--space-6)}
+    .status-badge{font-size:var(--font-size-sm);padding:var(--space-2) var(--space-3);border-radius:var(--radius-full);font-weight:var(--font-weight-semibold)}
+    .status-badge--pending{background:var(--color-warning-light);color:var(--color-warning)}
+    .status-badge--reviewing{background:var(--color-primary-light);color:var(--color-primary)}
+    .status-badge--accepted{background:var(--color-success-light);color:var(--color-success)}
+    .status-badge--rejected{background:var(--color-error-light);color:var(--color-error)}
 
-    .detail-main{display:flex;flex-direction:column;gap:var(--space-6)}
-    .detail-card{background:white;border-radius:var(--radius-xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
-    .detail-card__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-5);padding-bottom:var(--space-4);border-bottom:1px solid var(--color-border-light)}
-    .detail-card__title{font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold);display:flex;align-items:center;gap:var(--space-2)}
-    .detail-card__title i{color:var(--color-primary)}
+    .detail-grid{display:grid;grid-template-columns:280px 1fr;gap:var(--space-6);margin-bottom:var(--space-6)}
 
-    .applicant-info{display:flex;align-items:center;gap:var(--space-4)}
-    .applicant-avatar{width:72px;height:72px;border-radius:var(--radius-full);background:linear-gradient(135deg,var(--color-primary),var(--color-secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold)}
-    .applicant-details h3{font-size:var(--font-size-xl);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-1)}
-    .applicant-details p{font-size:var(--font-size-sm);color:var(--color-text-secondary)}
-    .applicant-stats{display:flex;gap:var(--space-4);margin-top:var(--space-2)}
-    .applicant-stat{font-size:var(--font-size-sm);color:var(--color-text-tertiary);display:flex;align-items:center;gap:var(--space-1)}
+    .ip-sidebar{display:flex;flex-direction:column;gap:var(--space-4)}
+    .ip-sidebar__image{width:100%;aspect-ratio:1;border-radius:var(--radius-lg);object-fit:cover}
+    .ip-sidebar__info{background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4)}
+    .ip-sidebar__info-title{font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-3)}
+    .ip-sidebar__info-row{display:flex;justify-content:space-between;font-size:var(--font-size-sm);margin-bottom:var(--space-2)}
+    .ip-sidebar__info-row:last-child{margin-bottom:0}
+    .ip-sidebar__info-label{color:var(--color-text-tertiary)}
+    .ip-sidebar__info-value{font-weight:var(--font-weight-medium)}
 
-    .ip-preview{display:flex;gap:var(--space-4);background:var(--color-bg-secondary);border-radius:var(--radius-lg);padding:var(--space-4)}
-    .ip-preview__img{width:80px;height:80px;border-radius:var(--radius-md);background:linear-gradient(135deg,#FBBF24,#F59E0B);flex-shrink:0}
-    .ip-preview__content{flex:1}
-    .ip-preview__name{font-weight:var(--font-weight-semibold);margin-bottom:var(--space-1)}
-    .ip-preview__category{font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-bottom:var(--space-2)}
-    .ip-preview__stats{display:flex;gap:var(--space-3)}
-    .ip-preview__stat{font-size:var(--font-size-xs);color:var(--color-text-tertiary);display:flex;align-items:center;gap:var(--space-1)}
+    .creator-card{background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);display:flex;align-items:center;gap:var(--space-3)}
+    .creator-card__avatar{width:48px;height:48px;border-radius:var(--radius-full);background:linear-gradient(135deg,var(--color-primary),var(--color-secondary));display:flex;align-items:center;justify-content:center;color:white;font-weight:var(--font-weight-bold);font-size:var(--font-size-lg)}
+    .creator-card__info{flex:1}
+    .creator-card__name{font-weight:var(--font-weight-semibold);margin-bottom:var(--space-1)}
+    .creator-card__desc{font-size:var(--font-size-sm);color:var(--color-text-secondary)}
 
-    .proposal-content{font-size:var(--font-size-base);line-height:1.8;color:var(--color-text-secondary)}
-    .proposal-content p{margin-bottom:var(--space-4)}
+    .detail-main{display:flex;flex-direction:column;gap:var(--space-5)}
+    .detail-section{margin-bottom:0}
+    .detail-section__title{font-size:var(--font-size-base);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-3);display:flex;align-items:center;gap:var(--space-2)}
+    .detail-section__title i{color:var(--color-primary)}
+    .detail-section__content{background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4);font-size:var(--font-size-sm);line-height:1.7}
 
-    .condition-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4)}
-    .condition-item{background:var(--color-bg-secondary);border-radius:var(--radius-md);padding:var(--space-4)}
-    .condition-item__label{font-size:var(--font-size-xs);color:var(--color-text-tertiary);margin-bottom:var(--space-1)}
-    .condition-item__value{font-weight:var(--font-weight-medium)}
+    .portfolio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-2)}
+    .portfolio-grid__item{aspect-ratio:1;border-radius:var(--radius-md);overflow:hidden}
+    .portfolio-grid__item img{width:100%;height:100%;object-fit:cover;transition:transform var(--transition-fast)}
+    .portfolio-grid__item:hover img{transform:scale(1.05)}
 
-    .file-list{display:flex;flex-direction:column;gap:var(--space-2)}
-    .file-item{display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md)}
-    .file-item__info{display:flex;align-items:center;gap:var(--space-3)}
-    .file-item__icon{width:40px;height:40px;background:var(--color-primary-light);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--color-primary)}
-    .file-item__name{font-size:var(--font-size-sm);font-weight:var(--font-weight-medium)}
-    .file-item__size{font-size:var(--font-size-xs);color:var(--color-text-tertiary)}
-    .file-item__download{width:32px;height:32px;border:none;background:none;color:var(--color-text-tertiary);cursor:pointer;border-radius:var(--radius-sm)}
-    .file-item__download:hover{background:var(--color-primary-light);color:var(--color-primary)}
+    .collab-history{display:flex;flex-direction:column;gap:var(--space-2)}
+    .collab-history__item{display:flex;justify-content:space-between;align-items:center;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md);font-size:var(--font-size-sm)}
+    .collab-history__title{font-weight:var(--font-weight-semibold)}
+    .collab-history__date{color:var(--color-text-tertiary)}
 
-    /* 사이드바 */
-    .detail-sidebar{display:flex;flex-direction:column;gap:var(--space-4)}
+    .condition-grid{display:grid;grid-template-columns:120px 1fr;gap:var(--space-2);font-size:var(--font-size-sm)}
+    .condition-grid__label{color:var(--color-text-tertiary)}
+    .condition-grid__value{font-weight:var(--font-weight-medium)}
 
-    .status-card{background:white;border-radius:var(--radius-xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
-    .status-card__label{font-size:var(--font-size-xs);color:var(--color-text-tertiary);margin-bottom:var(--space-2)}
-    .status-card__status{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-4);font-weight:var(--font-weight-semibold);border-radius:var(--radius-full);margin-bottom:var(--space-4)}
-    .status-card__status--pending{background:var(--color-warning-light);color:var(--color-warning)}
-    .status-card__status--reviewing{background:var(--color-primary-light);color:var(--color-primary)}
-    .status-card__status--accepted{background:var(--color-success-light);color:var(--color-success)}
+    .action-bar{display:flex;justify-content:space-between;align-items:center;padding-top:var(--space-6);border-top:1px solid var(--color-border)}
+    .action-bar__left{}
+    .action-bar__right{display:flex;gap:var(--space-3)}
 
-    .status-card__date{font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-bottom:var(--space-4)}
-
-    .action-buttons{display:flex;flex-direction:column;gap:var(--space-2)}
-
-    .project-info-card{background:white;border-radius:var(--radius-xl);padding:var(--space-5);box-shadow:var(--shadow-card)}
-    .project-info-card__label{font-size:var(--font-size-xs);color:var(--color-text-tertiary);margin-bottom:var(--space-2)}
-    .project-info-card__title{font-weight:var(--font-weight-semibold);margin-bottom:var(--space-2)}
-    .project-info-card__link{font-size:var(--font-size-sm);color:var(--color-primary);display:flex;align-items:center;gap:var(--space-1)}
-    .project-info-card__link:hover{text-decoration:underline}
-
-    @media (max-width: 1024px) {
-      .detail-layout{grid-template-columns:1fr}
-      .detail-sidebar{order:-1}
-    }
     @media (max-width: 768px) {
-      .condition-grid{grid-template-columns:1fr}
+      .detail-grid{grid-template-columns:1fr}
+      .portfolio-grid{grid-template-columns:repeat(2,1fr)}
     }
   </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
-
-  <main class="detail-page">
+  <main class="main-content">
     <div class="container">
-      <a href="8-2 지원 현황 관리.html" class="back-link">
-        <i data-lucide="arrow-left" class="icon-sm"></i>
-        지원 현황 목록으로
-      </a>
+      <div class="form-card">
+        <!-- 헤더 -->
+        <div class="header-row">
+          <a href="7-3 지원자 관리.html" class="header-row__back">
+            <i data-lucide="arrow-left"></i>
+          </a>
+          <div style="flex:1">
+            <h1 class="form-title" style="margin-bottom:0">지원서 상세</h1>
+            <p class="form-subtitle" style="margin-bottom:0">2026 여름 시즌 굿즈 콜라보 프로젝트</p>
+          </div>
+          <span class="status-badge status-badge--pending">검토 대기</span>
+        </div>
 
-      <div class="detail-layout">
-        <div class="detail-main">
-          <!-- 지원자 정보 -->
-          <div class="detail-card">
-            <div class="detail-card__header">
-              <div class="detail-card__title">
-                <i data-lucide="user" class="icon-sm"></i>
-                지원자 정보
+        <!-- 메인 컨텐츠 -->
+        <div class="detail-grid">
+          <!-- 좌측: IP 정보 -->
+          <div class="ip-sidebar">
+            <img src="images/characters/Random Objects (1).png" alt="IP 이미지" class="ip-sidebar__image">
+
+            <!-- IP 정보 -->
+            <div class="ip-sidebar__info">
+              <h4 class="ip-sidebar__info-title">IP 정보</h4>
+              <div class="ip-sidebar__info-row">
+                <span class="ip-sidebar__info-label">IP명</span>
+                <span class="ip-sidebar__info-value">귀여운 곰돌이 친구들</span>
+              </div>
+              <div class="ip-sidebar__info-row">
+                <span class="ip-sidebar__info-label">카테고리</span>
+                <span class="ip-sidebar__info-value">오리지널 캐릭터</span>
+              </div>
+              <div class="ip-sidebar__info-row">
+                <span class="ip-sidebar__info-label">팔로워</span>
+                <span class="ip-sidebar__info-value">85,000</span>
+              </div>
+              <div class="ip-sidebar__info-row">
+                <span class="ip-sidebar__info-label">협업 이력</span>
+                <span class="ip-sidebar__info-value">3회</span>
+              </div>
+              <div class="ip-sidebar__info-row">
+                <span class="ip-sidebar__info-label">협업지수</span>
+                <span class="ip-sidebar__info-value" style="color:var(--color-success);font-weight:600">4.8</span>
+              </div>
+            </div>
+
+            <!-- 크리에이터 정보 -->
+            <div class="creator-card">
+              <div class="creator-card__avatar">김</div>
+              <div class="creator-card__info">
+                <div class="creator-card__name">스튜디오 베어</div>
+                <div class="creator-card__desc">캐릭터 디자이너</div>
               </div>
               <a href="#" class="btn btn--ghost btn--sm">
                 <i data-lucide="external-link" class="icon-sm"></i>
-                프로필 보기
               </a>
             </div>
-            <div class="applicant-info">
-              <div class="applicant-avatar">김</div>
-              <div class="applicant-details">
-                <h3>김크리에이터</h3>
-                <p>캐릭터 디자이너 · 일러스트레이터</p>
-                <div class="applicant-stats">
-                  <span class="applicant-stat">
-                    <i data-lucide="briefcase" class="icon-sm"></i>
-                    협업 12건
-                  </span>
-                  <span class="applicant-stat">
-                    <i data-lucide="star" class="icon-sm"></i>
-                    4.8점
-                  </span>
-                  <span class="applicant-stat">
-                    <i data-lucide="users" class="icon-sm"></i>
-                    팔로워 2,456
-                  </span>
+
+            <!-- 지원 정보 -->
+            <div class="ip-sidebar__info">
+              <h4 class="ip-sidebar__info-title">지원 정보</h4>
+              <div class="ip-sidebar__info-row">
+                <span class="ip-sidebar__info-label">지원일</span>
+                <span class="ip-sidebar__info-value">2026.01.28</span>
+              </div>
+              <div class="ip-sidebar__info-row">
+                <span class="ip-sidebar__info-label">지원 상태</span>
+                <span class="ip-sidebar__info-value" style="color:var(--color-warning)">검토 대기</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 우측: 상세 내용 -->
+          <div class="detail-main">
+            <!-- 지원 동기 -->
+            <div class="detail-section">
+              <h3 class="detail-section__title">
+                <i data-lucide="message-square" class="icon-sm"></i>
+                지원 동기
+              </h3>
+              <div class="detail-section__content">
+                귀여운 곰돌이 친구들은 문구/오피스 카테고리에서 뛰어난 성과를 보여온 IP입니다. 특히 이번 프로젝트의 '여름 시즌' 테마와 잘 어울리는 시원한 컬러 팔레트와 귀여운 캐릭터 라인업을 보유하고 있습니다.
+                <br><br>
+                기존 카카오, 모나미 등과의 성공적인 협업 경험을 바탕으로 이번 프로젝트에서도 좋은 결과를 만들어낼 수 있을 것으로 확신합니다. MZ세대를 타겟으로 한 감성적인 디자인과 실용적인 제품 기획을 통해 브랜드 인지도 확대에 기여하겠습니다.
+              </div>
+            </div>
+
+            <!-- 포트폴리오 -->
+            <div class="detail-section">
+              <h3 class="detail-section__title">
+                <i data-lucide="image" class="icon-sm"></i>
+                포트폴리오
+              </h3>
+              <div class="portfolio-grid">
+                <div class="portfolio-grid__item"><img src="images/characters/Random Objects (1).png" alt="포트폴리오 1"></div>
+                <div class="portfolio-grid__item"><img src="images/characters/Random Objects (2).png" alt="포트폴리오 2"></div>
+                <div class="portfolio-grid__item"><img src="images/characters/Random Objects (3).png" alt="포트폴리오 3"></div>
+                <div class="portfolio-grid__item"><img src="images/characters/Random Objects (4).png" alt="포트폴리오 4"></div>
+              </div>
+            </div>
+
+            <!-- 협업 이력 -->
+            <div class="detail-section">
+              <h3 class="detail-section__title">
+                <i data-lucide="briefcase" class="icon-sm"></i>
+                협업 이력
+              </h3>
+              <div class="collab-history">
+                <div class="collab-history__item">
+                  <div>
+                    <span class="collab-history__title">카카오 × 귀여운 곰돌이</span>
+                    <span style="color:var(--color-text-secondary)"> • 이모티콘 콜라보</span>
+                  </div>
+                  <span class="collab-history__date">2026.01</span>
+                </div>
+                <div class="collab-history__item">
+                  <div>
+                    <span class="collab-history__title">모나미 × 귀여운 곰돌이</span>
+                    <span style="color:var(--color-text-secondary)"> • 문구 라이선싱</span>
+                  </div>
+                  <span class="collab-history__date">2025.08</span>
+                </div>
+                <div class="collab-history__item">
+                  <div>
+                    <span class="collab-history__title">CU 편의점 × 귀여운 곰돌이</span>
+                    <span style="color:var(--color-text-secondary)"> • 한정판 상품</span>
+                  </div>
+                  <span class="collab-history__date">2025.03</span>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- 지원 IP -->
-          <div class="detail-card">
-            <div class="detail-card__header">
-              <div class="detail-card__title">
-                <i data-lucide="sparkles" class="icon-sm"></i>
-                지원 IP
-              </div>
-            </div>
-            <div class="ip-preview">
-              <div class="ip-preview__img"><img src="https://picsum.photos/seed/empty22/400/300" alt="이미지" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
-              <div class="ip-preview__content">
-                <div class="ip-preview__name">귀여운 곰돌이</div>
-                <div class="ip-preview__category">오리지널 캐릭터 · 이모티콘</div>
-                <div class="ip-preview__stats">
-                  <span class="ip-preview__stat">
-                    <i data-lucide="eye" class="icon-sm"></i>
-                    조회 1,234
-                  </span>
-                  <span class="ip-preview__stat">
-                    <i data-lucide="heart" class="icon-sm"></i>
-                    좋아요 856
-                  </span>
-                  <span class="ip-preview__stat">
-                    <i data-lucide="message-circle" class="icon-sm"></i>
-                    문의 24
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 제안서 내용 -->
-          <div class="detail-card">
-            <div class="detail-card__header">
-              <div class="detail-card__title">
-                <i data-lucide="file-text" class="icon-sm"></i>
-                제안서
-              </div>
-            </div>
-            <h3 style="font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-4)">[귀여운 곰돌이] 캐릭터 굿즈 제작 제안</h3>
-            <div class="proposal-content">
-              <p>안녕하세요, 캐릭터 디자이너 김크리에이터입니다.</p>
-              <p>귀여운 곰돌이 캐릭터의 따뜻하고 친근한 이미지를 활용하여 다양한 굿즈를 제작하고자 합니다. 특히 MZ세대를 타겟으로 한 문구류, 생활용품을 기획하고 있으며, 온오프라인 판매 채널을 통해 브랜드 인지도 확대와 매출 증대를 목표로 합니다.</p>
-              <p>현재 카카오 이모티콘에서 인기리에 판매 중인 이 캐릭터는 누적 다운로드 50만 건을 달성했으며, 충성도 높은 팬층을 보유하고 있습니다. 이번 프로젝트를 통해 오프라인으로의 확장을 기대하고 있습니다.</p>
-            </div>
-          </div>
-
-          <!-- 협업 조건 -->
-          <div class="detail-card">
-            <div class="detail-card__header">
-              <div class="detail-card__title">
+            <!-- 희망 조건 -->
+            <div class="detail-section">
+              <h3 class="detail-section__title">
                 <i data-lucide="handshake" class="icon-sm"></i>
-                희망 협업 조건
+                희망 조건
+              </h3>
+              <div class="detail-section__content">
+                <div class="condition-grid">
+                  <span class="condition-grid__label">희망 금액</span>
+                  <span class="condition-grid__value">8,000,000원</span>
+                  <span class="condition-grid__label">로열티</span>
+                  <span class="condition-grid__value">매출의 10%</span>
+                  <span class="condition-grid__label">협업 기간</span>
+                  <span class="condition-grid__value">3~6개월</span>
+                  <span class="condition-grid__label">시작 희망일</span>
+                  <span class="condition-grid__value">2026년 3월</span>
+                </div>
               </div>
             </div>
-            <div class="condition-grid">
-              <div class="condition-item">
-                <div class="condition-item__label">희망 협업 기간</div>
-                <div class="condition-item__value">3~6개월</div>
-              </div>
-              <div class="condition-item">
-                <div class="condition-item__label">희망 수익 분배</div>
-                <div class="condition-item__value">고정 + 수익 배분</div>
-              </div>
-              <div class="condition-item">
-                <div class="condition-item__label">예상 예산 규모</div>
-                <div class="condition-item__value">1,000만원 ~ 3,000만원</div>
-              </div>
-              <div class="condition-item">
-                <div class="condition-item__label">희망 시작 시기</div>
-                <div class="condition-item__value">2024년 2월</div>
-              </div>
-            </div>
-          </div>
 
-          <!-- 첨부 파일 -->
-          <div class="detail-card">
-            <div class="detail-card__header">
-              <div class="detail-card__title">
+            <!-- 첨부 파일 -->
+            <div class="detail-section">
+              <h3 class="detail-section__title">
                 <i data-lucide="paperclip" class="icon-sm"></i>
                 첨부 파일
-              </div>
-            </div>
-            <div class="file-list">
-              <div class="file-item">
-                <div class="file-item__info">
-                  <div class="file-item__icon">
-                    <i data-lucide="file-text" class="icon-sm"></i>
+              </h3>
+              <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md)">
+                  <div style="display:flex;align-items:center;gap:var(--space-3)">
+                    <div style="width:40px;height:40px;background:var(--color-primary-light);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--color-primary)">
+                      <i data-lucide="file-text" class="icon-sm"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:var(--font-size-sm);font-weight:var(--font-weight-medium)">포트폴리오_2026.pdf</div>
+                      <div style="font-size:var(--font-size-xs);color:var(--color-text-tertiary)">2.4 MB</div>
+                    </div>
                   </div>
-                  <div>
-                    <div class="file-item__name">포트폴리오_2024.pdf</div>
-                    <div class="file-item__size">2.4 MB</div>
-                  </div>
+                  <button class="btn btn--ghost btn--sm">
+                    <i data-lucide="download" class="icon-sm"></i>
+                  </button>
                 </div>
-                <button class="file-item__download">
-                  <i data-lucide="download" class="icon-sm"></i>
-                </button>
-              </div>
-              <div class="file-item">
-                <div class="file-item__info">
-                  <div class="file-item__icon">
-                    <i data-lucide="image" class="icon-sm"></i>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3);background:var(--color-bg-secondary);border-radius:var(--radius-md)">
+                  <div style="display:flex;align-items:center;gap:var(--space-3)">
+                    <div style="width:40px;height:40px;background:var(--color-primary-light);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--color-primary)">
+                      <i data-lucide="file-image" class="icon-sm"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:var(--font-size-sm);font-weight:var(--font-weight-medium)">굿즈_시안_제안서.zip</div>
+                      <div style="font-size:var(--font-size-xs);color:var(--color-text-tertiary)">15.2 MB</div>
+                    </div>
                   </div>
-                  <div>
-                    <div class="file-item__name">굿즈_시안.png</div>
-                    <div class="file-item__size">1.8 MB</div>
-                  </div>
+                  <button class="btn btn--ghost btn--sm">
+                    <i data-lucide="download" class="icon-sm"></i>
+                  </button>
                 </div>
-                <button class="file-item__download">
-                  <i data-lucide="download" class="icon-sm"></i>
-                </button>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="detail-sidebar">
-          <!-- 상태 카드 -->
-          <div class="status-card">
-            <div class="status-card__label">지원 상태</div>
-            <div class="status-card__status status-card__status--pending">
-              <i data-lucide="clock" class="icon-sm"></i>
-              대기 중
-            </div>
-            <div class="status-card__date">
-              <i data-lucide="calendar" class="icon-sm" style="vertical-align:middle;margin-right:var(--space-1)"></i>
-              지원일: 2024.01.28
-            </div>
-            <div class="action-buttons">
-              <button class="btn btn--primary btn--lg" style="width:100%">
-                <i data-lucide="check" class="icon-sm"></i>
-                수락하기
-              </button>
-              <button class="btn btn--secondary btn--lg" style="width:100%">
-                <i data-lucide="message-circle" class="icon-sm"></i>
-                채팅하기
-              </button>
-              <button class="btn btn--ghost btn--lg" style="width:100%;color:var(--color-error)">
-                <i data-lucide="x" class="icon-sm"></i>
-                거절하기
-              </button>
-            </div>
-          </div>
-
-          <!-- 프로젝트 정보 -->
-          <div class="project-info-card">
-            <div class="project-info-card__label">지원 프로젝트</div>
-            <div class="project-info-card__title">캐릭터 굿즈 콜라보</div>
-            <a href="4-2 프로젝트 상세.html" class="project-info-card__link">
-              프로젝트 상세 보기
-              <i data-lucide="arrow-right" class="icon-sm"></i>
+        <!-- 액션 바 -->
+        <div class="action-bar">
+          <div class="action-bar__left">
+            <a href="7-3 지원자 관리.html" class="btn btn--secondary">
+              <i data-lucide="arrow-left" class="icon-sm"></i>
+              목록으로
             </a>
+          </div>
+          <div class="action-bar__right">
+            <button class="btn btn--secondary" style="color:var(--color-error)">
+              <i data-lucide="x" class="icon-sm"></i>
+              거절
+            </button>
+            <button class="btn btn--secondary">
+              <i data-lucide="message-square" class="icon-sm"></i>
+              면담 요청
+            </button>
+            <button class="btn btn--primary">
+              <i data-lucide="check" class="icon-sm"></i>
+              선정하기
+            </button>
           </div>
         </div>
       </div>
     </div>
   </main>
-
   <div id="footer-placeholder"></div>
   <script src="components/shared.js"></script>
-  <script>
-    initPage({activePage:'mypage', isLoggedIn: true});
-    lucide.createIcons();
-  </script>
+  <script>initPage({activePage:'project'});lucide.createIcons();</script>
 </body>
 </html>

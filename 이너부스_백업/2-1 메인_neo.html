@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INABOOTH - 브랜드와 캐릭터 IP를 연결하는 협업 플랫폼</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      /* Neo-Brutalism Colors */
+      --neo-black: #000000;
+      --neo-white: #ffffff;
+      --neo-yellow: #FFE500;
+      --neo-pink: #FF6B9D;
+      --neo-cyan: #00D4FF;
+      --neo-lime: #B8FF00;
+      --neo-orange: #FF9500;
+      --neo-purple: #A855F7;
+      --neo-cream: #FFF9E6;
+      --neo-mint: #00F5D4;
+
+      /* Shadows */
+      --neo-shadow: 4px 4px 0 var(--neo-black);
+      --neo-shadow-lg: 6px 6px 0 var(--neo-black);
+      --neo-shadow-xl: 8px 8px 0 var(--neo-black);
+
+      /* Border */
+      --neo-border: 3px solid var(--neo-black);
+      --neo-border-thick: 4px solid var(--neo-black);
+
+      /* Spacing */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-20: 80px;
+
+      /* Typography */
+      --font-base: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-base);
+      background: var(--neo-cream);
+      color: var(--neo-black);
+      line-height: 1.5;
+    }
+
+    /* Neo-Brutalism Header */
+    .neo-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--neo-white);
+      border-bottom: var(--neo-border-thick);
+      padding: var(--space-4) var(--space-6);
+    }
+
+    .neo-header__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .neo-logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      text-decoration: none;
+      color: var(--neo-black);
+      background: var(--neo-yellow);
+      padding: var(--space-2) var(--space-4);
+      border: var(--neo-border);
+      box-shadow: var(--neo-shadow);
+      transition: all 0.1s ease;
+    }
+
+    .neo-logo:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--neo-black);
+    }
+
+    .neo-nav {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .neo-nav__link {
+      padding: var(--space-3) var(--space-5);
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--neo-black);
+      border: var(--neo-border);
+      background: var(--neo-white);
+      box-shadow: var(--neo-shadow);
+      transition: all 0.1s ease;
+    }
+
+    .neo-nav__link:hover {
+      background: var(--neo-yellow);
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--neo-black);
+    }
+
+    .neo-nav__link--primary {
+      background: var(--neo-pink);
+      color: var(--neo-black);
+    }
+
+    /* Hero Section */
+    .neo-hero {
+      padding: var(--space-20) var(--space-6);
+      background: var(--neo-yellow);
+      border-bottom: var(--neo-border-thick);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .neo-hero::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: 10%;
+      width: 200px;
+      height: 200px;
+      background: var(--neo-pink);
+      border: var(--neo-border-thick);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .neo-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 40px;
+      left: 5%;
+      width: 120px;
+      height: 120px;
+      background: var(--neo-cyan);
+      border: var(--neo-border-thick);
+      z-index: 0;
+    }
+
+    .neo-hero__content {
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .neo-hero__badge {
+      display: inline-block;
+      padding: var(--space-2) var(--space-4);
+      background: var(--neo-black);
+      color: var(--neo-white);
+      font-weight: 800;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: var(--space-6);
+    }
+
+    .neo-hero__title {
+      font-size: clamp(48px, 8vw, 80px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: var(--space-6);
+      max-width: 800px;
+    }
+
+    .neo-hero__title span {
+      background: var(--neo-white);
+      padding: 0 var(--space-2);
+      border: var(--neo-border);
+      display: inline-block;
+    }
+
+    .neo-hero__subtitle {
+      font-size: 20px;
+      font-weight: 500;
+      max-width: 600px;
+      margin-bottom: var(--space-10);
+      line-height: 1.6;
+    }
+
+    .neo-hero__search {
+      display: flex;
+      max-width: 600px;
+      background: var(--neo-white);
+      border: var(--neo-border-thick);
+      box-shadow: var(--neo-shadow-lg);
+    }
+
+    .neo-hero__search-input {
+      flex: 1;
+      padding: var(--space-5) var(--space-6);
+      font-size: 18px;
+      font-weight: 500;
+      border: none;
+      background: transparent;
+      outline: none;
+    }
+
+    .neo-hero__search-btn {
+      padding: var(--space-5) var(--space-8);
+      background: var(--neo-black);
+      color: var(--neo-white);
+      font-size: 18px;
+      font-weight: 800;
+      border: none;
+      border-left: var(--neo-border-thick);
+      cursor: pointer;
+      transition: all 0.1s ease;
+    }
+
+    .neo-hero__search-btn:hover {
+      background: var(--neo-pink);
+      color: var(--neo-black);
+    }
+
+    .neo-hero__stats {
+      display: flex;
+      gap: var(--space-8);
+      margin-top: var(--space-12);
+    }
+
+    .neo-stat {
+      background: var(--neo-white);
+      border: var(--neo-border);
+      padding: var(--space-4) var(--space-6);
+      box-shadow: var(--neo-shadow);
+    }
+
+    .neo-stat__value {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--neo-black);
+    }
+
+    .neo-stat__label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neo-black);
+      opacity: 0.7;
+    }
+
+    /* Section Common */
+    .neo-section {
+      padding: var(--space-16) var(--space-6);
+      border-bottom: var(--neo-border-thick);
+    }
+
+    .neo-section--alt {
+      background: var(--neo-white);
+    }
+
+    .neo-section__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .neo-section__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .neo-section__title {
+      font-size: 32px;
+      font-weight: 900;
+      display: inline-block;
+      background: var(--neo-lime);
+      padding: var(--space-2) var(--space-4);
+      border: var(--neo-border);
+      box-shadow: var(--neo-shadow);
+    }
+
+    .neo-section__title--pink {
+      background: var(--neo-pink);
+    }
+
+    .neo-section__title--cyan {
+      background: var(--neo-cyan);
+    }
+
+    .neo-section__title--orange {
+      background: var(--neo-orange);
+    }
+
+    .neo-section__more {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      background: var(--neo-white);
+      border: var(--neo-border);
+      box-shadow: var(--neo-shadow);
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--neo-black);
+      transition: all 0.1s ease;
+    }
+
+    .neo-section__more:hover {
+      background: var(--neo-yellow);
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--neo-black);
+    }
+
+    /* IP Card Grid */
+    .neo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+
+    .neo-card {
+      background: var(--neo-white);
+      border: var(--neo-border-thick);
+      box-shadow: var(--neo-shadow-lg);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.15s ease;
+      overflow: hidden;
+    }
+
+    .neo-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 10px 10px 0 var(--neo-black);
+    }
+
+    .neo-card__image {
+      position: relative;
+      aspect-ratio: 1;
+      background: var(--neo-cream);
+      border-bottom: var(--neo-border-thick);
+      overflow: hidden;
+    }
+
+    .neo-card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .neo-card__badge {
+      position: absolute;
+      top: var(--space-3);
+      left: var(--space-3);
+      padding: var(--space-1) var(--space-3);
+      background: var(--neo-purple);
+      color: var(--neo-white);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      border: 2px solid var(--neo-black);
+    }
+
+    .neo-card__badge--new {
+      background: var(--neo-mint);
+      color: var(--neo-black);
+    }
+
+    .neo-card__badge--rising {
+      background: var(--neo-orange);
+      color: var(--neo-black);
+    }
+
+    .neo-card__badge--featured {
+      background: var(--neo-lime);
+      color: var(--neo-black);
+    }
+
+    .neo-card__scrap {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--neo-white);
+      border: 2px solid var(--neo-black);
+      cursor: pointer;
+      transition: all 0.1s ease;
+    }
+
+    .neo-card__scrap:hover {
+      background: var(--neo-pink);
+      transform: scale(1.1);
+    }
+
+    .neo-card__content {
+      padding: var(--space-4);
+    }
+
+    .neo-card__category {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--neo-white);
+      background: var(--neo-black);
+      padding: 2px var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+
+    .neo-card__name {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: var(--space-1);
+    }
+
+    .neo-card__creator {
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.7;
+    }
+
+    .neo-card__stats {
+      display: flex;
+      gap: var(--space-4);
+      margin-top: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 2px dashed var(--neo-black);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .neo-card__stat {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    /* Targeting Section */
+    .neo-targeting {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    .neo-targeting-card {
+      position: relative;
+      padding: var(--space-8);
+      background: var(--neo-white);
+      border: var(--neo-border-thick);
+      box-shadow: var(--neo-shadow-lg);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.15s ease;
+    }
+
+    .neo-targeting-card:nth-child(1) {
+      background: var(--neo-cyan);
+    }
+
+    .neo-targeting-card:nth-child(2) {
+      background: var(--neo-pink);
+    }
+
+    .neo-targeting-card:nth-child(3) {
+      background: var(--neo-lime);
+    }
+
+    .neo-targeting-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 10px 10px 0 var(--neo-black);
+    }
+
+    .neo-targeting-card__icon {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--neo-white);
+      border: var(--neo-border);
+      margin-bottom: var(--space-5);
+    }
+
+    .neo-targeting-card__title {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: var(--space-3);
+    }
+
+    .neo-targeting-card__desc {
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.6;
+      opacity: 0.85;
+    }
+
+    .neo-targeting-card__arrow {
+      position: absolute;
+      bottom: var(--space-6);
+      right: var(--space-6);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--neo-black);
+      color: var(--neo-white);
+    }
+
+    /* Newsletter Section */
+    .neo-newsletter {
+      background: var(--neo-black);
+      color: var(--neo-white);
+      padding: var(--space-16) var(--space-6);
+      text-align: center;
+    }
+
+    .neo-newsletter__content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .neo-newsletter__title {
+      font-size: 40px;
+      font-weight: 900;
+      margin-bottom: var(--space-4);
+    }
+
+    .neo-newsletter__title span {
+      color: var(--neo-yellow);
+    }
+
+    .neo-newsletter__desc {
+      font-size: 18px;
+      opacity: 0.8;
+      margin-bottom: var(--space-8);
+    }
+
+    .neo-newsletter__form {
+      display: flex;
+      gap: 0;
+      max-width: 500px;
+      margin: 0 auto;
+      border: var(--neo-border-thick);
+      border-color: var(--neo-white);
+    }
+
+    .neo-newsletter__input {
+      flex: 1;
+      padding: var(--space-5) var(--space-6);
+      font-size: 16px;
+      font-weight: 500;
+      border: none;
+      background: var(--neo-white);
+      outline: none;
+    }
+
+    .neo-newsletter__btn {
+      padding: var(--space-5) var(--space-8);
+      background: var(--neo-yellow);
+      color: var(--neo-black);
+      font-size: 16px;
+      font-weight: 800;
+      border: none;
+      border-left: var(--neo-border-thick);
+      border-color: var(--neo-white);
+      cursor: pointer;
+      transition: all 0.1s ease;
+    }
+
+    .neo-newsletter__btn:hover {
+      background: var(--neo-pink);
+    }
+
+    /* Footer */
+    .neo-footer {
+      background: var(--neo-white);
+      border-top: var(--neo-border-thick);
+      padding: var(--space-8) var(--space-6);
+    }
+
+    .neo-footer__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .neo-footer__copy {
+      font-weight: 600;
+    }
+
+    .neo-footer__links {
+      display: flex;
+      gap: var(--space-6);
+    }
+
+    .neo-footer__link {
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--neo-black);
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.1s ease;
+    }
+
+    .neo-footer__link:hover {
+      border-bottom-color: var(--neo-black);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .neo-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .neo-header__inner {
+        flex-direction: column;
+        gap: var(--space-4);
+      }
+
+      .neo-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .neo-hero {
+        padding: var(--space-12) var(--space-4);
+      }
+
+      .neo-hero__title {
+        font-size: 36px;
+      }
+
+      .neo-hero__stats {
+        flex-wrap: wrap;
+        gap: var(--space-4);
+      }
+
+      .neo-hero__search {
+        flex-direction: column;
+      }
+
+      .neo-hero__search-btn {
+        border-left: none;
+        border-top: var(--neo-border-thick);
+      }
+
+      .neo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+      }
+
+      .neo-targeting {
+        grid-template-columns: 1fr;
+      }
+
+      .neo-newsletter__form {
+        flex-direction: column;
+      }
+
+      .neo-newsletter__btn {
+        border-left: none;
+        border-top: var(--neo-border-thick);
+        border-color: var(--neo-white);
+      }
+
+      .neo-footer__inner {
+        flex-direction: column;
+        gap: var(--space-4);
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="neo-header">
+    <div class="neo-header__inner">
+      <a href="2-1 메인_neo.html" class="neo-logo">INABOOTH</a>
+      <nav class="neo-nav">
+        <a href="3-1 탐색.html" class="neo-nav__link">IP 탐색</a>
+        <a href="4-1 오픈 프로젝트.html" class="neo-nav__link">오픈 프로젝트</a>
+        <a href="5-1 인사이트.html" class="neo-nav__link">인사이트</a>
+        <a href="1-2-1 로그인.html" class="neo-nav__link">로그인</a>
+        <a href="1-1-1 회원가입.html" class="neo-nav__link neo-nav__link--primary">시작하기</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="neo-hero">
+      <div class="neo-hero__content">
+        <div class="neo-hero__badge">Character IP Platform</div>
+        <h1 class="neo-hero__title">
+          브랜드와 캐릭터 IP를<br>
+          <span>가장 빠르게</span> 연결합니다
+        </h1>
+        <p class="neo-hero__subtitle">
+          INABOOTH에서 2,000개 이상의 검증된 캐릭터 IP와 함께
+          새로운 콜라보레이션을 시작하세요
+        </p>
+        <form class="neo-hero__search" action="3-1 탐색.html">
+          <input type="text" class="neo-hero__search-input" placeholder="캐릭터 이름, 키워드로 검색해보세요">
+          <button type="submit" class="neo-hero__search-btn">검색</button>
+        </form>
+        <div class="neo-hero__stats">
+          <div class="neo-stat">
+            <div class="neo-stat__value">2,000+</div>
+            <div class="neo-stat__label">등록된 IP</div>
+          </div>
+          <div class="neo-stat">
+            <div class="neo-stat__value">500+</div>
+            <div class="neo-stat__label">성사된 협업</div>
+          </div>
+          <div class="neo-stat">
+            <div class="neo-stat__value">300+</div>
+            <div class="neo-stat__label">파트너 브랜드</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 인증된 IP Section -->
+    <section class="neo-section neo-section--alt">
+      <div class="neo-section__inner">
+        <div class="neo-section__header">
+          <h2 class="neo-section__title">인증된 IP</h2>
+          <a href="3-1 탐색.html?filter=verified" class="neo-section__more">
+            더보기 <i data-lucide="arrow-right" style="width:18px;height:18px"></i>
+          </a>
+        </div>
+        <div class="neo-grid">
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (1).png" alt="곰돌이">
+              <span class="neo-card__badge">인증</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">오리지널 캐릭터</span>
+              <div class="neo-card__name">귀여운 곰돌이 친구들</div>
+              <div class="neo-card__creator">스튜디오 베어</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 1.2k</span>
+                <span class="neo-card__stat"><i data-lucide="bookmark" style="width:14px;height:14px"></i> 234</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (4).png" alt="토끼">
+              <span class="neo-card__badge">인증</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">오리지널 캐릭터</span>
+              <div class="neo-card__name">보라색 토끼</div>
+              <div class="neo-card__creator">크리에이티브 팩토리</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 1.8k</span>
+                <span class="neo-card__stat"><i data-lucide="bookmark" style="width:14px;height:14px"></i> 312</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (5).png" alt="오리">
+              <span class="neo-card__badge">인증</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">애니메이션/영상</span>
+              <div class="neo-card__name">노란 오리 친구</div>
+              <div class="neo-card__creator">애니메이션 스튜디오</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 3.2k</span>
+                <span class="neo-card__stat"><i data-lucide="bookmark" style="width:14px;height:14px"></i> 678</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (3).png" alt="고양이">
+              <span class="neo-card__badge">인증</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">웹툰/만화</span>
+              <div class="neo-card__name">초록고양이 모험</div>
+              <div class="neo-card__creator">툰스튜디오</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 2.4k</span>
+                <span class="neo-card__stat"><i data-lucide="bookmark" style="width:14px;height:14px"></i> 456</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 라이징 IP Section -->
+    <section class="neo-section">
+      <div class="neo-section__inner">
+        <div class="neo-section__header">
+          <h2 class="neo-section__title neo-section__title--pink">라이징 IP</h2>
+          <a href="3-1 탐색.html?sort=rising" class="neo-section__more">
+            더보기 <i data-lucide="arrow-right" style="width:18px;height:18px"></i>
+          </a>
+        </div>
+        <div class="neo-grid">
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (2).png" alt="레드판다">
+              <span class="neo-card__badge neo-card__badge--rising">+45%</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">이모티콘</span>
+              <div class="neo-card__name">레드판다의 하루</div>
+              <div class="neo-card__creator">이모티콘 스튜디오</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 856</span>
+                <span class="neo-card__stat"><i data-lucide="trending-up" style="width:14px;height:14px"></i> +45%</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/image 4.png" alt="강아지">
+              <span class="neo-card__badge neo-card__badge--rising">+38%</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">서브컬쳐/일러스트</span>
+              <div class="neo-card__name">핑크 강아지</div>
+              <div class="neo-card__creator">일러스트 컴퍼니</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 654</span>
+                <span class="neo-card__stat"><i data-lucide="trending-up" style="width:14px;height:14px"></i> +38%</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (1).png" alt="곰돌이">
+              <span class="neo-card__badge neo-card__badge--rising">+32%</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">오리지널 캐릭터</span>
+              <div class="neo-card__name">파란 곰돌이</div>
+              <div class="neo-card__creator">블루베어 스튜디오</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 1.1k</span>
+                <span class="neo-card__stat"><i data-lucide="trending-up" style="width:14px;height:14px"></i> +32%</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (4).png" alt="토끼">
+              <span class="neo-card__badge neo-card__badge--rising">+28%</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">게임</span>
+              <div class="neo-card__name">점프 래빗</div>
+              <div class="neo-card__creator">게임캐릭터즈</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 780</span>
+                <span class="neo-card__stat"><i data-lucide="trending-up" style="width:14px;height:14px"></i> +28%</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 추천 IP Section -->
+    <section class="neo-section neo-section--alt">
+      <div class="neo-section__inner">
+        <div class="neo-section__header">
+          <h2 class="neo-section__title neo-section__title--cyan">이너부스 추천 IP</h2>
+          <a href="3-1 탐색.html?filter=featured" class="neo-section__more">
+            더보기 <i data-lucide="arrow-right" style="width:18px;height:18px"></i>
+          </a>
+        </div>
+        <div class="neo-grid">
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (5).png" alt="오리">
+              <span class="neo-card__badge neo-card__badge--featured">추천</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">애니메이션/영상</span>
+              <div class="neo-card__name">댄싱 덕</div>
+              <div class="neo-card__creator">애니메이션 하우스</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 4.5k</span>
+                <span class="neo-card__stat"><i data-lucide="bookmark" style="width:14px;height:14px"></i> 890</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (3).png" alt="고양이">
+              <span class="neo-card__badge neo-card__badge--featured">추천</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">이모티콘</span>
+              <div class="neo-card__name">졸린 고양이</div>
+              <div class="neo-card__creator">캣이모지 스튜디오</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 3.8k</span>
+                <span class="neo-card__stat"><i data-lucide="bookmark" style="width:14px;height:14px"></i> 720</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (2).png" alt="레드판다">
+              <span class="neo-card__badge neo-card__badge--featured">추천</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">오리지널 캐릭터</span>
+              <div class="neo-card__name">해피 레드판다</div>
+              <div class="neo-card__creator">판다월드</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 2.9k</span>
+                <span class="neo-card__stat"><i data-lucide="bookmark" style="width:14px;height:14px"></i> 540</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/image 4.png" alt="강아지">
+              <span class="neo-card__badge neo-card__badge--featured">추천</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">마스코트/브랜드</span>
+              <div class="neo-card__name">플러피 퍼피</div>
+              <div class="neo-card__creator">펫프렌즈 스튜디오</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 2.1k</span>
+                <span class="neo-card__stat"><i data-lucide="bookmark" style="width:14px;height:14px"></i> 410</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 신규 IP Section -->
+    <section class="neo-section">
+      <div class="neo-section__inner">
+        <div class="neo-section__header">
+          <h2 class="neo-section__title neo-section__title--orange">신규 업데이트 IP</h2>
+          <a href="3-1 탐색.html?sort=latest" class="neo-section__more">
+            더보기 <i data-lucide="arrow-right" style="width:18px;height:18px"></i>
+          </a>
+        </div>
+        <div class="neo-grid">
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (1).png" alt="곰돌이">
+              <span class="neo-card__badge neo-card__badge--new">NEW</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">오리지널 캐릭터</span>
+              <div class="neo-card__name">민트 베어</div>
+              <div class="neo-card__creator">민트스튜디오</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 124</span>
+                <span class="neo-card__stat"><i data-lucide="clock" style="width:14px;height:14px"></i> 방금</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (4).png" alt="토끼">
+              <span class="neo-card__badge neo-card__badge--new">NEW</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">웹툰/만화</span>
+              <div class="neo-card__name">버니 어드벤처</div>
+              <div class="neo-card__creator">웹툰 크리에이터</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 89</span>
+                <span class="neo-card__stat"><i data-lucide="clock" style="width:14px;height:14px"></i> 1시간</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (2).png" alt="레드판다">
+              <span class="neo-card__badge neo-card__badge--new">NEW</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">이모티콘</span>
+              <div class="neo-card__name">판다모지</div>
+              <div class="neo-card__creator">이모지팩토리</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 56</span>
+                <span class="neo-card__stat"><i data-lucide="clock" style="width:14px;height:14px"></i> 3시간</span>
+              </div>
+            </div>
+          </a>
+          <a href="3-2 IP 상세.html" class="neo-card">
+            <div class="neo-card__image">
+              <img src="images/characters/Random Objects (5).png" alt="오리">
+              <span class="neo-card__badge neo-card__badge--new">NEW</span>
+              <button class="neo-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            </div>
+            <div class="neo-card__content">
+              <span class="neo-card__category">게임</span>
+              <div class="neo-card__name">덕헌터</div>
+              <div class="neo-card__creator">인디게임즈</div>
+              <div class="neo-card__stats">
+                <span class="neo-card__stat"><i data-lucide="eye" style="width:14px;height:14px"></i> 42</span>
+                <span class="neo-card__stat"><i data-lucide="clock" style="width:14px;height:14px"></i> 5시간</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 타깃팅 Section -->
+    <section class="neo-section neo-section--alt">
+      <div class="neo-section__inner">
+        <div class="neo-section__header">
+          <h2 class="neo-section__title">INABOOTH와 함께하세요</h2>
+        </div>
+        <div class="neo-targeting">
+          <a href="3-1 탐색.html" class="neo-targeting-card">
+            <div class="neo-targeting-card__icon">
+              <i data-lucide="search" style="width:28px;height:28px"></i>
+            </div>
+            <h3 class="neo-targeting-card__title">IP 탐색하기</h3>
+            <p class="neo-targeting-card__desc">
+              2,000개 이상의 캐릭터 IP를 만나보세요.
+              다양한 필터로 브랜드에 딱 맞는 IP를 찾을 수 있습니다.
+            </p>
+            <div class="neo-targeting-card__arrow">
+              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
+            </div>
+          </a>
+          <a href="4-1 오픈 프로젝트.html" class="neo-targeting-card">
+            <div class="neo-targeting-card__icon">
+              <i data-lucide="briefcase" style="width:28px;height:28px"></i>
+            </div>
+            <h3 class="neo-targeting-card__title">오픈 프로젝트</h3>
+            <p class="neo-targeting-card__desc">
+              브랜드의 협업 프로젝트를 둘러보세요.
+              IPH라면 다양한 기업과의 콜라보 기회를 잡을 수 있습니다.
+            </p>
+            <div class="neo-targeting-card__arrow">
+              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
+            </div>
+          </a>
+          <a href="1-1-1 회원가입.html" class="neo-targeting-card">
+            <div class="neo-targeting-card__icon">
+              <i data-lucide="user-plus" style="width:28px;height:28px"></i>
+            </div>
+            <h3 class="neo-targeting-card__title">지금 시작하기</h3>
+            <p class="neo-targeting-card__desc">
+              무료로 가입하고 INABOOTH의 모든 기능을 경험해보세요.
+              IP 홀더와 브랜드 모두 환영합니다.
+            </p>
+            <div class="neo-targeting-card__arrow">
+              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 뉴스레터 Section -->
+    <section class="neo-newsletter">
+      <div class="neo-newsletter__content">
+        <h2 class="neo-newsletter__title">뉴스레터 <span>구독하기</span></h2>
+        <p class="neo-newsletter__desc">
+          캐릭터 IP 트렌드와 협업 인사이트를 이메일로 받아보세요
+        </p>
+        <form class="neo-newsletter__form" onsubmit="event.preventDefault(); alert('구독 신청이 완료되었습니다!');">
+          <input type="email" class="neo-newsletter__input" placeholder="이메일 주소를 입력하세요" required>
+          <button type="submit" class="neo-newsletter__btn">구독</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="neo-footer">
+    <div class="neo-footer__inner">
+      <div class="neo-footer__copy">&copy; 2025 INABOOTH. All rights reserved.</div>
+      <div class="neo-footer__links">
+        <a href="#" class="neo-footer__link">이용약관</a>
+        <a href="#" class="neo-footer__link">개인정보처리방침</a>
+        <a href="#" class="neo-footer__link">FAQ</a>
+        <a href="#" class="neo-footer__link">고객센터</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

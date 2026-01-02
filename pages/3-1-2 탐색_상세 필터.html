@@ -345,47 +345,11 @@
     <div class="container">
       <div class="browse-layout">
         <aside class="filter-sidebar">
-          <div class="filter-section">
-            <h3 class="filter-section__title">
-              <span>IP 유형</span>
-            </h3>
-            <div class="filter-options">
-              <label class="radio-card">
-                <input type="radio" name="ip-type">
-                <span>오리지널 캐릭터</span>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="ip-type">
-                <span>애니메이션/영상</span>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="ip-type">
-                <span>이모티콘</span>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="ip-type">
-                <span>웹툰/만화</span>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="ip-type">
-                <span>서브컬쳐/일러스트</span>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="ip-type">
-                <span>마스코트/브랜드</span>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="ip-type">
-                <span>게임</span>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="ip-type">
-                <span>기타</span>
-              </label>
+          <!-- ========== 상세 필터 - LOCKED VERSION (Non-Pro) ========== -->
+          <div class="filter-section" style="border: 2px dashed #ef4444; padding: 12px; border-radius: 12px; margin-bottom: 16px;">
+            <div style="background: #fef2f2; color: #dc2626; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; margin-bottom: 12px; text-align: center;">
+              🔒 LOCKED VERSION (일반 회원)
             </div>
-          </div>
-
-          <div class="filter-section">
             <h3 class="filter-section__title">
               <span>상세 필터</span>
               <span class="pro-badge">
@@ -395,40 +359,293 @@
             </h3>
             <div class="filter-options">
               <label class="radio-card locked">
-                <input type="radio" name="advanced" disabled>
+                <input type="radio" name="advanced-locked" disabled>
                 <span>저작권 등록번호 인증</span>
               </label>
               <label class="radio-card locked">
-                <input type="radio" name="advanced" disabled>
+                <input type="radio" name="advanced-locked" disabled>
                 <span>최소 협업 금액 유무</span>
               </label>
               <label class="radio-card locked">
-                <input type="radio" name="advanced" disabled>
+                <input type="radio" name="advanced-locked" disabled>
                 <span>프로젝트 이력 횟수 (3회 이상)</span>
               </label>
               <label class="radio-card locked">
-                <input type="radio" name="advanced" disabled>
+                <input type="radio" name="advanced-locked" disabled>
                 <span>SNS 팔로워 수 범위</span>
               </label>
               <label class="radio-card locked">
-                <input type="radio" name="advanced" disabled>
+                <input type="radio" name="advanced-locked" disabled>
                 <span>SNS 팔로워 증감율</span>
               </label>
               <label class="radio-card locked">
-                <input type="radio" name="advanced" disabled>
+                <input type="radio" name="advanced-locked" disabled>
+                <span>IPH 협업지수 (4.0 이상)</span>
+              </label>
+            </div>
+            <div class="upgrade-notice" style="margin-top: 16px;">
+              <div class="upgrade-notice__title">상세 필터는 Pro 전용 기능입니다</div>
+              <div class="upgrade-notice__desc">더 정확한 IP 탐색을 위해 Pro로 업그레이드하세요</div>
+              <button class="upgrade-btn" onclick="location.href='9-4 요금제 관리.html'">
+                <i data-lucide="crown" class="icon-sm"></i>
+                Pro로 업그레이드
+              </button>
+            </div>
+          </div>
+
+          <!-- ========== 상세 필터 - UNLOCKED VERSION (Pro) ========== -->
+          <div class="filter-section" style="border: 2px dashed #22c55e; padding: 12px; border-radius: 12px; margin-bottom: 16px;">
+            <div style="background: #f0fdf4; color: #16a34a; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; margin-bottom: 12px; text-align: center;">
+              🔓 UNLOCKED VERSION (Pro 회원)
+            </div>
+            <h3 class="filter-section__title">
+              <span>상세 필터</span>
+              <span class="pro-badge">
+                <i data-lucide="crown" style="width:10px;height:10px"></i>
+                PRO
+              </span>
+            </h3>
+            <div class="filter-options">
+              <label class="radio-card" style="border-color: var(--color-primary); background: var(--color-primary-light);">
+                <input type="radio" name="advanced-unlocked" checked>
+                <span>저작권 등록번호 인증</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="advanced-unlocked">
+                <span>최소 협업 금액 유무</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="advanced-unlocked">
+                <span>프로젝트 이력 횟수 (3회 이상)</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="advanced-unlocked">
+                <span>SNS 팔로워 수 범위</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="advanced-unlocked">
+                <span>SNS 팔로워 증감율</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="advanced-unlocked">
                 <span>IPH 협업지수 (4.0 이상)</span>
               </label>
             </div>
           </div>
 
-          <div class="upgrade-notice">
-            <div class="upgrade-notice__title">상세 필터는 Pro 전용 기능입니다</div>
-            <div class="upgrade-notice__desc">더 정확한 IP 탐색을 위해 Pro로 업그레이드하세요</div>
-            <button class="upgrade-btn" onclick="location.href='9-4 요금제 관리.html'">
-              <i data-lucide="crown" class="icon-sm"></i>
-              Pro로 업그레이드
-            </button>
+          <!-- 기본 필터들 (3-1과 동일) -->
+          <div class="filter-section">
+            <h3 class="filter-section__title">IP 유형</h3>
+            <div class="filter-options">
+              <label class="radio-card active">
+                <input type="radio" name="ip-type" value="all" checked>
+                <span>전체</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="original">
+                <span>오리지널 캐릭터</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="animation">
+                <span>애니메이션/영상</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="emoticon">
+                <span>이모티콘</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="webtoon">
+                <span>웹툰/만화</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="illustration">
+                <span>서브컬쳐/일러스트</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="mascot">
+                <span>마스코트/브랜드</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="game">
+                <span>게임</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="other">
+                <span>기타</span>
+              </label>
+            </div>
           </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">IP 활용 가능 분야</h3>
+            <div class="filter-options">
+              <label class="radio-card">
+                <input type="radio" name="field" value="stationery">
+                <span>문구/오피스</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="interior">
+                <span>인테리어/가구</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="fashion">
+                <span>패션/의류</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="accessory">
+                <span>액세서리/주얼리</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="fnb">
+                <span>식품/F&B</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="living">
+                <span>생활용품/리빙</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="digital">
+                <span>모바일/디지털 콘텐츠</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="publishing">
+                <span>출판/문학</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="education">
+                <span>교육/키즈</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="event">
+                <span>전시/행사</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">IP 스타일</h3>
+            <div class="filter-options">
+              <label class="radio-card">
+                <input type="radio" name="style" value="comic">
+                <span>코믹</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="simple">
+                <span>심플</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="emotional">
+                <span>감성</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="trendy">
+                <span>트렌디</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="daily">
+                <span>일상/공감</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="cute">
+                <span>귀여움/키치</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="dark">
+                <span>다크/그로테스크</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="realism">
+                <span>리얼리즘</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">컬러</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#FF6B6B;border:2px solid transparent;cursor:pointer" title="레드"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#FF922B;border:2px solid transparent;cursor:pointer" title="오렌지"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#FCC419;border:2px solid transparent;cursor:pointer" title="옐로우"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#51CF66;border:2px solid transparent;cursor:pointer" title="그린"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#339AF0;border:2px solid transparent;cursor:pointer" title="블루"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#7950F2;border:2px solid transparent;cursor:pointer" title="퍼플"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#E64980;border:2px solid transparent;cursor:pointer" title="핑크"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#212529;border:2px solid transparent;cursor:pointer" title="블랙"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:#F8F9FA;border:2px solid var(--color-border);cursor:pointer" title="화이트"></button>
+              <button type="button" class="color-swatch" style="width:32px;height:32px;border-radius:var(--radius-full);background:linear-gradient(135deg,#FF6B6B,#339AF0,#51CF66);border:2px solid transparent;cursor:pointer" title="멀티컬러"></button>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">IP 타깃/팬층</h3>
+            <div class="filter-options">
+              <label class="radio-card">
+                <input type="radio" name="target" value="kids">
+                <span>키즈/패밀리</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="target" value="mz">
+                <span>MZ세대</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="target" value="global">
+                <span>글로벌</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="target" value="male">
+                <span>남성 중심</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="target" value="female">
+                <span>여성 중심</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">IP 원작국가</h3>
+            <div class="filter-options">
+              <label class="radio-card">
+                <input type="radio" name="country" value="kr">
+                <span>🇰🇷 한국</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="country" value="jp">
+                <span>🇯🇵 일본</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="country" value="us">
+                <span>🇺🇸 미국</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="country" value="cn">
+                <span>🇨🇳 중국</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="country" value="other">
+                <span>🌍 기타</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">IPH 인증</h3>
+            <div class="filter-options">
+              <label class="radio-card">
+                <input type="radio" name="verified" value="all">
+                <span>전체</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="verified" value="verified">
+                <span>인증된 IP만</span>
+              </label>
+            </div>
+          </div>
+
+          <button class="filter-reset" style="width:100%;padding:var(--space-3);background:var(--color-bg-secondary);color:var(--color-text-secondary);border-radius:var(--radius-md);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);transition:all var(--transition-fast);margin-top:var(--space-4);">
+            <i data-lucide="rotate-ccw" class="icon icon-sm"></i>
+            필터 초기화
+          </button>
         </aside>
 
         <div class="browse-content">

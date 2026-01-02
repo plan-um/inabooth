@@ -2,102 +2,663 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IP 탐색 - 정렬 - INABOOTH</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
   <link rel="stylesheet" href="components/shared.css">
 
   <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-*{box-sizing:border-box;margin:0;padding:0}
+  <style>
+    .browse-page {
+      padding-top: var(--space-8);
+      padding-bottom: var(--space-16);
+      min-height: 100vh;
+    }
 
-    .page{padding-top:2rem;padding-bottom:var(--space-8);min-height:100vh}
-    .layout{display:grid;grid-template-columns:280px 1fr;gap:2rem}
-    
-    .sort-option{display:flex;align-items:center;gap:12px;padding:12px;border:1.5px solid #E2E4E9;border-radius:10px;margin-bottom:8px;cursor:pointer;font-size:14px}
-    .sort-option:hover{border-color:var(--color-primary);background:#EEF2FF}
-    .sort-option.locked{opacity:0.5;cursor:not-allowed;position:relative}
-    .sort-option.locked::after{content:'🔒';position:absolute;right:12px}
-    h1{font-size:1.5rem;font-weight:700;margin-bottom:2rem}
-    .ip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-    .ip-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;text-decoration:none;color:inherit}
-    .ip-card:hover{transform:translateY(-4px)}
-    .ip-image{aspect-ratio:1;background:var(--color-bg-secondary);overflow:hidden}
-    .ip-image img{width:100%;height:100%;object-fit:cover}
-    .ip-content{padding:1rem}
-    .ip-category{font-size:12px;color:var(--color-primary);margin-bottom:8px}
-    .ip-name{font-size:16px;font-weight:600;margin-bottom:8px}
-    .ip-author{font-size:14px;color:#8E8EA0}
-    .pro-badge{display:inline-block;padding:2px 8px;background:linear-gradient(135deg,#FFD700,#FFA500);color:#fff;font-size:10px;font-weight:700;border-radius:12px;margin-left:8px}
+    .browse-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    .filter-sidebar {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-card);
+      position: sticky;
+      top: var(--space-8);
+    }
+
+    .filter-section {
+      margin-bottom: var(--space-6);
+    }
+
+    .filter-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .filter-section__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .pro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    .sort-option {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .sort-option:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .sort-option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-primary);
+    }
+
+    .sort-option.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .sort-option.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(0,0,0,0.02) 10px,
+        rgba(0,0,0,0.02) 20px
+      );
+      position: relative;
+    }
+
+    .sort-option.locked::after {
+      content: '';
+      position: absolute;
+      right: var(--space-3);
+      width: 16px;
+      height: 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'%3E%3C/path%3E%3C/svg%3E");
+      background-size: contain;
+    }
+
+    .upgrade-notice {
+      margin-top: var(--space-4);
+      padding: var(--space-4);
+      background: var(--color-primary-light);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-primary-dark);
+    }
+
+    .upgrade-notice a {
+      color: var(--color-primary);
+      text-decoration: underline;
+      display: block;
+      margin-top: var(--space-2);
+    }
+
+    .browse-content {
+      min-width: 0;
+    }
+
+    .browse-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-6);
+    }
+
+    .browse-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+    }
+
+    .browse-count {
+      font-size: var(--font-size-base);
+      color: var(--color-text-tertiary);
+      font-weight: var(--font-weight-regular);
+    }
+
+    /* IP Grid & Cards */
+    .ip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .ip-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-normal);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .ip-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .ip-card__img-wrap {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: var(--color-bg-secondary);
+    }
+
+    .ip-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-normal);
+    }
+
+    .ip-card:hover .ip-card__img {
+      transform: scale(1.05);
+    }
+
+    .ip-card__badge {
+      position: absolute;
+      top: var(--space-3);
+      left: var(--space-3);
+      padding: var(--space-1) var(--space-3);
+      background: var(--gradient-primary);
+      color: white;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-full);
+    }
+
+    .ip-card__badge--new {
+      background: var(--color-accent-mint);
+    }
+
+    .ip-card__scrap {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-tertiary);
+      transition: all var(--transition-fast);
+      opacity: 0;
+    }
+
+    .ip-card:hover .ip-card__scrap {
+      opacity: 1;
+    }
+
+    .ip-card__scrap:hover {
+      background: white;
+      color: var(--color-accent-pink);
+      transform: scale(1.1);
+    }
+
+    .ip-card__share {
+      position: absolute;
+      top: var(--space-3);
+      right: calc(var(--space-3) + 36px);
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-tertiary);
+      transition: all var(--transition-fast);
+      opacity: 0;
+    }
+
+    .ip-card:hover .ip-card__share {
+      opacity: 1;
+    }
+
+    .ip-card__share:hover {
+      background: white;
+      color: var(--color-primary);
+      transform: scale(1.1);
+    }
+
+    .ip-card__stats {
+      position: absolute;
+      bottom: var(--space-3);
+      right: var(--space-3);
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-1) var(--space-2);
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      border-radius: var(--radius-sm);
+    }
+
+    .ip-card__stat {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--font-size-xs);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .ip-card__content {
+      padding: var(--space-4);
+    }
+
+    .ip-card__category {
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-1);
+    }
+
+    .ip-card__name {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ip-card__author {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    .ip-card__collab-score {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-2);
+      padding-top: var(--space-2);
+      border-top: 1px solid var(--color-border-light);
+      position: relative;
+    }
+
+    .ip-card__collab-score--blur::after {
+      content: 'Pro 전용';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(3px);
+      font-size: 10px;
+      color: var(--color-primary);
+      font-weight: 600;
+      border-radius: 4px;
+    }
+
+    .ip-card__score-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .ip-card__score-item i {
+      color: var(--color-primary);
+    }
+
+    .ip-card__score-value {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+    }
   </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
-  <main class="page">
+
+  <main class="browse-page">
     <div class="container">
-      <div class="layout">
-        <aside class="sidebar">
-          <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">기본 정렬</h3>
-          <div class="sort-option" style="background:#EEF2FF;border-color:#4F46E5">
-            <input type="radio" name="sort" checked>
-            <span>인기순</span>
-          </div>
-          <div class="sort-option">
-            <input type="radio" name="sort">
-            <span>업데이트순</span>
-          </div>
-
-          <h3 style="font-size:14px;font-weight:600;margin:20px 0 12px;display:flex;align-items:center;gap:8px">고급 정렬 <span class="pro-badge">PRO</span></h3>
-          <div class="sort-option locked">
-            <input type="radio" name="sort" disabled>
-            <span>SNS 팔로워 수</span>
-          </div>
-          <div class="sort-option locked">
-            <input type="radio" name="sort" disabled>
-            <span>IP 신뢰 지수</span>
-          </div>
-          <div class="sort-option locked">
-            <input type="radio" name="sort" disabled>
-            <span>IPH 협업 활동 지수</span>
-          </div>
-          <div class="sort-option locked">
-            <input type="radio" name="sort" disabled>
-            <span>IPH 협업 매너 지수</span>
-          </div>
-          <div class="sort-option locked">
-            <input type="radio" name="sort" disabled>
-            <span>IP SNS 지수</span>
+      <div class="browse-layout">
+        <!-- Sort Sidebar -->
+        <aside class="filter-sidebar">
+          <div class="filter-section">
+            <h3 class="filter-section__title">기본 정렬</h3>
+            <label class="sort-option active">
+              <input type="radio" name="sort" value="popular" checked>
+              <span>인기순</span>
+            </label>
+            <label class="sort-option">
+              <input type="radio" name="sort" value="latest">
+              <span>최신순</span>
+            </label>
+            <label class="sort-option">
+              <input type="radio" name="sort" value="views">
+              <span>조회순</span>
+            </label>
+            <label class="sort-option">
+              <input type="radio" name="sort" value="scraps">
+              <span>스크랩순</span>
+            </label>
           </div>
 
-          <div style="margin-top:16px;padding:12px;background:#F5F3FF;border-radius:8px;font-size:12px;color:#5B21B6">
+          <div class="filter-section">
+            <h3 class="filter-section__title">
+              고급 정렬
+              <span class="pro-badge">
+                <i data-lucide="crown" style="width:10px;height:10px"></i>
+                PRO
+              </span>
+            </h3>
+            <label class="sort-option locked">
+              <input type="radio" name="sort" disabled>
+              <span>SNS 팔로워순</span>
+            </label>
+            <label class="sort-option locked">
+              <input type="radio" name="sort" disabled>
+              <span>IP 신뢰지수순</span>
+            </label>
+            <label class="sort-option locked">
+              <input type="radio" name="sort" disabled>
+              <span>협업 활동지수순</span>
+            </label>
+            <label class="sort-option locked">
+              <input type="radio" name="sort" disabled>
+              <span>협업 매너지수순</span>
+            </label>
+            <label class="sort-option locked">
+              <input type="radio" name="sort" disabled>
+              <span>응답속도순</span>
+            </label>
+          </div>
+
+          <div class="upgrade-notice">
             <strong>Pro 회원</strong>이 되시면 고급 정렬 기능을 사용할 수 있습니다.
-            <a href="9-4-2 요금제_BP.html" style="color:#4F46E5;text-decoration:underline;display:block;margin-top:8px">요금제 알아보기 →</a>
+            <a href="9-4 요금제 관리.html">요금제 알아보기 →</a>
           </div>
         </aside>
-        <div>
-          <h1>최신순 정렬</h1>
+
+        <!-- Browse Content -->
+        <div class="browse-content">
+          <div class="browse-header">
+            <div>
+              <h1 class="browse-title">IP 탐색</h1>
+              <p class="browse-count">인기순 · 총 156개의 IP</p>
+            </div>
+          </div>
+
+          <!-- IP Grid -->
           <div class="ip-grid">
+            <!-- IP Card 1 -->
             <a href="3-2 IP 상세.html" class="ip-card">
-              <div class="ip-img" style="background:linear-gradient(135deg,#E0F2FE,#0891B2)"><img src="https://picsum.photos/seed/character28/200/200" alt="character" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
-              <div class="ip-content">
-                <div class="ip-category">오리지널 캐릭터</div>
-                <div class="ip-name">곰돌이</div>
-                <div class="ip-author">스튜디오</div>
+              <div class="ip-card__img-wrap">
+                <img src="images/characters/Random Objects (2).png" alt="심플베어 IP" class="ip-card__img">
+                <span class="ip-card__badge">인증</span>
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('심플베어')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+                <div class="ip-card__stats">
+                  <span class="ip-card__stat">
+                    <i data-lucide="eye" class="icon icon-sm"></i>
+                    5.2k
+                  </span>
+                  <span class="ip-card__stat">
+                    <i data-lucide="bookmark" class="icon icon-sm"></i>
+                    823
+                  </span>
+                </div>
+              </div>
+              <div class="ip-card__content">
+                <div class="ip-card__category">오리지널 캐릭터</div>
+                <h3 class="ip-card__name">심플베어</h3>
+                <div class="ip-card__author">미니멀 스튜디오</div>
+                <div class="ip-card__collab-score">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.9</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">98</span>
+                  </span>
+                </div>
               </div>
             </a>
+
+            <!-- IP Card 2 -->
             <a href="3-2 IP 상세.html" class="ip-card">
-              <div class="ip-img" style="background:linear-gradient(135deg,#FECACA,#DC2626)"><img src="https://picsum.photos/seed/character29/200/200" alt="character" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
-              <div class="ip-content">
-                <div class="ip-category">이모티콘</div>
-                <div class="ip-name">레드판다</div>
-                <div class="ip-author">이모 스튜디오</div>
+              <div class="ip-card__img-wrap">
+                <img src="images/characters/Random Objects (5).png" alt="레드판다 IP" class="ip-card__img">
+                <span class="ip-card__badge ip-card__badge--new">NEW</span>
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('레드판다')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+                <div class="ip-card__stats">
+                  <span class="ip-card__stat">
+                    <i data-lucide="eye" class="icon icon-sm"></i>
+                    3.8k
+                  </span>
+                  <span class="ip-card__stat">
+                    <i data-lucide="bookmark" class="icon icon-sm"></i>
+                    512
+                  </span>
+                </div>
+              </div>
+              <div class="ip-card__content">
+                <div class="ip-card__category">이모티콘</div>
+                <h3 class="ip-card__name">레드판다</h3>
+                <div class="ip-card__author">이모티콘 스튜디오</div>
+                <div class="ip-card__collab-score ip-card__collab-score--blur">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.7</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">85</span>
+                  </span>
+                </div>
               </div>
             </a>
+
+            <!-- IP Card 3 -->
             <a href="3-2 IP 상세.html" class="ip-card">
-              <div class="ip-img" style="background:linear-gradient(135deg,#D1FAE5,#059669)"><img src="https://picsum.photos/seed/character30/200/200" alt="character" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>
-              <div class="ip-content">
-                <div class="ip-category">웹툰</div>
-                <div class="ip-name">초록고양이</div>
-                <div class="ip-author">툰스튜디오</div>
+              <div class="ip-card__img-wrap">
+                <img src="images/characters/image 4.png" alt="초록고양이 IP" class="ip-card__img">
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('초록고양이')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+                <div class="ip-card__stats">
+                  <span class="ip-card__stat">
+                    <i data-lucide="eye" class="icon icon-sm"></i>
+                    2.9k
+                  </span>
+                  <span class="ip-card__stat">
+                    <i data-lucide="bookmark" class="icon icon-sm"></i>
+                    378
+                  </span>
+                </div>
+              </div>
+              <div class="ip-card__content">
+                <div class="ip-card__category">웹툰/만화</div>
+                <h3 class="ip-card__name">초록고양이</h3>
+                <div class="ip-card__author">툰스튜디오</div>
+                <div class="ip-card__collab-score">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.8</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">91</span>
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            <!-- IP Card 4 -->
+            <a href="3-2 IP 상세.html" class="ip-card">
+              <div class="ip-card__img-wrap">
+                <img src="images/characters/Random Objects (1).png" alt="클린펭귄 IP" class="ip-card__img">
+                <span class="ip-card__badge">인증</span>
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('클린펭귄')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+                <div class="ip-card__stats">
+                  <span class="ip-card__stat">
+                    <i data-lucide="eye" class="icon icon-sm"></i>
+                    2.5k
+                  </span>
+                  <span class="ip-card__stat">
+                    <i data-lucide="bookmark" class="icon icon-sm"></i>
+                    289
+                  </span>
+                </div>
+              </div>
+              <div class="ip-card__content">
+                <div class="ip-card__category">오리지널 캐릭터</div>
+                <h3 class="ip-card__name">클린펭귄</h3>
+                <div class="ip-card__author">퓨어디자인</div>
+                <div class="ip-card__collab-score">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.6</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">82</span>
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            <!-- IP Card 5 -->
+            <a href="3-2 IP 상세.html" class="ip-card">
+              <div class="ip-card__img-wrap">
+                <img src="images/characters/Random Objects (3).png" alt="미니캣 IP" class="ip-card__img">
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('미니캣')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+                <div class="ip-card__stats">
+                  <span class="ip-card__stat">
+                    <i data-lucide="eye" class="icon icon-sm"></i>
+                    2.1k
+                  </span>
+                  <span class="ip-card__stat">
+                    <i data-lucide="bookmark" class="icon icon-sm"></i>
+                    198
+                  </span>
+                </div>
+              </div>
+              <div class="ip-card__content">
+                <div class="ip-card__category">이모티콘</div>
+                <h3 class="ip-card__name">미니캣 모먼트</h3>
+                <div class="ip-card__author">라인아트 스튜디오</div>
+                <div class="ip-card__collab-score ip-card__collab-score--blur">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.5</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">76</span>
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            <!-- IP Card 6 -->
+            <a href="3-2 IP 상세.html" class="ip-card">
+              <div class="ip-card__img-wrap">
+                <img src="images/characters/Random Objects (4).png" alt="심플독 IP" class="ip-card__img">
+                <span class="ip-card__badge ip-card__badge--new">NEW</span>
+                <button class="ip-card__share" onclick="event.preventDefault(); shareIP('심플독')">
+                  <i data-lucide="share-2" class="icon icon-sm"></i>
+                </button>
+                <button class="ip-card__scrap" onclick="event.preventDefault(); toggleScrap(this)">
+                  <i data-lucide="bookmark" class="icon icon-sm"></i>
+                </button>
+                <div class="ip-card__stats">
+                  <span class="ip-card__stat">
+                    <i data-lucide="eye" class="icon icon-sm"></i>
+                    1.8k
+                  </span>
+                  <span class="ip-card__stat">
+                    <i data-lucide="bookmark" class="icon icon-sm"></i>
+                    156
+                  </span>
+                </div>
+              </div>
+              <div class="ip-card__content">
+                <div class="ip-card__category">이모티콘</div>
+                <h3 class="ip-card__name">심플독 데일리</h3>
+                <div class="ip-card__author">깔끔한 크리에이터</div>
+                <div class="ip-card__collab-score ip-card__collab-score--blur">
+                  <span class="ip-card__score-item">
+                    <i data-lucide="heart-handshake" style="width:12px;height:12px"></i>
+                    협업 매너 <span class="ip-card__score-value">4.4</span>
+                  </span>
+                  <span class="ip-card__score-item">
+                    <i data-lucide="activity" style="width:12px;height:12px"></i>
+                    협업 활동 <span class="ip-card__score-value">68</span>
+                  </span>
+                </div>
               </div>
             </a>
           </div>
@@ -105,10 +666,54 @@
       </div>
     </div>
   </main>
+
   <div id="footer-placeholder"></div>
+
   <script src="components/shared.js"></script>
   <script>
-    initPage({activePage:'browse'});
+    initPage({ activePage: 'browse' });
+
+    // Sort option interactions
+    document.querySelectorAll('.sort-option:not(.locked)').forEach(option => {
+      option.addEventListener('click', function() {
+        document.querySelectorAll('.sort-option').forEach(o => o.classList.remove('active'));
+        this.classList.add('active');
+        this.querySelector('input[type="radio"]').checked = true;
+      });
+    });
+
+    // Share IP function
+    function shareIP(ipName) {
+      const url = window.location.href;
+      if (navigator.share) {
+        navigator.share({
+          title: `${ipName} - INABOOTH`,
+          text: `${ipName} IP를 확인해보세요!`,
+          url: url
+        });
+      } else {
+        navigator.clipboard.writeText(url).then(() => {
+          Toast.success('링크가 복사되었습니다.');
+        });
+      }
+    }
+
+    // Toggle scrap function
+    function toggleScrap(btn) {
+      const icon = btn.querySelector('i');
+      const isScraped = btn.classList.toggle('scraped');
+      if (isScraped) {
+        icon.setAttribute('data-lucide', 'bookmark-check');
+        btn.style.color = 'var(--color-accent-pink)';
+        Toast.success('스크랩에 추가되었습니다.');
+      } else {
+        icon.setAttribute('data-lucide', 'bookmark');
+        btn.style.color = '';
+        Toast.info('스크랩에서 제거되었습니다.');
+      }
+      lucide.createIcons();
+    }
+
     lucide.createIcons();
   </script>
 </body>

@@ -3,49 +3,516 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>INABOOTH - 브랜드와 캐릭터 IP를 연결하는 협업 플랫폼</title>
+  <title>INABOOTH v3 - 캐릭터 IP 콜라보 & 라이선싱 포털</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="components/shared.css">
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* Hero Section */
-    .hero {
-      position: relative;
-      padding: var(--space-24) 0 var(--space-16);
-      background: var(--gradient-hero);
-      overflow: hidden;
+    /* ========================================
+       DESIGN SYSTEM - INABOOTH v3
+       Modern Glassmorphism + Gradient Design
+    ======================================== */
+
+    :root {
+      /* Colors - Indigo/Pink Gradient Theme */
+      --color-primary: #4F46E5;
+      --color-primary-hover: #4338CA;
+      --color-primary-light: #EEF2FF;
+      --color-secondary: #EC4899;
+      --color-secondary-hover: #DB2777;
+      --color-accent-pink: #EC4899;
+      --color-accent-mint: #06B6D4;
+      --color-accent-cyan: #06B6D4;
+
+      /* Gradient */
+      --gradient-primary: linear-gradient(135deg, #4F46E5, #EC4899);
+      --gradient-hero: linear-gradient(180deg, rgba(238, 242, 255, 0.8) 0%, rgba(252, 231, 243, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+
+      /* Glass */
+      --glass-bg: rgba(255, 255, 255, 0.8);
+      --glass-border: rgba(255, 255, 255, 0.5);
+      --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+
+      --color-text-primary: #1A1A2E;
+      --color-text-secondary: #5A5A72;
+      --color-text-tertiary: #8E8EA0;
+      --color-text-inverse: #FFFFFF;
+
+      --color-bg-primary: #FFFFFF;
+      --color-bg-secondary: #F5F7FA;
+      --color-bg-tertiary: #EBEEF3;
+      --color-bg-dark: #1A1A2E;
+
+      --color-border: #E2E4E9;
+      --color-border-light: #F0F2F5;
+
+      --color-success: #00D4AA;
+      --color-warning: #FFB347;
+      --color-error: #FF4757;
+
+      /* Typography */
+      --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+      --font-size-xs: 0.75rem;
+      --font-size-sm: 0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-2xl: 1.5rem;
+      --font-size-3xl: 2rem;
+      --font-size-4xl: 2.5rem;
+      --font-size-5xl: 3rem;
+
+      --font-weight-regular: 400;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
+      --font-weight-extrabold: 800;
+
+      --line-height-tight: 1.25;
+      --line-height-normal: 1.5;
+      --line-height-relaxed: 1.75;
+
+      /* Spacing */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+
+      /* Border Radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+      --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.08);
+      --shadow-card-hover: 0 8px 24px rgba(58, 111, 255, 0.15), 0 0 1px rgba(0, 0, 0, 0.08);
+
+      /* Transitions */
+      --transition-fast: 150ms ease;
+      --transition-normal: 250ms ease;
+      --transition-slow: 350ms ease;
+
+      /* Layout */
+      --max-width: 1280px;
+      --header-height: 72px;
     }
 
-    .hero::before {
-      content: '';
+    /* ========================================
+       RESET & BASE
+    ======================================== */
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-normal);
+      color: var(--color-text-primary);
+      background-color: var(--color-bg-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* Lucide Icons */
+    .icon {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+
+    .icon-sm { width: 16px; height: 16px; }
+    .icon-md { width: 20px; height: 20px; }
+    .icon-lg { width: 24px; height: 24px; }
+    .icon-xl { width: 32px; height: 32px; }
+
+    /* ========================================
+       ANIMATED BLOBS & GLASS EFFECT
+    ======================================== */
+
+    .blob {
       position: absolute;
-      top: -50%;
-      right: -20%;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      z-index: -1;
+      pointer-events: none;
+      animation: float 12s infinite ease-in-out;
+    }
+
+    .blob-1 {
+      top: -15%;
+      left: -10%;
       width: 600px;
       height: 600px;
-      background: radial-gradient(circle, rgba(79, 70, 229, 0.1) 0%, transparent 70%);
-      border-radius: 50%;
+      background: linear-gradient(135deg, #C7D2FE, #DDD6FE);
     }
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -30%;
-      left: -10%;
+    .blob-2 {
+      top: 10%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #FBCFE8, #FCE7F3);
+      animation-delay: 3s;
+    }
+
+    .blob-3 {
+      bottom: 20%;
+      left: 20%;
       width: 400px;
       height: 400px;
-      background: radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, transparent 70%);
-      border-radius: 50%;
+      background: linear-gradient(135deg, #A5F3FC, #CFFAFE);
+      animation-delay: 6s;
     }
 
-    .hero__content {
-      position: relative;
-      z-index: 1;
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(30px) scale(1.05); }
+    }
+
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .gradient-text {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Floating Cards for Hero */
+    .floating-card {
+      position: absolute;
+      background: white;
+      padding: 1rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      animation: floatCard 6s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    .fc-1 { top: 20%; left: 8%; animation-delay: 0s; }
+    .fc-2 { bottom: 15%; left: 12%; animation-delay: 1.5s; }
+    .fc-3 { top: 25%; right: 8%; animation-delay: 1s; }
+
+    .fc-content div:first-child { font-weight: 600; font-size: 0.9rem; color: var(--color-text-primary); }
+    .fc-content div:last-child { font-size: 0.8rem; color: var(--color-text-tertiary); }
+    .fc-img { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; background: var(--color-bg-secondary); }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* ========================================
+       LAYOUT
+    ======================================== */
+
+    .container {
+      width: 100%;
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 0 var(--space-6);
+    }
+
+    .section {
+      padding: var(--space-20) 0;
+    }
+
+    .section--alt {
+      background-color: var(--color-bg-secondary);
+    }
+
+    /* ========================================
+       HEADER [STD-01]
+    ======================================== */
+
+    .header {
+      position: relative;
+      height: var(--header-height);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border-light);
+      z-index: 1000;
+    }
+
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      gap: var(--space-8);
+    }
+
+    .header__left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-10);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .logo__icon {
+      width: 36px;
+      height: 36px;
+      background: var(--color-primary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: var(--font-weight-extrabold);
+      font-size: var(--font-size-lg);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .nav__link {
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+
+    .nav__link:hover {
+      color: var(--color-text-primary);
+      background: var(--color-bg-secondary);
+    }
+
+    .nav__link--active {
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    /* Search Bar */
+    .header__search {
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-bg-secondary);
+      border: 1px solid transparent;
+      border-radius: var(--radius-full);
+      transition: all var(--transition-fast);
+    }
+
+    .search-bar:focus-within {
+      background: var(--color-bg-primary);
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-light);
+    }
+
+    .search-bar__icon {
+      color: var(--color-text-tertiary);
+    }
+
+    .search-bar__input {
+      flex: 1;
+      border: none;
+      background: none;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      outline: none;
+    }
+
+    .search-bar__input::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    /* Header Actions */
+    .header__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      color: var(--color-text-secondary);
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    .icon-btn:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .icon-btn__badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent-pink);
+      border-radius: var(--radius-full);
+      border: 2px solid white;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn--primary {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+
+    .btn--primary:hover {
+      background: var(--color-primary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn--secondary {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .btn--secondary:hover {
+      background: var(--color-bg-tertiary);
+    }
+
+    .btn--outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+
+    .btn--outline:hover {
+      background: var(--color-primary-light);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--color-text-secondary);
+    }
+
+    .btn--ghost:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .btn--lg {
+      padding: var(--space-4) var(--space-8);
+      font-size: var(--font-size-base);
+      border-radius: var(--radius-lg);
+    }
+
+    /* ========================================
+       HERO SECTION [2-1] - V3 Design
+    ======================================== */
+
+    .hero {
+      position: relative;
+      padding-top: var(--space-20);
+      padding-bottom: var(--space-20);
+      background: var(--gradient-hero);
+      overflow: hidden;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero__inner {
+      display: block;
+    }
+
+    .hero__content {
+      max-width: 800px;
+      margin: 0 auto;
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
     .hero__badge {
@@ -53,131 +520,243 @@
       align-items: center;
       gap: var(--space-2);
       padding: var(--space-2) var(--space-4);
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-full);
-      font-size: var(--font-size-sm);
+      background: var(--color-primary-light);
       color: var(--color-primary);
-      margin-bottom: var(--space-6);
-      backdrop-filter: blur(10px);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-4);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
     .hero__title {
-      font-size: var(--font-size-5xl);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
       font-weight: var(--font-weight-extrabold);
-      line-height: var(--line-height-tight);
+      line-height: 1.1;
+      color: var(--color-text-primary);
       margin-bottom: var(--space-6);
+      letter-spacing: -0.02em;
+    }
+
+    .hero__title span {
       background: var(--gradient-primary);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .hero__subtitle {
+    .hero__desc {
       font-size: var(--font-size-xl);
       color: var(--color-text-secondary);
-      max-width: 600px;
-      margin: 0 auto var(--space-10);
+      margin-bottom: var(--space-10);
       line-height: var(--line-height-relaxed);
     }
 
+    /* V3 Search Bar - Shadow Style */
+    .hero__search-wrap {
+      position: relative;
+      max-width: 640px;
+      margin: 0 auto var(--space-6);
+    }
+
     .hero__search {
-      display: flex;
-      max-width: 560px;
-      margin: 0 auto;
-      background: var(--color-bg-primary);
-      border-radius: var(--radius-full);
-      box-shadow: var(--shadow-lg);
-      overflow: hidden;
+      position: relative;
+    }
+
+    .hero__search-icon {
+      position: absolute;
+      left: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-tertiary);
+      z-index: 2;
     }
 
     .hero__search-input {
-      flex: 1;
-      padding: var(--space-5) var(--space-6);
-      border: none;
-      font-size: var(--font-size-base);
-      background: transparent;
+      width: 100%;
+      padding: 1.25rem 1.5rem 1.25rem 3.5rem;
+      font-size: var(--font-size-lg);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: var(--radius-xl);
+      background: white;
+      box-shadow: 0 20px 50px -10px rgba(79, 70, 229, 0.15);
       outline: none;
+      transition: all var(--transition-normal);
     }
 
-    .hero__search-btn {
-      padding: var(--space-4) var(--space-8);
-      background: var(--gradient-primary);
-      color: white;
-      border: none;
-      font-weight: var(--font-weight-semibold);
-      cursor: pointer;
-      transition: opacity var(--transition-fast);
+    .hero__search-input:focus {
+      box-shadow: 0 25px 60px -10px rgba(79, 70, 229, 0.25);
+      transform: translateY(-2px);
     }
 
-    .hero__search-btn:hover {
-      opacity: 0.9;
-    }
-
-    .hero__stats {
-      display: flex;
-      justify-content: center;
-      gap: var(--space-12);
-      margin-top: var(--space-12);
-    }
-
-    .hero__stat {
-      text-align: center;
-    }
-
-    .hero__stat-value {
-      font-size: var(--font-size-3xl);
-      font-weight: var(--font-weight-bold);
-      color: var(--color-primary);
-    }
-
-    .hero__stat-label {
-      font-size: var(--font-size-sm);
+    .hero__search-input::placeholder {
       color: var(--color-text-tertiary);
     }
 
-    /* Section Common */
-    .section {
-      padding: var(--space-16) 0;
+    /* V3 Tags - Pill Style */
+    .hero__popular-tags {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-top: var(--space-5);
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    .section--alt {
+    .hero__popular-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      background: white;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .hero__tag:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+    }
+
+    .hero__tag i {
+      color: var(--color-text-tertiary);
+    }
+
+    .hero__tag:hover i {
+      color: var(--color-primary);
+    }
+
+    /* V3 Stats Inline */
+    .hero__stats--inline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+      margin-top: var(--space-8);
+    }
+
+    .hero__stat-inline {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-secondary);
+    }
+
+    .hero__stat-divider {
+      color: var(--color-text-tertiary);
+      font-size: 1.2em;
+    }
+
+    /* Floating Cards */
+    .floating-card {
+      position: absolute;
+      background: white;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      animation: floatCard 6s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    .floating-card.glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+    }
+
+    .fc-1 { top: 25%; left: 5%; animation-delay: 0s; }
+    .fc-2 { bottom: 20%; left: 8%; animation-delay: 2s; }
+    .fc-3 { top: 20%; right: 5%; animation-delay: 1s; }
+
+    .fc-img {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      object-fit: cover;
       background: var(--color-bg-secondary);
     }
 
-    .section__container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 var(--space-6);
+    .fc-content div:first-child {
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
     }
 
-    .section__header {
+    .fc-content div:last-child {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* ========================================
+       SECTION HEADER
+    ======================================== */
+
+    .section-header {
       display: flex;
+      align-items: flex-end;
       justify-content: space-between;
-      align-items: center;
       margin-bottom: var(--space-8);
     }
 
-    .section__title {
-      font-size: var(--font-size-2xl);
-      font-weight: var(--font-weight-bold);
+    .section-header__left {
+      max-width: 600px;
     }
 
-    .section__more {
-      display: flex;
+    .section-title {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .section-title span {
+      color: var(--color-primary);
+    }
+
+    .section-desc {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+    }
+
+    .section-badge {
+      display: inline-flex;
       align-items: center;
       gap: var(--space-2);
-      color: var(--color-primary);
-      font-weight: var(--font-weight-medium);
-      text-decoration: none;
-      transition: gap var(--transition-fast);
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-secondary);
+      color: var(--color-text-primary);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-3);
     }
 
-    .section__more:hover {
-      gap: var(--space-3);
-    }
+    /* ========================================
+       IP CARD
+    ======================================== */
 
-    /* IP Card Grid */
     .ip-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -185,13 +764,12 @@
     }
 
     .ip-card {
-      background: var(--color-bg-primary);
+      background: white;
       border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: var(--shadow-card);
       transition: all var(--transition-normal);
-      text-decoration: none;
-      color: inherit;
+      cursor: pointer;
     }
 
     .ip-card:hover {
@@ -199,17 +777,22 @@
       box-shadow: var(--shadow-card-hover);
     }
 
-    .ip-card__image {
+    .ip-card__img-wrap {
       position: relative;
       aspect-ratio: 1;
-      background: var(--color-bg-secondary);
       overflow: hidden;
+      background: var(--color-bg-secondary);
     }
 
-    .ip-card__image img {
+    .ip-card__img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform var(--transition-normal);
+    }
+
+    .ip-card:hover .ip-card__img {
+      transform: scale(1.05);
     }
 
     .ip-card__badge {
@@ -224,12 +807,27 @@
       border-radius: var(--radius-full);
     }
 
+    .ip-card__badge--verified {
+      background: #22c55e;
+    }
+
     .ip-card__badge--new {
-      background: var(--color-accent-mint);
+      background: #ec4899;
     }
 
     .ip-card__badge--rising {
-      background: var(--color-warning);
+      background: #fbbf24;
+      color: #1F2937;
+    }
+
+    /* Make IP card clickable */
+    .ip-card {
+      cursor: pointer;
+    }
+
+    .ip-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.12);
     }
 
     .ip-card__scrap {
@@ -238,18 +836,24 @@
       right: var(--space-3);
       width: 32px;
       height: 32px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-full);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255,255,255,0.9);
-      border-radius: var(--radius-full);
       color: var(--color-text-tertiary);
-      cursor: pointer;
       transition: all var(--transition-fast);
+      opacity: 0;
+    }
+
+    .ip-card:hover .ip-card__scrap {
+      opacity: 1;
     }
 
     .ip-card__scrap:hover {
-      color: var(--color-secondary);
+      background: white;
+      color: var(--color-accent-pink);
+      transform: scale(1.1);
     }
 
     .ip-card__content {
@@ -266,96 +870,787 @@
     .ip-card__name {
       font-size: var(--font-size-base);
       font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
       margin-bottom: var(--space-2);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .ip-card__creator {
+    .ip-card__author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
       font-size: var(--font-size-sm);
-      color: var(--color-text-secondary);
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-3);
+    }
+
+    .ip-card__author-img {
+      width: 20px;
+      height: 20px;
+      border-radius: var(--radius-full);
+      object-fit: cover;
     }
 
     .ip-card__stats {
+      position: absolute;
+      bottom: var(--space-3);
+      right: var(--space-3);
       display: flex;
-      gap: var(--space-4);
-      margin-top: var(--space-3);
-      padding-top: var(--space-3);
-      border-top: 1px solid var(--color-border-light);
-      font-size: var(--font-size-xs);
-      color: var(--color-text-tertiary);
+      gap: var(--space-3);
+      padding: var(--space-1) var(--space-2);
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      border-radius: var(--radius-sm);
     }
 
     .ip-card__stat {
       display: flex;
       align-items: center;
       gap: var(--space-1);
+      font-size: var(--font-size-xs);
+      color: rgba(255, 255, 255, 0.9);
     }
 
-    /* Targeting Section */
-    .targeting-grid {
+    .ip-card__stat i {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* ========================================
+       USER TARGETING SECTION [2-1-5]
+    ======================================== */
+
+    .targeting {
+      background: linear-gradient(135deg, var(--color-bg-dark) 0%, #2A2A42 100%);
+      padding: var(--space-20) 0;
+    }
+
+    .targeting .section-title {
+      color: white;
+      text-align: center;
+    }
+
+    .targeting .section-desc {
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      margin-bottom: var(--space-12);
+    }
+
+    .targeting__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-6);
     }
 
-    .targeting-card {
-      position: relative;
-      padding: var(--space-8);
-      background: var(--color-bg-primary);
+    .targeting__card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-card);
-      text-decoration: none;
-      color: inherit;
-      overflow: hidden;
+      padding: var(--space-8);
+      text-align: center;
       transition: all var(--transition-normal);
     }
 
-    .targeting-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient-primary);
-    }
-
-    .targeting-card:hover {
+    .targeting__card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--color-primary);
       transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
     }
 
-    .targeting-card__icon {
-      width: 56px;
-      height: 56px;
+    .targeting__icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-6);
+      background: var(--color-primary);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: white;
+    }
+
+    .targeting__card-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: white;
+      margin-bottom: var(--space-3);
+    }
+
+    .targeting__card-desc {
+      font-size: var(--font-size-sm);
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: var(--space-6);
+      line-height: var(--line-height-relaxed);
+    }
+
+    .targeting__card .btn {
+      width: 100%;
+    }
+
+    /* ========================================
+       NEWSLETTER SECTION [2-1-6]
+    ======================================== */
+
+    .newsletter {
+      background: var(--color-primary);
+      padding: var(--space-16) 0;
+    }
+
+    .newsletter__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-12);
+    }
+
+    .newsletter__content {
+      max-width: 500px;
+    }
+
+    .newsletter__title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: white;
+      margin-bottom: var(--space-2);
+    }
+
+    .newsletter__desc {
+      font-size: var(--font-size-base);
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .newsletter__form {
+      display: flex;
+      gap: var(--space-3);
+      flex: 1;
+      max-width: 480px;
+    }
+
+    .newsletter__input {
+      flex: 1;
+      padding: var(--space-4) var(--space-5);
+      font-size: var(--font-size-base);
+      border: none;
+      border-radius: var(--radius-lg);
+      outline: none;
+    }
+
+    .newsletter__btn {
+      background: var(--color-bg-dark);
+      color: white;
+      padding: var(--space-4) var(--space-6);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-lg);
+      transition: all var(--transition-fast);
+    }
+
+    .newsletter__btn:hover {
+      background: var(--color-text-primary);
+      transform: translateY(-2px);
+    }
+
+    /* ========================================
+       FOOTER [STD-02]
+    ======================================== */
+
+    .footer {
+      background: var(--color-bg-dark);
+      padding: var(--space-16) 0 var(--space-8);
+      color: white;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: var(--space-12);
+      margin-bottom: var(--space-12);
+    }
+
+    .footer__brand {
+      max-width: 280px;
+    }
+
+    .footer__logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-4);
+    }
+
+    .footer__logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--color-primary);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-extrabold);
+    }
+
+    .footer__desc {
+      font-size: var(--font-size-sm);
+      color: rgba(255, 255, 255, 0.6);
+      line-height: var(--line-height-relaxed);
+      margin-bottom: var(--space-6);
+    }
+
+    .footer__social {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .footer__social-link {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.8);
+      transition: all var(--transition-fast);
+    }
+
+    .footer__social-link:hover {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .footer__col-title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: white;
+      margin-bottom: var(--space-4);
+    }
+
+    .footer__links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .footer__link {
+      font-size: var(--font-size-sm);
+      color: rgba(255, 255, 255, 0.6);
+      transition: color var(--transition-fast);
+    }
+
+    .footer__link:hover {
+      color: white;
+    }
+
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: var(--space-8);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer__copyright {
+      font-size: var(--font-size-sm);
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer__legal {
+      display: flex;
+      gap: var(--space-6);
+    }
+
+    .footer__legal-link {
+      font-size: var(--font-size-sm);
+      color: rgba(255, 255, 255, 0.5);
+      transition: color var(--transition-fast);
+    }
+
+    .footer__legal-link:hover {
+      color: white;
+    }
+
+    /* ========================================
+       UTILITIES
+    ======================================== */
+
+    .view-more {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-primary);
+      transition: all var(--transition-fast);
+    }
+
+    .view-more:hover {
+      gap: var(--space-3);
+    }
+
+    /* ========================================
+       SEARCH AUTOCOMPLETE / POPULAR TAGS
+    ======================================== */
+
+    .hero__search-wrap {
+      position: relative;
+    }
+
+    .hero__popular-tags {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-top: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .hero__popular-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-2) var(--space-3);
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .hero__tag:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .hero__tag i {
+      color: var(--color-text-tertiary);
+    }
+
+    .hero__tag:hover i {
+      color: var(--color-primary);
+    }
+
+    /* ========================================
+       SECTION GRADIENTS
+    ======================================== */
+
+    .section-verified {
+      background: linear-gradient(180deg, rgba(58, 111, 255, 0.03) 0%, rgba(58, 111, 255, 0.08) 100%);
+    }
+
+    .section-rising {
+      background: linear-gradient(180deg, rgba(255, 179, 71, 0.05) 0%, rgba(255, 179, 71, 0.12) 100%);
+    }
+
+    .section-featured {
+      background: linear-gradient(180deg, rgba(139, 92, 246, 0.03) 0%, rgba(139, 92, 246, 0.08) 100%);
+    }
+
+    .section-new {
+      background: linear-gradient(180deg, rgba(0, 212, 170, 0.03) 0%, rgba(0, 212, 170, 0.08) 100%);
+    }
+
+    /* ========================================
+       SCROLL ANIMATIONS
+    ======================================== */
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ip-card.animate-on-scroll {
+      transition-delay: calc(var(--card-index, 0) * 0.1s);
+    }
+
+    .section-header.animate-on-scroll {
+      transition-delay: 0s;
+    }
+
+    /* ========================================
+       UNIFIED STATS DISPLAY
+    ======================================== */
+
+    .stats-unified {
+      display: flex;
+      gap: var(--space-6);
+      padding: var(--space-6);
+      background: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      margin-top: var(--space-6);
+    }
+
+    .stats-unified__item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-bg-primary);
+      border-radius: var(--radius-md);
+      flex: 1;
+    }
+
+    .stats-unified__icon {
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--color-primary-light);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius-md);
       color: var(--color-primary);
-      margin-bottom: var(--space-5);
     }
 
-    .targeting-card__title {
+    .stats-unified__content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stats-unified__value {
       font-size: var(--font-size-xl);
       font-weight: var(--font-weight-bold);
-      margin-bottom: var(--space-2);
+      color: var(--color-text-primary);
     }
 
-    .targeting-card__desc {
+    .stats-unified__label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    /* ========================================
+       FILTER BAR
+    ======================================== */
+
+    .filter-bar {
+      position: relative;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .filter-bar__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: var(--space-2);
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .category-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background: white;
       font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
       color: var(--color-text-secondary);
-      line-height: var(--line-height-relaxed);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all var(--transition-fast);
     }
 
-    .targeting-card__arrow {
-      position: absolute;
-      bottom: var(--space-6);
-      right: var(--space-6);
+    .category-tab:hover {
+      border-color: var(--color-primary);
       color: var(--color-primary);
     }
 
-    /* Platform Intro Section */
+    .category-tab.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    .filter-controls {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .sort-select {
+      padding: var(--space-2) var(--space-4);
+      padding-right: var(--space-8);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: white;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235A5A72' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+    }
+
+    .sort-select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .filter-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: white;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* Category Tab with Icons */
+    .category-tab i {
+      opacity: 0.7;
+    }
+
+    .category-tab.active i {
+      opacity: 1;
+    }
+
+    /* Expandable "전체" Dropdown */
+    .category-dropdown {
+      position: relative;
+    }
+
+    .category-dropdown__trigger {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background: white;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .category-dropdown__trigger:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .category-dropdown__trigger .chevron {
+      transition: transform var(--transition-fast);
+    }
+
+    .category-dropdown.open .category-dropdown__trigger .chevron {
+      transform: rotate(180deg);
+    }
+
+    .category-dropdown__menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 200px;
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: var(--space-2);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all var(--transition-fast);
+    }
+
+    .category-dropdown.open .category-dropdown__menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .category-dropdown__item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .category-dropdown__item:hover {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .category-dropdown__item.active {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    /* ========================================
+       FOOTER [STD-02]
+    ======================================== */
+
+    .footer {
+      background: var(--color-bg-dark);
+      color: var(--color-text-inverse);
+      padding: var(--space-16) 0 var(--space-8);
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--space-12);
+      margin-bottom: var(--space-12);
+    }
+
+    .footer__brand {
+      max-width: 280px;
+    }
+
+    .footer__logo {
+      display: inline-block;
+      margin-bottom: var(--space-4);
+    }
+
+    .footer__desc {
+      font-size: var(--font-size-sm);
+      color: rgba(255, 255, 255, 0.7);
+      line-height: var(--line-height-relaxed);
+      margin-bottom: var(--space-6);
+    }
+
+    .footer__social {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .footer__social-link {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      color: rgba(255, 255, 255, 0.7);
+      transition: all var(--transition-fast);
+    }
+
+    .footer__social-link:hover {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .footer__col-title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-4);
+      color: white;
+    }
+
+    .footer__links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .footer__links a {
+      font-size: var(--font-size-sm);
+      color: rgba(255, 255, 255, 0.6);
+      transition: color var(--transition-fast);
+    }
+
+    .footer__links a:hover {
+      color: white;
+    }
+
+    .footer__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--space-8);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer__copyright {
+      font-size: var(--font-size-xs);
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer__lang {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .footer__lang-btn {
+      padding: var(--space-2) var(--space-3);
+      font-size: var(--font-size-xs);
+      color: rgba(255, 255, 255, 0.5);
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .footer__lang-btn:hover {
+      border-color: rgba(255, 255, 255, 0.4);
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .footer__lang-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    /* ========================================
+       PLATFORM INTRO SECTION (#24)
+    ======================================== */
     .platform-intro {
       padding: var(--space-16) 0;
       background: var(--color-bg-primary);
@@ -422,7 +1717,9 @@
       line-height: var(--line-height-relaxed);
     }
 
-    /* Section Separator */
+    /* ========================================
+       SECTION SEPARATOR (#23)
+    ======================================== */
     .section__separator {
       display: flex;
       align-items: center;
@@ -450,7 +1747,9 @@
       letter-spacing: 0.05em;
     }
 
-    /* User Type Targeting (#25) */
+    /* ========================================
+       USER TYPE TARGETING (#25)
+    ======================================== */
     .targeting-card[data-user-type] {
       display: none;
     }
@@ -476,147 +1775,947 @@
       display: block;
     }
 
-    /* Newsletter Section */
-    .newsletter {
-      background: var(--gradient-primary);
-      color: white;
-      padding: var(--space-16) 0;
-    }
-
-    .newsletter__content {
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .newsletter__title {
-      font-size: var(--font-size-3xl);
-      font-weight: var(--font-weight-bold);
-      margin-bottom: var(--space-4);
-    }
-
-    .newsletter__desc {
-      font-size: var(--font-size-lg);
-      opacity: 0.9;
-      margin-bottom: var(--space-8);
-    }
-
-    .newsletter__form {
-      display: flex;
-      gap: var(--space-3);
-      max-width: 480px;
-      margin: 0 auto;
-    }
-
-    .newsletter__input {
-      flex: 1;
-      padding: var(--space-4) var(--space-5);
-      border: none;
-      border-radius: var(--radius-lg);
-      font-size: var(--font-size-base);
-      outline: none;
-    }
-
-    .newsletter__btn {
-      padding: var(--space-4) var(--space-6);
-      background: var(--color-bg-dark);
-      color: white;
-      border: none;
-      border-radius: var(--radius-lg);
-      font-weight: var(--font-weight-semibold);
-      cursor: pointer;
-      transition: opacity var(--transition-fast);
-    }
-
-    .newsletter__btn:hover {
-      opacity: 0.9;
-    }
-
-    /* Responsive */
+    /* ========================================
+       RESPONSIVE - TABLET (1024px)
+    ======================================== */
     @media (max-width: 1024px) {
       .ip-grid {
         grid-template-columns: repeat(3, 1fr);
       }
-    }
 
-    @media (max-width: 1024px) {
       .platform-features {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .targeting__grid {
+        gap: var(--space-4);
+      }
+
+      .footer__grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
+
+      .newsletter__inner {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-6);
+      }
+
+      .newsletter__form {
+        width: 100%;
+        max-width: 400px;
+      }
     }
 
+    /* ========================================
+       RESPONSIVE - MOBILE (768px)
+    ======================================== */
     @media (max-width: 768px) {
+      /* Header Mobile */
+      .header__search {
+        display: none;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .header__actions .btn {
+        display: none;
+      }
+
+      /* Hero Mobile */
+      .hero {
+        padding: var(--space-16) 0;
+        min-height: auto;
+      }
+
       .hero__title {
         font-size: var(--font-size-3xl);
       }
 
-      .hero__stats {
-        flex-wrap: wrap;
-        gap: var(--space-6);
+      .hero__desc {
+        font-size: var(--font-size-base);
       }
 
+      .hero__search-bar {
+        flex-direction: column;
+        padding: var(--space-4);
+        gap: var(--space-3);
+      }
+
+      .hero__search-bar .btn {
+        width: 100%;
+      }
+
+      .floating-card {
+        display: none;
+      }
+
+      /* IP Grid Mobile */
       .ip-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
       }
 
-      .targeting-grid {
+      .ip-card__content {
+        padding: var(--space-3);
+      }
+
+      .ip-card__name {
+        font-size: var(--font-size-sm);
+      }
+
+      /* Category Tabs Mobile */
+      .category-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: var(--space-2);
+      }
+
+      .category-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Platform Intro Mobile */
+      .platform-features {
         grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+
+      .platform-feature {
+        padding: var(--space-5);
+      }
+
+      /* Targeting Mobile */
+      .targeting {
+        padding: var(--space-12) 0;
+      }
+
+      .targeting__grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+
+      .targeting__card {
+        padding: var(--space-6);
+      }
+
+      .targeting__group {
+        margin-bottom: var(--space-6);
+      }
+
+      .targeting__group:last-child {
+        margin-bottom: 0;
+      }
+
+      .targeting__group-title {
+        font-size: var(--font-size-sm);
+      }
+
+      /* Newsletter Mobile */
+      .newsletter {
+        padding: var(--space-12) 0;
+      }
+
+      .newsletter__title {
+        font-size: var(--font-size-xl);
       }
 
       .newsletter__form {
         flex-direction: column;
       }
 
-      .platform-features {
+      .newsletter__btn {
+        width: 100%;
+      }
+
+      /* Footer Mobile */
+      .footer__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8);
+      }
+
+      .footer__brand {
+        grid-column: span 2;
+        max-width: none;
+        text-align: center;
+      }
+
+      .footer__social {
+        justify-content: center;
+      }
+
+      .footer__bottom {
+        flex-direction: column;
+        gap: var(--space-4);
+        text-align: center;
+      }
+
+      /* Section Titles Mobile */
+      .section-title {
+        font-size: var(--font-size-2xl);
+      }
+    }
+
+    /* ========================================
+       RESPONSIVE - SMALL MOBILE (480px)
+    ======================================== */
+    @media (max-width: 480px) {
+      .ip-grid {
         grid-template-columns: 1fr;
+      }
+
+      .targeting__icon {
+        width: 56px;
+        height: 56px;
+      }
+
+      .targeting__card-title {
+        font-size: var(--font-size-lg);
+      }
+
+      .footer__grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer__brand {
+        grid-column: span 1;
+      }
+
+      .footer__links {
+        align-items: center;
+      }
+    }
+
+    /* ========================================
+       PERSONA SECTION (CTA CARDS)
+    ======================================== */
+    .persona-section {
+      padding: var(--space-12) 0;
+      background: white;
+    }
+
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+
+    .persona-card {
+      position: relative;
+      padding: var(--space-8);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: all var(--transition-normal);
+    }
+
+    .persona-card--brand {
+      background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+      border: 2px solid transparent;
+    }
+
+    .persona-card--brand:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(79, 70, 229, 0.15);
+    }
+
+    .persona-card--iph {
+      background: linear-gradient(135deg, #FDF2F8 0%, #FCE7F3 100%);
+      border: 2px solid transparent;
+    }
+
+    .persona-card--iph:hover {
+      border-color: #EC4899;
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(236, 72, 153, 0.15);
+    }
+
+    .persona-card__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-3);
+    }
+
+    .persona-card__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .persona-card--brand .persona-card__icon { background: var(--color-primary); color: white; }
+    .persona-card--iph .persona-card__icon { background: #EC4899; color: white; }
+
+    .persona-card__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      line-height: 1.3;
+    }
+
+    .persona-card__subtitle {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-6);
+    }
+
+    .persona-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius-lg);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-base);
+      transition: all var(--transition-fast);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+
+    .persona-card--brand .persona-card__cta {
+      background: var(--color-primary);
+      color: white;
+    }
+    .persona-card--iph .persona-card__cta {
+      background: #EC4899;
+      color: white;
+    }
+    .persona-card__cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    /* ========================================
+       PARTNERS SECTION - Marquee Animation
+    ======================================== */
+    .partners-section {
+      padding: var(--space-12) 0;
+      background: var(--color-bg-secondary);
+      overflow: hidden;
+    }
+
+    .partners-title {
+      text-align: center;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-8);
+    }
+
+    .partners-marquee {
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .partners-marquee::before,
+    .partners-marquee::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .partners-marquee::before {
+      left: 0;
+      background: linear-gradient(to right, var(--color-bg-secondary), transparent);
+    }
+
+    .partners-marquee::after {
+      right: 0;
+      background: linear-gradient(to left, var(--color-bg-secondary), transparent);
+    }
+
+    .partners-track {
+      display: flex;
+      align-items: center;
+      gap: var(--space-16);
+      animation: marquee 30s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .partner-logo {
+      height: 48px;
+      width: auto;
+      opacity: 0.7;
+      filter: grayscale(100%);
+      transition: all var(--transition-normal);
+      flex-shrink: 0;
+    }
+
+    .partner-logo:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+    }
+
+    /* ========================================
+       SUCCESS CASES SECTION - Carousel
+    ======================================== */
+    .cases-section {
+      padding: var(--space-16) 0;
+      overflow: hidden;
+    }
+
+    .cases-carousel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cases-track {
+      display: flex;
+      gap: var(--space-6);
+      transition: transform 0.5s ease;
+      width: 200%; /* For 2 slides */
+    }
+
+    .case-card {
+      flex: 0 0 calc(16.667% - var(--space-4));
+      background: white;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--color-border-light);
+      transition: all var(--transition-normal);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .case-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    }
+
+    .case-card__img {
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .case-card__content {
+      padding: var(--space-6);
+    }
+
+    .case-card__category {
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .case-card__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-3);
+    }
+
+    .case-card__kpis {
+      display: flex;
+      gap: var(--space-6);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .case-kpi { text-align: center; }
+
+    .case-kpi__value {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .case-kpi__label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .cases-nav {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-top: var(--space-8);
+    }
+
+    .cases-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-border);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .cases-dot.active {
+      background: var(--color-primary);
+      width: 28px;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 1024px) {
+      .case-card {
+        flex: 0 0 calc(50% - var(--space-3));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .case-card {
+        flex: 0 0 100%;
+      }
+    }
+
+    /* ========================================
+       COLOR PALETTE DROPDOWN
+    ======================================== */
+    .color-dropdown {
+      position: relative;
+    }
+
+    .color-dropdown__menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: var(--space-4);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-fast);
+    }
+
+    .color-dropdown.open .color-dropdown__menu {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .color-palette {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+
+    .color-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all var(--transition-fast);
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.15);
+    }
+
+    .color-swatch.active {
+      border-color: var(--color-text-primary);
+      box-shadow: 0 0 0 2px white, 0 0 0 4px var(--color-text-primary);
+    }
+
+    /* ========================================
+       UNIFIED IP SECTION
+    ======================================== */
+    .ip-unified-section {
+      padding: var(--space-16) 0;
+      background: var(--color-bg-secondary);
+    }
+
+    .section-more {
+      display: flex;
+      justify-content: center;
+      margin-top: var(--space-10);
+    }
+
+    .btn-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-secondary);
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .btn-more:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* ========================================
+       FAQ PREVIEW SECTION
+    ======================================== */
+    .faq-preview-section {
+      padding: var(--space-16) 0;
+      background: var(--color-bg-secondary);
+    }
+
+    .faq-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin-top: var(--space-8);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .faq-accordion__item {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border-light);
+      overflow: hidden;
+      transition: all var(--transition-normal);
+    }
+
+    .faq-accordion__item:hover {
+      border-color: var(--color-primary);
+    }
+
+    .faq-accordion__item.active {
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1);
+      border-color: var(--color-primary);
+    }
+
+    .faq-accordion__trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-5) var(--space-6);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .faq-accordion__question {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+    }
+
+    .faq-accordion__icon {
+      width: 20px;
+      height: 20px;
+      color: var(--color-text-tertiary);
+      transition: transform var(--transition-fast);
+      flex-shrink: 0;
+    }
+
+    .faq-accordion__item.active .faq-accordion__icon {
+      transform: rotate(180deg);
+      color: var(--color-primary);
+    }
+
+    .faq-accordion__content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .faq-accordion__item.active .faq-accordion__content {
+      max-height: 200px;
+    }
+
+    .faq-accordion__answer {
+      padding: 0 var(--space-6) var(--space-5);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ========================================
+       PRICING SECTION
+    ======================================== */
+    .pricing-section {
+      padding: var(--space-20) 0;
+      background: white;
+    }
+
+    .pricing-tabs {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-10);
+    }
+
+    .pricing-tab {
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      background: var(--color-bg-secondary);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .pricing-tab:hover {
+      color: var(--color-primary);
+    }
+
+    .pricing-tab.active {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      text-align: center;
+      transition: all var(--transition-normal);
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: 0 8px 32px rgba(99, 102, 241, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .pricing-card--featured {
+      border: 2px solid var(--color-primary);
+    }
+
+    .pricing-card__badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: var(--radius-full);
+    }
+
+    .pricing-card__name {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .pricing-card__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .pricing-card__price {
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--space-6);
+    }
+
+    .pricing-card__price span {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-normal);
+      color: var(--color-text-tertiary);
+    }
+
+    .pricing-card__features {
+      text-align: left;
+      margin-bottom: var(--space-6);
+    }
+
+    .pricing-card__feature {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      padding: var(--space-2) 0;
+    }
+
+    .pricing-card__feature i {
+      width: 16px;
+      height: 16px;
+      color: var(--color-success);
+      flex-shrink: 0;
+    }
+
+    .pricing-card__feature--disabled i {
+      color: var(--color-text-tertiary);
+    }
+
+    .pricing-section__cta {
+      text-align: center;
+      margin-top: var(--space-10);
+    }
+
+    .pricing-section__cta p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    /* ========================================
+       RESPONSIVE UPDATES
+    ======================================== */
+    @media (max-width: 1024px) {
+      .cases-track {
+        width: 300%; /* Show 2 cards per slide on tablet */
+      }
+      .case-card {
+        flex: 0 0 calc(16.667% - var(--space-3));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .persona-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cases-track {
+        width: 600%; /* Show 1 card per slide on mobile */
+      }
+      .case-card {
+        flex: 0 0 calc(16.667% - var(--space-2));
+      }
+
+      .faq-accordion {
+        max-width: 100%;
+      }
+
+      .faq-accordion__trigger {
+        padding: var(--space-4) var(--space-5);
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+      }
+
+      .pricing-card--featured {
+        order: -1;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header id="header-placeholder"></header>
+
+  <!-- Background Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Header injected by shared.js -->
+  <div id="header-placeholder"></div>
 
   <main>
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-      <div class="hero__content">
-        <div class="hero__badge">
-          <i data-lucide="sparkles" style="width:16px;height:16px"></i>
-          캐릭터 IP 협업 플랫폼
+    <!-- ========================================
+         HERO SECTION [2-1 메인]
+    ======================================== -->
+    <section class="hero hero--centered">
+      <!-- Floating Cards (Decorative) -->
+      <div class="floating-card fc-1 glass">
+        <img src="images/characters/Random Objects (1).png" class="fc-img" alt="">
+        <div class="fc-content">
+          <div>꼬마펭귄 핑구</div>
+          <div>Verified IP</div>
         </div>
-        <h1 class="hero__title">
-          브랜드와 캐릭터 IP를<br>
-          가장 빠르게 연결합니다
-        </h1>
-        <p class="hero__subtitle">
-          INABOOTH에서 2,000개 이상의 검증된 캐릭터 IP와 함께
-          새로운 콜라보레이션을 시작하세요
-        </p>
-        <form class="hero__search" action="3-1 탐색.html">
-          <input type="text" class="hero__search-input" placeholder="캐릭터 이름, 키워드로 검색해보세요">
-          <button type="submit" class="hero__search-btn">IP 검색</button>
-        </form>
-        <div class="hero__stats">
-          <div class="hero__stat">
-            <div class="hero__stat-value">2,000+</div>
-            <div class="hero__stat-label">등록된 IP</div>
+      </div>
+      <div class="floating-card fc-2 glass">
+        <img src="images/characters/Random Objects (2).png" class="fc-img" alt="">
+        <div class="fc-content">
+          <div>몰랑이</div>
+          <div>Rising Star</div>
+        </div>
+      </div>
+      <div class="floating-card fc-3 glass">
+        <div style="width:44px; height:44px; background:#EEF2FF; border-radius:12px; color:#4F46E5; display:flex; align-items:center; justify-content:center;">
+          <i data-lucide="trending-up" class="icon"></i>
+        </div>
+        <div class="fc-content">
+          <div>인기 급상승</div>
+          <div>+128% Growth</div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="hero__content hero__content--centered">
+          <h1 class="hero__title hero__title--centered">
+            브랜드와 캐릭터를 연결하는<br>
+            <span class="gradient-text">가장 빠른 방법</span>
+          </h1>
+          <div class="hero__search-wrap hero__search-wrap--centered">
+            <div class="hero__search">
+              <i data-lucide="search" class="icon hero__search-icon"></i>
+              <input type="text" class="hero__search-input" placeholder="어떤 캐릭터를 찾고 계신가요?">
+            </div>
+            <div class="hero__popular-tags">
+              <span class="hero__popular-label">인기 검색어</span>
+              <span class="hero__tag">
+                <i data-lucide="trending-up" class="icon icon-sm"></i>
+                귀여운
+              </span>
+              <span class="hero__tag">
+                <i data-lucide="trending-up" class="icon icon-sm"></i>
+                동물
+              </span>
+              <span class="hero__tag">
+                <i data-lucide="trending-up" class="icon icon-sm"></i>
+                푸드
+              </span>
+              <span class="hero__tag">
+                <i data-lucide="trending-up" class="icon icon-sm"></i>
+                이모티콘
+              </span>
+              <span class="hero__tag">
+                <i data-lucide="trending-up" class="icon icon-sm"></i>
+                F&B
+              </span>
+            </div>
           </div>
-          <div class="hero__stat">
-            <div class="hero__stat-value">500+</div>
-            <div class="hero__stat-label">성사된 협업</div>
-          </div>
-          <div class="hero__stat">
-            <div class="hero__stat-value">300+</div>
-            <div class="hero__stat-label">파트너 브랜드</div>
+          <div class="hero__stats hero__stats--inline">
+            <span class="hero__stat-inline">2,500+ 캐릭터</span>
+            <span class="hero__stat-divider">·</span>
+            <span class="hero__stat-inline">850+ 인증 IP</span>
+            <span class="hero__stat-divider">·</span>
+            <span class="hero__stat-inline">120+ 진행중 프로젝트</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Platform Intro Section (#24) -->
+    <!-- ========================================
+         PLATFORM INTRO SECTION (#24)
+    ======================================== -->
     <section class="platform-intro" id="platform-intro">
-      <div class="section__container">
+      <div class="container">
         <div class="platform-intro__header">
           <h2 class="platform-intro__title">INABOOTH가 연결하는 새로운 협업</h2>
           <p class="platform-intro__subtitle">
@@ -664,512 +2763,1388 @@
       </div>
     </section>
 
-    <!-- 인증된 IP Section (#23 - Section 1) -->
-    <section class="section" id="verified">
-      <div class="section__container">
+    <!-- ========================================
+         PERSONA SECTION (CTA CARDS)
+    ======================================== -->
+    <section class="persona-section">
+      <div class="container">
+        <div class="persona-grid">
+          <!-- Brand Persona -->
+          <div class="persona-card persona-card--brand">
+            <div class="persona-card__header">
+              <div class="persona-card__icon">
+                <i data-lucide="building-2" class="icon"></i>
+              </div>
+              <h3 class="persona-card__title">캐릭터 콜라보로 브랜드 임팩트를 높이고 싶다면?</h3>
+            </div>
+            <p class="persona-card__subtitle">브랜드 / 마케터</p>
+            <a href="7-1 프로젝트 등록.html" class="persona-card__cta">
+              프로젝트 등록하고 제안 받기
+              <i data-lucide="arrow-right" class="icon icon-sm"></i>
+            </a>
+          </div>
+
+          <!-- IP Holder Persona -->
+          <div class="persona-card persona-card--iph">
+            <div class="persona-card__header">
+              <div class="persona-card__icon">
+                <i data-lucide="palette" class="icon"></i>
+              </div>
+              <h3 class="persona-card__title">내 캐릭터로 수익을 창출하고 싶다면?</h3>
+            </div>
+            <p class="persona-card__subtitle">IP 홀더 / 크리에이터</p>
+            <a href="6-1 캐릭터 등록.html" class="persona-card__cta">
+              IP 등록하고 협업 기회 얻기
+              <i data-lucide="arrow-right" class="icon icon-sm"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         FILTER BAR
+    ======================================== -->
+    <div class="filter-bar">
+      <div class="container filter-bar__inner">
+        <div class="category-tabs">
+          <!-- 전체 Button (active by default) -->
+          <button class="category-tab active">
+            <i data-lucide="layout-grid" class="icon icon-sm"></i>
+            전체
+          </button>
+          <!-- Main Category Tabs with Icons -->
+          <button class="category-tab">
+            <i data-lucide="sparkles" class="icon icon-sm"></i>
+            오리지널 캐릭터
+          </button>
+          <button class="category-tab">
+            <i data-lucide="smile" class="icon icon-sm"></i>
+            이모티콘
+          </button>
+          <button class="category-tab">
+            <i data-lucide="book-open" class="icon icon-sm"></i>
+            웹툰/만화
+          </button>
+          <button class="category-tab">
+            <i data-lucide="award" class="icon icon-sm"></i>
+            마스코트/브랜드
+          </button>
+          <button class="category-tab">
+            <i data-lucide="clapperboard" class="icon icon-sm"></i>
+            애니메이션
+          </button>
+          <button class="category-tab">
+            <i data-lucide="gamepad-2" class="icon icon-sm"></i>
+            게임
+          </button>
+          <button class="category-tab">
+            <i data-lucide="camera" class="icon icon-sm"></i>
+            SNS/인스타툰
+          </button>
+        </div>
+        <div class="filter-controls">
+          <select class="sort-select">
+            <option>인기순</option>
+            <option>최신순</option>
+            <option>조회수</option>
+            <option>스크랩수</option>
+          </select>
+          <!-- Color Palette Dropdown -->
+          <div class="color-dropdown" id="colorDropdown">
+            <button class="filter-btn" onclick="toggleColorDropdown()">
+              <i data-lucide="palette" class="icon icon-sm"></i>
+              색상
+            </button>
+            <div class="color-dropdown__menu">
+              <div class="color-palette">
+                <button class="color-swatch" style="background:#EF4444;" onclick="selectColor(this, '#EF4444')"></button>
+                <button class="color-swatch" style="background:#F97316;" onclick="selectColor(this, '#F97316')"></button>
+                <button class="color-swatch" style="background:#EAB308;" onclick="selectColor(this, '#EAB308')"></button>
+                <button class="color-swatch" style="background:#22C55E;" onclick="selectColor(this, '#22C55E')"></button>
+                <button class="color-swatch" style="background:#06B6D4;" onclick="selectColor(this, '#06B6D4')"></button>
+                <button class="color-swatch" style="background:#3B82F6;" onclick="selectColor(this, '#3B82F6')"></button>
+                <button class="color-swatch" style="background:#8B5CF6;" onclick="selectColor(this, '#8B5CF6')"></button>
+                <button class="color-swatch" style="background:#EC4899;" onclick="selectColor(this, '#EC4899')"></button>
+                <button class="color-swatch" style="background:#78716C;" onclick="selectColor(this, '#78716C')"></button>
+                <button class="color-swatch" style="background:#1F2937;" onclick="selectColor(this, '#1F2937')"></button>
+                <button class="color-swatch" style="background:#FAFAFA; border:1px solid #E5E7EB;" onclick="selectColor(this, '#FFFFFF')"></button>
+                <button class="color-swatch" style="background:linear-gradient(135deg,#EF4444,#F97316,#EAB308,#22C55E,#3B82F6,#8B5CF6);" onclick="clearColorFilter()"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         SECTION 1: 인증된 IP (VERIFIED IP)
+    ======================================== -->
+    <section id="verified-ip" class="section">
+      <div class="container">
         <div class="section__separator">
           <span class="section__number">1</span>
           <span class="section__label">VERIFIED IP</span>
         </div>
-        <div class="section__header">
-          <h2 class="section__title">인증된 IP</h2>
-          <a href="3-1 탐색.html?filter=verified" class="section__more">
-            더보기 <i data-lucide="chevron-right" style="width:18px;height:18px"></i>
-          </a>
+        <div class="section-header">
+          <div class="section-header__left">
+            <h2 class="section-title">인증된 IP</h2>
+            <p class="section-desc">엄격한 검증을 통과한 신뢰할 수 있는 IP</p>
+          </div>
+          <a href="3-1 탐색.html?filter=verified" class="btn-more">더보기 <i data-lucide="chevron-right" class="icon icon-sm"></i></a>
         </div>
         <div class="ip-grid">
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (1).png" alt="곰돌이">
-              <span class="ip-card__badge">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (1).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>2.4k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>348</span>
+              </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">오리지널 캐릭터</div>
-              <div class="ip-card__name">귀여운 곰돌이 친구들</div>
-              <div class="ip-card__creator">스튜디오 베어</div>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 1.2k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" style="width:12px;height:12px"></i> 234</span>
-              </div>
+              <div class="ip-card__name">에코프렌즈</div>
+              <div class="ip-card__author"><img src="images/people/michael-dam-mEZ3PoFGs_k-unsplash.png" alt="" class="ip-card__author-img">그린스튜디오</div>
             </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (4).png" alt="토끼">
-              <span class="ip-card__badge">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (2).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>1.8k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>256</span>
+              </div>
             </div>
             <div class="ip-card__content">
-              <div class="ip-card__category">오리지널 캐릭터</div>
-              <div class="ip-card__name">보라색 토끼</div>
-              <div class="ip-card__creator">크리에이티브 팩토리</div>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 1.8k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" style="width:12px;height:12px"></i> 312</span>
-              </div>
+              <div class="ip-card__category">이모티콘</div>
+              <div class="ip-card__name">버블프렌즈</div>
+              <div class="ip-card__author"><img src="images/people/Random People (6).png" alt="" class="ip-card__author-img">버블스튜디오</div>
             </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (5).png" alt="오리">
-              <span class="ip-card__badge">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (3).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>3.2k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>521</span>
+              </div>
             </div>
             <div class="ip-card__content">
-              <div class="ip-card__category">애니메이션/영상</div>
-              <div class="ip-card__name">노란 오리 친구</div>
-              <div class="ip-card__creator">애니메이션 스튜디오</div>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 3.2k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" style="width:12px;height:12px"></i> 678</span>
-              </div>
+              <div class="ip-card__category">마스코트/브랜드</div>
+              <div class="ip-card__name">스마일리</div>
+              <div class="ip-card__author"><img src="images/people/Random People (10).png" alt="" class="ip-card__author-img">스마일컴퍼니</div>
             </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (3).png" alt="고양이">
-              <span class="ip-card__badge">인증</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (4).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>4.1k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>689</span>
+              </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">웹툰/만화</div>
-              <div class="ip-card__name">초록고양이 모험</div>
-              <div class="ip-card__creator">툰스튜디오</div>
+              <div class="ip-card__name">판타지랜드</div>
+              <div class="ip-card__author"><img src="images/people/Random People (11).png" alt="" class="ip-card__author-img">판타지웍스</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 5.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 2.4k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" style="width:12px;height:12px"></i> 456</span>
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>1.9k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>287</span>
               </div>
             </div>
-          </a>
+            <div class="ip-card__content">
+              <div class="ip-card__category">오리지널 캐릭터</div>
+              <div class="ip-card__name">블루베어</div>
+              <div class="ip-card__author"><img src="images/people/Random People (1).png" alt="" class="ip-card__author-img">스튜디오블루</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 4.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>2.1k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>312</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">이모티콘</div>
+              <div class="ip-card__name">레몬프렌즈</div>
+              <div class="ip-card__author"><img src="images/people/Random People (2).png" alt="" class="ip-card__author-img">레몬스튜디오</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Rectangle 1.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>1.5k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>198</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">애니메이션</div>
+              <div class="ip-card__name">스타캣</div>
+              <div class="ip-card__author"><img src="images/people/Random People (3).png" alt="" class="ip-card__author-img">스타스튜디오</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 6.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--verified">인증</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>2.8k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>423</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">게임</div>
+              <div class="ip-card__name">픽셀히어로</div>
+              <div class="ip-card__author"><img src="images/people/Random People (4).png" alt="" class="ip-card__author-img">픽셀게임즈</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 라이징 IP Section (#23 - Section 2) -->
-    <section class="section section--alt" id="rising">
-      <div class="section__container">
+    <!-- ========================================
+         SECTION 2: 라이징 IP (RISING IP)
+    ======================================== -->
+    <section id="rising-ip" class="section section--alt">
+      <div class="container">
         <div class="section__separator">
           <span class="section__number">2</span>
           <span class="section__label">RISING IP</span>
         </div>
-        <div class="section__header">
-          <h2 class="section__title">라이징 IP</h2>
-          <a href="3-1 탐색.html?sort=rising" class="section__more">
-            더보기 <i data-lucide="chevron-right" style="width:18px;height:18px"></i>
-          </a>
+        <div class="section-header">
+          <div class="section-header__left">
+            <h2 class="section-title">라이징 IP</h2>
+            <p class="section-desc">급성장 중인 주목할 만한 IP</p>
+          </div>
+          <a href="3-1 탐색.html?filter=rising" class="btn-more">더보기 <i data-lucide="chevron-right" class="icon icon-sm"></i></a>
         </div>
         <div class="ip-grid">
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (2).png" alt="레드판다">
-              <span class="ip-card__badge ip-card__badge--rising">+45%</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">이모티콘</div>
-              <div class="ip-card__name">레드판다의 하루</div>
-              <div class="ip-card__creator">이모티콘 스튜디오</div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 7.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 856</span>
-                <span class="ip-card__stat"><i data-lucide="trending-up" style="width:12px;height:12px"></i> +45%</span>
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>5.2k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>892</span>
               </div>
-            </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/image 4.png" alt="강아지">
-              <span class="ip-card__badge ip-card__badge--rising">+38%</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">서브컬쳐/일러스트</div>
-              <div class="ip-card__name">핑크 강아지</div>
-              <div class="ip-card__creator">일러스트 컴퍼니</div>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 654</span>
-                <span class="ip-card__stat"><i data-lucide="trending-up" style="width:12px;height:12px"></i> +38%</span>
-              </div>
-            </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (1).png" alt="곰돌이">
-              <span class="ip-card__badge ip-card__badge--rising">+32%</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">오리지널 캐릭터</div>
-              <div class="ip-card__name">파란 곰돌이</div>
-              <div class="ip-card__creator">블루베어 스튜디오</div>
+              <div class="ip-card__name">코지베어</div>
+              <div class="ip-card__author"><img src="images/people/Random People (7).png" alt="" class="ip-card__author-img">코지아트</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 8.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 1.1k</span>
-                <span class="ip-card__stat"><i data-lucide="trending-up" style="width:12px;height:12px"></i> +32%</span>
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>4.8k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>756</span>
               </div>
             </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (4).png" alt="토끼">
-              <span class="ip-card__badge ip-card__badge--rising">+28%</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            <div class="ip-card__content">
+              <div class="ip-card__category">서브컬쳐/일러스트</div>
+              <div class="ip-card__name">네온시티</div>
+              <div class="ip-card__author"><img src="images/people/Random People (8).png" alt="" class="ip-card__author-img">네온랩</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 9.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>3.9k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>612</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">마스코트/브랜드</div>
+              <div class="ip-card__name">해피덕</div>
+              <div class="ip-card__author"><img src="images/people/Random People (9).png" alt="" class="ip-card__author-img">해피스튜디오</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 10.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>6.1k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>934</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">오리지널 캐릭터</div>
+              <div class="ip-card__name">러블리캣</div>
+              <div class="ip-card__author"><img src="images/people/Random People (10).png" alt="" class="ip-card__author-img">러블리아트</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 11.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>4.3k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>678</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">이모티콘</div>
+              <div class="ip-card__name">스위트베리</div>
+              <div class="ip-card__author"><img src="images/people/Random People (11).png" alt="" class="ip-card__author-img">베리스튜디오</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 12.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>3.5k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>523</span>
+              </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">게임</div>
-              <div class="ip-card__name">점프 래빗</div>
-              <div class="ip-card__creator">게임캐릭터즈</div>
+              <div class="ip-card__name">로봇워리어</div>
+              <div class="ip-card__author"><img src="images/people/Random People (12).png" alt="" class="ip-card__author-img">로봇게임즈</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 13.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 780</span>
-                <span class="ip-card__stat"><i data-lucide="trending-up" style="width:12px;height:12px"></i> +28%</span>
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>2.9k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>412</span>
               </div>
             </div>
-          </a>
+            <div class="ip-card__content">
+              <div class="ip-card__category">SNS/인스타툰</div>
+              <div class="ip-card__name">데일리토끼</div>
+              <div class="ip-card__author"><img src="images/people/michael-dam-mEZ3PoFGs_k-unsplash.png" alt="" class="ip-card__author-img">데일리툰</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 14.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--rising">급상승</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>7.2k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.1k</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">웹툰/만화</div>
+              <div class="ip-card__name">드래곤월드</div>
+              <div class="ip-card__author"><img src="images/people/Random People (5).png" alt="" class="ip-card__author-img">드래곤스튜디오</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 추천 IP Section (#23 - Section 3) -->
-    <section class="section" id="featured">
-      <div class="section__container">
+    <!-- ========================================
+         SECTION 3: 이너부스픽 IP (INABOOTH PICK)
+    ======================================== -->
+    <section id="inabooth-pick" class="section">
+      <div class="container">
         <div class="section__separator">
           <span class="section__number">3</span>
           <span class="section__label">INABOOTH PICK</span>
         </div>
-        <div class="section__header">
-          <h2 class="section__title">이너부스픽 IP</h2>
-          <a href="3-1 탐색.html?filter=featured" class="section__more">
-            더보기 <i data-lucide="chevron-right" style="width:18px;height:18px"></i>
-          </a>
+        <div class="section-header">
+          <div class="section-header__left">
+            <h2 class="section-title">이너부스픽 IP</h2>
+            <p class="section-desc">INABOOTH가 엄선한 협업 추천 IP</p>
+          </div>
+          <a href="3-1 탐색.html?filter=pick" class="btn-more">더보기 <i data-lucide="chevron-right" class="icon icon-sm"></i></a>
         </div>
         <div class="ip-grid">
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (5).png" alt="오리">
-              <span class="ip-card__badge" style="background:#10b981">추천</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">애니메이션/영상</div>
-              <div class="ip-card__name">댄싱 덕</div>
-              <div class="ip-card__creator">애니메이션 하우스</div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 15.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 4.5k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" style="width:12px;height:12px"></i> 890</span>
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>8.4k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.5k</span>
               </div>
-            </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (3).png" alt="고양이">
-              <span class="ip-card__badge" style="background:#10b981">추천</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">이모티콘</div>
-              <div class="ip-card__name">졸린 고양이</div>
-              <div class="ip-card__creator">캣이모지 스튜디오</div>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 3.8k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" style="width:12px;height:12px"></i> 720</span>
-              </div>
-            </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (2).png" alt="레드판다">
-              <span class="ip-card__badge" style="background:#10b981">추천</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">오리지널 캐릭터</div>
-              <div class="ip-card__name">해피 레드판다</div>
-              <div class="ip-card__creator">판다월드</div>
+              <div class="ip-card__name">문프렌즈</div>
+              <div class="ip-card__author"><img src="images/people/Random People (1).png" alt="" class="ip-card__author-img">문스튜디오</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 16.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 2.9k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" style="width:12px;height:12px"></i> 540</span>
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>6.7k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.2k</span>
               </div>
             </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/image 4.png" alt="강아지">
-              <span class="ip-card__badge" style="background:#10b981">추천</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+            <div class="ip-card__content">
+              <div class="ip-card__category">이모티콘</div>
+              <div class="ip-card__name">플라워버니</div>
+              <div class="ip-card__author"><img src="images/people/Random People (2).png" alt="" class="ip-card__author-img">플라워아트</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 17.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>9.1k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.8k</span>
+              </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">마스코트/브랜드</div>
-              <div class="ip-card__name">플러피 퍼피</div>
-              <div class="ip-card__creator">펫프렌즈 스튜디오</div>
+              <div class="ip-card__name">체리팝</div>
+              <div class="ip-card__author"><img src="images/people/Random People (3).png" alt="" class="ip-card__author-img">체리웍스</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (1).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 2.1k</span>
-                <span class="ip-card__stat"><i data-lucide="bookmark" style="width:12px;height:12px"></i> 410</span>
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>5.6k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>987</span>
               </div>
             </div>
-          </a>
+            <div class="ip-card__content">
+              <div class="ip-card__category">웹툰/만화</div>
+              <div class="ip-card__name">스페이스캣</div>
+              <div class="ip-card__author"><img src="images/people/Random People (4).png" alt="" class="ip-card__author-img">스페이스툰</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (2).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>7.3k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.3k</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">애니메이션</div>
+              <div class="ip-card__name">레인보우팡</div>
+              <div class="ip-card__author"><img src="images/people/Random People (5).png" alt="" class="ip-card__author-img">레인보우아트</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (3).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>4.8k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>856</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">게임</div>
+              <div class="ip-card__name">닌자캣</div>
+              <div class="ip-card__author"><img src="images/people/Random People (6).png" alt="" class="ip-card__author-img">닌자게임즈</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/Random Objects (4).png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>6.2k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>1.1k</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">SNS/인스타툰</div>
+              <div class="ip-card__name">모닝커피</div>
+              <div class="ip-card__author"><img src="images/people/Random People (7).png" alt="" class="ip-card__author-img">모닝툰</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 5.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--pick">PICK</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>5.1k</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>923</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">서브컬쳐/일러스트</div>
+              <div class="ip-card__name">사이버펑크</div>
+              <div class="ip-card__author"><img src="images/people/Random People (8).png" alt="" class="ip-card__author-img">사이버랩</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 신규 IP Section (#23 - Section 4) -->
-    <section class="section section--alt" id="new">
-      <div class="section__container">
+    <!-- ========================================
+         SECTION 4: 신규 업데이트 IP (NEW UPDATE)
+    ======================================== -->
+    <section id="new-ip" class="section section--alt">
+      <div class="container">
         <div class="section__separator">
           <span class="section__number">4</span>
           <span class="section__label">NEW UPDATE</span>
         </div>
-        <div class="section__header">
-          <h2 class="section__title">신규 업데이트 IP</h2>
-          <a href="3-1 탐색.html?sort=latest" class="section__more">
-            더보기 <i data-lucide="chevron-right" style="width:18px;height:18px"></i>
-          </a>
+        <div class="section-header">
+          <div class="section-header__left">
+            <h2 class="section-title">신규 업데이트 IP</h2>
+            <p class="section-desc">새롭게 등록된 따끈따끈한 IP</p>
+          </div>
+          <a href="3-1 탐색.html?filter=new" class="btn-more">더보기 <i data-lucide="chevron-right" class="icon icon-sm"></i></a>
         </div>
         <div class="ip-grid">
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (1).png" alt="곰돌이">
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 18.png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>124</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>28</span>
+              </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">오리지널 캐릭터</div>
-              <div class="ip-card__name">민트 베어</div>
-              <div class="ip-card__creator">민트스튜디오</div>
-              <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 124</span>
-                <span class="ip-card__stat"><i data-lucide="clock" style="width:12px;height:12px"></i> 방금</span>
-              </div>
+              <div class="ip-card__name">스노우래빗</div>
+              <div class="ip-card__author"><img src="images/people/Random People (9).png" alt="" class="ip-card__author-img">스노우아트</div>
             </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (4).png" alt="토끼">
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 19.png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
-            </div>
-            <div class="ip-card__content">
-              <div class="ip-card__category">웹툰/만화</div>
-              <div class="ip-card__name">버니 어드벤처</div>
-              <div class="ip-card__creator">웹툰 크리에이터</div>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 89</span>
-                <span class="ip-card__stat"><i data-lucide="clock" style="width:12px;height:12px"></i> 1시간</span>
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>89</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>15</span>
               </div>
-            </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (2).png" alt="레드판다">
-              <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">이모티콘</div>
-              <div class="ip-card__name">판다모지</div>
-              <div class="ip-card__creator">이모지팩토리</div>
+              <div class="ip-card__name">선샤인베어</div>
+              <div class="ip-card__author"><img src="images/people/Random People (10).png" alt="" class="ip-card__author-img">선샤인랩</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 20.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 56</span>
-                <span class="ip-card__stat"><i data-lucide="clock" style="width:12px;height:12px"></i> 3시간</span>
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>156</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>32</span>
               </div>
             </div>
-          </a>
-          <a href="3-2 IP 상세.html" class="ip-card">
-            <div class="ip-card__image">
-              <img src="images/characters/Random Objects (5).png" alt="오리">
+            <div class="ip-card__content">
+              <div class="ip-card__category">마스코트/브랜드</div>
+              <div class="ip-card__name">민트초코</div>
+              <div class="ip-card__author"><img src="images/people/Random People (11).png" alt="" class="ip-card__author-img">민트스튜디오</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 21.png" alt="IP" class="ip-card__img">
               <span class="ip-card__badge ip-card__badge--new">NEW</span>
-              <button class="ip-card__scrap"><i data-lucide="bookmark" style="width:16px;height:16px"></i></button>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>67</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>12</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">웹툰/만화</div>
+              <div class="ip-card__name">판다일기</div>
+              <div class="ip-card__author"><img src="images/people/Random People (12).png" alt="" class="ip-card__author-img">판다툰</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 4.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>203</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>45</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">애니메이션</div>
+              <div class="ip-card__name">갤럭시팡</div>
+              <div class="ip-card__author"><img src="images/people/michael-dam-mEZ3PoFGs_k-unsplash.png" alt="" class="ip-card__author-img">갤럭시아트</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 6.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>78</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>18</span>
+              </div>
             </div>
             <div class="ip-card__content">
               <div class="ip-card__category">게임</div>
-              <div class="ip-card__name">덕헌터</div>
-              <div class="ip-card__creator">인디게임즈</div>
+              <div class="ip-card__name">파이터팽귄</div>
+              <div class="ip-card__author"><img src="images/people/Random People (1).png" alt="" class="ip-card__author-img">펭귄게임즈</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 7.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
               <div class="ip-card__stats">
-                <span class="ip-card__stat"><i data-lucide="eye" style="width:12px;height:12px"></i> 42</span>
-                <span class="ip-card__stat"><i data-lucide="clock" style="width:12px;height:12px"></i> 5시간</span>
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>45</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>8</span>
               </div>
             </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">SNS/인스타툰</div>
+              <div class="ip-card__name">미니일상</div>
+              <div class="ip-card__author"><img src="images/people/Random People (2).png" alt="" class="ip-card__author-img">일상툰</div>
+            </div>
+          </div>
+          <div class="ip-card">
+            <div class="ip-card__img-wrap">
+              <img src="images/characters/image 8.png" alt="IP" class="ip-card__img">
+              <span class="ip-card__badge ip-card__badge--new">NEW</span>
+              <button class="ip-card__scrap"><i data-lucide="bookmark" class="icon icon-sm"></i></button>
+              <div class="ip-card__stats">
+                <span class="ip-card__stat"><i data-lucide="eye" class="icon icon-sm"></i>112</span>
+                <span class="ip-card__stat"><i data-lucide="bookmark" class="icon icon-sm"></i>24</span>
+              </div>
+            </div>
+            <div class="ip-card__content">
+              <div class="ip-card__category">서브컬쳐/일러스트</div>
+              <div class="ip-card__name">오로라팡</div>
+              <div class="ip-card__author"><img src="images/people/Random People (3).png" alt="" class="ip-card__author-img">오로라랩</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================
+         PARTNERS SECTION
+    ======================================== -->
+    <section class="partners-section">
+      <p class="partners-title">함께한 브랜드</p>
+      <div class="partners-marquee">
+        <div class="partners-track">
+          <!-- First set of logos -->
+          <img src="images/brand/Icon.jpeg.png" alt="Brand 1" class="partner-logo">
+          <img src="images/brand/_musinsa_icon.jpeg.png" alt="Musinsa" class="partner-logo">
+          <img src="images/brand/coupang_icon.png.png" alt="Coupang" class="partner-logo">
+          <img src="images/brand/kurly_corp_logo.png.png" alt="Kurly" class="partner-logo">
+          <img src="images/brand/image 2.png" alt="Brand 5" class="partner-logo">
+          <img src="images/brand/Icon.jpeg.png" alt="Brand 1" class="partner-logo">
+          <img src="images/brand/_musinsa_icon.jpeg.png" alt="Musinsa" class="partner-logo">
+          <img src="images/brand/coupang_icon.png.png" alt="Coupang" class="partner-logo">
+          <!-- Duplicate for seamless loop -->
+          <img src="images/brand/Icon.jpeg.png" alt="Brand 1" class="partner-logo">
+          <img src="images/brand/_musinsa_icon.jpeg.png" alt="Musinsa" class="partner-logo">
+          <img src="images/brand/coupang_icon.png.png" alt="Coupang" class="partner-logo">
+          <img src="images/brand/kurly_corp_logo.png.png" alt="Kurly" class="partner-logo">
+          <img src="images/brand/image 2.png" alt="Brand 5" class="partner-logo">
+          <img src="images/brand/Icon.jpeg.png" alt="Brand 1" class="partner-logo">
+          <img src="images/brand/_musinsa_icon.jpeg.png" alt="Musinsa" class="partner-logo">
+          <img src="images/brand/coupang_icon.png.png" alt="Coupang" class="partner-logo">
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SUCCESS CASES SECTION (#23 - Section 2)
+    ======================================== -->
+    <section class="cases-section">
+      <div class="container">
+        <!-- Section Separator (#23) -->
+        <div class="section__separator">
+          <span class="section__number">5</span>
+          <span class="section__label">SUCCESS CASES</span>
+        </div>
+        <div class="section-header">
+          <div class="section-header__left">
+            <h2 class="section-title">성공 사례</h2>
+            <p class="section-desc">INABOOTH를 통해 진행된 콜라보 성과</p>
+          </div>
+          <a href="5-1 인사이트.html" class="btn-more">
+            전체 보기
+            <i data-lucide="arrow-right" class="icon icon-sm"></i>
+          </a>
+        </div>
+
+        <div class="cases-carousel" id="casesCarousel">
+          <div class="cases-track">
+            <!-- Case 1 -->
+            <a href="9-1 성공사례 상세.html" class="case-card">
+              <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=338&fit=crop" alt="Case" class="case-card__img">
+              <div class="case-card__content">
+                <div class="case-card__category">F&B 콜라보</div>
+                <h3 class="case-card__title">CU x 에코프렌즈 시즌 한정 패키지</h3>
+                <div class="case-card__kpis">
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">+340%</div>
+                    <div class="case-kpi__label">매출 증가</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">2.1M</div>
+                    <div class="case-kpi__label">SNS 노출</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">3주</div>
+                    <div class="case-kpi__label">진행 기간</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Case 2 -->
+            <a href="9-1 성공사례 상세.html" class="case-card">
+              <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=338&fit=crop" alt="Case" class="case-card__img">
+              <div class="case-card__content">
+                <div class="case-card__category">패션 콜라보</div>
+                <h3 class="case-card__title">무신사 x 레드판다 패밀리 굿즈</h3>
+                <div class="case-card__kpis">
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">완판</div>
+                    <div class="case-kpi__label">3일 만에</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">15K</div>
+                    <div class="case-kpi__label">판매량</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">4주</div>
+                    <div class="case-kpi__label">진행 기간</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Case 3 -->
+            <a href="9-1 성공사례 상세.html" class="case-card">
+              <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=338&fit=crop" alt="Case" class="case-card__img">
+              <div class="case-card__content">
+                <div class="case-card__category">브랜드 캠페인</div>
+                <h3 class="case-card__title">KB국민은행 x 버니프렌즈 광고</h3>
+                <div class="case-card__kpis">
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">+89%</div>
+                    <div class="case-kpi__label">브랜드 호감도</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">5.2M</div>
+                    <div class="case-kpi__label">영상 조회</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">6주</div>
+                    <div class="case-kpi__label">진행 기간</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Case 4 -->
+            <a href="9-1 성공사례 상세.html" class="case-card">
+              <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=338&fit=crop" alt="Case" class="case-card__img">
+              <div class="case-card__content">
+                <div class="case-card__category">디지털 콘텐츠</div>
+                <h3 class="case-card__title">네이버웹툰 x 스누피 IP 콜라보</h3>
+                <div class="case-card__kpis">
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">+520%</div>
+                    <div class="case-kpi__label">조회수</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">8.3M</div>
+                    <div class="case-kpi__label">참여자 수</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">2주</div>
+                    <div class="case-kpi__label">진행 기간</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Case 5 -->
+            <a href="9-1 성공사례 상세.html" class="case-card">
+              <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=338&fit=crop" alt="Case" class="case-card__img">
+              <div class="case-card__content">
+                <div class="case-card__category">팝업스토어</div>
+                <h3 class="case-card__title">스타벅스 x 짱구 서머에디션</h3>
+                <div class="case-card__kpis">
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">즉시 완판</div>
+                    <div class="case-kpi__label">오픈 당일</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">12K</div>
+                    <div class="case-kpi__label">방문객 수</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">4주</div>
+                    <div class="case-kpi__label">진행 기간</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Case 6 -->
+            <a href="9-1 성공사례 상세.html" class="case-card">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=338&fit=crop" alt="Case" class="case-card__img">
+              <div class="case-card__content">
+                <div class="case-card__category">굿즈 콜라보</div>
+                <h3 class="case-card__title">삼성전자 x 포켓몬 이어버드</h3>
+                <div class="case-card__kpis">
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">+270%</div>
+                    <div class="case-kpi__label">사전예약</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">50K</div>
+                    <div class="case-kpi__label">판매량</div>
+                  </div>
+                  <div class="case-kpi">
+                    <div class="case-kpi__value">8주</div>
+                    <div class="case-kpi__label">진행 기간</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Carousel Navigation Dots -->
+          <div class="cases-nav">
+            <button class="cases-dot active" data-slide="0"></button>
+            <button class="cases-dot" data-slide="1"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         FAQ PREVIEW SECTION (#23 - Section 3)
+    ======================================== -->
+    <section class="faq-preview-section">
+      <div class="container">
+        <!-- Section Separator (#23) -->
+        <div class="section__separator">
+          <span class="section__number">6</span>
+          <span class="section__label">FAQ</span>
+        </div>
+        <div class="section-header">
+          <div class="section-header__left">
+            <h2 class="section-title">자주 묻는 질문</h2>
+            <p class="section-desc">INABOOTH 이용에 대한 궁금증을 해결해 드립니다</p>
+          </div>
+          <a href="11-1 FAQ.html" class="btn-more">
+            전체 보기
+            <i data-lucide="arrow-right" class="icon icon-sm"></i>
+          </a>
+        </div>
+
+        <div class="faq-accordion">
+          <!-- FAQ Item 1 -->
+          <div class="faq-accordion__item">
+            <button class="faq-accordion__trigger" onclick="toggleFaqAccordion(this)">
+              <span class="faq-accordion__question">IP를 어떻게 등록하나요?</span>
+              <i data-lucide="chevron-down" class="faq-accordion__icon icon"></i>
+            </button>
+            <div class="faq-accordion__content">
+              <p class="faq-accordion__answer">기본 정보 > 상세 정보 > 협업 정보 > 공개 설정 4단계로 간편하게 등록할 수 있습니다. 각 단계에서 필요한 정보를 입력하고, 마지막으로 공개 설정을 완료하면 IP 등록이 완료됩니다.</p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+          <div class="faq-accordion__item">
+            <button class="faq-accordion__trigger" onclick="toggleFaqAccordion(this)">
+              <span class="faq-accordion__question">사업자 인증은 필수인가요?</span>
+              <i data-lucide="chevron-down" class="faq-accordion__icon icon"></i>
+            </button>
+            <div class="faq-accordion__content">
+              <p class="faq-accordion__answer">IPH-C(캐릭터 홀더)는 선택사항이며, IPH-A(에이전시)와 BP(브랜드 파트너)는 필수입니다. 사업자 인증 완료 시 프로필에 신뢰도 배지가 부여되어 협업 제안 시 신뢰도가 높아집니다.</p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+          <div class="faq-accordion__item">
+            <button class="faq-accordion__trigger" onclick="toggleFaqAccordion(this)">
+              <span class="faq-accordion__question">오픈 프로젝트에 어떻게 지원하나요?</span>
+              <i data-lucide="chevron-down" class="faq-accordion__icon icon"></i>
+            </button>
+            <div class="faq-accordion__content">
+              <p class="faq-accordion__answer">프로젝트 상세 페이지에서 '지원하기' 버튼을 클릭한 후, 보유 IP를 선택하고 지원 양식을 작성하여 제출하면 됩니다. 지원 현황은 마이페이지에서 확인할 수 있습니다.</p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 4 -->
+          <div class="faq-accordion__item">
+            <button class="faq-accordion__trigger" onclick="toggleFaqAccordion(this)">
+              <span class="faq-accordion__question">요금제는 어떻게 되나요?</span>
+              <i data-lucide="chevron-down" class="faq-accordion__icon icon"></i>
+            </button>
+            <div class="faq-accordion__content">
+              <p class="faq-accordion__answer">Basic(무료), Pro, Business 요금제를 제공합니다. 무료 플랜으로도 기본 기능을 이용할 수 있으며, Pro 이상에서는 고급 검색, 통계 분석, 우선 노출 등의 혜택이 제공됩니다.</p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 5 -->
+          <div class="faq-accordion__item">
+            <button class="faq-accordion__trigger" onclick="toggleFaqAccordion(this)">
+              <span class="faq-accordion__question">협업 계약은 어떻게 진행되나요?</span>
+              <i data-lucide="chevron-down" class="faq-accordion__icon icon"></i>
+            </button>
+            <div class="faq-accordion__content">
+              <p class="faq-accordion__answer">매칭 성사 후 플랫폼 내 채팅을 통해 조건을 협의하고, 표준계약서 또는 개별계약서를 작성합니다. 전자서명으로 계약을 체결하며, 계약 관리 및 정산까지 플랫폼에서 지원합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         PRICING SECTION (#23 - Section 4)
+    ======================================== -->
+    <section class="pricing-section">
+      <div class="container">
+        <!-- Section Separator (#23) -->
+        <div class="section__separator">
+          <span class="section__number">7</span>
+          <span class="section__label">PRICING</span>
+        </div>
+        <div class="section-header">
+          <h2 class="section-title">합리적인 요금제</h2>
+          <p class="section-subtitle">무료로 시작하고, 필요에 따라 업그레이드하세요</p>
+        </div>
+
+        <div class="pricing-tabs">
+          <a href="9-4-1 요금제_IPH.html" class="pricing-tab active">IP홀더</a>
+          <a href="9-4-2 요금제_BP.html" class="pricing-tab">브랜드 파트너</a>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Basic -->
+          <div class="pricing-card">
+            <div class="pricing-card__name">Basic</div>
+            <div class="pricing-card__desc">무료로 시작하기</div>
+            <div class="pricing-card__price">₩0<span>/월</span></div>
+            <div class="pricing-card__features">
+              <div class="pricing-card__feature">
+                <i data-lucide="check"></i>
+                <span>캐릭터 등록 최대 2개</span>
+              </div>
+              <div class="pricing-card__feature">
+                <i data-lucide="check"></i>
+                <span>오픈 프로젝트 월 1회 지원</span>
+              </div>
+              <div class="pricing-card__feature">
+                <i data-lucide="check"></i>
+                <span>기본 필터 / 정렬</span>
+              </div>
+              <div class="pricing-card__feature pricing-card__feature--disabled">
+                <i data-lucide="x"></i>
+                <span>고급 분석 기능</span>
+              </div>
+            </div>
+            <a href="1-1-1 회원가입.html" class="btn btn--outline btn--md" style="width: 100%;">무료로 시작</a>
+          </div>
+
+          <!-- Pro -->
+          <div class="pricing-card pricing-card--featured">
+            <div class="pricing-card__badge">인기</div>
+            <div class="pricing-card__name">Pro</div>
+            <div class="pricing-card__desc">성장하는 크리에이터를 위한</div>
+            <div class="pricing-card__price">₩14,900<span>/월</span></div>
+            <div class="pricing-card__features">
+              <div class="pricing-card__feature">
+                <i data-lucide="check"></i>
+                <span>캐릭터 등록 무제한</span>
+              </div>
+              <div class="pricing-card__feature">
+                <i data-lucide="check"></i>
+                <span>오픈 프로젝트 무제한 지원</span>
+              </div>
+              <div class="pricing-card__feature">
+                <i data-lucide="check"></i>
+                <span>고급 필터 / 분석 페이지</span>
+              </div>
+              <div class="pricing-card__feature">
+                <i data-lucide="check"></i>
+                <span>중개 수수료 면제</span>
+              </div>
+            </div>
+            <a href="9-4-1 요금제_IPH.html" class="btn btn--primary btn--md" style="width: 100%;">자세히 보기</a>
+          </div>
+
+          <!-- Business -->
+          <div class="pricing-card">
+            <div class="pricing-card__name">Business</div>
+            <div class="pricing-card__desc">에이전시 / 대규모 운영</div>
+            <div class="pricing-card__price">₩100,000<span>/월</span></div>
+            <div class="pricing-card__features">
+              <div class="pricing-card__feature">
+                <i data-lucide="check"></i>
+                <span>Pro의 모든 기능</span>
+              </div>
+              <div class="pricing-card__feature">
+                <i data-lucide="check"></i>
+                <span>다계정 운영 최대 5개</span>
+              </div>
+              <div class="pricing-card__feature">
+                <i data-lucide="check"></i>
+                <span>전담 매니저 지원</span>
+              </div>
+              <div class="pricing-card__feature">
+                <i data-lucide="check"></i>
+                <span>맞춤 솔루션</span>
+              </div>
+            </div>
+            <a href="9-4-1 요금제_IPH.html" class="btn btn--outline btn--md" style="width: 100%;">문의하기</a>
+          </div>
+        </div>
+
+        <div class="pricing-section__cta">
+          <p>브랜드 파트너 요금제가 궁금하신가요?</p>
+          <a href="9-4-2 요금제_BP.html" class="btn btn--secondary btn--md">
+            <i data-lucide="briefcase" class="icon icon-sm"></i>
+            브랜드 파트너 요금제 보기
           </a>
         </div>
       </div>
     </section>
 
-    <!-- 타깃팅 Section (#25 - 사용자 유형별 노출) -->
-    <section class="section" id="targeting">
-      <div class="section__container">
-        <div class="section__header">
-          <h2 class="section__title">INABOOTH와 함께하세요</h2>
-        </div>
-        <div class="targeting-grid">
-          <!-- 비회원용 카드들 -->
-          <a href="3-1 탐색.html" class="targeting-card" data-user-type="guest">
-            <div class="targeting-card__icon">
-              <i data-lucide="search" style="width:28px;height:28px"></i>
-            </div>
-            <h3 class="targeting-card__title">IP 탐색하기</h3>
-            <p class="targeting-card__desc">
-              2,000개 이상의 캐릭터 IP를 만나보세요.
-              다양한 필터로 브랜드에 딱 맞는 IP를 찾을 수 있습니다.
-            </p>
-            <div class="targeting-card__arrow">
-              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
-            </div>
-          </a>
-          <a href="4-1 오픈 프로젝트.html" class="targeting-card" data-user-type="guest">
-            <div class="targeting-card__icon">
-              <i data-lucide="briefcase" style="width:28px;height:28px"></i>
-            </div>
-            <h3 class="targeting-card__title">오픈 프로젝트</h3>
-            <p class="targeting-card__desc">
-              브랜드의 협업 프로젝트를 둘러보세요.
-              어떤 브랜드가 IP를 찾고 있는지 확인해보세요.
-            </p>
-            <div class="targeting-card__arrow">
-              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
-            </div>
-          </a>
-          <a href="1-1-1 회원가입.html" class="targeting-card" data-user-type="guest">
-            <div class="targeting-card__icon">
-              <i data-lucide="user-plus" style="width:28px;height:28px"></i>
-            </div>
-            <h3 class="targeting-card__title">지금 시작하기</h3>
-            <p class="targeting-card__desc">
-              무료로 가입하고 INABOOTH의 모든 기능을 경험해보세요.
-              IP 홀더와 브랜드 모두 환영합니다.
-            </p>
-            <div class="targeting-card__arrow">
-              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
-            </div>
-          </a>
-
-          <!-- IPH용 카드들 (프로젝트 둘러보기 강조) -->
-          <a href="4-1 오픈 프로젝트.html" class="targeting-card" data-user-type="iph">
-            <div class="targeting-card__icon">
-              <i data-lucide="briefcase" style="width:28px;height:28px"></i>
-            </div>
-            <h3 class="targeting-card__title">프로젝트 둘러보기</h3>
-            <p class="targeting-card__desc">
-              새로운 협업 기회를 찾아보세요.
-              다양한 브랜드의 오픈 프로젝트에 지원할 수 있습니다.
-            </p>
-            <div class="targeting-card__arrow">
-              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
-            </div>
-          </a>
-          <a href="6-1-1 캐릭터 등록_기본.html" class="targeting-card" data-user-type="iph">
-            <div class="targeting-card__icon">
-              <i data-lucide="plus-circle" style="width:28px;height:28px"></i>
-            </div>
-            <h3 class="targeting-card__title">IP 등록하기</h3>
-            <p class="targeting-card__desc">
-              새로운 캐릭터 IP를 등록하고
-              더 많은 브랜드와 협업 기회를 만들어보세요.
-            </p>
-            <div class="targeting-card__arrow">
-              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
-            </div>
-          </a>
-          <a href="9-7 마이부스.html" class="targeting-card" data-user-type="iph">
-            <div class="targeting-card__icon">
-              <i data-lucide="layout-dashboard" style="width:28px;height:28px"></i>
-            </div>
-            <h3 class="targeting-card__title">마이부스 관리</h3>
-            <p class="targeting-card__desc">
-              등록된 IP와 협업 현황을 한눈에 확인하고
-              효율적으로 관리하세요.
-            </p>
-            <div class="targeting-card__arrow">
-              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
-            </div>
-          </a>
-
-          <!-- BP용 카드들 (IP 탐색하기 강조) -->
-          <a href="3-1 탐색.html" class="targeting-card" data-user-type="bp">
-            <div class="targeting-card__icon">
-              <i data-lucide="search" style="width:28px;height:28px"></i>
-            </div>
-            <h3 class="targeting-card__title">IP 탐색하기</h3>
-            <p class="targeting-card__desc">
-              브랜드에 딱 맞는 캐릭터 IP를 찾아보세요.
-              다양한 필터로 원하는 스타일의 IP를 검색할 수 있습니다.
-            </p>
-            <div class="targeting-card__arrow">
-              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
-            </div>
-          </a>
-          <a href="7-1-1 프로젝트 등록_기본.html" class="targeting-card" data-user-type="bp">
-            <div class="targeting-card__icon">
-              <i data-lucide="folder-plus" style="width:28px;height:28px"></i>
-            </div>
-            <h3 class="targeting-card__title">프로젝트 등록</h3>
-            <p class="targeting-card__desc">
-              협업 프로젝트를 등록하고
-              최적의 IP 홀더를 찾아보세요.
-            </p>
-            <div class="targeting-card__arrow">
-              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
-            </div>
-          </a>
-          <a href="9-7 마이부스.html" class="targeting-card" data-user-type="bp">
-            <div class="targeting-card__icon">
-              <i data-lucide="layout-dashboard" style="width:28px;height:28px"></i>
-            </div>
-            <h3 class="targeting-card__title">마이부스 관리</h3>
-            <p class="targeting-card__desc">
-              진행 중인 프로젝트와 협업 현황을
-              한눈에 확인하고 관리하세요.
-            </p>
-            <div class="targeting-card__arrow">
-              <i data-lucide="arrow-right" style="width:20px;height:20px"></i>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 뉴스레터 Section -->
-    <section class="newsletter" id="newsletter">
-      <div class="section__container">
+    <!-- ========================================
+         NEWSLETTER SECTION [2-1-6]
+    ======================================== -->
+    <section id="newsletter" class="newsletter">
+      <div class="container newsletter__inner">
         <div class="newsletter__content">
-          <h2 class="newsletter__title">뉴스레터 구독하기</h2>
-          <p class="newsletter__desc">
-            캐릭터 IP 트렌드와 협업 인사이트를 이메일로 받아보세요
-          </p>
-          <form class="newsletter__form" onsubmit="event.preventDefault(); alert('구독 신청이 완료되었습니다!');">
-            <input type="email" class="newsletter__input" placeholder="이메일 주소를 입력하세요" required>
-            <button type="submit" class="newsletter__btn">구독</button>
-          </form>
+          <h2 class="newsletter__title">IP 콜라보 트렌드, 놓치지 마세요!</h2>
+          <p class="newsletter__desc">최신 캐릭터 IP 소식과 협업 기회를 이메일로 받아보세요</p>
         </div>
+        <form class="newsletter__form">
+          <input type="email" class="newsletter__input" placeholder="이메일 주소를 입력하세요">
+          <button type="submit" class="newsletter__btn">구독하기</button>
+        </form>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer id="footer-placeholder"></footer>
+  <!-- Footer injected by shared.js -->
+  <div id="footer-placeholder"></div>
 
+  <!-- Shared Components -->
   <script src="components/shared.js"></script>
   <script>
+    // Initialize page with shared header/footer
+    initPage({ activePage: 'browse', isLoggedIn: false });
+    // Initialize Lucide icons
     lucide.createIcons();
 
-    // User Type Targeting (#25)
-    // 사용자 유형에 따라 다른 카드 표시
-    // userType: 'guest' (비회원), 'iph' (IP홀더), 'bp' (브랜드파트너)
-    function setUserTypeTargeting() {
-      // URL 파라미터로 테스트 가능 (?userType=iph 또는 ?userType=bp)
-      const urlParams = new URLSearchParams(window.location.search);
-      const testUserType = urlParams.get('userType');
+    // Scroll Animation with Intersection Observer
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add animate-on-scroll class to all IP cards with staggered delays
+      document.querySelectorAll('.ip-grid').forEach(grid => {
+        grid.querySelectorAll('.ip-card').forEach((card, index) => {
+          card.classList.add('animate-on-scroll');
+          card.style.setProperty('--card-index', index);
+        });
+      });
 
-      // 실제 환경에서는 로그인 상태에서 사용자 유형 확인
-      // localStorage 또는 세션에서 가져올 수 있음
-      const storedUserType = localStorage.getItem('userType');
+      // Intersection Observer for scroll animations
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -50px 0px',
+        threshold: 0.1
+      };
 
-      // 우선순위: URL 파라미터 > 저장된 값 > 기본값(guest)
-      const userType = testUserType || storedUserType || 'guest';
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
 
-      // body에 data-user-type 속성 설정
-      document.body.setAttribute('data-user-type', userType);
+      // Observe all animated elements
+      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+      });
+    });
+
+    // Popular tag click handler
+    document.querySelectorAll('.hero__tag').forEach(tag => {
+      tag.addEventListener('click', () => {
+        const keyword = tag.textContent.trim();
+        const searchInput = document.querySelector('.hero__search-input');
+        if (searchInput) {
+          searchInput.value = keyword;
+          searchInput.focus();
+        }
+      });
+    });
+
+    // Category Dropdown Toggle
+    function toggleCategoryDropdown() {
+      const dropdown = document.getElementById('categoryDropdown');
+      dropdown.classList.toggle('open');
     }
 
-    // 페이지 로드 시 실행
-    setUserTypeTargeting();
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      const dropdown = document.getElementById('categoryDropdown');
+      if (dropdown && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+
+    // Select category from dropdown
+    function selectCategory(item) {
+      const dropdown = document.getElementById('categoryDropdown');
+      const categoryName = item.textContent.trim();
+
+      // Remove active from all tabs
+      document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+
+      // Find and activate matching tab
+      document.querySelectorAll('.category-tab').forEach(tab => {
+        if (tab.textContent.trim() === categoryName) {
+          tab.classList.add('active');
+        }
+      });
+
+      // Close dropdown
+      dropdown.classList.remove('open');
+    }
+
+    // Category Tab Click Handler with Random Shuffle
+    document.querySelectorAll('.category-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Random shuffle IP cards effect
+        shuffleIPCards();
+      });
+    });
+
+    // Shuffle IP Cards (random reorder effect)
+    function shuffleIPCards() {
+      document.querySelectorAll('.ip-grid').forEach(grid => {
+        const cards = Array.from(grid.querySelectorAll('.ip-card'));
+
+        // Add shuffle animation
+        cards.forEach(card => {
+          card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+          card.style.opacity = '0.5';
+          card.style.transform = 'scale(0.95)';
+        });
+
+        // Randomize and restore
+        setTimeout(() => {
+          cards.sort(() => Math.random() - 0.5);
+          cards.forEach(card => {
+            grid.appendChild(card);
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
+          });
+        }, 300);
+      });
+    }
+
+    // Color Dropdown Toggle
+    function toggleColorDropdown() {
+      const dropdown = document.getElementById('colorDropdown');
+      dropdown.classList.toggle('open');
+    }
+
+    // Select Color from Palette
+    function selectColor(swatch, color) {
+      // Remove active from all swatches
+      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+      swatch.classList.add('active');
+
+      // Close dropdown
+      document.getElementById('colorDropdown').classList.remove('open');
+
+      // Filter visual feedback (in real app would filter cards)
+      console.log('Selected color:', color);
+      shuffleIPCards();
+    }
+
+    // Clear Color Filter
+    function clearColorFilter() {
+      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+      document.getElementById('colorDropdown').classList.remove('open');
+      shuffleIPCards();
+    }
+
+    // Close color dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      const colorDropdown = document.getElementById('colorDropdown');
+      if (colorDropdown && !colorDropdown.contains(e.target)) {
+        colorDropdown.classList.remove('open');
+      }
+
+      const categoryDropdown = document.getElementById('categoryDropdown');
+      if (categoryDropdown && !categoryDropdown.contains(e.target)) {
+        categoryDropdown.classList.remove('open');
+      }
+    });
+
+    // Load More IPs (infinite scroll simulation)
+    let loadMoreCount = 0;
+    function loadMoreIPs() {
+      const btn = document.getElementById('loadMoreBtn');
+      const btnText = btn.querySelector('i');
+
+      // Loading state
+      btn.innerHTML = '<span class="loading-spinner"></span> 로딩 중...';
+      btn.disabled = true;
+
+      // Simulate loading
+      setTimeout(() => {
+        loadMoreCount++;
+
+        if (loadMoreCount >= 3) {
+          btn.innerHTML = '모든 IP를 불러왔습니다';
+          btn.style.cursor = 'not-allowed';
+          btn.style.opacity = '0.5';
+        } else {
+          btn.innerHTML = '더 보기 <i data-lucide="chevron-down" class="icon icon-sm"></i>';
+          btn.disabled = false;
+          lucide.createIcons();
+
+          // Scroll animation
+          window.scrollBy({
+            top: 200,
+            behavior: 'smooth'
+          });
+        }
+      }, 800);
+    }
+
+    // FAQ Accordion Toggle
+    function toggleFaqAccordion(trigger) {
+      const item = trigger.closest('.faq-accordion__item');
+      const isActive = item.classList.contains('active');
+
+      // Close all other items
+      document.querySelectorAll('.faq-accordion__item').forEach(i => {
+        i.classList.remove('active');
+      });
+
+      // Toggle current item
+      if (!isActive) {
+        item.classList.add('active');
+      }
+
+      // Refresh icons
+      lucide.createIcons();
+    }
+
+    // Cases Carousel
+    (function initCasesCarousel() {
+      const carousel = document.getElementById('casesCarousel');
+      if (!carousel) return;
+
+      const track = carousel.querySelector('.cases-track');
+      const dots = carousel.querySelectorAll('.cases-dot');
+      let currentSlide = 0;
+      const totalSlides = 2;
+
+      // Auto-slide every 5 seconds
+      let autoSlideInterval = setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateCarousel();
+      }, 5000);
+
+      // Dot click handlers
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          currentSlide = index;
+          updateCarousel();
+          // Reset auto-slide timer
+          clearInterval(autoSlideInterval);
+          autoSlideInterval = setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+          }, 5000);
+        });
+      });
+
+      function updateCarousel() {
+        // Calculate offset (3 cards per slide, track is 200% wide, so each slide is 50% of track)
+        const offset = currentSlide * 50;
+        track.style.transform = `translateX(-${offset}%)`;
+
+        // Update dots
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentSlide);
+        });
+      }
+    })();
+
+    // IP Card Click Handler
+    document.querySelectorAll('.ip-card').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        window.location.href = '3-2 IP 상세.html';
+      });
+    });
   </script>
 </body>
 </html>

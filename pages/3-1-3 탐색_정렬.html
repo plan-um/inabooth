@@ -40,6 +40,43 @@
       margin-bottom: 0;
     }
 
+    .filter-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .radio-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .radio-card:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .radio-card input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-primary);
+    }
+
+    .radio-card.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
     .filter-section__title {
       font-size: var(--font-size-sm);
       font-weight: var(--font-weight-semibold);
@@ -361,30 +398,31 @@
   <main class="browse-page">
     <div class="container">
       <div class="browse-layout">
-        <!-- Sort Sidebar -->
+        <!-- Filter Sidebar (3-1 기준 통일) -->
         <aside class="filter-sidebar">
-          <div class="filter-section">
+          <!-- ========== 정렬 - LOCKED VERSION (Non-Pro) ========== -->
+          <div class="filter-section" style="border: 2px dashed #ef4444; padding: 12px; border-radius: 12px; margin-bottom: 16px;">
+            <div style="background: #fef2f2; color: #dc2626; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; margin-bottom: 12px; text-align: center;">
+              🔒 LOCKED VERSION (일반 회원)
+            </div>
             <h3 class="filter-section__title">기본 정렬</h3>
             <label class="sort-option active">
-              <input type="radio" name="sort" value="popular" checked>
+              <input type="radio" name="sort-locked" value="popular" checked>
               <span>인기순</span>
             </label>
             <label class="sort-option">
-              <input type="radio" name="sort" value="latest">
+              <input type="radio" name="sort-locked" value="latest">
               <span>최신순</span>
             </label>
             <label class="sort-option">
-              <input type="radio" name="sort" value="views">
+              <input type="radio" name="sort-locked" value="views">
               <span>조회순</span>
             </label>
             <label class="sort-option">
-              <input type="radio" name="sort" value="scraps">
+              <input type="radio" name="sort-locked" value="scraps">
               <span>스크랩순</span>
             </label>
-          </div>
-
-          <div class="filter-section">
-            <h3 class="filter-section__title">
+            <h3 class="filter-section__title" style="margin-top: 16px;">
               고급 정렬
               <span class="pro-badge">
                 <i data-lucide="crown" style="width:10px;height:10px"></i>
@@ -392,31 +430,153 @@
               </span>
             </h3>
             <label class="sort-option locked">
-              <input type="radio" name="sort" disabled>
+              <input type="radio" name="sort-locked" disabled>
               <span>SNS 팔로워순</span>
             </label>
             <label class="sort-option locked">
-              <input type="radio" name="sort" disabled>
-              <span>IP 신뢰지수순</span>
-            </label>
-            <label class="sort-option locked">
-              <input type="radio" name="sort" disabled>
+              <input type="radio" name="sort-locked" disabled>
               <span>협업 활동지수순</span>
             </label>
             <label class="sort-option locked">
-              <input type="radio" name="sort" disabled>
+              <input type="radio" name="sort-locked" disabled>
               <span>협업 매너지수순</span>
             </label>
-            <label class="sort-option locked">
-              <input type="radio" name="sort" disabled>
-              <span>응답속도순</span>
+            <div class="upgrade-notice" style="margin-top: 12px;">
+              <strong>Pro 회원</strong>이 되시면 고급 정렬 기능을 사용할 수 있습니다.
+              <a href="9-4 요금제 관리.html">요금제 알아보기 →</a>
+            </div>
+          </div>
+
+          <!-- ========== 정렬 - UNLOCKED VERSION (Pro) ========== -->
+          <div class="filter-section" style="border: 2px dashed #22c55e; padding: 12px; border-radius: 12px; margin-bottom: 16px;">
+            <div style="background: #f0fdf4; color: #16a34a; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; margin-bottom: 12px; text-align: center;">
+              🔓 UNLOCKED VERSION (Pro 회원)
+            </div>
+            <h3 class="filter-section__title">기본 정렬</h3>
+            <label class="sort-option">
+              <input type="radio" name="sort-unlocked" value="popular">
+              <span>인기순</span>
+            </label>
+            <label class="sort-option">
+              <input type="radio" name="sort-unlocked" value="latest">
+              <span>최신순</span>
+            </label>
+            <label class="sort-option">
+              <input type="radio" name="sort-unlocked" value="views">
+              <span>조회순</span>
+            </label>
+            <label class="sort-option">
+              <input type="radio" name="sort-unlocked" value="scraps">
+              <span>스크랩순</span>
+            </label>
+            <h3 class="filter-section__title" style="margin-top: 16px;">
+              고급 정렬
+              <span class="pro-badge">
+                <i data-lucide="crown" style="width:10px;height:10px"></i>
+                PRO
+              </span>
+            </h3>
+            <label class="sort-option active" style="border-color: var(--color-primary); background: var(--color-primary-light);">
+              <input type="radio" name="sort-unlocked" value="followers" checked>
+              <span>SNS 팔로워순</span>
+            </label>
+            <label class="sort-option">
+              <input type="radio" name="sort-unlocked" value="activity">
+              <span>협업 활동지수순</span>
+            </label>
+            <label class="sort-option">
+              <input type="radio" name="sort-unlocked" value="manner">
+              <span>협업 매너지수순</span>
             </label>
           </div>
 
-          <div class="upgrade-notice">
-            <strong>Pro 회원</strong>이 되시면 고급 정렬 기능을 사용할 수 있습니다.
-            <a href="9-4 요금제 관리.html">요금제 알아보기 →</a>
+          <!-- 기본 필터들 (3-1과 동일) -->
+          <div class="filter-section">
+            <h3 class="filter-section__title">IP 유형</h3>
+            <div class="filter-options">
+              <label class="radio-card active">
+                <input type="radio" name="ip-type" value="all" checked>
+                <span>전체</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="original">
+                <span>오리지널 캐릭터</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="animation">
+                <span>애니메이션/영상</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="emoticon">
+                <span>이모티콘</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="webtoon">
+                <span>웹툰/만화</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="illustration">
+                <span>서브컬쳐/일러스트</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="mascot">
+                <span>마스코트/브랜드</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="game">
+                <span>게임</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="ip-type" value="other">
+                <span>기타</span>
+              </label>
+            </div>
           </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">IP 활용 가능 분야</h3>
+            <div class="filter-options">
+              <label class="radio-card">
+                <input type="radio" name="field" value="stationery">
+                <span>문구/오피스</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="fashion">
+                <span>패션/의류</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="fnb">
+                <span>식품/F&B</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="living">
+                <span>생활용품/리빙</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="field" value="digital">
+                <span>모바일/디지털 콘텐츠</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h3 class="filter-section__title">IPH 인증</h3>
+            <div class="filter-options">
+              <label class="radio-card">
+                <input type="radio" name="verified" value="all">
+                <span>전체</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="verified" value="verified">
+                <span>인증된 IP만</span>
+              </label>
+            </div>
+          </div>
+
+          <button class="filter-reset" style="width:100%;padding:var(--space-3);background:var(--color-bg-secondary);color:var(--color-text-secondary);border-radius:var(--radius-md);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);transition:all var(--transition-fast);margin-top:var(--space-4);">
+            <i data-lucide="rotate-ccw" class="icon icon-sm"></i>
+            필터 초기화
+          </button>
         </aside>
 
         <!-- Browse Content -->
